@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#minecraft:has_structure/village_plains",
+  "spawners": {
+    "type": "tameablebeasts:giant_grasshopper",
+    "weight": 60,
+    "maxCount": 4,
+    "minCount": 1
+  }
+}

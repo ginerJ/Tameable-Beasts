@@ -1,0 +1,19 @@
+{
+  "variants" : {
+    "facing=east": {
+      "model" : "tameablebeasts:block/scarecrow_block",
+      "y": 90
+    },
+    "facing=north": {
+      "model" : "tameablebeasts:block/scarecrow_block"
+    },
+    "facing=south": {
+      "model" : "tameablebeasts:block/scarecrow_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model" : "tameablebeasts:block/scarecrow_block",
+      "y": 270
+    }
+  }
+}

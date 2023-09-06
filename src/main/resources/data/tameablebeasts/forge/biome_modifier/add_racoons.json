@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#minecraft:is_forest",
+  "spawners": {
+    "type": "tameablebeasts:tameable_racoon",
+    "weight": 50,
+    "maxCount": 4,
+    "minCount": 1
+  }
+}

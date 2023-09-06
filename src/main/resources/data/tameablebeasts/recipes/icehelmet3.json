@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "i i",
+    "   "
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:blue_ice"
+    }
+  },
+  "result": {
+    "item": "tameablebeasts:ice_helmet",
+    "count": 1
+  }
+}

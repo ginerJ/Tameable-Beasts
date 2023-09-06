@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    " i ",
+    "iii"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:wheat"
+    }
+  },
+  "result": {
+    "item": "tameablebeasts:scarecrow_straw_hat",
+    "count": 1
+  }
+}

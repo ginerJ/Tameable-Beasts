@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "iii",
+    "iii"
+  ],
+  "key": {
+    "i": {
+      "item": "tameablebeasts:leaf"
+    }
+  },
+  "result": {
+    "item": "minecraft:oak_leaves",
+    "count": 1
+  }
+}

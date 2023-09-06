@@ -1,0 +1,26 @@
+
+modLoader="javafml"
+loaderVersion="[41,)"
+license="MIT"
+[[mods]]
+modId="tameablebeasts"
+version="2.0"
+displayName="Tameable Beasts"
+logoFile="icon.png"
+credits="Me"
+authors="ModderG"
+description='''
+Beasts that are tamable duh
+'''
+[[dependencies.examplemod]]
+    modId="forge"
+    mandatory=true
+    versionRange="[41,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.examplemod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19,1.20)"
+    ordering="NONE"
+    side="BOTH"

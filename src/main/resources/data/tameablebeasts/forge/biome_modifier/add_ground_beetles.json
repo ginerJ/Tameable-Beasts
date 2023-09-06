@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#minecraft:has_closer_water_fog",
+  "spawners": {
+    "type": "tameablebeasts:tameable_ground_beetle",
+    "weight": 100,
+    "maxCount": 4,
+    "minCount": 1
+  }
+}

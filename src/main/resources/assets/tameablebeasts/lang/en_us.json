@@ -1,0 +1,42 @@
+{
+  "item.tameablebeasts.icepop" : "Icepop",
+  "item.tameablebeasts.ice_helmet" : "Ice Helmet",
+  "item.tameablebeasts.purple_allay" : "Purple Allay",
+  "item.tameablebeasts.scarecrow_straw_hat" : "Straw Hat",
+  "item.tameablebeasts.quetzal_egg" : "Quetzalcoatlus Egg",
+  "item.tameablebeasts.iron_big_hoe" : "Big Iron Hoe",
+  "item.tameablebeasts.leaf" : "Leaf",
+  "item.tameablebeasts.roly_poly_saddle" : "Roly Poly Saddle",
+  "item.tameablebeasts.grasshopper_saddle" : "Grasshopper Saddle",
+  "item.tameablebeasts.chikote_saddle" : "Chikote Saddle",
+
+
+
+  "item.tameablebeasts.racoon_spawn_egg" : "Racoon Spawn Egg",
+  "item.tameablebeasts.penguin_spawn_egg" : "Penguin Spawn Egg",
+  "item.tameablebeasts.chikote_spawn_egg" : "Chikote Spawn Egg",
+  "item.tameablebeasts.beetle_spawn_egg" : "Shiny Beetle Spawn Egg",
+  "item.tameablebeasts.quetzal_spawn_egg" : "Quetzalcoatlus Spawn Egg",
+  "item.tameablebeasts.giant_grasshopper_spawn_egg" : "Giant Grasshopper Spawn Egg",
+  "item.tameablebeasts.ground_beetle_spawn_egg" : "Ground Beetle Spawn Egg",
+  "item.tameablebeasts.giant_roly_poly_spawn_egg" : "Giant Roly Poly Spawn Egg",
+
+
+
+  "block.tameablebeasts.scarecrow_block" : "Scarecrow",
+
+
+  "entity.tameablebeasts.tameable_racoon" : "Racoon",
+  "entity.tameablebeasts.tameable_penguin" : "Penguin",
+  "entity.tameablebeasts.tameable_chikote" : "Chikote",
+  "entity.tameablebeasts.tameable_beetle" : "Shiny Beetle",
+  "entity.tameablebeasts.scarecrow_allay" : "Scarecrow",
+  "entity.tameablebeasts.quetzalcoatlus" : "Quetzalcoatlus",
+  "entity.tameablebeasts.giant_grasshopper" : "Giant Grasshopper",
+  "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
+  "entity.tameablebeasts.giant_roly_poly" : "Giant Roly Poly",
+
+
+
+  "itemGroup.tameabletab" : "Tameable Beasts Tab"
+}
