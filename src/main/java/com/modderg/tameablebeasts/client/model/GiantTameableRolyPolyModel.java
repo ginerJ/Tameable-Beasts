@@ -20,9 +20,9 @@ public class GiantTameableRolyPolyModel extends GeoModel<GiantTameableRolyPolyEn
             return new ResourceLocation(TameableBeast.MODID, "textures/entity/giant_roly_poly_baby.png");
         }
         if(entity.getSaddle()){
-            return new ResourceLocation(TameableBeast.MODID, "textures/entity/giant_roly_poly_saddle.png");
+            return new ResourceLocation(TameableBeast.MODID, "textures/entity/giant_roly_poly_saddle" + entity.getTextureID() + ".png");
         } else {
-            return new ResourceLocation(TameableBeast.MODID, "textures/entity/giant_roly_poly.png");
+            return new ResourceLocation(TameableBeast.MODID, "textures/entity/giant_roly_poly" + entity.getTextureID() + ".png");
         }
     }
 

@@ -1,11 +1,11 @@
 package com.modderg.tameablebeasts.client.model;
 
 import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.entities.GiantTameableGrasshopperEntity;
+import com.modderg.tameablebeasts.entities.GrasshopperEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-public class GiantTameableGrasshopperModel extends GeoModel<GiantTameableGrasshopperEntity> {
+public class GiantTameableGrasshopperModel extends GeoModel<GrasshopperEntity> {
 
     private final ResourceLocation[][] textures = {
             new ResourceLocation[] {
@@ -21,7 +21,7 @@ public class GiantTameableGrasshopperModel extends GeoModel<GiantTameableGrassho
     };
 
     @Override
-    public ResourceLocation getModelResource(GiantTameableGrasshopperEntity entity) {
+    public ResourceLocation getModelResource(GrasshopperEntity entity) {
         if(entity.isBaby()){
             return new ResourceLocation(TameableBeast.MODID, "geo/giant_grasshopper_baby.geo.json");
         }
@@ -29,7 +29,7 @@ public class GiantTameableGrasshopperModel extends GeoModel<GiantTameableGrassho
     }
 
     @Override
-    public ResourceLocation getTextureResource(GiantTameableGrasshopperEntity entity) {
+    public ResourceLocation getTextureResource(GrasshopperEntity entity) {
         if(entity.isBaby()){
            return new ResourceLocation(TameableBeast.MODID, "textures/entity/giant_grasshopper_baby.png");
         }
@@ -40,7 +40,7 @@ public class GiantTameableGrasshopperModel extends GeoModel<GiantTameableGrassho
     }
 
     @Override
-    public ResourceLocation getAnimationResource(GiantTameableGrasshopperEntity entity) {
+    public ResourceLocation getAnimationResource(GrasshopperEntity entity) {
         return new ResourceLocation(TameableBeast.MODID, "animations/giant_grasshopper_anims.json");
     }
 }

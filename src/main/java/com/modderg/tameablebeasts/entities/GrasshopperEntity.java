@@ -1,9 +1,10 @@
 package com.modderg.tameablebeasts.entities;
 
+import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
-import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -40,13 +42,15 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class GiantTameableGrasshopperEntity extends TameableGAnimal implements GeoEntity, ItemSteerable, PlayerRideableJumping {
+public class GrasshopperEntity extends TameableGAnimal implements GeoEntity, ItemSteerable, PlayerRideableJumping {
+
     protected int interact = 0;
     protected float playerJumpPendingScale = 0f;
     boolean allowStandSliding = true;
     protected int jumpCount = this.random.nextInt(100, 200);
     protected boolean isJumping = false;
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(GrasshopperEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
     }
@@ -54,14 +58,14 @@ public class GiantTameableGrasshopperEntity extends TameableGAnimal implements G
         return this.getEntityData().get(TEXTUREID);
     }
 
-    private static final EntityDataAccessor<Boolean> SADDLE = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SADDLE = SynchedEntityData.defineId(GrasshopperEntity.class, EntityDataSerializers.BOOLEAN);
     public void setSaddle(boolean i){
         this.getEntityData().set(SADDLE, i);
     }
     public boolean getSaddle(){
         return this.getEntityData().get(SADDLE);
     }
-    public GiantTameableGrasshopperEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
+    public GrasshopperEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
     }
 
@@ -69,8 +73,6 @@ public class GiantTameableGrasshopperEntity extends TameableGAnimal implements G
     public boolean isFood(ItemStack p_27600_) {
         return p_27600_.is(ItemInit.LEAF.get());
     }
-
-
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
@@ -104,8 +106,8 @@ public class GiantTameableGrasshopperEntity extends TameableGAnimal implements G
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTURE")) {
-            this.setTexture(compound.getInt("TEXTURE"));
+        if (compound.contains("TEXTUREID")) {
+            this.setTexture(compound.getInt("TEXTUREID"));
             updateAttributes();
         }
         if (compound.contains("SADDLE")) {
@@ -116,7 +118,7 @@ public class GiantTameableGrasshopperEntity extends TameableGAnimal implements G
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTURE", this.getTextureID());
+        compound.putInt("TEXTUREID", this.getTextureID());
         compound.putBoolean("SADDLE", this.getSaddle());
     }
 
@@ -181,7 +183,7 @@ public class GiantTameableGrasshopperEntity extends TameableGAnimal implements G
 
     @Override
     public @org.jetbrains.annotations.Nullable AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        GiantTameableGrasshopperEntity grasshopper = ModEntityClass.GIANT_GRASSHOPPER.get().create(p_146743_);
+        GrasshopperEntity grasshopper = ModEntityClass.GIANT_GRASSHOPPER.get().create(p_146743_);
         UUID uuid = this.getOwnerUUID();
         if (uuid != null) {
             grasshopper.setOwnerUUID(uuid);
@@ -194,6 +196,10 @@ public class GiantTameableGrasshopperEntity extends TameableGAnimal implements G
     @Override
     public boolean causeFallDamage(float p_147187_, float p_147188_, DamageSource p_147189_) {
         return false;
+    }
+
+    public static boolean checkGrasshopperSpawnRules(EntityType<GrasshopperEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_GRASSHOPPER.get();
     }
 
     //sounds
@@ -238,8 +244,8 @@ public class GiantTameableGrasshopperEntity extends TameableGAnimal implements G
                 this.setRot(this.getYRot(), this.getXRot());
                 this.yBodyRot = this.getYRot();
                 this.yHeadRot = this.yBodyRot;
-                float f = livingentity.xxa * 0.5F;
-                float f1 = livingentity.zza;
+                float f = livingentity.xxa * 0.25f;
+                float f1 = livingentity.zza/2f;
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
@@ -340,7 +346,7 @@ public class GiantTameableGrasshopperEntity extends TameableGAnimal implements G
 
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
 
-    public static <T extends GiantTameableGrasshopperEntity & GeoEntity> AnimationController<T> flyController(T entity) {
+    public static <T extends GrasshopperEntity & GeoEntity> AnimationController<T> flyController(T entity) {
         return new AnimationController<>(entity,"movement", 2, event ->{
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));

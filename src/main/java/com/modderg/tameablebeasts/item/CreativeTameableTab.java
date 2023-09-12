@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.item;
 
 import com.modderg.tameablebeasts.TameableBeast;
+import com.modderg.tameablebeasts.init.ItemInit;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;

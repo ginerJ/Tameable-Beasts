@@ -30,9 +30,9 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.Objects;
 
-public class TameableTeethEntity extends FlyingTameableGAnimal implements GeoEntity {
+public class TeethEntity extends FlyingTameableGAnimal implements GeoEntity {
     protected int interact = 0;
-    public TameableTeethEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
+    public TeethEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
     }
 
@@ -99,13 +99,13 @@ public class TameableTeethEntity extends FlyingTameableGAnimal implements GeoEnt
     }
 
     // spawn and death
-    public static boolean checkTeethSpawnRules(EntityType<TameableTeethEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+    public static boolean checkTeethSpawnRules(EntityType<TeethEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
         return isBrightEnoughToSpawn(p_218243_, p_218245_);
     }
 
     //animation stuff
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
-    public static <T extends TameableTeethEntity & GeoEntity> AnimationController<T> flyController(T entity) {
+    public static <T extends TeethEntity & GeoEntity> AnimationController<T> flyController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));

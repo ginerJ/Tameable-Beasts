@@ -152,7 +152,7 @@
 				},
 				"light_wing": {
 					"rotation": {
-						"vector": ["50-math.cos(+40+query.anim_time*720)*32", "15+math.cos(query.anim_time*720)*50", 10]
+						"vector": ["50-math.cos(40+query.anim_time*720)*32", "15+math.cos(query.anim_time*720)*50", 10]
 					}
 				},
 				"arm": {
@@ -180,7 +180,7 @@
 				},
 				"light_wing2": {
 					"rotation": {
-						"vector": ["-50+math.cos(+40+query.anim_time*720)*32", "-15-math.cos(query.anim_time*720)*50", 10]
+						"vector": ["-50+math.cos(40+query.anim_time*720)*32", "-15-math.cos(query.anim_time*720)*50", 10]
 					}
 				}
 			}

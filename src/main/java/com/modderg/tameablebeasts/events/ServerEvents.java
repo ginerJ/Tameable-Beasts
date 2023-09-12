@@ -1,14 +1,12 @@
 package com.modderg.tameablebeasts.events;
 
 import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.item.ItemInit;
-import net.minecraft.client.gui.components.events.GuiEventListener;
+import com.modderg.tameablebeasts.init.ItemInit;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

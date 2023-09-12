@@ -4,7 +4,7 @@ import com.modderg.tameablebeasts.core.FlyingTameableGAnimal;
 import com.modderg.tameablebeasts.core.goals.SwitchingFollowOwnerGoal;
 import com.modderg.tameablebeasts.core.goals.SwitchingMeleeAttackGoal;
 import com.modderg.tameablebeasts.init.SoundInit;
-import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.init.ItemInit;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -38,20 +38,23 @@ import java.util.Objects;
 
 public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEntity, FlyingAnimal {
     protected int interact = 0;
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(ScarecrowAllayEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
     }
     public int getTextureID(){
         return this.getEntityData().get(TEXTUREID);
     }
-    private static final EntityDataAccessor<Boolean> HOE = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<Boolean> HOE = SynchedEntityData.defineId(ScarecrowAllayEntity.class, EntityDataSerializers.BOOLEAN);
     public void setHoe(boolean i){
         this.getEntityData().set(HOE, i);
     }
     public boolean getHoe(){
         return this.getEntityData().get(HOE);
     }
+
     public ScarecrowAllayEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         updateAttributes();
@@ -93,8 +96,8 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTURE")) {
-            this.setTexture(compound.getInt("TEXTURE"));
+        if (compound.contains("TEXTUREID")) {
+            this.setTexture(compound.getInt("TEXTUREID"));
             updateAttributes();
         }
         if (compound.contains("HOE")) {
@@ -105,7 +108,7 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTURE", this.getTextureID());
+        compound.putInt("TEXTUREID", this.getTextureID());
         compound.putBoolean("HOE", this.getHoe());
     }
 

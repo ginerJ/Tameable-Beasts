@@ -1,43 +1,48 @@
 package com.modderg.tameablebeasts.client.model;
 
 import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.entities.TameablePenguinEntity;
+import com.modderg.tameablebeasts.entities.PenguinEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-public class TameablePenguinModel extends GeoModel<TameablePenguinEntity> {
+public class TameablePenguinModel extends GeoModel<PenguinEntity> {
 
     private ResourceLocation[][] textures = {
             new ResourceLocation[]{
                     new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_penguin.png"),
-                    new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_penguin2.png")
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_penguin2.png"),
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_penguin3.png")
             },
             new ResourceLocation[]{
                     new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_baby_penguin.png"),
-                    new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_baby_penguin2.png")
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_baby_penguin2.png"),
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_baby_penguin3.png")
             },
             new ResourceLocation[]{
                     new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_penguin_sword.png"),
-                    new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_penguin2_sword.png")
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_penguin2_sword.png"),
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_penguin3_sword.png")
             },
             new ResourceLocation[]{
                     new ResourceLocation(TameableBeast.MODID, "textures/entity/armored_tameable_penguin_sword.png"),
-                    new ResourceLocation(TameableBeast.MODID, "textures/entity/armored_tameable_penguin2_sword.png")
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/armored_tameable_penguin2_sword.png"),
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/armored_tameable_penguin3_sword.png")
             },
             new ResourceLocation[]{
                     new ResourceLocation(TameableBeast.MODID, "textures/entity/armored_tameable_penguin.png"),
-                    new ResourceLocation(TameableBeast.MODID, "textures/entity/armored_tameable_penguin2.png")
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/armored_tameable_penguin2.png"),
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/armored_tameable_penguin3.png")
             }
     };
 
     @Override
-    public ResourceLocation getModelResource(TameablePenguinEntity entity) {
+    public ResourceLocation getModelResource(PenguinEntity entity) {
         if(entity.isBaby()){return new ResourceLocation(TameableBeast.MODID, "geo/tameable_baby_penguin.geo.json");}
         return new ResourceLocation(TameableBeast.MODID, "geo/tameable_penguin.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(TameablePenguinEntity entity) {
+    public ResourceLocation getTextureResource(PenguinEntity entity) {
          if (entity.getSword()){
              if(entity.getHelmet()){
                  return textures[3][entity.getTextureID()];
@@ -50,7 +55,7 @@ public class TameablePenguinModel extends GeoModel<TameablePenguinEntity> {
     }
 
     @Override
-    public ResourceLocation getAnimationResource(TameablePenguinEntity entity) {
+    public ResourceLocation getAnimationResource(PenguinEntity entity) {
         if(entity.isBaby()){return new ResourceLocation(TameableBeast.MODID, "animations/tameable_baby_penguin.anims.json");}
         return new ResourceLocation(TameableBeast.MODID, "animations/tameable_penguin.anims.json");
     }

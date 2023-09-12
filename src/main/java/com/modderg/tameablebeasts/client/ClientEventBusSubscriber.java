@@ -2,7 +2,6 @@ package com.modderg.tameablebeasts.client;
 
 import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.client.render.*;
-import com.modderg.tameablebeasts.entities.TameableTeethEntity;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 
 import com.modderg.tameablebeasts.particles.TameableParticles;

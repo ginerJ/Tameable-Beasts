@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.entities;
 
-import com.modderg.tameablebeasts.client.render.TameableGroundBeetleRender;
+import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
@@ -25,7 +25,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -47,21 +46,23 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class TameableGroundBeetleEntity extends TameableGAnimal implements GeoEntity, NeutralMob {
+public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, NeutralMob {
     protected int interact = 0;
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(GroundBeetleEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
     }
     public int getTextureID(){
         return this.getEntityData().get(TEXTUREID);
     }
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(GroundBeetleEntity.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     @Nullable
     private UUID persistentAngerTarget;
 
-    public TameableGroundBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
+    public GroundBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
     }
 
@@ -113,15 +114,15 @@ public class TameableGroundBeetleEntity extends TameableGAnimal implements GeoEn
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTURE")) {
-            this.setTexture(compound.getInt("TEXTURE"));
+        if (compound.contains("TEXTUREID")) {
+            this.setTexture(compound.getInt("TEXTUREID"));
         }
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTURE", this.getTextureID());
+        compound.putInt("TEXTUREID", this.getTextureID());
     }
 
     @Override
@@ -163,7 +164,7 @@ public class TameableGroundBeetleEntity extends TameableGAnimal implements GeoEn
 
     @Override
     public @org.jetbrains.annotations.Nullable AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        TameableBeetleEntity beetle = ModEntityClass.TAMEABLE_BEETLE.get().create(p_146743_);
+        FlyingBeetleEntity beetle = ModEntityClass.TAMEABLE_BEETLE.get().create(p_146743_);
         UUID uuid = this.getOwnerUUID();
         if (uuid != null) {
             beetle.setOwnerUUID(uuid);
@@ -181,8 +182,8 @@ public class TameableGroundBeetleEntity extends TameableGAnimal implements GeoEn
         }
     }
 
-    public static boolean checkGroundBeetleSpawnRules(EntityType<? extends Animal> p_218105_, LevelAccessor p_218106_, MobSpawnType p_218107_, BlockPos p_218108_, RandomSource p_218109_) {
-        return p_218106_.getBlockState(p_218108_.below()).is(Blocks.MUD) && isBrightEnoughToSpawn(p_218106_, p_218108_);
+    public static boolean checkGroundBeetleSpawnRules(EntityType<GroundBeetleEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_GROUND_BEETLE.get();
     }
 
     //sounds
@@ -232,7 +233,7 @@ public class TameableGroundBeetleEntity extends TameableGAnimal implements GeoEn
 
     //animation stuff
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
-    public static <T extends TameableGroundBeetleEntity & GeoEntity> AnimationController<T> flyController(T entity) {
+    public static <T extends GroundBeetleEntity & GeoEntity> AnimationController<T> flyController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));

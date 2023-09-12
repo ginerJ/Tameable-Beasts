@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.entities;
 
+import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
 import com.modderg.tameablebeasts.core.goals.SwitchingFollowOwnerGoal;
 import com.modderg.tameablebeasts.core.goals.SwitchingMeleeAttackGoal;
@@ -50,9 +51,11 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.UUID;
 
-public class TameableBeetleEntity extends TameableGAnimal implements GeoEntity {
+public class FlyingBeetleEntity extends TameableGAnimal implements GeoEntity {
+
     protected int interact = 0;
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(FlyingBeetleEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
     }
@@ -60,14 +63,15 @@ public class TameableBeetleEntity extends TameableGAnimal implements GeoEntity {
         return this.getEntityData().get(TEXTUREID);
     }
 
-    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(FlyingBeetleEntity.class, EntityDataSerializers.BOOLEAN);
     public void setFlying(boolean i){
         this.getEntityData().set(FLYING, i);
     }
     public boolean getFlying(){
         return this.getEntityData().get(FLYING);
     }
-    public TameableBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
+
+    public FlyingBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.switchNavigation(getFlying());
         updateAttributes();
@@ -116,8 +120,8 @@ public class TameableBeetleEntity extends TameableGAnimal implements GeoEntity {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTURE")) {
-            this.setTexture(compound.getInt("TEXTURE"));
+        if (compound.contains("TEXTUREID")) {
+            this.setTexture(compound.getInt("TEXTUREID"));
         }
         if (compound.contains("FLYING")) {
             this.setFlying(compound.getBoolean("FLYING"));
@@ -127,7 +131,7 @@ public class TameableBeetleEntity extends TameableGAnimal implements GeoEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTURE", this.getTextureID());
+        compound.putInt("TEXTUREID", this.getTextureID());
         compound.putBoolean("FLYING", this.getFlying());
     }
 
@@ -245,7 +249,7 @@ public class TameableBeetleEntity extends TameableGAnimal implements GeoEntity {
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        TameableBeetleEntity beetle = ModEntityClass.TAMEABLE_BEETLE.get().create(p_146743_);
+        FlyingBeetleEntity beetle = ModEntityClass.TAMEABLE_BEETLE.get().create(p_146743_);
         UUID uuid = this.getOwnerUUID();
         if (uuid != null) {
             beetle.setOwnerUUID(uuid);
@@ -263,8 +267,8 @@ public class TameableBeetleEntity extends TameableGAnimal implements GeoEntity {
         }
     }
 
-    public static boolean checkFlyingBeetleSpawnRules(EntityType<? extends Animal> p_218105_, LevelAccessor p_218106_, MobSpawnType p_218107_, BlockPos p_218108_, RandomSource p_218109_) {
-        return p_218106_.getBlockState(p_218108_.below()).is(Blocks.MUD) && isBrightEnoughToSpawn(p_218106_, p_218108_);
+    public static boolean checkFlyingBeetleSpawnRules(EntityType<FlyingBeetleEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_FLYING_BEETLE.get();
     }
 
     //sounds
@@ -294,7 +298,7 @@ public class TameableBeetleEntity extends TameableGAnimal implements GeoEntity {
 
     //animation stuff
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
-    public static <T extends TameableBeetleEntity & GeoEntity> AnimationController<T> flyController(T entity) {
+    public static <T extends FlyingBeetleEntity & GeoEntity> AnimationController<T> flyController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));

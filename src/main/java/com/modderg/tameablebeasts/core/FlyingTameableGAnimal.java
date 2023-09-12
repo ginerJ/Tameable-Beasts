@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.core;
 
-import com.modderg.tameablebeasts.entities.TameableRacoonEntity;
+import com.modderg.tameablebeasts.entities.RacoonEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -20,7 +20,7 @@ public class FlyingTameableGAnimal extends TameableGAnimal {
 
     protected boolean isFlyMoving = false;
     protected Vec3 lastPos = new Vec3(0,0,0);
-    protected static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(RacoonEntity.class, EntityDataSerializers.BOOLEAN);
     public void setFlying(boolean i){
         this.getEntityData().set(FLYING, i);
     }

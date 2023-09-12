@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.entities;
 
+import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
@@ -9,7 +10,9 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -25,6 +28,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -40,9 +44,11 @@ import software.bernie.geckolib.core.object.PlayState;
 import java.util.Objects;
 import java.util.UUID;
 
-public class TameableRacoonEntity extends TameableGAnimal implements GeoEntity {
+public class RacoonEntity extends TameableGAnimal implements GeoEntity {
+
     protected int interact = 0;
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(RacoonEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
     }
@@ -50,9 +56,11 @@ public class TameableRacoonEntity extends TameableGAnimal implements GeoEntity {
         return this.getEntityData().get(TEXTUREID);
     }
 
-    public TameableRacoonEntity(EntityType<? extends TameableGAnimal> p_27557_, Level p_27558_) {
+    public RacoonEntity(EntityType<? extends TameableGAnimal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
     }
+
+
 
     @Override
     public boolean isFood(ItemStack itemStack) {
@@ -98,15 +106,15 @@ public class TameableRacoonEntity extends TameableGAnimal implements GeoEntity {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTURE")) {
-            this.setTexture(compound.getInt("TEXTURE"));
+        if (compound.contains("TEXTUREID")) {
+            this.setTexture(compound.getInt("TEXTUREID"));
         }
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTURE", this.getTextureID());
+        compound.putInt("TEXTUREID", this.getTextureID());
     }
 
     @Override
@@ -149,7 +157,7 @@ public class TameableRacoonEntity extends TameableGAnimal implements GeoEntity {
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        TameableRacoonEntity racoon = ModEntityClass.TAMEABLE_RACOON.get().create(p_146743_);
+        RacoonEntity racoon = ModEntityClass.TAMEABLE_RACOON.get().create(p_146743_);
         UUID uuid = this.getOwnerUUID();
         if (uuid != null) {
             racoon.setOwnerUUID(uuid);
@@ -197,10 +205,14 @@ public class TameableRacoonEntity extends TameableGAnimal implements GeoEntity {
         this.playSound(SoundInit.RACOON_STEPS.get(), 0.15F, 1.0F);
     }
 
+    public static boolean checkRacoonSpawnRules(EntityType<RacoonEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_RACOON.get();
+    }
+
     //animation stuff
 
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
-    public static <T extends TameableRacoonEntity & GeoEntity> AnimationController<T> flyController(T entity) {
+    public static <T extends RacoonEntity & GeoEntity> AnimationController<T> flyController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));

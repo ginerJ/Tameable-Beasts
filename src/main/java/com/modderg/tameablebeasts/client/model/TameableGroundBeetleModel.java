@@ -1,11 +1,11 @@
 package com.modderg.tameablebeasts.client.model;
 
 import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.entities.TameableGroundBeetleEntity;
+import com.modderg.tameablebeasts.entities.GroundBeetleEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-public class TameableGroundBeetleModel extends GeoModel<TameableGroundBeetleEntity> {
+public class TameableGroundBeetleModel extends GeoModel<GroundBeetleEntity> {
 
     private final ResourceLocation[][] textures = {
             new ResourceLocation[]{
@@ -18,7 +18,7 @@ public class TameableGroundBeetleModel extends GeoModel<TameableGroundBeetleEnti
     };
 
     @Override
-    public ResourceLocation getModelResource(TameableGroundBeetleEntity entity) {
+    public ResourceLocation getModelResource(GroundBeetleEntity entity) {
         if(entity.isBaby()){
             return new ResourceLocation(TameableBeast.MODID, "geo/tameable_beetle_baby.geo.json");
         }
@@ -26,7 +26,7 @@ public class TameableGroundBeetleModel extends GeoModel<TameableGroundBeetleEnti
     }
 
     @Override
-    public ResourceLocation getTextureResource(TameableGroundBeetleEntity entity) {
+    public ResourceLocation getTextureResource(GroundBeetleEntity entity) {
         if(entity.isBaby()){
             return textures[1][0];
         }
@@ -34,7 +34,7 @@ public class TameableGroundBeetleModel extends GeoModel<TameableGroundBeetleEnti
     }
 
     @Override
-    public ResourceLocation getAnimationResource(TameableGroundBeetleEntity entity) {
+    public ResourceLocation getAnimationResource(GroundBeetleEntity entity) {
         if(entity.isBaby()){
             return new ResourceLocation(TameableBeast.MODID, "animations/tameable_baby_beetle_anims.json");
         }

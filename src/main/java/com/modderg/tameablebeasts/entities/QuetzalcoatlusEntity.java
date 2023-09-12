@@ -1,9 +1,11 @@
 package com.modderg.tameablebeasts.entities;
 
+import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
 import com.modderg.tameablebeasts.core.goals.SwitchingFollowOwnerGoal;
 import com.modderg.tameablebeasts.core.goals.SwitchingMeleeAttackGoal;
 import com.modderg.tameablebeasts.core.goals.TameablePanicGoal;
+import com.modderg.tameablebeasts.init.ItemInit;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
 import net.minecraft.core.BlockPos;
@@ -64,9 +66,10 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
 
     @javax.annotation.Nullable
     private UUID persistentAngerTarget;
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(QuetzalcoatlusEntity.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(QuetzalcoatlusEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
     }
@@ -74,7 +77,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
         return this.getEntityData().get(TEXTUREID);
     }
 
-    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(QuetzalcoatlusEntity.class, EntityDataSerializers.BOOLEAN);
     public void setFlying(boolean i){
         this.getEntityData().set(FLYING, i);
     }
@@ -82,13 +85,14 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
         return this.getEntityData().get(FLYING);
     }
 
-    private static final EntityDataAccessor<Boolean> SADDLE = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SADDLE = SynchedEntityData.defineId(QuetzalcoatlusEntity.class, EntityDataSerializers.BOOLEAN);
     public void setSaddle(boolean i){
         this.getEntityData().set(SADDLE, i);
     }
     public boolean getSaddle(){
         return this.getEntityData().get(SADDLE);
     }
+
     public QuetzalcoatlusEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.switchNavigation(getFlying());
@@ -101,7 +105,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.15D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.FLYING_SPEED, 0.2D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D)
@@ -129,7 +133,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(3));
+        this.entityData.define(TEXTUREID, this.random.nextInt(5));
         this.entityData.define(FLYING, false);
         this.entityData.define(SADDLE, false);
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
@@ -138,8 +142,8 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTURE")) {
-            this.setTexture(compound.getInt("TEXTURE"));
+        if (compound.contains("TEXTUREID")) {
+            this.setTexture(compound.getInt("TEXTUREID"));
         }
         if (compound.contains("FLYING")) {
             this.setFlying(compound.getBoolean("FLYING"));
@@ -153,7 +157,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTURE", this.getTextureID());
+        compound.putInt("TEXTUREID", this.getTextureID());
         compound.putBoolean("FLYING", this.getFlying());
         compound.putBoolean("SADDLE", this.getSaddle());
     }
@@ -162,6 +166,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
+
         if (this.isTame() && !this.isFood(itemstack)){
             if(Objects.equals(this.getOwnerUUID(), player.getUUID())){
                 if (player.isShiftKeyDown()) {
@@ -173,7 +178,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
                 } else if (!this.isBaby() && this.getSaddle() && !this.isInSittingPose()){
                     player.startRiding(this);
                     return InteractionResult.sidedSuccess(this.getLevel().isClientSide);
-                } else if (!this.isBaby() && itemstack.is(Items.SADDLE) && this.isOwnedBy(player) && !this.getSaddle()) {
+                } else if (!this.isBaby() && itemstack.is(ItemInit.QUETZAL_SADDLE.get()) && this.isOwnedBy(player) && !this.getSaddle()) {
                     setSaddle(true);
                     this.playSound(SoundEvents.HORSE_SADDLE, 0.15F, 1.0F);
                     itemstack.shrink(1);
@@ -181,6 +186,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
                 }
             }
         }
+
         if(interact <= 0 && this.isOnGround()){
             this.playSound(SoundInit.QUETZAL_INTERACT.get(), 0.15F, 1.0F);
             interact = 30 ;
@@ -269,7 +275,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
     }
 
     public static boolean checkQuetzalSpawnRules(EntityType<QuetzalcoatlusEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
-        return isBrightEnoughToSpawn(p_218243_, p_218245_);
+        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_QUETZAL.get();
     }
 
     @Override
@@ -277,6 +283,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
         this.flyCount = 50;
         return super.hurt(p_27567_, p_27568_);
     }
+
 
     //anger
 
@@ -340,7 +347,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
 
                 if (getFlying())
                 {
-                    float speed = (float) getAttributeValue(getFlying()? FLYING_SPEED : MOVEMENT_SPEED) * 1f;
+                    float speed = (float) getAttributeValue(getFlying()? FLYING_SPEED : MOVEMENT_SPEED) * 0.35f;
                     moveDist = moveDist > 0? moveDist : 0;
                     float movY = (float) (-this.getControllingPassenger().getXRot() * (Math.PI / 180));
                     vec3 = new Vec3(f, movY, f1);
@@ -431,19 +438,18 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
         return new AnimationController<>(entity,"movement", 5, event ->{
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
+                return PlayState.CONTINUE;
+            }
+            if (entity.interact > 0) {
+                event.getController().setAnimation(RawAnimation.begin().then("interact", Animation.LoopType.LOOP));
+                return PlayState.CONTINUE;
+            }
+            if(entity.getFlying()){
+                event.getController().setAnimation(RawAnimation.begin().then("fly", Animation.LoopType.LOOP));
+            } else if (event.isMoving()) {
+                event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
             } else {
-                if (entity.interact <= 0){
-                    if(entity.getFlying()){
-                        event.getController().setAnimation(RawAnimation.begin().then("fly", Animation.LoopType.LOOP));
-                    } else if (event.isMoving()) {
-                        event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
-                    }
-                    else {
-                        event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
-                    }
-                } else {
-                    event.getController().setAnimation(RawAnimation.begin().then("interact", Animation.LoopType.LOOP));
-                }
+                event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
             }
             return PlayState.CONTINUE;
         });

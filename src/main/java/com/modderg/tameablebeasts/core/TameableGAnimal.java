@@ -1,6 +1,9 @@
 package com.modderg.tameablebeasts.core;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -59,6 +62,18 @@ public class TameableGAnimal extends TamableAnimal{
         return null;
     }
 
+    @Override
+    public void setOrderedToSit(boolean sit) {
+        this.messageState(this.isInSittingPose() ? "following":"sitting");
+        super.setOrderedToSit(sit);
+    }
+
+    public void messageState(String txt){
+        if (this.m_269323_() != null && this.m_269323_().getLevel().isClientSide && this.m_269323_().getLevel() instanceof ClientLevel) {
+            Minecraft.getInstance().gui.setOverlayMessage(Component.literal(txt), false);
+        }
+    }
+
     public boolean canBeControlledByRider() {
         if (!(this.getControllingPassenger() instanceof Player)) {
             return false;
@@ -67,17 +82,16 @@ public class TameableGAnimal extends TamableAnimal{
     }
 
     public class FollowParentGoalIfNotSitting extends FollowParentGoal{
-
-        private final TameableGAnimal animal2;
+        private final TameableGAnimal animal;
 
         public FollowParentGoalIfNotSitting(TameableGAnimal p_25319_, double p_25320_) {
             super((Animal)p_25319_, p_25320_);
-            this.animal2 = p_25319_;
+            this.animal = p_25319_;
         }
 
         @Override
         public boolean canUse() {
-            return super.canUse() && !animal2.isInSittingPose();
+            return super.canUse() && !animal.isOrderedToSit();
         }
     }
 }

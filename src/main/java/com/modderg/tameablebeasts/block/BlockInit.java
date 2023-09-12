@@ -1,7 +1,6 @@
 package com.modderg.tameablebeasts.block;
 
 import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.item.CreativeTameableTab;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -14,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.modderg.tameablebeasts.item.ItemInit.ITEMS;
+import static com.modderg.tameablebeasts.init.ItemInit.ITEMS;
 
 public class BlockInit {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, TameableBeast.MODID);

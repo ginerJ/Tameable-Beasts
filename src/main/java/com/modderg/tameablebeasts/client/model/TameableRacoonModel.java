@@ -1,11 +1,11 @@
 package com.modderg.tameablebeasts.client.model;
 
 import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.entities.TameableRacoonEntity;
+import com.modderg.tameablebeasts.entities.RacoonEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-public class TameableRacoonModel extends GeoModel<TameableRacoonEntity> {
+public class TameableRacoonModel extends GeoModel<RacoonEntity> {
 
     private ResourceLocation[] textures = {
             new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_racoon.png"),
@@ -20,7 +20,7 @@ public class TameableRacoonModel extends GeoModel<TameableRacoonEntity> {
     };
 
     @Override
-    public ResourceLocation getModelResource(TameableRacoonEntity entity) {
+    public ResourceLocation getModelResource(RacoonEntity entity) {
         if(entity.isBaby()){
             return new ResourceLocation(TameableBeast.MODID, "geo/tameable_baby_racoon.geo.json");
         }
@@ -28,7 +28,7 @@ public class TameableRacoonModel extends GeoModel<TameableRacoonEntity> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(TameableRacoonEntity entity) {
+    public ResourceLocation getTextureResource(RacoonEntity entity) {
         if(entity.isBaby()){
             return bbytextures[entity.getTextureID()];
         }
@@ -36,7 +36,7 @@ public class TameableRacoonModel extends GeoModel<TameableRacoonEntity> {
     }
 
     @Override
-    public ResourceLocation getAnimationResource(TameableRacoonEntity entity) {
+    public ResourceLocation getAnimationResource(RacoonEntity entity) {
         if(entity.isBaby()){
             return new ResourceLocation(TameableBeast.MODID, "animations/tameable_baby_racoon.anims.json");
         }

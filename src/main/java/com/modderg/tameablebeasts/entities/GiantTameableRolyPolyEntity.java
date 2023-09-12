@@ -1,9 +1,10 @@
 package com.modderg.tameablebeasts.entities;
 
+import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
-import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -12,6 +13,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -40,16 +43,28 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class GiantTameableRolyPolyEntity extends TameableGAnimal implements GeoEntity, ItemSteerable {
+
     protected int interact = 0;
+
     protected boolean running = false;
     private int walkTimer = random.nextInt(10, 1000);
-    private static final EntityDataAccessor<Boolean> SADDLE = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<Boolean> SADDLE = SynchedEntityData.defineId(GiantTameableRolyPolyEntity.class, EntityDataSerializers.BOOLEAN);
     public void setSaddle(boolean i){
         this.getEntityData().set(SADDLE, i);
     }
     public boolean getSaddle(){
         return this.getEntityData().get(SADDLE);
     }
+
+    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(GiantTameableRolyPolyEntity.class, EntityDataSerializers.INT);
+    public void setTexture(int i){
+        this.getEntityData().set(TEXTUREID, i);
+    }
+    public int getTextureID(){
+        return this.getEntityData().get(TEXTUREID);
+    }
+
     public GiantTameableRolyPolyEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
     }
@@ -83,12 +98,16 @@ public class GiantTameableRolyPolyEntity extends TameableGAnimal implements GeoE
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(TEXTUREID, this.random.nextInt(4));
         this.entityData.define(SADDLE, false);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        if (compound.contains("TEXTUREID")) {
+            this.setTexture(compound.getInt("TEXTUREID"));
+        }
         if (compound.contains("SADDLE")) {
             this.setSaddle(compound.getBoolean("SADDLE"));
         }
@@ -97,6 +116,7 @@ public class GiantTameableRolyPolyEntity extends TameableGAnimal implements GeoE
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putInt("TEXTUREID", this.getTextureID());
         compound.putBoolean("SADDLE", this.getSaddle());
     }
 
@@ -179,10 +199,14 @@ public class GiantTameableRolyPolyEntity extends TameableGAnimal implements GeoE
 
     private void updateAttributes(){
         if (running) {
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.35D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         } else {
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
         }
+    }
+
+    public static boolean checkRolyPolySpawnRules(EntityType<GiantTameableRolyPolyEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_ROLY_POLY.get();
     }
 
     //sounds
@@ -235,7 +259,7 @@ public class GiantTameableRolyPolyEntity extends TameableGAnimal implements GeoE
 
                 super.travel(new Vec3((double) f, p_213352_1_.y, (double) f1));
             } else {
-                if(this.isTame()){
+                if(this.isTame() && this.m_269323_() != null){
                     if(distanceTo(Objects.requireNonNull(this.m_269323_())) > 8f){ //m_269323_ is getOwner
                         this.running = true;
                         updateAttributes();
@@ -266,32 +290,33 @@ public class GiantTameableRolyPolyEntity extends TameableGAnimal implements GeoE
 
     public static <T extends GiantTameableRolyPolyEntity & GeoEntity> AnimationController<T> flyController(T entity) {
         return new AnimationController<>(entity,"movement", 10, event ->{
-            if(entity.isInSittingPose()){
+            if(entity.isInSittingPose() || entity.hurtTime > 0) {
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
-            } else {
-                if(!entity.canBeControlledByRider()){
-                    event.getController().transitionLength(10);
-                    if (entity.interact <= 0){
-                        if(event.isMoving()){
-                            if(entity.getAttribute(Attributes.MOVEMENT_SPEED).getValue() == 0.3D){
-                                event.getController().setAnimation(RawAnimation.begin().then("run", Animation.LoopType.LOOP));
-                            } else {
-                                event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
-                            }
-                        } else {
-                            event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
-                        }
-                    } else {
-                        event.getController().setAnimation(RawAnimation.begin().then("interact", Animation.LoopType.LOOP));
-                    }
-                } else {
-                    if(event.isMoving()){
-                        event.getController().transitionLength(1);
+                return PlayState.CONTINUE;
+            }
+            if (entity.interact > 0) {
+                event.getController().setAnimation(RawAnimation.begin().then("interact", Animation.LoopType.LOOP));
+                return PlayState.CONTINUE;
+            }
+
+            if (!entity.canBeControlledByRider()) {
+                event.getController().transitionLength(10);
+                if (event.isMoving()) {
+                    if (entity.getAttribute(Attributes.MOVEMENT_SPEED).getValue() >= 0.3D) {
                         event.getController().setAnimation(RawAnimation.begin().then("run", Animation.LoopType.LOOP));
                     } else {
-                        event.getController().transitionLength(6);
-                        event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
+                        event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
                     }
+                } else {
+                    event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
+                }
+            } else {
+                if (event.isMoving()) {
+                    event.getController().transitionLength(1);
+                    event.getController().setAnimation(RawAnimation.begin().then("run", Animation.LoopType.LOOP));
+                } else {
+                    event.getController().transitionLength(6);
+                    event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
                 }
             }
             return PlayState.CONTINUE;

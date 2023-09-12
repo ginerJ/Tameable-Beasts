@@ -1,11 +1,12 @@
 package com.modderg.tameablebeasts.entities;
 
 import com.modderg.tameablebeasts.block.ScarecrowBlock;
+import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
 import com.modderg.tameablebeasts.core.goals.AvoidBlockGoal;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
-import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -22,6 +23,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.JumpControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -29,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.*;
@@ -47,24 +50,27 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSteerable {
+public class ChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSteerable{
 
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(ChikoteEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
     }
     public int getTextureID(){
         return this.getEntityData().get(TEXTUREID);
     }
-    private static final EntityDataAccessor<Boolean> SADDLE = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<Boolean> SADDLE = SynchedEntityData.defineId(ChikoteEntity.class, EntityDataSerializers.BOOLEAN);
     public void setSaddle(boolean i){
         this.getEntityData().set(SADDLE, i);
     }
     public boolean getSaddle(){
         return this.getEntityData().get(SADDLE);
     }
+
     protected int interact = 0;
-    public TameableChikoteEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
+
+    public ChikoteEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
     }
 
@@ -83,7 +89,7 @@ public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity,
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.BEETROOT), false));
         this.goalSelector.addGoal(4, new AvoidBlockGoal<>(this, ScarecrowBlock.class, 6.0F, 1.0D, 1.2D));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, ScarecrowAllayEntity.class, 6.0F, 1.0D, 1.2D));
-        this.goalSelector.addGoal(5, new TameableChikoteEntity.RaidGardenGoal(this));
+        this.goalSelector.addGoal(5, new ChikoteEntity.RaidGardenGoal(this));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new PanicGoal(this, 2.0D));
         this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
@@ -96,15 +102,15 @@ public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity,
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(2));
+        this.entityData.define(TEXTUREID, this.random.nextInt(5));
         this.entityData.define(SADDLE, false);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTURE")) {
-            this.setTexture(compound.getInt("TEXTURE"));
+        if (compound.contains("TEXTUREID")) {
+            this.setTexture(compound.getInt("TEXTUREID"));
             updateAttributes();
         }
         if (compound.contains("SADDLE")) {
@@ -115,7 +121,7 @@ public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity,
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTURE", this.getTextureID());
+        compound.putInt("TEXTUREID", this.getTextureID());
         compound.putBoolean("SADDLE", this.getSaddle());
     }
 
@@ -178,7 +184,7 @@ public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity,
 
     @Override
     public @org.jetbrains.annotations.Nullable AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        TameableChikoteEntity chikote = ModEntityClass.TAMEABLE_CHIKOTE.get().create(p_146743_);
+        ChikoteEntity chikote = ModEntityClass.TAMEABLE_CHIKOTE.get().create(p_146743_);
         UUID uuid = this.getOwnerUUID();
         if (uuid != null) {
             chikote.setOwnerUUID(uuid);
@@ -198,17 +204,12 @@ public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity,
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @org.jetbrains.annotations.Nullable SpawnGroupData p_146749_, @org.jetbrains.annotations.Nullable CompoundTag p_146750_) {
         updateAttributes();
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.generateRandomMaxHealth(p_146746_.getRandom()));
-        if(this.random.nextInt(10) == 0){
-            this.setTexture(2);
-        }
         return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
     }
 
     private void updateAttributes(){
         if (this.isBaby()) {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15D);
-        } else if (this.getTextureID() == 2) {
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.4D);
         } else {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         }
@@ -221,29 +222,35 @@ public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity,
     //ride stuff
 
     @Override
-    public void travel(Vec3 p_213352_1_) {
+    public void travel(Vec3 pos) {
         if (this.isAlive()) {
             if (this.canBeControlledByRider()) {
-                this.setAggressive(false);
-                this.maxUpStep = 1.0F;
-                LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
+                LivingEntity passenger = (LivingEntity)getControllingPassenger();
+                this.yRotO = getYRot();
+                this.xRotO = getXRot();
 
-                this.setYRot(livingentity.getYRot());
-                this.yRotO = this.getYRot();
-                this.setXRot(livingentity.getXRot() * 0.5F);
-                this.setRot(this.getYRot(), this.getXRot());
+                this.maxUpStep = 1.0f;
+
+                setYRot(passenger.getYRot());
+                setXRot(passenger.getXRot() * 0.5f);
+                setRot(getYRot(), getXRot());
+
                 this.yBodyRot = this.getYRot();
+                this.yHeadRot = this.yBodyRot;
+                float x = passenger.xxa * 0.5F;
+                float z = passenger.zza;
 
-                float f = livingentity.xxa * 0.5F;
-                float f1 = livingentity.zza;
-                this.setSpeed((float) this.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
+                if (z <= 0)
+                    z *= 0.25f;
 
-                super.travel(new Vec3((double) f, p_213352_1_.y, (double) f1));
+                this.setSpeed(0.3f);
+                super.travel(new Vec3(x, pos.y, z));
             } else {
-                super.travel(p_213352_1_);
+                super.travel(pos);
             }
         }
     }
+
 
     @Nullable
     public LivingEntity getControllingPassenger() {
@@ -253,6 +260,10 @@ public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity,
     @Override
     public boolean boost() {
         return false;
+    }
+
+    public static boolean checkChikoteSpawnRules(EntityType<ChikoteEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_CHIKOTE.get();
     }
 
     //sounds
@@ -278,7 +289,7 @@ public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity,
 
     //animation stuff
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
-    public static <T extends TameableChikoteEntity & GeoEntity> AnimationController<T> flyController(T entity) {
+    public static <T extends ChikoteEntity & GeoEntity> AnimationController<T> flyController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
@@ -311,9 +322,9 @@ public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity,
 
     public class ChikoteRandomLookAroundGoal extends net.minecraft.world.entity.ai.goal.RandomLookAroundGoal {
 
-        private final TameableChikoteEntity chikote;
+        private final ChikoteEntity chikote;
 
-        public ChikoteRandomLookAroundGoal(Mob p_25720_, TameableChikoteEntity chikote) {
+        public ChikoteRandomLookAroundGoal(Mob p_25720_, ChikoteEntity chikote) {
             super(p_25720_);
             this.chikote = chikote;
         }
@@ -330,11 +341,11 @@ public class TameableChikoteEntity extends TameableGAnimal implements GeoEntity,
     }
 
     static class RaidGardenGoal extends MoveToBlockGoal {
-        private final TameableChikoteEntity TameableChikoteEntity;
+        private final ChikoteEntity TameableChikoteEntity;
         private boolean wantsToRaid;
         private boolean canRaid;
 
-        public RaidGardenGoal(TameableChikoteEntity p_29782_) {
+        public RaidGardenGoal(ChikoteEntity p_29782_) {
             super(p_29782_, (double)0.7F, 16);
             this.TameableChikoteEntity = p_29782_;
         }

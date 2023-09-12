@@ -1,7 +1,8 @@
 package com.modderg.tameablebeasts.entities;
 
+import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
-import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.init.ItemInit;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
 import net.minecraft.core.BlockPos;
@@ -45,8 +46,9 @@ import software.bernie.geckolib.core.object.PlayState;
 import java.util.Objects;
 import java.util.UUID;
 
-public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity {
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.INT);
+public class PenguinEntity extends TameableGAnimal implements GeoEntity {
+
+    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
     }
@@ -54,7 +56,7 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
         return this.getEntityData().get(TEXTUREID);
     }
 
-    private static final EntityDataAccessor<Boolean> SWORD = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SWORD = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
     public void setSword(boolean i){
         this.getEntityData().set(SWORD, i);
     }
@@ -62,7 +64,7 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
         return this.getEntityData().get(SWORD);
     }
 
-    private static final EntityDataAccessor<Boolean> HELMET = SynchedEntityData.defineId(TameableRacoonEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HELMET = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
     public void setHelmet(boolean i){
         this.getEntityData().set(HELMET, i);
     }
@@ -71,7 +73,7 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
     }
 
     protected int interact = 0;
-    public TameablePenguinEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
+    public PenguinEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
     }
 
@@ -103,7 +105,7 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(2));
+        this.entityData.define(TEXTUREID, this.random.nextInt(3));
         this.entityData.define(SWORD, false);
         this.entityData.define(HELMET, false);
     }
@@ -111,8 +113,8 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTURE")) {
-            this.setTexture(compound.getInt("TEXTURE"));
+        if (compound.contains("TEXTUREID")) {
+            this.setTexture(compound.getInt("TEXTUREID"));
         }
         if (compound.contains("SWORD")) {
             this.setSword(compound.getBoolean("SWORD"));
@@ -125,7 +127,7 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTURE", this.getTextureID());
+        compound.putInt("TEXTUREID", this.getTextureID());
         compound.putBoolean("SWORD", this.getSword());
         compound.putBoolean("HELMET", this.getHelmet());
     }
@@ -134,7 +136,7 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
 
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.125D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_DAMAGE, 2.5D)
                 .add(Attributes.ARMOR, 2.0D);
     }
@@ -200,7 +202,7 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        TameablePenguinEntity penguin = ModEntityClass.TAMEABLE_PENGUIN.get().create(p_146743_);
+        PenguinEntity penguin = ModEntityClass.TAMEABLE_PENGUIN.get().create(p_146743_);
         UUID uuid = this.getOwnerUUID();
         if (uuid != null) {
             penguin.setOwnerUUID(uuid);
@@ -219,7 +221,7 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
     private void updateAttributes(){
         if (this.isTame()) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
             this.setHealth(20.0F);
             if(this.getSword()){
                 this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(15.0D);
@@ -235,18 +237,17 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5D);
             this.getAttribute(Attributes.ARMOR).setBaseValue(2.0D);
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.125D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         }
     }
 
-    public static boolean checkPenguinSpawnRules(EntityType<TameablePenguinEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
-        if(p_218243_.getBlockState(p_218245_.below()).is(Blocks.PACKED_ICE) ||
-                p_218243_.getBlockState(p_218245_.below()).is(Blocks.ICE) ||
-                p_218243_.getBlockState(p_218245_.below()).is(Blocks.BLUE_ICE)){
-            return true;
-        }
-        return false;
+    public static boolean checkPenguinSpawnRules(EntityType<PenguinEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+        return (p_218243_.getBlockState(p_218245_.below()).is(Blocks.PACKED_ICE)
+                || p_218243_.getBlockState(p_218245_.below()).is(Blocks.ICE)
+                || p_218243_.getBlockState(p_218245_.below()).is(Blocks.BLUE_ICE))
+                && ModCommonConfigs.CAN_SPAWN_PENGUIN.get();
     }
+
 
     //sounds
 
@@ -271,22 +272,21 @@ public class TameablePenguinEntity extends TameableGAnimal implements GeoEntity 
 
     //animation stuff
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
-    public static <T extends TameablePenguinEntity & GeoEntity> AnimationController<T> flyController(T entity) {
+    public static <T extends PenguinEntity & GeoEntity> AnimationController<T> flyController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
             } else {
-                if (entity.interact <= 0){
-                    if(event.isMoving()){
-                        event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
-                    } else {
-                        event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
-                    }
-                } else {
+                if (entity.interact > 0){
                     event.getController().setAnimation(RawAnimation.begin().then("interact", Animation.LoopType.PLAY_ONCE));
+                    return PlayState.CONTINUE;
+                }
+                if(event.isMoving()){
+                    event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
+                } else {
+                    event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
                 }
             }
-
             return PlayState.CONTINUE;
         });
     }
