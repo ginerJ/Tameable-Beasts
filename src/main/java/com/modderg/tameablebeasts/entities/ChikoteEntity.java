@@ -4,6 +4,7 @@ import com.modderg.tameablebeasts.block.ScarecrowBlock;
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
 import com.modderg.tameablebeasts.core.goals.AvoidBlockGoal;
+import com.modderg.tameablebeasts.core.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
 import com.modderg.tameablebeasts.init.ItemInit;
@@ -52,14 +53,6 @@ import java.util.UUID;
 
 public class ChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSteerable{
 
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(ChikoteEntity.class, EntityDataSerializers.INT);
-    public void setTexture(int i){
-        this.getEntityData().set(TEXTUREID, i);
-    }
-    public int getTextureID(){
-        return this.getEntityData().get(TEXTUREID);
-    }
-
     private static final EntityDataAccessor<Boolean> SADDLE = SynchedEntityData.defineId(ChikoteEntity.class, EntityDataSerializers.BOOLEAN);
     public void setSaddle(boolean i){
         this.getEntityData().set(SADDLE, i);
@@ -68,7 +61,47 @@ public class ChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSte
         return this.getEntityData().get(SADDLE);
     }
 
-    protected int interact = 0;
+    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(ChikoteEntity.class, EntityDataSerializers.INT);
+    public void setTexture(int i){
+        this.getEntityData().set(TEXTUREID, i);
+    }
+    public int getTextureID(){
+        return this.getEntityData().get(TEXTUREID);
+    }
+    
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("TEXTUREID", this.getTextureID());
+        compound.putBoolean("SADDLE", this.getSaddle());
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TEXTUREID, 0);
+        this.entityData.define(SADDLE, false);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("TEXTUREID")) {
+            this.setTexture(compound.getInt("TEXTUREID"));
+            updateAttributes();
+        }
+        if (compound.contains("SADDLE")) {
+            this.setSaddle(compound.getBoolean("SADDLE"));
+        }
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @org.jetbrains.annotations.Nullable SpawnGroupData p_146749_, @org.jetbrains.annotations.Nullable CompoundTag p_146750_) {
+        updateAttributes();
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.generateRandomMaxHealth(p_146746_.getRandom()));
+        this.setTexture(this.random.nextInt(5));
+        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
+    }
 
     public ChikoteEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
@@ -89,9 +122,9 @@ public class ChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSte
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.BEETROOT), false));
         this.goalSelector.addGoal(4, new AvoidBlockGoal<>(this, ScarecrowBlock.class, 6.0F, 1.0D, 1.2D));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, ScarecrowAllayEntity.class, 6.0F, 1.0D, 1.2D));
-        this.goalSelector.addGoal(5, new ChikoteEntity.RaidGardenGoal(this));
+        this.goalSelector.addGoal(5, new RaidGardenGoal(this));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new PanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(6, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(8, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new FollowParentGoalIfNotSitting(this, 1.0D));
@@ -100,86 +133,35 @@ public class ChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSte
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(5));
-        this.entityData.define(SADDLE, false);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTUREID")) {
-            this.setTexture(compound.getInt("TEXTUREID"));
-            updateAttributes();
-        }
-        if (compound.contains("SADDLE")) {
-            this.setSaddle(compound.getBoolean("SADDLE"));
-        }
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTUREID", this.getTextureID());
-        compound.putBoolean("SADDLE", this.getSaddle());
-    }
-
-    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        if(this.isBaby()){
-            if(Objects.equals(this.getOwnerUUID(), player.getUUID()) && player.isShiftKeyDown()){
+
+        if (this.isTame() && isOwnedBy(player)){
+            if (player.isShiftKeyDown()) {
                 this.setOrderedToSit(!this.isOrderedToSit());
                 return InteractionResult.CONSUME;
-            } else if(interact <= 0){
-                interact = 20;
             }
-        } else if (this.isTame() && !this.isFood(itemstack)){
-            if(Objects.equals(this.getOwnerUUID(), player.getUUID())){
-                if (player.isShiftKeyDown()) {
-                    this.setOrderedToSit(!this.isOrderedToSit());
-                    return InteractionResult.CONSUME;
-                } else if (this.getSaddle() && !this.isInSittingPose()){
-                    player.startRiding(this);
-                    return InteractionResult.sidedSuccess(this.getLevel().isClientSide);
-                } else if (itemstack.is(ItemInit.CHIKOTE_SADDLE.get()) && !this.getSaddle()) {
-                    setSaddle(true);
-                    this.playSound(SoundEvents.HORSE_SADDLE, 0.15F, 1.0F);
-                    itemstack.shrink(1);
-                    return InteractionResult.SUCCESS;
-                }
+
+            if (this.getSaddle() && !this.isInSittingPose()){
+                player.startRiding(this);
+                return InteractionResult.sidedSuccess(this.getLevel().isClientSide);
             }
-        } else {
-            if (itemstack.is(Items.POTATO)) {
-                if (!player.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-                if (this.random.nextInt(10) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
-                    this.playSound(SoundInit.CHIKOTE_HAPPY.get(), 0.15F, 1.0F);
-                    this.setOwnerUUID(player.getUUID());
-                    this.setTame(true);
-                    this.getLevel().broadcastEntityEvent(this, (byte) 7);
-                } else {
-                    this.getLevel().broadcastEntityEvent(this, (byte) 6);
-                }
+
+            if (itemstack.is(ItemInit.CHIKOTE_SADDLE.get()) && !this.isBaby() && !this.getSaddle()) {
+                setSaddle(true);
+                this.playSound(SoundEvents.HORSE_SADDLE, 0.15F, 1.0F);
+                itemstack.shrink(1);
                 return InteractionResult.SUCCESS;
             }
         }
-        if(interact <= 0 && !this.isInSittingPose()){
-            this.playSound(SoundInit.CHIKOTE_INTERACT.get(), 0.15F, 1.0F);
-            interact = 20;
-        }
-        return super.mobInteract(player, hand);
-    }
 
-    @Override
-    public void tick() {
-        if(interact >= 0){
-            interact --;
+        if (itemstack.is(Items.POTATO) && !this.isTame()) {
+            tameGAnimal(player, itemstack, 10);
+            return InteractionResult.CONSUME;
         }
-        super.tick();
+
+        return super.mobInteract(player, hand);
     }
 
     @Override
@@ -190,6 +172,7 @@ public class ChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSte
             chikote.setOwnerUUID(uuid);
             chikote.setTame(true);
         }
+        chikote.setTexture(this.getTextureID());
         return chikote;
     }
 
@@ -199,13 +182,6 @@ public class ChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSte
     }
 
     //spawn and death
-
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @org.jetbrains.annotations.Nullable SpawnGroupData p_146749_, @org.jetbrains.annotations.Nullable CompoundTag p_146750_) {
-        updateAttributes();
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.generateRandomMaxHealth(p_146746_.getRandom()));
-        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
-    }
 
     private void updateAttributes(){
         if (this.isBaby()) {
@@ -229,7 +205,7 @@ public class ChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSte
                 this.yRotO = getYRot();
                 this.xRotO = getXRot();
 
-                this.maxUpStep = 1.0f;
+                this.m_274367_(1.0f);
 
                 setYRot(passenger.getYRot());
                 setXRot(passenger.getXRot() * 0.5f);
@@ -287,6 +263,16 @@ public class ChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSte
         this.playSound(SoundInit.CHIKOTE_STEPS.get(), 0.15F, 1.0F);
     }
 
+    @Override
+    public SoundEvent getTameSound(){
+        return SoundInit.CHIKOTE_HAPPY.get();
+    }
+
+    @Override
+    public SoundEvent getInteractSound(){
+        return SoundInit.CHIKOTE_INTERACT.get();
+    }
+
     //animation stuff
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
     public static <T extends ChikoteEntity & GeoEntity> AnimationController<T> flyController(T entity) {
@@ -320,7 +306,7 @@ public class ChikoteEntity extends TameableGAnimal implements GeoEntity, ItemSte
 
     //Goals
 
-    public class ChikoteRandomLookAroundGoal extends net.minecraft.world.entity.ai.goal.RandomLookAroundGoal {
+    public class ChikoteRandomLookAroundGoal extends RandomLookAroundGoal {
 
         private final ChikoteEntity chikote;
 

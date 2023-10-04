@@ -37,8 +37,6 @@ import software.bernie.geckolib.core.object.PlayState;
 import java.util.Objects;
 
 public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEntity, FlyingAnimal {
-    protected int interact = 0;
-
     private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(ScarecrowAllayEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
@@ -47,12 +45,12 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
         return this.getEntityData().get(TEXTUREID);
     }
 
-    private static final EntityDataAccessor<Boolean> HOE = SynchedEntityData.defineId(ScarecrowAllayEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HASHOE = SynchedEntityData.defineId(RacoonEntity.class, EntityDataSerializers.BOOLEAN);
     public void setHoe(boolean i){
-        this.getEntityData().set(HOE, i);
+        this.getEntityData().set(HASHOE, i);
     }
     public boolean getHoe(){
-        return this.getEntityData().get(HOE);
+        return this.getEntityData().get(HASHOE);
     }
 
     public ScarecrowAllayEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
@@ -90,7 +88,7 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(TEXTUREID, this.random.nextInt(3));
-        this.entityData.define(HOE, false);
+        this.entityData.define(HASHOE, false);
     }
 
     @Override
@@ -100,8 +98,8 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
             this.setTexture(compound.getInt("TEXTUREID"));
             updateAttributes();
         }
-        if (compound.contains("HOE")) {
-            this.setHoe(compound.getBoolean("HOE"));
+        if (compound.contains("HASHOE")) {
+            this.setHoe(compound.getBoolean("HASHOE"));
         }
     }
 
@@ -109,50 +107,35 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("TEXTUREID", this.getTextureID());
-        compound.putBoolean("HOE", this.getHoe());
+        compound.putBoolean("HASHOE", this.getHoe());
     }
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
-        if(Objects.equals(this.getOwnerUUID(), player.getUUID())){
+
+        if(this.isOwnedBy(player)){
             if(player.isShiftKeyDown()){
                 this.setInSittingPose(!this.isOrderedToSit());
                 this.setOrderedToSit(!this.isOrderedToSit());
                 return InteractionResult.CONSUME;
             }
-        } else {
-            this.setOwnerUUID(player.getUUID());
-            this.setTame(true);
-            this.setTarget((LivingEntity) null);
-            this.getLevel().broadcastEntityEvent(this, (byte) 7);
-        }
-        if(itemstack.is(ItemInit.IRON_BIG_HOE.get()) && !this.getHoe()){
-            this.setHoe(true);
-            updateAttributes();
-            itemstack.shrink(1);
-        }
-        if(interact <= 0){
-            this.playSound(SoundInit.SCARECROW_INTERACT.get(), 0.15F, 1.0F);
-            if(player.getItemInHand(hand).is(Items.SHEARS)){
-                this.playSound(SoundEvents.SHEEP_SHEAR, 0.15F, 1.0F);
-                if(getTextureID() < 2){
-                    setTexture(getTextureID() + 1);
-                } else {
-                    setTexture(0);
-                }
+            if(itemstack.is(ItemInit.IRON_BIG_HOE.get()) && !this.getHoe()){
+                this.setHoe(true);
+                updateAttributes();
+                itemstack.shrink(1);
             }
-            interact = 35;
         }
+        if(!this.isTame()){
+            tameGAnimal(player,1);
+        }
+
+        interact = 35;
         return super.mobInteract(player, hand);
     }
 
     @Override
     public void tick() {
-        if(interact >= 0){
-            interact --;
-        }
         super.tick();
     }
 
@@ -163,7 +146,6 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3.0D);
         }
     }
-
 
     @Override
     public boolean causeFallDamage(float p_147187_, float p_147188_, DamageSource p_147189_) {
@@ -188,6 +170,17 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
     @org.jetbrains.annotations.Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.SCARECROW_HURT.get();}
+
+    @Override
+    public SoundEvent getTameSound(){
+        return SoundInit.SCARECROW_INTERACT.get();
+    }
+
+    @Override
+    public SoundEvent getInteractSound(){
+        return SoundInit.SCARECROW_INTERACT.get();
+    }
+
 
     //animation stuff
 

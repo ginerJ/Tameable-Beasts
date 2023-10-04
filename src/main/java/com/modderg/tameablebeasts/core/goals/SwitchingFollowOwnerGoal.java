@@ -40,7 +40,7 @@ public class SwitchingFollowOwnerGoal extends Goal {
         this.startDistance = p_25296_;
         this.stopDistance = p_25297_;
         this.canFly = p_25298_;
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
 
     }
 

@@ -25,7 +25,7 @@ public class TameablePanicGoal extends Goal {
     public TameablePanicGoal(TameableGAnimal p_25691_, double p_25692_) {
         this.mob = p_25691_;
         this.speedModifier = p_25692_;
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     public boolean canUse() {

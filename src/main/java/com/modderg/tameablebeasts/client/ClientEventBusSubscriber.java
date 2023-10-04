@@ -25,7 +25,6 @@ public class ClientEventBusSubscriber {
         event.registerEntityRenderer(ModEntityClass.SCARECROW_ALLAY.get(), ScarecrowAllayRender::new);
         event.registerEntityRenderer(ModEntityClass.TAMEABLE_BEETLE.get(), TameableBeetleRender::new);
         event.registerEntityRenderer(ModEntityClass.QUETZALCOATLUS.get(), QuetzalcoatlusRender::new);
-        event.registerEntityRenderer(ModEntityClass.TAMEABLE_TEETH.get(), TameableTeethRender::new);
         event.registerEntityRenderer(ModEntityClass.GIANT_GRASSHOPPER.get(), GiantTameableGrasshopperRender::new);
         event.registerEntityRenderer(ModEntityClass.TAMEABLE_GROUND_BEETLE.get(), TameableGroundBeetleRender::new);
         event.registerEntityRenderer(ModEntityClass.GIANT_ROLY_POLY.get(), GiantTameableRolyPolyRender::new);

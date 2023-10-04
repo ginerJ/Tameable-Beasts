@@ -15,10 +15,7 @@ public class TameableChikoteModel extends GeoModel<ChikoteEntity> {
 
     @Override
     public ResourceLocation getTextureResource(ChikoteEntity entity) {
-        if(entity.isBaby()){
-            return new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_chikote.png");
-        }
-        return new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable_chikote"+ entity.getTextureID() +".png");
+        return new ResourceLocation(TameableBeast.MODID, "textures/entity/tameable"+ (entity.isBaby() ? "_baby":"") +"_chikote"+ entity.getTextureID() +".png");
     }
 
     @Override

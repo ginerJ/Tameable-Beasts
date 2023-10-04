@@ -29,7 +29,7 @@ public class SwitchingMeleeAttackGoal extends Goal {
         this.mob = p_25552_;
         this.speedModifier = p_25553_;
         this.followingTargetEvenIfNotSeen = p_25554_;
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     public boolean canUse() {

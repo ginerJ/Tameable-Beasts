@@ -61,10 +61,9 @@ import static net.minecraft.world.entity.ai.attributes.Attributes.FLYING_SPEED;
 import static net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED;
 
 public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, ItemSteerable, PlayerRideableJumping, NeutralMob {
-    protected int interact = 0;
     private int flyCount = 0;
 
-    @javax.annotation.Nullable
+    @Nullable
     private UUID persistentAngerTarget;
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(QuetzalcoatlusEntity.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
@@ -118,7 +117,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
         this.targetSelector.addGoal(1, new SwitchingMeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(2, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(3, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(4, new PanicGoal(this, 1.10D));
+        this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new SwitchingFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(5, new TameablePanicGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(Items.ROTTEN_FLESH), false));
@@ -131,9 +130,17 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("TEXTUREID", this.getTextureID());
+        compound.putBoolean("FLYING", this.getFlying());
+        compound.putBoolean("SADDLE", this.getSaddle());
+    }
+
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(5));
+        this.entityData.define(TEXTUREID, 0);
         this.entityData.define(FLYING, false);
         this.entityData.define(SADDLE, false);
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
@@ -155,42 +162,42 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTUREID", this.getTextureID());
-        compound.putBoolean("FLYING", this.getFlying());
-        compound.putBoolean("SADDLE", this.getSaddle());
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @org.jetbrains.annotations.Nullable SpawnGroupData p_146749_, @org.jetbrains.annotations.Nullable CompoundTag p_146750_) {
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.generateRandomMaxHealth(p_146746_.getRandom()));
+        this.setHealth(this.getMaxHealth());
+        this.setTexture(this.random.nextInt(5));
+        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
     }
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
 
         if (this.isTame() && !this.isFood(itemstack)){
-            if(Objects.equals(this.getOwnerUUID(), player.getUUID())){
+            if(this.isOwnedBy(player)){
                 if (player.isShiftKeyDown()) {
                     this.setOrderedToSit(!this.isOrderedToSit());
                     this.setAggressive(false);
                     this.setTarget(null);
                     switchNavigation(false);
                     return InteractionResult.CONSUME;
-                } else if (!this.isBaby() && this.getSaddle() && !this.isInSittingPose()){
-                    player.startRiding(this);
-                    return InteractionResult.sidedSuccess(this.getLevel().isClientSide);
-                } else if (!this.isBaby() && itemstack.is(ItemInit.QUETZAL_SADDLE.get()) && this.isOwnedBy(player) && !this.getSaddle()) {
-                    setSaddle(true);
-                    this.playSound(SoundEvents.HORSE_SADDLE, 0.15F, 1.0F);
-                    itemstack.shrink(1);
-                    return InteractionResult.SUCCESS;
+
+                } else if (!this.isBaby()){
+                    if (this.getSaddle() && !this.isInSittingPose()){
+                        player.startRiding(this);
+                        return InteractionResult.sidedSuccess(this.getLevel().isClientSide);
+
+                    } else if (itemstack.is(ItemInit.QUETZAL_SADDLE.get()) && !this.getSaddle()) {
+                        setSaddle(true);
+                        this.playSound(SoundEvents.HORSE_SADDLE, 0.15F, 1.0F);
+                        itemstack.shrink(1);
+                        return InteractionResult.SUCCESS;
+                    }
                 }
             }
         }
 
-        if(interact <= 0 && this.isOnGround()){
-            this.playSound(SoundInit.QUETZAL_INTERACT.get(), 0.15F, 1.0F);
-            interact = 30 ;
-        }
+        interact = 60 ;
         return super.mobInteract(player, hand);
     }
 
@@ -204,7 +211,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
             if(this.isAggressive()){
                 return true;
             }
-            if(this.getLevel() != null){
+            if(this.m_269323_() != null && this.getLevel() != null){
                 if(this.distanceTo(this.m_269323_()) > followRange){
                     return true;
                 }
@@ -310,13 +317,6 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
 
     //spawn and death
 
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @org.jetbrains.annotations.Nullable SpawnGroupData p_146749_, @org.jetbrains.annotations.Nullable CompoundTag p_146750_) {
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.generateRandomMaxHealth(p_146746_.getRandom()));
-        this.setHealth(this.getMaxHealth());
-        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
-    }
-
     protected float generateRandomMaxHealth(RandomSource p_218806_) {
         return 20.0F + (float)p_218806_.nextInt(8) + (float)p_218806_.nextInt(9);
     }
@@ -328,7 +328,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
         if (this.isAlive()) {
              if (this.canBeControlledByRider()) {
                  this.setAggressive(false);
-                 this.maxUpStep = 1.0F;
+                 this.m_274367_(1.0F);
                  LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
 
                  this.setYRot(livingentity.getYRot());
@@ -347,7 +347,13 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
 
                 if (getFlying())
                 {
-                    float speed = (float) getAttributeValue(getFlying()? FLYING_SPEED : MOVEMENT_SPEED) * 0.35f;
+                    float speed = (float) getAttributeValue(getFlying()? FLYING_SPEED : MOVEMENT_SPEED);
+                    if (getControllingPassenger() instanceof Player p && p.getInventory().getArmor(3).is(ItemInit.FLYING_HELMET.get())){
+                        speed = speed * 0.4f;
+                    } else {
+                        speed = speed * 0.2f;
+                    }
+
                     moveDist = moveDist > 0? moveDist : 0;
                     float movY = (float) (-this.getControllingPassenger().getXRot() * (Math.PI / 180));
                     vec3 = new Vec3(f, movY, f1);
@@ -430,6 +436,16 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
         this.playSound(SoundInit.QUETZAL_STEPS.get(), 0.15F, 1.0F);
     }
 
+    @Override
+    public SoundEvent getTameSound(){
+        return SoundInit.QUETZAL_INTERACT.get();
+    }
+
+    @Override
+    public SoundEvent getInteractSound(){
+        return SoundInit.QUETZAL_INTERACT.get();
+    }
+
     //animation stuff
 
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
@@ -466,7 +482,7 @@ public class QuetzalcoatlusEntity extends TameableGAnimal implements GeoEntity, 
     }
 
 
-    public class QuetzalRandomLookAroundGoal extends net.minecraft.world.entity.ai.goal.RandomLookAroundGoal {
+    public class QuetzalRandomLookAroundGoal extends RandomLookAroundGoal {
 
         private final QuetzalcoatlusEntity quetzal;
 

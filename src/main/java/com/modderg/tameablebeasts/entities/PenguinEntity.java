@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.entities;
 
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
+import com.modderg.tameablebeasts.core.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.init.ItemInit;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
@@ -72,7 +73,6 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
         return this.getEntityData().get(HELMET);
     }
 
-    protected int interact = 0;
     public PenguinEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
     }
@@ -95,7 +95,7 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.TROPICAL_FISH), false));
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new PanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(6, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new FollowParentGoalIfNotSitting(this, 1.0D));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -105,7 +105,7 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(3));
+        this.entityData.define(TEXTUREID, 0);
         this.entityData.define(SWORD, false);
         this.entityData.define(HELMET, false);
     }
@@ -132,6 +132,13 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
         compound.putBoolean("HELMET", this.getHelmet());
     }
 
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
+        updateAttributes();
+        this.setTexture(this.random.nextInt(3));
+        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
+    }
+
     public static AttributeSupplier.Builder setCustomAttributes() {
 
         return Mob.createMobAttributes()
@@ -144,48 +151,27 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
         updateAttributes();
-        if (this.isBaby()){
-            if(player.isShiftKeyDown()){
+
+        if(this.isOwnedBy(player)){
+            if(player.isShiftKeyDown()) {
                 this.setOrderedToSit(!this.isOrderedToSit());
                 return InteractionResult.CONSUME;
-            } else {
-                interact = 20;
             }
-        } else {
-            if (Objects.equals(this.getOwnerUUID(), player.getUUID())){
-                if(player.isShiftKeyDown()){
-                    this.setOrderedToSit(!this.isOrderedToSit());
-                    return InteractionResult.CONSUME;
-                } else if (itemstack.is(ItemInit.ICEPOP.get()) && !getSword()){
+
+            if(!this.isBaby()){
+                if (itemstack.is(ItemInit.ICEPOP.get()) && !getSword()){
                     this.setSword(true);
                     itemstack.shrink(1);
                 } else if (itemstack.is(ItemInit.ICE_HELMET.get()) && !getHelmet()) {
                     this.setHelmet(true);
                     itemstack.shrink(1);
-                } else if (interact <= 0 && !isFood(itemstack)){
-                    interact = 20;
                 }
-            } else {
-                if (itemstack.is(Items.SALMON) && !this.isTame() || itemstack.is(Items.COD)) {
-                    if (!player.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-                    if (this.random.nextInt(4) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
-                        this.playSound(SoundInit.PENGUIN_HAPPY.get(), 0.15F, 1.0F);
-                        this.setOwnerUUID(player.getUUID());
-                        this.setTame(true);
-                        this.setTarget((LivingEntity) null);
-                        this.getLevel().broadcastEntityEvent(this, (byte) 7);
-                    } else {
-                        this.getLevel().broadcastEntityEvent(this, (byte) 6);
-                    }
-                    return InteractionResult.SUCCESS;
-                } else if (interact <= 0 && !isFood(itemstack) && !this.isInSittingPose()){
-                    this.playSound(SoundInit.PENGUIN_INTERACT.get(), 0.15F, 1.0F);
-                    interact = 20;
-                }
+            }
+        } else {
+            if ((itemstack.is(Items.SALMON) || itemstack.is(Items.COD)) && !this.isTame() ) {
+                tameGAnimal(player, itemstack, 10);
+                return InteractionResult.SUCCESS;
             }
         }
         return super.mobInteract(player, hand);
@@ -193,9 +179,6 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
 
     @Override
     public void tick() {
-        if(interact >= 0){
-            interact --;
-        }
         super.tick();
     }
 
@@ -204,18 +187,13 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
     public @Nullable AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
         PenguinEntity penguin = ModEntityClass.TAMEABLE_PENGUIN.get().create(p_146743_);
         UUID uuid = this.getOwnerUUID();
+        penguin.setTexture(this.getTextureID());
         if (uuid != null) {
             penguin.setOwnerUUID(uuid);
             penguin.setTame(true);
         }
 
         return penguin;
-    }
-
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
-        updateAttributes();
-        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
     }
 
     private void updateAttributes(){
@@ -270,12 +248,23 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
         this.playSound(SoundInit.PENGUIN_STEPS.get(), 0.15F, 1.0F);
     }
 
+    @Override
+    public SoundEvent getTameSound(){
+        return SoundInit.PENGUIN_HAPPY.get();
+    }
+
+    @Override
+    public SoundEvent getInteractSound(){
+        return SoundInit.PENGUIN_INTERACT.get();
+    }
+
     //animation stuff
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
     public static <T extends PenguinEntity & GeoEntity> AnimationController<T> flyController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
+                return PlayState.CONTINUE;
             } else {
                 if (entity.interact > 0){
                     event.getController().setAnimation(RawAnimation.begin().then("interact", Animation.LoopType.PLAY_ONCE));
@@ -283,11 +272,12 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
                 }
                 if(event.isMoving()){
                     event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
+                    return PlayState.CONTINUE;
                 } else {
                     event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
+                    return PlayState.CONTINUE;
                 }
             }
-            return PlayState.CONTINUE;
         });
     }
     @Override

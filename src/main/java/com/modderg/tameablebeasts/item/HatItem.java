@@ -1,7 +1,5 @@
 package com.modderg.tameablebeasts.item;
 
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -14,10 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import javax.annotation.Nullable;
-
-public class ScarecrowStrawHatItem extends Item implements Equipable {
-    public ScarecrowStrawHatItem(Properties p_41383_) {
+public class HatItem extends Item implements Equipable {
+    public HatItem(Properties p_41383_) {
         super(p_41383_);
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSE_ITEM_BEHAVIOR);
     }

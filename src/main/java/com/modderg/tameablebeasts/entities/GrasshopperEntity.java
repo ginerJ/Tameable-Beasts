@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.entities;
 
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
+import com.modderg.tameablebeasts.core.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
 import com.modderg.tameablebeasts.init.ItemInit;
@@ -44,7 +45,6 @@ import java.util.UUID;
 
 public class GrasshopperEntity extends TameableGAnimal implements GeoEntity, ItemSteerable, PlayerRideableJumping {
 
-    protected int interact = 0;
     protected float playerJumpPendingScale = 0f;
     boolean allowStandSliding = true;
     protected int jumpCount = this.random.nextInt(100, 200);
@@ -89,7 +89,7 @@ public class GrasshopperEntity extends TameableGAnimal implements GeoEntity, Ite
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.OAK_LEAVES), false));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new PanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(5, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(6, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(7, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new FollowParentGoalIfNotSitting(this, 1.0D));
@@ -99,7 +99,7 @@ public class GrasshopperEntity extends TameableGAnimal implements GeoEntity, Ite
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(3));
+        this.entityData.define(TEXTUREID, 0);
         this.entityData.define(SADDLE, false);
     }
 
@@ -123,58 +123,46 @@ public class GrasshopperEntity extends TameableGAnimal implements GeoEntity, Ite
     }
 
     @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @org.jetbrains.annotations.Nullable SpawnGroupData p_146749_, @org.jetbrains.annotations.Nullable CompoundTag p_146750_) {
+        updateAttributes();
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.generateRandomMaxHealth(p_146746_.getRandom()));
+        this.setTexture(this.random.nextInt(3));
+        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
+    }
+
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
-        if(this.isBaby()){
-            if(Objects.equals(this.getOwnerUUID(), player.getUUID()) && player.isShiftKeyDown()){
+
+        if (isOwnedBy(player)){
+            if (player.isShiftKeyDown()) {
                 this.setOrderedToSit(!this.isOrderedToSit());
                 return InteractionResult.CONSUME;
-            } else if(interact <= 0){
-                interact = 20;
             }
-        } else if (this.isTame() && !this.isFood(itemstack)){
-            if(Objects.equals(this.getOwnerUUID(), player.getUUID())){
-                if (player.isShiftKeyDown()) {
-                    this.setOrderedToSit(!this.isOrderedToSit());
-                    return InteractionResult.CONSUME;
-                } else if (this.getSaddle() && !this.isInSittingPose()){
-                    player.startRiding(this);
-                    return InteractionResult.sidedSuccess(this.getLevel().isClientSide);
-                } else if (itemstack.is(ItemInit.GRASSHOPPER_SADDLE.get()) && !this.getSaddle()) {
-                    setSaddle(true);
-                    this.playSound(SoundEvents.HORSE_SADDLE, 0.15F, 1.0F);
-                    itemstack.shrink(1);
-                    return InteractionResult.SUCCESS;
-                }
+
+            if (this.getSaddle() && !this.isInSittingPose()){
+                player.startRiding(this);
+                return InteractionResult.sidedSuccess(this.getLevel().isClientSide);
             }
-        } else {
-            if (itemstack.is(Items.OAK_LEAVES)) {
-                if (!player.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-                if (this.random.nextInt(10) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
-                    this.setOwnerUUID(player.getUUID());
-                    this.setTame(true);
-                    this.getLevel().broadcastEntityEvent(this, (byte) 7);
-                } else {
-                    this.getLevel().broadcastEntityEvent(this, (byte) 6);
-                }
+
+            if (itemstack.is(ItemInit.GRASSHOPPER_SADDLE.get()) && !this.isBaby() && !this.getSaddle()) {
+                setSaddle(true);
+                this.playSound(SoundEvents.HORSE_SADDLE, 0.15F, 1.0F);
+                itemstack.shrink(1);
                 return InteractionResult.SUCCESS;
             }
         }
-        if(interact <= 0 && !this.isInSittingPose()){
-            this.playSound(SoundInit.GRASSHOPPER_INTERACT.get(), 0.15F, 1.0F);
-            interact = 20;
+
+        if (itemstack.is(Items.OAK_LEAVES) && !this.isTame()) {
+            tameGAnimal(player, itemstack, 10);
+            return InteractionResult.CONSUME;
         }
+
         return super.mobInteract(player, hand);
     }
 
     @Override
     public void tick() {
-        if(interact >= 0){
-            interact --;
-        }
         if(jumpCount >= 0){
             jumpCount --;
         }
@@ -222,6 +210,17 @@ public class GrasshopperEntity extends TameableGAnimal implements GeoEntity, Ite
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
         this.playSound(SoundInit.GRASSHOPPER_STEPS.get(), 0.15F, 1.0F);
     }
+
+    @Override
+    public SoundEvent getTameSound(){
+        return SoundInit.GRASSHOPPER_INTERACT.get();
+    }
+
+    @Override
+    public SoundEvent getInteractSound(){
+        return SoundInit.GRASSHOPPER_INTERACT.get();
+    }
+
 
     //ride stuff
 
@@ -323,13 +322,6 @@ public class GrasshopperEntity extends TameableGAnimal implements GeoEntity, Ite
 
     //spawn and death
 
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @org.jetbrains.annotations.Nullable SpawnGroupData p_146749_, @org.jetbrains.annotations.Nullable CompoundTag p_146750_) {
-        updateAttributes();
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.generateRandomMaxHealth(p_146746_.getRandom()));
-        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
-    }
-
     private void updateAttributes(){
         if (this.isBaby()) {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15D);
@@ -394,7 +386,6 @@ public class GrasshopperEntity extends TameableGAnimal implements GeoEntity, Ite
             } else {
                 this.playerJumpPendingScale = 0.4F + 0.4F * (float)p_21696_ / 90.0F;
             }
-
         }
     }
 

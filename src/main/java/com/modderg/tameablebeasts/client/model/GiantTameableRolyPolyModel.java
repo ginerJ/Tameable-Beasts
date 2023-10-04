@@ -1,13 +1,13 @@
 package com.modderg.tameablebeasts.client.model;
 
 import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.entities.GiantTameableRolyPolyEntity;
+import com.modderg.tameablebeasts.entities.RolyPolyEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-public class GiantTameableRolyPolyModel extends GeoModel<GiantTameableRolyPolyEntity> {
+public class GiantTameableRolyPolyModel extends GeoModel<RolyPolyEntity> {
     @Override
-    public ResourceLocation getModelResource(GiantTameableRolyPolyEntity entity) {
+    public ResourceLocation getModelResource(RolyPolyEntity entity) {
         if(entity.isBaby()){
             return new ResourceLocation(TameableBeast.MODID, "geo/giant_roly_poly_baby.geo.json");
         }
@@ -15,7 +15,7 @@ public class GiantTameableRolyPolyModel extends GeoModel<GiantTameableRolyPolyEn
     }
 
     @Override
-    public ResourceLocation getTextureResource(GiantTameableRolyPolyEntity entity) {
+    public ResourceLocation getTextureResource(RolyPolyEntity entity) {
         if(entity.isBaby()){
             return new ResourceLocation(TameableBeast.MODID, "textures/entity/giant_roly_poly_baby.png");
         }
@@ -27,7 +27,7 @@ public class GiantTameableRolyPolyModel extends GeoModel<GiantTameableRolyPolyEn
     }
 
     @Override
-    public ResourceLocation getAnimationResource(GiantTameableRolyPolyEntity entity) {
+    public ResourceLocation getAnimationResource(RolyPolyEntity entity) {
         return new ResourceLocation(TameableBeast.MODID, "animations/giant_roly_poly_anims.json");
     }
 }

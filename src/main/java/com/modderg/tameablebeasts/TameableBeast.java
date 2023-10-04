@@ -77,9 +77,6 @@ public class TameableBeast {
             SpawnPlacements.register(ModEntityClass.QUETZALCOATLUS.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuetzalcoatlusEntity::checkQuetzalSpawnRules);
 
-            SpawnPlacements.register(ModEntityClass.TAMEABLE_TEETH.get(), SpawnPlacements.Type.ON_GROUND,
-                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TeethEntity::checkTeethSpawnRules);
-
             SpawnPlacements.register(ModEntityClass.GIANT_GRASSHOPPER.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GrasshopperEntity::checkGrasshopperSpawnRules);
 
@@ -87,7 +84,7 @@ public class TameableBeast {
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GroundBeetleEntity::checkGroundBeetleSpawnRules);
 
             SpawnPlacements.register(ModEntityClass.GIANT_ROLY_POLY.get(), SpawnPlacements.Type.ON_GROUND,
-                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GiantTameableRolyPolyEntity::checkRolyPolySpawnRules);
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RolyPolyEntity::checkRolyPolySpawnRules);
         });
     }
 
@@ -104,13 +101,11 @@ public class TameableBeast {
 
         event.put(ModEntityClass.QUETZALCOATLUS.get(), QuetzalcoatlusEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.TAMEABLE_TEETH.get(), TeethEntity.setCustomAttributes().build());
-
         event.put(ModEntityClass.GIANT_GRASSHOPPER.get(), GrasshopperEntity.setCustomAttributes().build());
 
         event.put(ModEntityClass.TAMEABLE_GROUND_BEETLE.get(), GroundBeetleEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.GIANT_ROLY_POLY.get(), GiantTameableRolyPolyEntity.setCustomAttributes().build());
+        event.put(ModEntityClass.GIANT_ROLY_POLY.get(), RolyPolyEntity.setCustomAttributes().build());
     }
 
     private void addCreativeTab(BuildCreativeModeTabContentsEvent event){
@@ -132,7 +127,10 @@ public class TameableBeast {
             event.accept(ItemInit.GIANT_GRASSHOPPER_SPAWN_EGG);
             event.accept(ItemInit.GROUND_BEETLE_SPAWN_EGG);
             event.accept(ItemInit.GROUND_ROLY_POLY_SPAWN_EGG);
+            event.accept(ItemInit.SCARECROW_SPAWN_EGG);
             event.accept(ItemInit.SCARECROW_STRAW_HAT);
+            event.accept(ItemInit.FLYING_HELMET);
+            event.accept(ItemInit.BIKER_HELMET);
             event.accept(ItemInit.IRON_BIG_HOE);
             event.accept(BlockInit.SCARECROW_BLOCK);
         }

@@ -1,11 +1,10 @@
 package com.modderg.tameablebeasts.init;
 
 import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.item.IceHelmetItem;
 import com.modderg.tameablebeasts.item.PurpleAllay;
 import com.modderg.tameablebeasts.item.QuetzalEggItem;
-import com.modderg.tameablebeasts.item.ScarecrowStrawHatItem;
+import com.modderg.tameablebeasts.item.HatItem;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -53,9 +52,14 @@ public class ItemInit {
     public static final RegistryObject<ForgeSpawnEggItem> GROUND_ROLY_POLY_SPAWN_EGG = ITEMS.register("giant_roly_poly_spawn_egg", () -> new ForgeSpawnEggItem(
             ModEntityClass.GIANT_ROLY_POLY, 0x6E77B8, 0x3A4072, new Item.Properties()));
 
+    public static final RegistryObject<ForgeSpawnEggItem> SCARECROW_SPAWN_EGG = ITEMS.register("scarecrow_spawn_egg", () -> new ForgeSpawnEggItem(
+            ModEntityClass.SCARECROW_ALLAY, 0xFFC347, 0x6A5ACD, new Item.Properties()));
+
 
     //hats
-    public static final RegistryObject<Item> SCARECROW_STRAW_HAT = ITEMS.register("scarecrow_straw_hat", () -> new ScarecrowStrawHatItem(new ScarecrowStrawHatItem.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SCARECROW_STRAW_HAT = ITEMS.register("scarecrow_straw_hat", () -> new HatItem(new HatItem.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> FLYING_HELMET = ITEMS.register("flying_helmet", () -> new HatItem(new HatItem.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> BIKER_HELMET = ITEMS.register("biker_helmet", () -> new HatItem(new HatItem.Properties().stacksTo(1)));
 
     //tools
     public static final RegistryObject<Item> IRON_BIG_HOE = ITEMS.register("iron_big_hoe", () -> new HoeItem(Tiers.IRON, -1, -1.0F, (new Item.Properties())));

@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,6 +33,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -47,8 +49,6 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, NeutralMob {
-    protected int interact = 0;
-
     private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(GroundBeetleEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
@@ -107,7 +107,7 @@ public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, Ne
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(2));
+        this.entityData.define(TEXTUREID, 0);
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
@@ -126,38 +126,28 @@ public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, Ne
     }
 
     @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @org.jetbrains.annotations.Nullable SpawnGroupData p_146749_, @org.jetbrains.annotations.Nullable CompoundTag p_146750_) {
+        this.setTexture(this.random.nextInt(2));
+        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
+    }
+
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
+
         if(this.isTameFood(itemstack) && !this.isTame()){
-            if (!player.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
-            if (this.random.nextInt(10) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
-                this.setOwnerUUID(player.getUUID());
-                this.setTame(true);
-                this.setTarget((LivingEntity) null);
-                this.getLevel().broadcastEntityEvent(this, (byte) 7);
-            } else {
-                this.getLevel().broadcastEntityEvent(this, (byte) 6);
-            }
+            tameGAnimal(player, itemstack, 10);
         }
         if(this.m_269323_() != null && this.m_269323_().isShiftKeyDown()){
             this.setOrderedToSit(!this.isOrderedToSit());
             return InteractionResult.CONSUME;
         }
-        if(interact <= 0 && this.isOnGround()){
-            this.playSound(SoundInit.BEETLE_INTERACT.get(), 0.15F, 1.0F);
-            interact = 20;
-        }
+
         return super.mobInteract(player, hand);
     }
 
     @Override
     public void tick() {
-        if(interact >= 0){
-            interact --;
-        }
         updateAttributes();
         super.tick();
     }
@@ -183,7 +173,7 @@ public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, Ne
     }
 
     public static boolean checkGroundBeetleSpawnRules(EntityType<GroundBeetleEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
-        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_GROUND_BEETLE.get();
+        return true;
     }
 
     //sounds
@@ -207,6 +197,17 @@ public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, Ne
         this.playSound(SoundInit.BEETLE_STEPS.get(), 0.15F, 1.0F);
     }
 
+    @Override
+    public SoundEvent getTameSound(){
+        return SoundInit.BEETLE_INTERACT.get();
+    }
+
+    @Override
+    public SoundEvent getInteractSound(){
+        return SoundInit.BEETLE_INTERACT.get();
+    }
+
+
 
     //anger stuff
 
@@ -222,7 +223,7 @@ public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, Ne
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
-    @javax.annotation.Nullable
+    @Nullable
     public UUID getPersistentAngerTarget() {
         return this.persistentAngerTarget;
     }

@@ -20,8 +20,8 @@ public class ScarecrowAllayModel extends GeoModel<ScarecrowAllayEntity> {
             },
             new ResourceLocation[] {
                     new ResourceLocation(TameableBeast.MODID, "textures/entity/scarecrow_allay_hoe.png"),
-                    new ResourceLocation(TameableBeast.MODID, "textures/entity/scarecrow_allay2_hoe.png"),
-                    new ResourceLocation(TameableBeast.MODID, "textures/entity/scarecrow_allay3_hoe.png")
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/scarecrow_allay_hoe2.png"),
+                    new ResourceLocation(TameableBeast.MODID, "textures/entity/scarecrow_allay_hoe3.png")
             }
     };
 

@@ -18,6 +18,7 @@ public class QuetzalEggItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         QuetzalcoatlusEntity quetzal = ModEntityClass.QUETZALCOATLUS.get().create(level);
+        quetzal.setTexture(quetzal.getRandom().nextInt(5));
         quetzal.setPos(new Vec3(context.getClickedPos().getX(), context.getClickedPos().getY() + 1, context.getClickedPos().getZ()));
         quetzal.setOwnerUUID(context.getPlayer().getUUID());
         quetzal.setTame(true);

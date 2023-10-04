@@ -1,8 +1,11 @@
 {
   "type": "forge:add_spawns",
-  "biomes": "#minecraft:has_closer_water_fog",
+  "biomes": [
+    "minecraft:cherry_grove",
+    "minecraft:mangrove_swamp"
+  ],
   "spawners": {
-    "type": "tameablebeasts:tameable_ground_beetle",
+    "type": "tameablebeasts:ground_beetle",
     "weight": 100,
     "maxCount": 4,
     "minCount": 1

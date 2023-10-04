@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -36,6 +37,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -52,8 +54,6 @@ import software.bernie.geckolib.core.object.PlayState;
 import java.util.UUID;
 
 public class FlyingBeetleEntity extends TameableGAnimal implements GeoEntity {
-
-    protected int interact = 0;
 
     private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(FlyingBeetleEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
@@ -100,7 +100,7 @@ public class FlyingBeetleEntity extends TameableGAnimal implements GeoEntity {
         this.goalSelector.addGoal(1, new SwitchingMeleeAttackGoal(this, 2D, true));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(3, new SwitchingFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-        this.goalSelector.addGoal(4, new TameablePanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false));
         this.goalSelector.addGoal(6, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this,Player.class, 6.0F, 1.0D, 1.2D));
@@ -113,7 +113,7 @@ public class FlyingBeetleEntity extends TameableGAnimal implements GeoEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(3));
+        this.entityData.define(TEXTUREID, 0);
         this.entityData.define(FLYING, false);
     }
 
@@ -136,22 +136,19 @@ public class FlyingBeetleEntity extends TameableGAnimal implements GeoEntity {
     }
 
     @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
+        this.setTexture(this.random.nextInt(3));
+        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
+    }
+
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
+
         if(this.isTameFood(itemstack) && !this.isTame()){
-            if (!player.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
-            if (this.random.nextInt(20) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
-                this.setOwnerUUID(player.getUUID());
-                this.setTame(true);
-                this.setTarget((LivingEntity) null);
-                this.getLevel().broadcastEntityEvent(this, (byte) 7);
-            } else {
-                this.getLevel().broadcastEntityEvent(this, (byte) 6);
-            }
+            tameGAnimal(player, itemstack, 20);
         }
+
         if(this.m_269323_() != null && this.m_269323_().isShiftKeyDown()){
             this.setOrderedToSit(!this.isOrderedToSit());
             this.setAggressive(false);
@@ -159,10 +156,7 @@ public class FlyingBeetleEntity extends TameableGAnimal implements GeoEntity {
             switchNavigation(false);
             return InteractionResult.CONSUME;
         }
-        if(interact <= 0 && this.isOnGround()){
-            this.playSound(SoundInit.BEETLE_INTERACT.get(), 0.15F, 1.0F);
-            interact = 45;
-        }
+
         return super.mobInteract(player, hand);
     }
 
@@ -197,9 +191,6 @@ public class FlyingBeetleEntity extends TameableGAnimal implements GeoEntity {
     @Override
     public void tick() {
         this.switchNavigation(shouldFly());
-        if(interact >= 0){
-            interact --;
-        }
         super.tick();
     }
 
@@ -268,7 +259,7 @@ public class FlyingBeetleEntity extends TameableGAnimal implements GeoEntity {
     }
 
     public static boolean checkFlyingBeetleSpawnRules(EntityType<FlyingBeetleEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
-        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_FLYING_BEETLE.get();
+        return true;
     }
 
     //sounds
@@ -286,13 +277,23 @@ public class FlyingBeetleEntity extends TameableGAnimal implements GeoEntity {
         return SoundInit.BEETLE_DEATH.get();
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.BEETLE_HURT.get();}
 
     @Override
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
         this.playSound(SoundInit.BEETLE_STEPS.get(), 0.15F, 1.0F);
+    }
+
+    @Override
+    public SoundEvent getTameSound(){
+        return SoundInit.BEETLE_INTERACT.get();
+    }
+
+    @Override
+    public SoundEvent getInteractSound(){
+        return SoundInit.BEETLE_INTERACT.get();
     }
 
 

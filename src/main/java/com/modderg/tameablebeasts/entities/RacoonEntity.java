@@ -45,9 +45,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class RacoonEntity extends TameableGAnimal implements GeoEntity {
-
-    protected int interact = 0;
-
     private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(RacoonEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
@@ -59,8 +56,6 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
     public RacoonEntity(EntityType<? extends TameableGAnimal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
     }
-
-
 
     @Override
     public boolean isFood(ItemStack itemStack) {
@@ -88,7 +83,7 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
         this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
-        this.goalSelector.addGoal(6, new PanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(6, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(8, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new WaterAvoidingRandomStrollGoal(this, 1.0D));
@@ -100,7 +95,7 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(3));
+        this.entityData.define(TEXTUREID, 0);
     }
 
     @Override
@@ -118,6 +113,13 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
     }
 
     @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
+        this.setTexture(this.random.nextInt(3));
+        updateAttributes();
+        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
+    }
+
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
@@ -126,38 +128,21 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
             return InteractionResult.CONSUME;
         }
         if (this.isTameFood(itemstack) && !this.isTame()) {
-            if (!player.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
-            if (this.random.nextInt(2) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
-                this.playSound(SoundInit.RACOON_HAPPY.get(), 0.15F, 1.0F);
-                this.setOwnerUUID(player.getUUID());
-                this.setTame(true);
-                this.setTarget((LivingEntity) null);
-                this.getLevel().broadcastEntityEvent(this, (byte) 7);
-            } else {
-                this.getLevel().broadcastEntityEvent(this, (byte) 6);
-            }
+            tameGAnimal(player, itemstack, 3);
             return InteractionResult.SUCCESS;
-        }
-        if(interact <= 0 && !this.isInSittingPose()){
-            this.playSound(SoundInit.RACOON_INTERACT.get(), 0.15F, 1.0F);
-            interact = 20;
         }
         return super.mobInteract(player, hand);
     }
 
     @Override
     public void tick() {
-        if(interact >= 0){
-            interact --;
-        }
         super.tick();
     }
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
         RacoonEntity racoon = ModEntityClass.TAMEABLE_RACOON.get().create(p_146743_);
+        racoon.setTexture(this.getTextureID());
         UUID uuid = this.getOwnerUUID();
         if (uuid != null) {
             racoon.setOwnerUUID(uuid);
@@ -165,12 +150,6 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
         }
 
         return racoon;
-    }
-
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
-        updateAttributes();
-        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
     }
 
     private void updateAttributes(){
@@ -205,6 +184,15 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
         this.playSound(SoundInit.RACOON_STEPS.get(), 0.15F, 1.0F);
     }
 
+    @Override
+    public SoundEvent getTameSound(){
+        return SoundInit.RACOON_INTERACT.get();
+    }
+
+    @Override
+    public SoundEvent getInteractSound(){return SoundInit.RACOON_HAPPY.get();}
+
+
     public static boolean checkRacoonSpawnRules(EntityType<RacoonEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
         return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_RACOON.get();
     }
@@ -220,7 +208,7 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
 
                 if (entity.interact <= 0){
                     if(event.isMoving()){
-                        event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
+                        event.getController().setAnimation(RawAnimation.begin().then("scurry", Animation.LoopType.LOOP));
                     } else {
                         event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
                     }

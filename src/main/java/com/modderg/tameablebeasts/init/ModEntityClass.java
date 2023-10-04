@@ -42,23 +42,18 @@ public class ModEntityClass {
                     .sized(1f,1.4f)
                     .build(new ResourceLocation(TameableBeast.MODID, "quetzalcoatlus").toString()));
 
-    public static final RegistryObject<EntityType<TeethEntity>> TAMEABLE_TEETH = ENTITY_TYPES.register("tameable_teeth",
-            () -> EntityType.Builder.of(TeethEntity:: new, MobCategory.CREATURE)
-                    .sized(1f,1f)
-                    .build(new ResourceLocation(TameableBeast.MODID, "tameable_teeth").toString()));
-
     public static final RegistryObject<EntityType<GrasshopperEntity>> GIANT_GRASSHOPPER = ENTITY_TYPES.register("giant_grasshopper",
             () -> EntityType.Builder.of(GrasshopperEntity:: new, MobCategory.CREATURE)
                     .sized(1f,1f)
                     .build(new ResourceLocation(TameableBeast.MODID, "giant_grasshopper").toString()));
 
-    public static final RegistryObject<EntityType<GroundBeetleEntity>> TAMEABLE_GROUND_BEETLE = ENTITY_TYPES.register("tameable_ground_beetle",
+    public static final RegistryObject<EntityType<GroundBeetleEntity>> TAMEABLE_GROUND_BEETLE = ENTITY_TYPES.register("ground_beetle",
             () -> EntityType.Builder.of(GroundBeetleEntity:: new, MobCategory.CREATURE)
                     .sized(0.75f,0.75f)
-                    .build(new ResourceLocation(TameableBeast.MODID, "tameable_ground_beetle").toString()));
+                    .build(new ResourceLocation(TameableBeast.MODID, "ground_beetle").toString()));
 
-    public static final RegistryObject<EntityType<GiantTameableRolyPolyEntity>> GIANT_ROLY_POLY = ENTITY_TYPES.register("giant_roly_poly",
-            () -> EntityType.Builder.of(GiantTameableRolyPolyEntity:: new, MobCategory.CREATURE)
+    public static final RegistryObject<EntityType<RolyPolyEntity>> GIANT_ROLY_POLY = ENTITY_TYPES.register("giant_roly_poly",
+            () -> EntityType.Builder.of(RolyPolyEntity:: new, MobCategory.CREATURE)
                     .sized(1f,1f)
                     .build(new ResourceLocation(TameableBeast.MODID, "giant_roly_poly").toString()));
 }
