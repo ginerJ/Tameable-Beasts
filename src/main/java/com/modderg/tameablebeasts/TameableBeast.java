@@ -85,6 +85,9 @@ public class TameableBeast {
 
             SpawnPlacements.register(ModEntityClass.GIANT_ROLY_POLY.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RolyPolyEntity::checkRolyPolySpawnRules);
+
+            SpawnPlacements.register(ModEntityClass.FUR_GOLEM.get(), SpawnPlacements.Type.ON_GROUND,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
         });
     }
 
@@ -106,6 +109,8 @@ public class TameableBeast {
         event.put(ModEntityClass.TAMEABLE_GROUND_BEETLE.get(), GroundBeetleEntity.setCustomAttributes().build());
 
         event.put(ModEntityClass.GIANT_ROLY_POLY.get(), RolyPolyEntity.setCustomAttributes().build());
+
+        event.put(ModEntityClass.FUR_GOLEM.get(), FurGolemEntity.setCustomAttributes().build());
     }
 
     private void addCreativeTab(BuildCreativeModeTabContentsEvent event){
@@ -133,6 +138,8 @@ public class TameableBeast {
             event.accept(ItemInit.BIKER_HELMET);
             event.accept(ItemInit.IRON_BIG_HOE);
             event.accept(BlockInit.SCARECROW_BLOCK);
+            event.accept(ItemInit.FUR);
+            event.accept(BlockInit.FUR_BLOCK);
         }
     }
 

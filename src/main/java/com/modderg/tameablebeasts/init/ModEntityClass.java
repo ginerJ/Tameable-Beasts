@@ -56,4 +56,9 @@ public class ModEntityClass {
             () -> EntityType.Builder.of(RolyPolyEntity:: new, MobCategory.CREATURE)
                     .sized(1f,1f)
                     .build(new ResourceLocation(TameableBeast.MODID, "giant_roly_poly").toString()));
+
+    public static final RegistryObject<EntityType<FurGolemEntity>> FUR_GOLEM = ENTITY_TYPES.register("fur_golem",
+            () -> EntityType.Builder.of(FurGolemEntity:: new, MobCategory.CREATURE)
+                    .sized(1f,1.65f)
+                    .build(new ResourceLocation(TameableBeast.MODID, "fur_golem").toString()));
 }

@@ -2,6 +2,8 @@ package com.modderg.tameablebeasts.entities;
 
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.core.TameableGAnimal;
+import com.modderg.tameablebeasts.core.goals.StealPolenGoal;
+import com.modderg.tameablebeasts.init.ItemInit;
 import com.modderg.tameablebeasts.init.ModEntityClass;
 import com.modderg.tameablebeasts.init.SoundInit;
 import net.minecraft.core.BlockPos;
@@ -45,6 +47,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class RacoonEntity extends TameableGAnimal implements GeoEntity {
+
     private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(RacoonEntity.class, EntityDataSerializers.INT);
     public void setTexture(int i){
         this.getEntityData().set(TEXTUREID, i);
@@ -52,6 +55,12 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
     public int getTextureID(){
         return this.getEntityData().get(TEXTUREID);
     }
+
+    private static final EntityDataAccessor<Boolean> HASPOLEN = SynchedEntityData.defineId(RacoonEntity.class, EntityDataSerializers.BOOLEAN);
+    public void givePolen(boolean i){
+        this.getEntityData().set(HASPOLEN, i);
+    }
+    public boolean hasPolen(){return this.getEntityData().get(HASPOLEN);}
 
     public RacoonEntity(EntityType<? extends TameableGAnimal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
@@ -61,28 +70,29 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
     public boolean isFood(ItemStack itemStack) {
         return itemStack.is(Items.EGG);
     }
+
     public boolean isTameFood(ItemStack itemStack) {
         return itemStack.is(Items.MELON_SLICE);
     }
+
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
-                .add(Attributes.ATTACK_DAMAGE, 3.0D);
+                .add(Attributes.ATTACK_DAMAGE, 6.0D);
     }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-        this.goalSelector.addGoal(1, new FleeSunGoal(this, 3.0F));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(2, new FloatGoal(this));
         this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.4f));
         this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
+        this.goalSelector.addGoal(5, new StealPolenGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(8, new BreedGoal(this, 1.0D));
@@ -96,6 +106,7 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(TEXTUREID, 0);
+        this.entityData.define(HASPOLEN, false);
     }
 
     @Override
@@ -104,38 +115,50 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
         if (compound.contains("TEXTUREID")) {
             this.setTexture(compound.getInt("TEXTUREID"));
         }
+        if (compound.contains("HASPOLEN")) {
+            this.givePolen(compound.getBoolean("HASPOLEN"));
+        }
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("TEXTUREID", this.getTextureID());
+        compound.putBoolean("HASPOLEN", this.hasPolen());
     }
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
         this.setTexture(this.random.nextInt(3));
-        updateAttributes();
         return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
     }
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
         if(Objects.equals(this.getOwnerUUID(), player.getUUID()) && player.isShiftKeyDown()){
             this.setOrderedToSit(!this.isOrderedToSit());
             return InteractionResult.CONSUME;
         }
         if (this.isTameFood(itemstack) && !this.isTame()) {
+            this.updateAttributes();
             tameGAnimal(player, itemstack, 3);
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
     }
 
+    private int dropFurTime = getRandom().nextInt(300,3000);
+
     @Override
     public void tick() {
+        if(dropFurTime-- <= 0) {
+            dropFurTime = getRandom().nextInt(300,3000);
+            if(this.hasPolen()){
+                this.spawnAtLocation(ItemInit.FUR.get());
+                this.givePolen(false);
+            }
+        }
         super.tick();
     }
 
@@ -148,19 +171,17 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
             racoon.setOwnerUUID(uuid);
             racoon.setTame(true);
         }
-
         return racoon;
     }
 
     private void updateAttributes(){
         if (this.isTame()) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(15.0D);
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(6.0D);
-            this.setHealth(15.0F);
         } else {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3.0D);
         }
+        if(hasPolen()) this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+        else this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
     }
 
     //sounds
@@ -223,6 +244,8 @@ public class RacoonEntity extends TameableGAnimal implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar data) {
         data.add(flyController(this));
+        data.add(new AnimationController<>(this, "interactController", state -> PlayState.STOP)
+                .triggerableAnim("interact", RawAnimation.begin().then("interact", Animation.LoopType.PLAY_ONCE)));
     }
 
     @Override

@@ -1,0 +1,50 @@
+[
+  {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      " XX",
+      " XX",
+      "   "
+    ],
+    "key": {
+      "X": {"item": "tameablebeasts:racoon_fur"}
+    },
+    "result": {"item": "tameablebeasts:racoon_fur_block", "count": 1}
+  },
+  {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "XX ",
+      "XX ",
+      "   "
+    ],
+    "key": {
+      "X": {"item": "tameablebeasts:racoon_fur"}
+    },
+    "result": {"item": "tameablebeasts:racoon_fur_block", "count": 1}
+  },
+  {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "   ",
+      " XX",
+      " XX"
+    ],
+    "key": {
+      "X": {"item": "tameablebeasts:racoon_fur"}
+    },
+    "result": {"item": "tameablebeasts:racoon_fur_block", "count": 1}
+  },
+  {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "   ",
+      "XX ",
+      "XX "
+    ],
+    "key": {
+      "X": {"item": "tameablebeasts:racoon_fur"}
+    },
+    "result": {"item": "tameablebeasts:racoon_fur_block", "count": 1}
+  }
+]

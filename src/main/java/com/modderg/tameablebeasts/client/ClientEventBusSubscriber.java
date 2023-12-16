@@ -28,6 +28,7 @@ public class ClientEventBusSubscriber {
         event.registerEntityRenderer(ModEntityClass.GIANT_GRASSHOPPER.get(), GiantTameableGrasshopperRender::new);
         event.registerEntityRenderer(ModEntityClass.TAMEABLE_GROUND_BEETLE.get(), TameableGroundBeetleRender::new);
         event.registerEntityRenderer(ModEntityClass.GIANT_ROLY_POLY.get(), GiantTameableRolyPolyRender::new);
+        event.registerEntityRenderer(ModEntityClass.FUR_GOLEM.get(), FurGolemRender::new);
     }
 
     @SubscribeEvent

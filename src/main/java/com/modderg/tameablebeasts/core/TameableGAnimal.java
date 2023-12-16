@@ -48,6 +48,7 @@ public class TameableGAnimal extends TamableAnimal{
 
         if(interact <= 0 && !this.isInSittingPose()){
             this.playSound(this.getInteractSound(), 0.15F, 1.0F);
+
             interact = 20;
             return super.mobInteract(player, hand);
         }

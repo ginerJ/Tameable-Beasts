@@ -5,6 +5,7 @@
   "item.tameablebeasts.quetzal_egg" : "Quetzalcoatlus Egg",
   "item.tameablebeasts.iron_big_hoe" : "Big Iron Hoe",
   "item.tameablebeasts.leaf" : "Leaf",
+  "item.tameablebeasts.racoon_fur" : "Racoon Fur",
 
   "item.tameablebeasts.scarecrow_straw_hat" : "Straw Hat",
   "item.tameablebeasts.biker_helmet" : "Poly Biker Helmet",
@@ -30,6 +31,7 @@
 
 
   "block.tameablebeasts.scarecrow_block" : "Scarecrow",
+  "block.tameablebeasts.racoon_fur_block" : "Racoon Fur Block",
 
 
   "entity.tameablebeasts.tameable_racoon" : "Racoon",

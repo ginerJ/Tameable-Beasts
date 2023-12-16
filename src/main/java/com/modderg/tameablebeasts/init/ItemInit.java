@@ -21,6 +21,8 @@ public class ItemInit {
     public static final RegistryObject<Item> PURPLE_ALLAY = ITEMS.register("purple_allay", () -> new PurpleAllay(new PurpleAllay.Properties().stacksTo(1)));
     public static final RegistryObject<Item> QUETZAL_EGG = ITEMS.register("quetzal_egg", () -> new QuetzalEggItem(new QuetzalEggItem.Properties().stacksTo(16)));
     public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> FUR = ITEMS.register("racoon_fur", () -> new Item(new Item.Properties().stacksTo(64)));
+
     public static final RegistryObject<Item> GRASSHOPPER_SADDLE = ITEMS.register("grasshopper_saddle", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ROLYPOLY_SADDLE = ITEMS.register("roly_poly_saddle", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CHIKOTE_SADDLE = ITEMS.register("chikote_saddle", () -> new Item(new Item.Properties().stacksTo(1)));
