@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.entities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -43,6 +44,13 @@ public class FurGolemEntity extends Animal implements GeoEntity {
         return null;
     }
 
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand p_27585_) {
+        if(this.canBeLeashed(player)) this.setLeashedTo(player, true);
+        return super.mobInteract(player, p_27585_);
+    }
+
+
     //animation stuff
 
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
@@ -64,30 +72,8 @@ public class FurGolemEntity extends Animal implements GeoEntity {
         return this.factory;
     }
 
-    public static InteractionResult bindPlayerMobs(Player p_42830_, Level p_42831_, BlockPos p_42832_) {
-        LeashFenceKnotEntity leashfenceknotentity = null;
-        boolean flag = false;
-        double d0 = 7.0D;
-        int i = p_42832_.getX();
-        int j = p_42832_.getY();
-        int k = p_42832_.getZ();
+    @Override
+    public void dropLeash(boolean p_21456_, boolean p_21457_) {
 
-        for(Mob mob : p_42831_.getEntitiesOfClass(Mob.class, new AABB((double)i - 7.0D, (double)j - 7.0D, (double)k - 7.0D, (double)i + 7.0D, (double)j + 7.0D, (double)k + 7.0D))) {
-            if (mob.getLeashHolder() == p_42830_) {
-                if (leashfenceknotentity == null) {
-                    leashfenceknotentity = LeashFenceKnotEntity.getOrCreateKnot(p_42831_, p_42832_);
-                    leashfenceknotentity.playPlacementSound();
-                }
-
-                mob.setLeashedTo(leashfenceknotentity, true);
-                flag = true;
-            }
-        }
-
-        if (flag) {
-            p_42831_.gameEvent(GameEvent.BLOCK_ATTACH, p_42832_, GameEvent.Context.of(p_42830_));
-        }
-
-        return flag ? InteractionResult.SUCCESS : InteractionResult.PASS;
     }
 }
