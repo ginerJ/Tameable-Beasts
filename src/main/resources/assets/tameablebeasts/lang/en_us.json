@@ -6,6 +6,8 @@
   "item.tameablebeasts.iron_big_hoe" : "Big Iron Hoe",
   "item.tameablebeasts.leaf" : "Leaf",
   "item.tameablebeasts.racoon_fur" : "Racoon Fur",
+  "item.tameablebeasts.quetzal_meat" : "Quetzalcoatlus Meat",
+  "item.tameablebeasts.cooked_quetzal_meat" : "Cooked Quetzalcoatlus Meat",
 
   "item.tameablebeasts.scarecrow_straw_hat" : "Straw Hat",
   "item.tameablebeasts.biker_helmet" : "Poly Biker Helmet",
@@ -43,6 +45,10 @@
   "entity.tameablebeasts.giant_grasshopper" : "Giant Grasshopper",
   "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
   "entity.tameablebeasts.giant_roly_poly" : "Giant Roly Poly",
+
+
+  "block.tameablebeasts.quetzalcoatlus_egg" : "Quetzal Egg",
+  "block.tameablebeasts.chikote_egg" : "Chikote Egg",
 
 
 

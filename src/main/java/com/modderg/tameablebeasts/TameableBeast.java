@@ -1,12 +1,13 @@
 package com.modderg.tameablebeasts;
 
+import com.modderg.tameablebeasts.block.BlockEntitiesInit;
 import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.core.GBiomeModifier;
-import com.modderg.tameablebeasts.entities.*;
+import com.modderg.tameablebeasts.entities.custom.*;
 import com.modderg.tameablebeasts.item.CreativeTameableTab;
-import com.modderg.tameablebeasts.init.ItemInit;
-import com.modderg.tameablebeasts.init.ModEntityClass;
-import com.modderg.tameablebeasts.init.SoundInit;
+import com.modderg.tameablebeasts.entities.EntityIinit;
+import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.sound.SoundInit;
 import com.modderg.tameablebeasts.config.ModClientConfigs;
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.particles.TameableParticles;
@@ -30,10 +31,11 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import software.bernie.geckolib.GeckoLib;
 
-@Mod(TameableBeast.MODID)
+@Mod(TameableBeast.MOD_ID)
 public class TameableBeast {
-    public static final String MODID = "tameablebeasts";
+    public static final String MOD_ID = "tameablebeasts";
 
     public TameableBeast() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -42,12 +44,18 @@ public class TameableBeast {
         bus.addListener(this::setAttributes);
 
         ItemInit.ITEMS.register(bus);
-        BlockInit.BLOCKS.register(bus);
-        ModEntityClass.ENTITY_TYPES.register(bus);
-        SoundInit.SOUNDS.register(bus);
         bus.addListener(this::addCreativeTab);
-
         CreativeTameableTab.TAMEABLE_TABS.register(bus);
+
+        BlockInit.BLOCKS.register(bus);
+        BlockEntitiesInit.register(bus);
+
+        GeckoLib.initialize();
+
+        EntityIinit.ENTITY_TYPES.register(bus);
+        EntityIinit.init();
+
+        SoundInit.SOUNDS.register(bus);
 
         TameableParticles.PARTICLE_TYPES.register(bus);
 
@@ -59,58 +67,58 @@ public class TameableBeast {
 
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            SpawnPlacements.register(ModEntityClass.TAMEABLE_RACOON.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityIinit.TAMEABLE_RACOON.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING, RacoonEntity::checkRacoonSpawnRules);
 
-            SpawnPlacements.register(ModEntityClass.TAMEABLE_PENGUIN.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityIinit.TAMEABLE_PENGUIN.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PenguinEntity::checkPenguinSpawnRules);
 
-            SpawnPlacements.register(ModEntityClass.TAMEABLE_CHIKOTE.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityIinit.TAMEABLE_CHIKOTE.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ChikoteEntity::checkChikoteSpawnRules);
 
-            SpawnPlacements.register(ModEntityClass.SCARECROW_ALLAY.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityIinit.SCARECROW_ALLAY.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
 
-            SpawnPlacements.register(ModEntityClass.TAMEABLE_BEETLE.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityIinit.TAMEABLE_BEETLE.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FlyingBeetleEntity::checkFlyingBeetleSpawnRules);
 
-            SpawnPlacements.register(ModEntityClass.QUETZALCOATLUS.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityIinit.QUETZALCOATLUS.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuetzalcoatlusEntity::checkQuetzalSpawnRules);
 
-            SpawnPlacements.register(ModEntityClass.GIANT_GRASSHOPPER.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityIinit.GIANT_GRASSHOPPER.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GrasshopperEntity::checkGrasshopperSpawnRules);
 
-            SpawnPlacements.register(ModEntityClass.TAMEABLE_GROUND_BEETLE.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityIinit.TAMEABLE_GROUND_BEETLE.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GroundBeetleEntity::checkGroundBeetleSpawnRules);
 
-            SpawnPlacements.register(ModEntityClass.GIANT_ROLY_POLY.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityIinit.GIANT_ROLY_POLY.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RolyPolyEntity::checkRolyPolySpawnRules);
 
-            SpawnPlacements.register(ModEntityClass.FUR_GOLEM.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityIinit.FUR_GOLEM.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
         });
     }
 
     private void setAttributes(final EntityAttributeCreationEvent event) {
-        event.put(ModEntityClass.TAMEABLE_RACOON.get(), RacoonEntity.setCustomAttributes().build());
+        event.put(EntityIinit.TAMEABLE_RACOON.get(), RacoonEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.TAMEABLE_PENGUIN.get(), PenguinEntity.setCustomAttributes().build());
+        event.put(EntityIinit.TAMEABLE_PENGUIN.get(), PenguinEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.TAMEABLE_CHIKOTE.get(), ChikoteEntity.setCustomAttributes().build());
+        event.put(EntityIinit.TAMEABLE_CHIKOTE.get(), ChikoteEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.SCARECROW_ALLAY.get(), ScarecrowAllayEntity.setCustomAttributes().build());
+        event.put(EntityIinit.SCARECROW_ALLAY.get(), ScarecrowAllayEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.TAMEABLE_BEETLE.get(), FlyingBeetleEntity.setCustomAttributes().build());
+        event.put(EntityIinit.TAMEABLE_BEETLE.get(), FlyingBeetleEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.QUETZALCOATLUS.get(), QuetzalcoatlusEntity.setCustomAttributes().build());
+        event.put(EntityIinit.QUETZALCOATLUS.get(), QuetzalcoatlusEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.GIANT_GRASSHOPPER.get(), GrasshopperEntity.setCustomAttributes().build());
+        event.put(EntityIinit.GIANT_GRASSHOPPER.get(), GrasshopperEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.TAMEABLE_GROUND_BEETLE.get(), GroundBeetleEntity.setCustomAttributes().build());
+        event.put(EntityIinit.TAMEABLE_GROUND_BEETLE.get(), GroundBeetleEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.GIANT_ROLY_POLY.get(), RolyPolyEntity.setCustomAttributes().build());
+        event.put(EntityIinit.GIANT_ROLY_POLY.get(), RolyPolyEntity.setCustomAttributes().build());
 
-        event.put(ModEntityClass.FUR_GOLEM.get(), FurGolemEntity.setCustomAttributes().build());
+        event.put(EntityIinit.FUR_GOLEM.get(), FurGolemEntity.setCustomAttributes().build());
     }
 
     private void addCreativeTab(BuildCreativeModeTabContentsEvent event){
@@ -140,6 +148,10 @@ public class TameableBeast {
             event.accept(BlockInit.SCARECROW_BLOCK);
             event.accept(ItemInit.FUR);
             event.accept(BlockInit.FUR_BLOCK);
+            event.accept(ItemInit.QUETZAL_EGG_ITEM);
+            event.accept(ItemInit.CHIKOTE_EGG_ITEM);
+            event.accept(ItemInit.QUETZAL_MEAT);
+            event.accept(ItemInit.COOKED_QUETZAL_MEAT);
         }
     }
 

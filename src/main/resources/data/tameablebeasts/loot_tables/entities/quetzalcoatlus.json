@@ -1,17 +1,24 @@
 {
+  "type": "minecraft:entity",
   "pools": [
     {
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tameablebeasts:quetzal_egg"
+          "name": "tameablebeasts:quetzal_meat"
         }
       ],
       "conditions": [
         {
-          "condition": "minecraft:random_chance",
-          "chance": 0.1
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "type": "tameablebeasts:quetzalcoatlus"
+          }
         }
       ]
     }

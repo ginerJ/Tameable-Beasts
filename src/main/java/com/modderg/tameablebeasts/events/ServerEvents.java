@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.events;
 
 import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.init.ItemInit;
+import com.modderg.tameablebeasts.item.ItemInit;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.item.ItemStack;
@@ -11,7 +11,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = TameableBeast.MODID)
+@Mod.EventBusSubscriber(modid = TameableBeast.MOD_ID)
 public class ServerEvents {
 
     @SubscribeEvent

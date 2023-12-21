@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class TameableParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES =
-            DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TameableBeast.MODID);
+            DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TameableBeast.MOD_ID);
 
     public static final RegistryObject<SimpleParticleType> SHINE_PARTICLES =
             PARTICLE_TYPES.register("shine_particles", () -> new SimpleParticleType(true));
