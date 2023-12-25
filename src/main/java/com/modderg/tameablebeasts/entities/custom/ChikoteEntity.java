@@ -4,8 +4,10 @@ import com.modderg.tameablebeasts.block.custom.ScarecrowBlock;
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.entities.RideableTameableGAnimal;
 import com.modderg.tameablebeasts.entities.goals.AvoidBlockGoal;
+import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
 import com.modderg.tameablebeasts.entities.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.sound.SoundInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -43,6 +45,9 @@ public class ChikoteEntity extends RideableTameableGAnimal {
 
     public ChikoteEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
+        this.textureIdSize = 8;
+        this.specialTxtIdSize = 9;
+        this.randomHealthFloor = 20;
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -62,14 +67,14 @@ public class ChikoteEntity extends RideableTameableGAnimal {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+        this.goalSelector.addGoal(0, new TameablePanicGoal(this, 1.2D));
+        this.goalSelector.addGoal(0, new GFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.BEETROOT), false));
         this.goalSelector.addGoal(4, new AvoidBlockGoal<>(this, ScarecrowBlock.class, 6.0F, 1.0D, 1.2D));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, ScarecrowAllayEntity.class, 6.0F, 1.0D, 1.2D));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(8, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new FollowParentGoalIfNotSitting(this, 1.0D));
@@ -100,21 +105,19 @@ public class ChikoteEntity extends RideableTameableGAnimal {
     }
 
     @Override
-    protected void updateAttributes(){
+    public void updateAttributes(){
         if (this.isBaby()) {
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15D);
-        } else {
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.05D);
+        } else if (this.getTextureID() == 8){
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+        } else{
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         }
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @org.jetbrains.annotations.Nullable SpawnGroupData p_146749_, @org.jetbrains.annotations.Nullable CompoundTag p_146750_) {
-        updateAttributes();
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(this.generateRandomMaxHealth(p_146746_.getRandom()));
-        this.setHealth(this.getMaxHealth());
-        this.setTexture(this.random.nextInt(5));
-        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
+    public EggBlockItem getEgg() {
+        return (EggBlockItem) ItemInit.CHIKOTE_EGG_ITEM.get();
     }
 
     //sounds
@@ -150,24 +153,9 @@ public class ChikoteEntity extends RideableTameableGAnimal {
 
     //animation stuff
 
-    public static <T extends ChikoteEntity & GeoEntity> AnimationController<T> animController(T entity) {
-        return new AnimationController<>(entity,"movement", 5, event ->{
-            if(entity.isInSittingPose()){
-                event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
-            } else {
-                if(event.isMoving()){
-                    event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
-                } else {
-                    event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
-                }
-            }
-            return PlayState.CONTINUE;
-        });
-    }
-
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar data) {
-        data.add(animController(this));
-        super.registerControllers(data);
+    public void registerControllers(AnimatableManager.ControllerRegistrar control) {
+        control.add(groundController(this));
+        super.registerControllers(control);
     }
 }

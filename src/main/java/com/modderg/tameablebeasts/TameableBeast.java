@@ -126,7 +126,6 @@ public class TameableBeast {
             event.accept(ItemInit.ICEPOP);
             event.accept(ItemInit.ICE_HELMET);
             event.accept(ItemInit.PURPLE_ALLAY);
-            event.accept(ItemInit.QUETZAL_EGG);
             event.accept(ItemInit.LEAF);
             event.accept(ItemInit.GRASSHOPPER_SADDLE);
             event.accept(ItemInit.ROLYPOLY_SADDLE);
@@ -144,12 +143,15 @@ public class TameableBeast {
             event.accept(ItemInit.SCARECROW_STRAW_HAT);
             event.accept(ItemInit.FLYING_HELMET);
             event.accept(ItemInit.BIKER_HELMET);
+            event.accept(ItemInit.RACOON_HAT);
             event.accept(ItemInit.IRON_BIG_HOE);
             event.accept(BlockInit.SCARECROW_BLOCK);
             event.accept(ItemInit.FUR);
             event.accept(BlockInit.FUR_BLOCK);
             event.accept(ItemInit.QUETZAL_EGG_ITEM);
             event.accept(ItemInit.CHIKOTE_EGG_ITEM);
+            event.accept(ItemInit.ROLY_POLY_EGG_ITEM);
+            event.accept(ItemInit.FLYING_BEETLE_EGG_ITEM);
             event.accept(ItemInit.QUETZAL_MEAT);
             event.accept(ItemInit.COOKED_QUETZAL_MEAT);
         }

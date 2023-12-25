@@ -15,6 +15,14 @@
 					"name": "bone2",
 					"pivot": [0, 6.0875, 1.45],
 					"cubes": [
+						{"origin": [-3.5, 1.5, -3], "size": [7, 6, 3], "inflate": 0.01, "uv": [24, 47]}
+					]
+				},
+				{
+					"name": "belly",
+					"parent": "bone2",
+					"pivot": [0, 2, 0],
+					"cubes": [
 						{"origin": [-3.5, 1.5, -3], "size": [7, 6, 10], "uv": [17, 40]}
 					]
 				},

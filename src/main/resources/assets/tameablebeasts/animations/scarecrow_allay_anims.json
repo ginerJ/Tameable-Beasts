@@ -1,6 +1,41 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
+		"sit": {
+			"loop": true,
+			"bones": {
+				"entity": {
+					"position": {
+						"vector": [0, -2.3, 0]
+					}
+				},
+				"light_wing": {
+					"rotation": {
+						"vector": [-26.62963, -16.10207, 89.55182]
+					}
+				},
+				"light_wing2": {
+					"rotation": {
+						"vector": [26.6296, 16.1021, 89.55182]
+					}
+				},
+				"arm": {
+					"rotation": {
+						"vector": [35, 0, 0]
+					}
+				},
+				"light_hoe": {
+					"rotation": {
+						"vector": [26.10044, -33.09357, -84.85201]
+					}
+				},
+				"arm3": {
+					"rotation": {
+						"vector": [-35, 0, 0]
+					}
+				}
+			}
+		},
 		"fly": {
 			"loop": true,
 			"animation_length": 2,
@@ -50,42 +85,7 @@
 				}
 			}
 		},
-		"sit": {
-			"loop": true,
-			"bones": {
-				"entity": {
-					"position": {
-						"vector": [0, -2.3, 0]
-					}
-				},
-				"light_wing": {
-					"rotation": {
-						"vector": [-26.62963, -16.10207, 89.55182]
-					}
-				},
-				"light_wing2": {
-					"rotation": {
-						"vector": [26.6296, 16.1021, 89.55182]
-					}
-				},
-				"arm": {
-					"rotation": {
-						"vector": [35, 0, 0]
-					}
-				},
-				"light_hoe": {
-					"rotation": {
-						"vector": [26.10044, -33.09357, -84.85201]
-					}
-				},
-				"arm3": {
-					"rotation": {
-						"vector": [-35, 0, 0]
-					}
-				}
-			}
-		},
-		"idle": {
+		"fly_idle": {
 			"loop": true,
 			"animation_length": 2,
 			"bones": {
@@ -130,6 +130,50 @@
 				"light_wing2": {
 					"rotation": {
 						"vector": ["-50+math.cos(40+query.anim_time*180)*25", "-10-math.cos(query.anim_time*180)*32", 10]
+					}
+				}
+			}
+		},
+		"attack": {
+			"animation_length": 0.56,
+			"bones": {
+				"entity": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [-44.31282, 17.60697, 45.68718]
+						},
+						"0.28": {
+							"vector": [172.5, 22.5, -180]
+						}
+					}
+				},
+				"arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [7.5, 17.5, 0]
+						},
+						"0.28": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"arm3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [19.80864, 4.21541, 57.40093]
+						},
+						"0.28": {
+							"vector": [-47.08511, -25.02256, 45.1113]
+						}
 					}
 				}
 			}

@@ -27,6 +27,8 @@ public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
     public int goBadTimer = 500;
     public int hatchTimer = 600;
 
+    public int textureID = 0;
+
     private String ownerUUID;
 
     public UUID getOwnerUUID() {
@@ -41,10 +43,14 @@ public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
     private final String species;
 
     public String getCleanSpecies(){
-        return this.species.replace("tameable_","");
+        return this.species.replace("tameable_","").replace("giant_","");
     }
     public String getSpecies(){
         return this.species;
+    }
+
+    public void  setTextureId(int id){
+        this.textureID = id;
     }
 
     public boolean isWarm(){
@@ -70,7 +76,7 @@ public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
         compound.putString("ownerUUUID",ownerUUID);
         compound.putInt("badTimer",goBadTimer);
         compound.putInt("hatchTimer",hatchTimer);
-        compound.putInt("textureId",hatchTimer);
+        compound.putInt("textureID",textureID);
     }
 
     @Override
@@ -79,6 +85,7 @@ public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
         this.setOwnerUUID(compound.getString("ownerUUUID"));
         goBadTimer = compound.getInt("badTimer");
         goBadTimer = compound.getInt("hatchTimer");
+        textureID = compound.getInt("textureID");
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
@@ -91,12 +98,14 @@ public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
 
             if(hatchTimer == 0){
                 TameableGAnimal animal = (TameableGAnimal) EntityIinit.beastsMap.get(getSpecies().toLowerCase()).get().create(level);
-                animal.setPos(this.getBlockPos().m_252807_());
+                animal.setPos(this.getBlockPos().getCenter());
                 animal.setBaby(true);
                 animal.setTame(true);
+                animal.setTextureId(textureID);
                 animal.setOwnerUUID(this.getOwnerUUID());
+                animal.updateAttributes();
                 level.addFreshEntity(animal);
-                level.removeBlock(this.getBlockPos(), false);
+                level.destroyBlock(this.getBlockPos(), false);
                 this.setRemoved();
             }
             setChanged();
@@ -109,6 +118,7 @@ public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
         CompoundTag tag = this.saveWithoutMetadata();
         tag.putInt("goBadTimer", this.goBadTimer);
         tag.putInt("hatchTimer", this.hatchTimer);
+        tag.putInt("textureID", this.textureID);
         return tag;
     }
 
@@ -117,6 +127,7 @@ public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
         load(tag);
         this.goBadTimer = tag.getInt("goBadTimer");
         this.hatchTimer = tag.getInt("hatchTimer");
+        this.textureID = tag.getInt("textureID");
     }
 
     @Override

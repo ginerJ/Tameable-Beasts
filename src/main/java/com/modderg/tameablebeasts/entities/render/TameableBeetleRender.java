@@ -8,17 +8,17 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class TameableBeetleRender extends GeoEntityRenderer<FlyingBeetleEntity> {
     public TameableBeetleRender(EntityRendererProvider.Context renderManager) {
-        super(renderManager, (GeoModel<FlyingBeetleEntity>) new TameableBeetleModel());
+        super(renderManager, new TameableBeetleModel());
     }
 
     @Override
-    public void render(FlyingBeetleEntity entity, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
+    public void render(FlyingBeetleEntity entity, float entityYaw, float partialTicks, @NotNull PoseStack stack, @NotNull MultiBufferSource bufferIn, int packedLightIn) {
         if(entity.isBaby()){
             stack.scale(0.75f, 0.75f, 0.75f);
         }
@@ -27,7 +27,8 @@ public class TameableBeetleRender extends GeoEntityRenderer<FlyingBeetleEntity> 
 
     @Override
     public void renderRecursively(PoseStack poseStack, FlyingBeetleEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if(bone.getName().equals("elytra") || bone.getName().equals("elytra3") || bone.getName().equals("eye") || bone.getName().equals("eye2")){
+        String boneName = bone.getName();
+        if(boneName.equals("elytra") || boneName.equals("elytra3") || boneName.equals("eye") || boneName.equals("eye2") || boneName.equals("belly")){
             packedLight = LightTexture.FULL_BRIGHT;
         }
         super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);

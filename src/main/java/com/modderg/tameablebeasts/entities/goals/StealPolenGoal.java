@@ -28,7 +28,7 @@ public class StealPolenGoal extends Goal {
 
     public StealPolenGoal(RacoonEntity racoon, double speedMod){
         this.mob = racoon;
-        this.level = racoon.getLevel();
+        this.level = racoon.level();
         this.speedModifier = speedMod;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
@@ -57,11 +57,11 @@ public class StealPolenGoal extends Goal {
         if (this.mob.distanceToSqr(this.bee) < 2.0D) {
             this.bee.dropOffNectar();
             this.mob.setPolen(true);
-            if (mob.getLevel() instanceof ServerLevel)
+            if (mob.level() instanceof ServerLevel)
                 mob.triggerAnim("InteractionController", "interact");
 
             mob.playSound(new ItemStack(Items.POTATO).getItem().getEatingSound(), 0.15F, 1.0F);
-            mob.getLevel().addParticle(new ItemParticleOption(ParticleTypes.ITEM, item), mob.getX(), mob.getY(), mob.getZ(), 0, 0, 0);
+            mob.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, item), mob.getX(), mob.getY(), mob.getZ(), 0, 0, 0);
         }
     }
 

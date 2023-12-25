@@ -16,7 +16,7 @@ public record GBiomeModifier(HolderSet<Biome> biomes,  Holder<PlacedFeature> fea
     public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
         if (phase == Phase.ADD && biomes.contains(biome))
         {
-            builder.getGenerationSettings().m_255419_(GenerationStep.Decoration.UNDERGROUND_ORES, feature);
+            builder.getGenerationSettings().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES);
         }
     }
 

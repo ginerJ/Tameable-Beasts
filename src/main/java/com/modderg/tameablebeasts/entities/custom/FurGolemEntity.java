@@ -56,9 +56,4 @@ public class FurGolemEntity extends Animal implements GeoEntity {
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.factory;
     }
-
-    @Override
-    public void dropLeash(boolean p_21456_, boolean p_21457_) {
-
-    }
 }

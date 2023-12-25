@@ -7,7 +7,6 @@ import com.modderg.tameablebeasts.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.item.block.HatItem;
 import com.modderg.tameablebeasts.item.custom.IceHelmetItem;
 import com.modderg.tameablebeasts.item.custom.PurpleAllay;
-import com.modderg.tameablebeasts.item.custom.QuetzalEggItem;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
@@ -25,7 +24,6 @@ public class ItemInit {
         public static final RegistryObject<Item> ICEPOP = ITEMS.register("icepop", () -> new Item(new Properties().food(Foods.SWEET_BERRIES)));
         public static final RegistryObject<Item> ICE_HELMET = ITEMS.register("ice_helmet", () -> new IceHelmetItem(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> PURPLE_ALLAY = ITEMS.register("purple_allay", () -> new PurpleAllay(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> QUETZAL_EGG = ITEMS.register("quetzal_egg", () -> new QuetzalEggItem(new Properties().stacksTo(16)));
         public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(new Properties().stacksTo(16)));
         public static final RegistryObject<Item> FUR = ITEMS.register("racoon_fur", () -> new Item(new Properties().stacksTo(64)));
         public static final RegistryObject<Item> QUETZAL_MEAT = ITEMS.register("quetzal_meat", () -> new Item(new Properties().food(Foods.BEEF)));
@@ -70,6 +68,7 @@ public class ItemInit {
         public static final RegistryObject<Item> SCARECROW_STRAW_HAT = ITEMS.register("scarecrow_straw_hat", () -> new HatItem(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> FLYING_HELMET = ITEMS.register("flying_helmet", () -> new HatItem(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> BIKER_HELMET = ITEMS.register("biker_helmet", () -> new HatItem(new Properties().stacksTo(1)));
+        public static final RegistryObject<Item> RACOON_HAT = ITEMS.register("racoon_hat", () -> new HatItem(new Properties().stacksTo(1)));
 
         //blocks
         public static final RegistryObject<Item> QUETZAL_EGG_ITEM = ITEMS.register("quetzalcoatlus_egg",
@@ -77,6 +76,12 @@ public class ItemInit {
 
         public static final RegistryObject<Item> CHIKOTE_EGG_ITEM = ITEMS.register("chikote_egg",
                 () -> new EggBlockItem(BlockInit.CHIKOTE_EGG_BLOCK.get() ,new Properties().stacksTo(1), "Chikote"));
+
+        public static final RegistryObject<Item> ROLY_POLY_EGG_ITEM = ITEMS.register("roly_poly_egg",
+                () -> new EggBlockItem(BlockInit.ROLY_POLY_EGG_BLOCK.get() ,new Properties().stacksTo(1), "Roly_Poly"));
+
+        public static final RegistryObject<Item> FLYING_BEETLE_EGG_ITEM = ITEMS.register("beetle_egg",
+                () -> new EggBlockItem(BlockInit.FLYING_BEETLE_EGG.get() ,new Properties().stacksTo(1), "Beetle"));
 
         //tools
         public static final RegistryObject<Item> IRON_BIG_HOE = ITEMS.register("iron_big_hoe", () -> new HoeItem(Tiers.IRON, -1, -1.0F, (new Properties())));

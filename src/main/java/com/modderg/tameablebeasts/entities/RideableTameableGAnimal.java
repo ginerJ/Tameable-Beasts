@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 
 import javax.annotation.Nullable;
@@ -50,7 +51,7 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         if (compound.contains("SADDLE")) {
             this.setSaddle(compound.getBoolean("SADDLE"));
@@ -65,7 +66,7 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
             if (this.getSaddle()){
                 if(!player.isShiftKeyDown() && !this.isInSittingPose()){
                     player.startRiding(this);
-                    return InteractionResult.sidedSuccess(this.getLevel().isClientSide);
+                    return InteractionResult.sidedSuccess(this.level().isClientSide);
                 }
 
             } else if (!this.isBaby() && isSaddle(itemstack)) {
@@ -87,7 +88,7 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
                 this.yRotO = getYRot();
                 this.xRotO = getXRot();
 
-                this.m_274367_(1.0f);
+                this.setMaxUpStep(1.0f);
 
                 setYRot(passenger.getYRot());
                 setXRot(passenger.getXRot() * 0.5f);

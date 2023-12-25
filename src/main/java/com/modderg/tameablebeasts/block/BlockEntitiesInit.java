@@ -15,7 +15,9 @@ public class BlockEntitiesInit {
     //make one entityType
     public static final RegistryObject<BlockEntityType<EggBlockEntity>> EGG_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("egg_block_entity", () -> BlockEntityType.Builder.of(EggBlockEntity::new,
-                    BlockInit.QUETZAL_EGG_BLOCK.get(), BlockInit.CHIKOTE_EGG_BLOCK.get()).build(null));
+                    BlockInit.QUETZAL_EGG_BLOCK.get(), BlockInit.CHIKOTE_EGG_BLOCK.get(), BlockInit.ROLY_POLY_EGG_BLOCK.get(),
+                    BlockInit.FLYING_BEETLE_EGG.get()
+            ).build(null));
 
     public static void register(IEventBus eventBus){
         BLOCK_ENTITIES.register(eventBus);

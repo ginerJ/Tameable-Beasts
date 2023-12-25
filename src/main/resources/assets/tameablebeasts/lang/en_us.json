@@ -2,7 +2,6 @@
   "item.tameablebeasts.icepop" : "Icepop",
   "item.tameablebeasts.ice_helmet" : "Ice Helmet",
   "item.tameablebeasts.purple_allay" : "Purple Allay",
-  "item.tameablebeasts.quetzal_egg" : "Quetzalcoatlus Egg",
   "item.tameablebeasts.iron_big_hoe" : "Big Iron Hoe",
   "item.tameablebeasts.leaf" : "Leaf",
   "item.tameablebeasts.racoon_fur" : "Racoon Fur",
@@ -12,6 +11,7 @@
   "item.tameablebeasts.scarecrow_straw_hat" : "Straw Hat",
   "item.tameablebeasts.biker_helmet" : "Poly Biker Helmet",
   "item.tameablebeasts.flying_helmet" : "Flying Helmet",
+  "item.tameablebeasts.racoon_hat" : "Racoon Hat",
 
   "item.tameablebeasts.roly_poly_saddle" : "Roly Poly Saddle",
   "item.tameablebeasts.grasshopper_saddle" : "Grasshopper Saddle",
@@ -31,7 +31,6 @@
   "item.tameablebeasts.scarecrow_spawn_egg" : "Scarecrow Spawn Egg",
 
 
-
   "block.tameablebeasts.scarecrow_block" : "Scarecrow",
   "block.tameablebeasts.racoon_fur_block" : "Racoon Fur Block",
 
@@ -49,6 +48,8 @@
 
   "block.tameablebeasts.quetzalcoatlus_egg" : "Quetzal Egg",
   "block.tameablebeasts.chikote_egg" : "Chikote Egg",
+  "block.tameablebeasts.roly_poly_egg" : "Roly Poly Egg",
+  "block.tameablebeasts.beetle_egg" : "Beetle Egg",
 
 
 

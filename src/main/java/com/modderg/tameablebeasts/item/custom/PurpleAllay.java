@@ -28,7 +28,7 @@ public class PurpleAllay extends Item {
             ScarecrowAllayEntity scarecrow = EntityIinit.SCARECROW_ALLAY.get().create(level);
             scarecrow.setPos(new Vec3(blockpos.getX(), blockpos.getY(), blockpos.getZ()));
             level.addFreshEntity(scarecrow);
-            level.destroyBlock(blockpos, true);
+            level.destroyBlock(blockpos, false);
         }
 
         return super.useOn(context);

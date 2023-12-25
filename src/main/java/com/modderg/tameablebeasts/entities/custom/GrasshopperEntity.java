@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.entities.custom;
 
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.entities.RideableTameableGAnimal;
+import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
 import com.modderg.tameablebeasts.entities.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.item.ItemInit;
 import com.modderg.tameablebeasts.sound.SoundInit;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
@@ -46,6 +48,8 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
 
     public GrasshopperEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
+        this.textureIdSize = 3;
+        this.randomHealthFloor = 15;
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -55,10 +59,6 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
                 .add(Attributes.JUMP_STRENGTH, 2.5f);
     }
 
-    protected float generateRandomMaxHealth(RandomSource p_218806_) {
-        return 15.0F + (float)p_218806_.nextInt(8) + (float)p_218806_.nextInt(9);
-    }
-
     public static boolean checkGrasshopperSpawnRules(EntityType<GrasshopperEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
         return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_GRASSHOPPER.get();
     }
@@ -66,7 +66,8 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+        this.goalSelector.addGoal(0, new TameablePanicGoal(this, 1.2D));
+        this.goalSelector.addGoal(0, new GFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(ItemInit.LEAF.get()), false));
@@ -101,21 +102,13 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @org.jetbrains.annotations.Nullable SpawnGroupData p_146749_, @org.jetbrains.annotations.Nullable CompoundTag p_146750_) {
-        updateAttributes();
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(this.generateRandomMaxHealth(p_146746_.getRandom()));
-        this.setTexture(this.random.nextInt(3));
-        return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
-    }
-
-    @Override
     public void tick() {
         if(jumpCount >= 0) jumpCount --;
         super.tick();
     }
 
     @Override
-    public boolean causeFallDamage(float p_147187_, float p_147188_, DamageSource p_147189_) {
+    public boolean causeFallDamage(float p_147187_, float p_147188_, @NotNull DamageSource p_147189_) {
         return false;
     }
 
@@ -133,10 +126,10 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
 
     @org.jetbrains.annotations.Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.GRASSHOPPER_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.GRASSHOPPER_HURT.get();}
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+    protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
         this.playSound(SoundInit.GRASSHOPPER_STEPS.get(), 0.15F, 1.0F);
     }
 
@@ -157,14 +150,14 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
     public void travel(Vec3 vec333) {
         if (this.isAlive()) {
             if (!this.isTame()) {
-                if (jumpCount == 0 && this.isOnGround()) {
+                if (jumpCount == 0 && this.onGround()) {
                     jumpFromGround();
                     this.playSound(SoundInit.GRASSHOPPER_JUMP.get(), 0.15F, 1.0F);
                     jumpCount = this.random.nextInt(20, 150);
                 }
             }
             if (this.canBeControlledByRider()) {
-                LivingEntity livingentity = (LivingEntity) this.getControllingPassenger();
+                LivingEntity livingentity = this.getControllingPassenger();
 
                 this.setYRot(livingentity.getYRot());
                 this.yRotO = this.getYRot();
@@ -178,12 +171,12 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
                     f1 *= 0.25F;
                 }
 
-                if (this.isOnGround() && this.playerJumpPendingScale == 0.0F && !this.allowStandSliding) {
+                if (this.onGround() && this.playerJumpPendingScale == 0.0F && !this.allowStandSliding) {
                     f = 0.0F;
                     f1 = 0.0F;
                 }
 
-                if (this.playerJumpPendingScale > 0.0F && !this.isJumping() && this.isOnGround()) {
+                if (this.playerJumpPendingScale > 0.0F && !this.isJumping() && this.onGround()) {
                     double d0 = this.getCustomJump() * (double) this.playerJumpPendingScale * (double) this.getBlockJumpFactor();
                     double d1 = d0 + this.getJumpPower();
                     Vec3 vec3 = this.getDeltaMovement();
@@ -207,7 +200,7 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
                     this.setDeltaMovement(Vec3.ZERO);
                 }
 
-                if (this.isOnGround()) {
+                if (this.onGround()) {
                     this.playerJumpPendingScale = 0.0F;
                     this.setIsJumping(false);
                 }
@@ -239,7 +232,7 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
         return super.getJumpPower();
     }
 
-    protected void updateAttributes(){
+    public void updateAttributes(){
         if (this.isBaby()) {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15D);
         } else {
@@ -282,17 +275,15 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
 
     //animation stuff
 
-    protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
-
-    public static <T extends GrasshopperEntity & GeoEntity> AnimationController<T> flyController(T entity) {
+    public static <T extends RideableTameableGAnimal & GeoEntity> AnimationController<T> jumpController(T entity) {
         return new AnimationController<>(entity,"movement", 2, event ->{
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
             } else {
-                if(!entity.isOnGround() && entity.getDeltaMovement().y > 0){
+                if(!entity.onGround() && entity.getDeltaMovement().y > 0){
                     event.getController().setAnimation(RawAnimation.begin().then("jump", Animation.LoopType.LOOP));
                 } else {
-                    if(event.isMoving() && entity.isOnGround()){
+                    if(event.isMoving() && entity.onGround()){
                         event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
                     } else {
                         event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
@@ -305,8 +296,8 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar data) {
-        data.add(flyController(this));
-        super.registerControllers(data);
+    public void registerControllers(AnimatableManager.ControllerRegistrar control) {
+        control.add(jumpController(this));
+        super.registerControllers(control);
     }
 }

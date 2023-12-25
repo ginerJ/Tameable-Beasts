@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.events;
 
 import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.block.BlockEntitiesInit;
+import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.block.entity.EggBlockRender;
 import com.modderg.tameablebeasts.entities.render.*;
 import com.modderg.tameablebeasts.entities.EntityIinit;
@@ -9,6 +10,8 @@ import com.modderg.tameablebeasts.entities.EntityIinit;
 import com.modderg.tameablebeasts.particles.TameableParticles;
 import com.modderg.tameablebeasts.particles.custom.CitrineParticles;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;

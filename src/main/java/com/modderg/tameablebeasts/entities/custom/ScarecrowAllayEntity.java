@@ -1,7 +1,6 @@
 package com.modderg.tameablebeasts.entities.custom;
 
 import com.modderg.tameablebeasts.entities.FlyingTameableGAnimal;
-import com.modderg.tameablebeasts.entities.goals.SwitchingFollowOwnerGoal;
 import com.modderg.tameablebeasts.entities.goals.SwitchingMeleeAttackGoal;
 import com.modderg.tameablebeasts.item.ItemInit;
 import com.modderg.tameablebeasts.sound.SoundInit;
@@ -23,27 +22,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
 
 public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEntity {
 
-
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(ScarecrowAllayEntity.class, EntityDataSerializers.INT);
-    public void setTexture(int i){
-        this.getEntityData().set(TEXTUREID, i);
-    }
-    public int getTextureID(){
-        return this.getEntityData().get(TEXTUREID);
-    }
-
-    private static final EntityDataAccessor<Boolean> HASHOE = SynchedEntityData.defineId(RacoonEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HASHOE = SynchedEntityData.defineId(ScarecrowAllayEntity.class, EntityDataSerializers.BOOLEAN);
     public void setHoe(boolean i){
         this.getEntityData().set(HASHOE, i);
     }
@@ -53,7 +38,7 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
 
     public ScarecrowAllayEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        updateAttributes();
+        this.textureIdSize = 3;
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -71,7 +56,6 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new SwitchingMeleeAttackGoal(this, 2D, true));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(3, new SwitchingFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
     }
@@ -79,17 +63,12 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, this.random.nextInt(3));
         this.entityData.define(HASHOE, false);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTUREID")) {
-            this.setTexture(compound.getInt("TEXTUREID"));
-            updateAttributes();
-        }
         if (compound.contains("HASHOE")) {
             this.setHoe(compound.getBoolean("HASHOE"));
         }
@@ -114,7 +93,7 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
                 return InteractionResult.CONSUME;
             }
             if(itemstack.is(Tags.Items.SHEARS)){
-                this.setTexture(this.random.nextInt(3));
+                this.setTextureId(this.random.nextInt(3));
                 this.spawnItemParticles(new ItemStack(Items.PUMPKIN),16,this);
                 return InteractionResult.CONSUME;
             }
@@ -124,17 +103,17 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
         return super.mobInteract(player, hand);
     }
 
-    protected void updateAttributes(){
+    @Override
+    public boolean isFood(ItemStack itemstack) {
+        return itemstack.is(Items.WHEAT);
+    }
+
+    public void updateAttributes(){
         if (this.getHoe()) {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(10.D);
         } else {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3.0D);
         }
-    }
-
-    @Override
-    protected Boolean shouldFly() {
-        return true;
     }
 
     //sounds
@@ -165,29 +144,22 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
         return SoundInit.SCARECROW_INTERACT.get();
     }
 
+    @Override
+    public void checkDespawn() {
+        super.checkDespawn();
+    }
+
     //animation stuff
 
-    protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
-
-    public static <T extends ScarecrowAllayEntity & GeoEntity> AnimationController<T> flyController(T entity) {
-        return new AnimationController<>(entity,"movement", 5, event ->{
-            if(entity.isInSittingPose()){
-                event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
-            } else {
-                if (entity.isStill()) {
-                    event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
-                } else {
-                    event.getController().setAnimation(RawAnimation.begin().then("fly", Animation.LoopType.LOOP));
-                }
-            }
-            return PlayState.CONTINUE;
-        });
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar control) {
+        control.add(flyController(this));
+        super.registerControllers(control);
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar data) {
-        data.add(flyController(this));
-        super.registerControllers(data);
+    public String getAttackAnim() {
+        return "attack";
     }
 }
 

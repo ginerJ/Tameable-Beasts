@@ -33,7 +33,7 @@ public class SwitchingMeleeAttackGoal extends Goal {
     }
 
     public boolean canUse() {
-        long i = this.mob.getLevel().getGameTime();
+        long i = this.mob.level().getGameTime();
         if (i - this.lastCanUseCheck < 20L) {
             return false;
         } else {

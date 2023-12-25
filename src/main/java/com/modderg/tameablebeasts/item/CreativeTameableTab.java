@@ -11,11 +11,10 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class CreativeTameableTab {
 
-    public static final DeferredRegister<CreativeModeTab> TAMEABLE_TABS = DeferredRegister.create(Registries.f_279569_, TameableBeast.MOD_ID);
+    public static final DeferredRegister<CreativeModeTab> TAMEABLE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TameableBeast.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> TAMEABLE_TAB = TAMEABLE_TABS.register("tameable_tab", () ->
-            CreativeModeTab.builder().m_257737_(() -> new ItemStack(ItemInit
-.ICEPOP.get())).m_257941_(Component.literal("Tameable Tab")).m_257652_());
+            CreativeModeTab.builder().icon(() -> new ItemStack(ItemInit.ICEPOP.get())).title(Component.literal("Tameable Tab")).build());
 
     public static void register(IEventBus eventBus){
         TAMEABLE_TABS.register(eventBus);

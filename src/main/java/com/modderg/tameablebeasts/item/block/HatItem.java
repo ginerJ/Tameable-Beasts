@@ -34,7 +34,7 @@ public class HatItem extends Item implements Equipable {
     }
 
     @Override
-    public EquipmentSlot getSlot() {
+    public EquipmentSlot getEquipmentSlot() {
         return EquipmentSlot.HEAD;
     }
 }

@@ -117,7 +117,7 @@ public class AvoidBlockGoal<T extends LivingEntity> extends Goal {
                 for(int k = 0; k <= j; k = k > 0 ? -k : 1 - k) {
                     for(int l = k < j && k > -j ? j : 0; l <= j; l = l > 0 ? -l : 1 - l) {
                         blockpos$mutableblockpos.setWithOffset(blockpos, k, i - 1, l);
-                        if (blockpos.closerThan(blockpos$mutableblockpos, radius) && p_28076_.test(this.mob.getLevel().getBlockState(blockpos$mutableblockpos))) {
+                        if (blockpos.closerThan(blockpos$mutableblockpos, radius) && p_28076_.test(this.mob.level().getBlockState(blockpos$mutableblockpos))) {
                             return Optional.of(blockpos$mutableblockpos);
                         }
                     }

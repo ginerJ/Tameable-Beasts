@@ -15,12 +15,12 @@ public class FlyFromNowAndThen extends Goal {
 
     @Override
     public boolean canUse() {
-        return !mob.isOrderedToSit();
+        return !mob.isTame() && !mob.isOrderedToSit();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return !mob.isOrderedToSit();
+        return !mob.isTame() && !mob.isOrderedToSit();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class FlyFromNowAndThen extends Goal {
         if(timer--<=0){
             mob.setGoalsRequireFlying(!mob.getGoalsRequireFlying());
             this.timer = mob.getRandom().nextInt(0,4000);
-        } else if (timer < 50 && !mob.isOnGround() && mob.isFlying()){
+        } else if (timer < 50 && !mob.onGround() && mob.isFlying()){
             mob.setDeltaMovement(mob.getDeltaMovement().x,-0.005f,mob.getDeltaMovement().z);
         }
         super.tick();
