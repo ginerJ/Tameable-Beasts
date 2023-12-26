@@ -23,7 +23,7 @@ public class TameableChikoteRender extends GeoEntityRenderer<ChikoteEntity> {
 
     @Override
     public void renderRecursively(PoseStack poseStack, ChikoteEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if(!animatable.getSaddle() && bone.getName().contains("saddle")){
+        if(!animatable.hasSaddle() && bone.getName().contains("saddle")){
             return;
         }
         super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);

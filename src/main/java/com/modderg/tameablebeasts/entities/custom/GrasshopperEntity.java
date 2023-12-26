@@ -7,11 +7,9 @@ import com.modderg.tameablebeasts.entities.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.item.ItemInit;
 import com.modderg.tameablebeasts.sound.SoundInit;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -19,18 +17,16 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 
@@ -42,8 +38,8 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
     protected boolean isJumping = false;
 
     @Override
-    protected boolean isSaddle(ItemStack itemStack) {
-        return itemStack.is(ItemInit.GRASSHOPPER_SADDLE.get());
+    protected Item itemSaddle() {
+        return ItemInit.GRASSHOPPER_SADDLE.get();
     }
 
     public GrasshopperEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
@@ -242,7 +238,7 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
 
     @Override
     public void onPlayerJump(int p_21696_) {
-        if (this.getSaddle()) {
+        if (this.hasSaddle()) {
             if (p_21696_ < 0) {
                 p_21696_ = 0;
             }else {
@@ -259,7 +255,7 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
 
     @Override
     public boolean canJump() {
-        return this.getSaddle();
+        return this.hasSaddle();
     }
 
     @Override

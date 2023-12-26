@@ -38,8 +38,8 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 public class QuetzalcoatlusEntity extends FlyingRideableGAnimal {
 
     @Override
-    protected boolean isSaddle(ItemStack itemStack) {
-        return itemStack.is(ItemInit.QUETZAL_SADDLE.get());
+    protected Item itemSaddle() {
+        return ItemInit.QUETZAL_SADDLE.get();
     }
 
     public QuetzalcoatlusEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {

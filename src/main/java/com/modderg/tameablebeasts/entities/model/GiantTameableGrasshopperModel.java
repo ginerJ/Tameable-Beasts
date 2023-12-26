@@ -38,7 +38,7 @@ public class GiantTameableGrasshopperModel extends GeoModel<GrasshopperEntity> {
         if(entity.isBaby()){
            return new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/giant_grasshopper_baby.png");
         }
-        if(entity.getSaddle()){
+        if(entity.hasSaddle()){
             return textures[1][entity.getTextureID()];
         }
         return textures[0][entity.getTextureID()];

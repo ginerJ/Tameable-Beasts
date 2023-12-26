@@ -8,8 +8,11 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -26,12 +29,15 @@ public class FlyingRideableGAnimal extends FlyingTameableGAnimal implements Item
     public void setSaddle(boolean i){
         this.getEntityData().set(SADDLE, i);
     }
-    public boolean getSaddle(){
+    public boolean hasSaddle(){
         return this.getEntityData().get(SADDLE);
     }
 
+    protected Item itemSaddle() {
+        return null;
+    }
     protected boolean isSaddle(ItemStack itemStack) {
-        return false;
+        return itemStack.is(itemSaddle());
     }
 
     protected static final EntityDataAccessor<Boolean> RIDERWANTSFLYING = SynchedEntityData.defineId(FlyingRideableGAnimal.class, EntityDataSerializers.BOOLEAN);
@@ -47,7 +53,7 @@ public class FlyingRideableGAnimal extends FlyingTameableGAnimal implements Item
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("SADDLE", this.getSaddle());
+        compound.putBoolean("SADDLE", this.hasSaddle());
         compound.putBoolean("RIDERWANTSFLYING", this.getRiderWantsFlying());
     }
 
@@ -73,7 +79,7 @@ public class FlyingRideableGAnimal extends FlyingTameableGAnimal implements Item
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isOwnedBy(player)){
-            if (this.getSaddle()){
+            if (this.hasSaddle()){
                 if(!player.isShiftKeyDown() && !this.isInSittingPose()){
                     player.startRiding(this);
                     return InteractionResult.sidedSuccess(this.level().isClientSide);
@@ -88,6 +94,14 @@ public class FlyingRideableGAnimal extends FlyingTameableGAnimal implements Item
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    protected void dropAllDeathLoot(DamageSource p_21192_) {
+        if(this.hasSaddle()){
+            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(itemSaddle())));
+        }
+        super.dropAllDeathLoot(p_21192_);
     }
 
     @Override

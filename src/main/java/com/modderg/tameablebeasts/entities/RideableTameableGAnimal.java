@@ -7,16 +7,18 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ItemSteerable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
 
 import javax.annotation.Nullable;
 
@@ -26,12 +28,15 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
     public void setSaddle(boolean i){
         this.getEntityData().set(SADDLE, i);
     }
-    public boolean getSaddle(){
+    public boolean hasSaddle(){
         return this.getEntityData().get(SADDLE);
     }
 
+    protected Item itemSaddle() {
+        return null;
+    }
     protected boolean isSaddle(ItemStack itemStack) {
-        return false;
+        return itemStack.is(itemSaddle());
     }
 
     protected RideableTameableGAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
@@ -41,7 +46,7 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("SADDLE", this.getSaddle());
+        compound.putBoolean("SADDLE", this.hasSaddle());
     }
 
     @Override
@@ -63,7 +68,7 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isOwnedBy(player)){
-            if (this.getSaddle()){
+            if (this.hasSaddle()){
                 if(!player.isShiftKeyDown() && !this.isInSittingPose()){
                     player.startRiding(this);
                     return InteractionResult.sidedSuccess(this.level().isClientSide);
@@ -78,6 +83,14 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    protected void dropAllDeathLoot(DamageSource p_21192_) {
+        if(this.hasSaddle()){
+            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(itemSaddle())));
+        }
+        super.dropAllDeathLoot(p_21192_);
     }
 
     @Override

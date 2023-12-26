@@ -22,6 +22,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -39,8 +40,8 @@ import software.bernie.geckolib.core.object.PlayState;
 public class ChikoteEntity extends RideableTameableGAnimal {
 
     @Override
-    protected boolean isSaddle(ItemStack itemStack) {
-        return itemStack.is(ItemInit.CHIKOTE_SADDLE.get());
+    protected Item itemSaddle() {
+        return ItemInit.CHIKOTE_SADDLE.get();
     }
 
     public ChikoteEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
