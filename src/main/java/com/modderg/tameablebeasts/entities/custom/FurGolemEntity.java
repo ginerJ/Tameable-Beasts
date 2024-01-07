@@ -1,5 +1,7 @@
 package com.modderg.tameablebeasts.entities.custom;
 
+import com.modderg.tameablebeasts.block.BlockInit;
+import com.modderg.tameablebeasts.entities.goals.TakeCareOfEggsGoal;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -30,6 +32,12 @@ public class FurGolemEntity extends Animal implements GeoEntity {
                 .add(Attributes.MOVEMENT_SPEED, 0.3D);
     }
 
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new TakeCareOfEggsGoal(this,15));
+    }
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
@@ -50,6 +58,8 @@ public class FurGolemEntity extends Animal implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar data) {
         data.add(animController(this));
+        data.add(new AnimationController<>(this, "TakeCareOfEggControl", state -> PlayState.STOP)
+                .triggerableAnim("hatch", RawAnimation.begin().then("hatch", Animation.LoopType.PLAY_ONCE)));
     }
 
     @Override

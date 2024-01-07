@@ -40,6 +40,13 @@ public class FlyingRideableGAnimal extends FlyingTameableGAnimal implements Item
         return itemStack.is(itemSaddle());
     }
 
+    protected Item hatBoostItem() {
+        return null;
+    }
+    protected boolean isHatBoostItem(ItemStack itemStack) {
+        return itemStack.is(hatBoostItem());
+    }
+
     protected static final EntityDataAccessor<Boolean> RIDERWANTSFLYING = SynchedEntityData.defineId(FlyingRideableGAnimal.class, EntityDataSerializers.BOOLEAN);
     public void setRiderWantsFlying(boolean riderWantsFlying) {this.entityData.set(RIDERWANTSFLYING,riderWantsFlying);}
     public boolean getRiderWantsFlying() {
@@ -132,11 +139,11 @@ public class FlyingRideableGAnimal extends FlyingTameableGAnimal implements Item
                     super.travel(new Vec3(x, vec3.y, z));
                 } else if (getRiderWantsFlying())
                 {
-                    float speed = (float) getAttributeValue(isFlying()? FLYING_SPEED : MOVEMENT_SPEED);
-                    if (passenger instanceof Player p && p.getInventory().getArmor(3).is(ItemInit.FLYING_HELMET.get())){
-                        speed = speed * 0.4f;
-                    } else {
-                        speed = speed * 0.2f;
+                    float speed = (float) getAttributeValue(isFlying()? FLYING_SPEED : MOVEMENT_SPEED) * 0.2f;
+
+                    if (passenger instanceof Player p  && this.hatBoostItem() != null &&
+                            isHatBoostItem(p.getInventory().getArmor(3))){
+                        speed *= 2f;
                     }
 
                     moveDist = moveDist > 0? moveDist : 0;
@@ -169,7 +176,15 @@ public class FlyingRideableGAnimal extends FlyingTameableGAnimal implements Item
 
     @Nullable
     public LivingEntity getControllingPassenger() {
-        return this.getPassengers().isEmpty() ? null : (LivingEntity) this.getPassengers().get(0);
+        return (!this.getPassengers().isEmpty() &&
+                this.isOwnedBy((LivingEntity) this.getPassengers().get(0)))
+                ? (LivingEntity) this.getPassengers().get(0) : null;
+    }
+
+    @Override
+    public boolean canBeControlledByRider() {
+        return this.getControllingPassenger() != null &&
+                this.isOwnedBy(this.getControllingPassenger());
     }
 
     @Override

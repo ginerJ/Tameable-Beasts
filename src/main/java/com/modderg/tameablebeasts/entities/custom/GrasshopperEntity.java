@@ -1,10 +1,13 @@
 package com.modderg.tameablebeasts.entities.custom;
 
+import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.entities.RideableTameableGAnimal;
 import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
+import com.modderg.tameablebeasts.entities.goals.TakeCareOfEggsGoal;
 import com.modderg.tameablebeasts.entities.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.sound.SoundInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -45,13 +48,12 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
     public GrasshopperEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.textureIdSize = 3;
-        this.randomHealthFloor = 15;
+        this.healthFloor = 20;
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D)
+                .add(Attributes.MOVEMENT_SPEED, 0.15D)
                 .add(Attributes.JUMP_STRENGTH, 2.5f);
     }
 
@@ -66,6 +68,7 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
         this.goalSelector.addGoal(0, new GFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, BlockInit.GRASSHOPPER_EGG_BLOCK.get()));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(ItemInit.LEAF.get()), false));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new TameablePanicGoal(this, 1.25D));
@@ -75,12 +78,13 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
     }
 
+
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isTameFood(itemstack) && !this.isTame()) {
-            tameGAnimal(player, itemstack, 30);
+            tameGAnimal(player, itemstack, 4);
             return InteractionResult.CONSUME;
         }
 
@@ -88,13 +92,13 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
     }
 
     @Override
-    public boolean isFood(ItemStack item) {
-        return item.is(ItemInit.LEAF.get());
+    public boolean isFood(ItemStack itemStack) {
+        return itemStack.is(ItemInit.LEAF.get());
     }
 
     @Override
-    public boolean isTameFood(ItemStack item) {
-        return item.is(Items.OAK_LEAVES);
+    public boolean isTameFood(ItemStack itemStack) {
+        return itemStack.is(ItemInit.EGG_RESTS.get());
     }
 
     @Override
@@ -106,6 +110,11 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
     @Override
     public boolean causeFallDamage(float p_147187_, float p_147188_, @NotNull DamageSource p_147189_) {
         return false;
+    }
+
+    @Override
+    public EggBlockItem getEgg() {
+        return (EggBlockItem) ItemInit.GRASSHOPPER_EGG_ITEM.get();
     }
 
     //sounds
@@ -176,22 +185,24 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
                     double d0 = this.getCustomJump() * (double) this.playerJumpPendingScale * (double) this.getBlockJumpFactor();
                     double d1 = d0 + this.getJumpPower();
                     Vec3 vec3 = this.getDeltaMovement();
-                    this.setDeltaMovement(vec3.x, d1/2, vec3.z);
+                    this.setDeltaMovement(vec3.x, d1/4, vec3.z);
                     this.setIsJumping(true);
                     this.hasImpulse = true;
                     net.minecraftforge.common.ForgeHooks.onLivingJump(this);
                     if (f1 > 0.0F) {
                         float f2 = Mth.sin(this.getYRot() * ((float) Math.PI / 180F));
                         float f3 = Mth.cos(this.getYRot() * ((float) Math.PI / 180F));
-                        this.setDeltaMovement(this.getDeltaMovement().add((-0.4F * f2 * this.playerJumpPendingScale), 0.0D, (double) (0.4F * f3 * this.playerJumpPendingScale)));
+                        this.setDeltaMovement(this.getDeltaMovement().add((-0.4F * f2 * this.playerJumpPendingScale), 0.0D, (0.4F * f3 * this.playerJumpPendingScale)));
                     }
 
                     this.playerJumpPendingScale = 0.0F;
                 }
 
                 if (this.isControlledByLocalInstance()) {
+
                     this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                    super.travel(new Vec3((double) f, vec333.y, (double) f1));
+                    super.superTravel(new Vec3(f, vec333.y,f1));
+
                 } else if (livingentity instanceof Player) {
                     this.setDeltaMovement(Vec3.ZERO);
                 }
@@ -203,7 +214,7 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
 
                 this.tryCheckInsideBlocks();
             } else {
-                super.travel(vec333);
+                super.superTravel(vec333);
             }
         }
     }

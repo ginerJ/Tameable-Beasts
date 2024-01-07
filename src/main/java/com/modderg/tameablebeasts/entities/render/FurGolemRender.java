@@ -12,9 +12,4 @@ public class FurGolemRender extends GeoEntityRenderer<FurGolemEntity> {
     public FurGolemRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, (GeoModel<FurGolemEntity>) new FurGolemModel());
     }
-
-    @Override
-    public void render(FurGolemEntity entity, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
-        super.render(entity, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
-    }
 }

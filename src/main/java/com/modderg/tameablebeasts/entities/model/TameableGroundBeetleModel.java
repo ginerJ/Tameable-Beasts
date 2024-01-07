@@ -50,7 +50,7 @@ public class TameableGroundBeetleModel extends GeoModel<GroundBeetleEntity> {
     public void setCustomAnimations(GroundBeetleEntity animatable, long instanceId, AnimationState<GroundBeetleEntity> animationState) {
         CoreGeoBone head = getAnimationProcessor().getBone("head");
 
-        if (head != null) {
+        if (head != null && !animatable.isBaby()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);

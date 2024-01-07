@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.entities;
 
+import com.modderg.tameablebeasts.item.ItemInit;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -12,6 +13,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ItemSteerable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -37,6 +40,13 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
     }
     protected boolean isSaddle(ItemStack itemStack) {
         return itemStack.is(itemSaddle());
+    }
+
+    protected Item hatBoostItem() {
+        return null;
+    }
+    protected boolean isHatBoostItem(ItemStack itemStack) {
+        return itemStack.is(hatBoostItem());
     }
 
     protected RideableTameableGAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
@@ -115,18 +125,42 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
                 if (z <= 0)
                     z *= 0.25f;
 
-                this.setSpeed(0.3f);
-                super.travel(new Vec3(x, pos.y, z));
+                float speedMul = 1f;
+                if (passenger instanceof Player p  && this.hatBoostItem() != null &&
+                        isHatBoostItem(p.getInventory().getArmor(3))){
+                    speedMul = 1.6f;
+                }
+
+                this.setSpeed((float) this.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue() * speedMul);
+
+                Vec3 nextPos = new Vec3(x, pos.y, z);
+
+                if (!this.level().noCollision(this, this.getBoundingBox().inflate(nextPos.x,0,nextPos.z).move(nextPos))) {
+                    this.horizontalCollision = true;
+                }
+
+                super.travel(nextPos);
             } else {
                 super.travel(pos);
             }
         }
     }
 
+    public void superTravel(Vec3 pos) {
+        super.travel(pos);
+    }
 
     @Nullable
     public LivingEntity getControllingPassenger() {
-        return this.getPassengers().isEmpty() ? null : (LivingEntity) this.getPassengers().get(0);
+        return (!this.getPassengers().isEmpty() &&
+                this.isOwnedBy((LivingEntity) this.getPassengers().get(0)))
+                ? (LivingEntity) this.getPassengers().get(0) : null;
+    }
+
+    @Override
+    public boolean canBeControlledByRider() {
+        return this.getControllingPassenger() != null &&
+                this.isOwnedBy(this.getControllingPassenger());
     }
 
     @Override

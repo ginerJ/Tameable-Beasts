@@ -48,12 +48,17 @@ public class HatchingGui {
         boolean goneBad = eggBlockEntity.goBadTimer <= 0;
 
         guiGraphics.blit(HATCH_MENU,x,y,0,0,121,68,121,68);
-        guiGraphics.drawString(Minecraft.getInstance().font, ownerName,x+5,y+5, 0x000000, false);
 
-        guiGraphics.drawString(Minecraft.getInstance().font,"Status: ",x+5,y+15, 0x000000, false);
-        guiGraphics.drawString(Minecraft.getInstance().font,Integer.toString(eggBlockEntity.textureID),x+5,y+45, 0x000000, false);
-        guiGraphics.drawString(Minecraft.getInstance().font,Integer.toString(eggBlockEntity.goBadTimer),x+5,y+35, 0x000000, false);
-        guiGraphics.drawString(Minecraft.getInstance().font,Integer.toString(eggBlockEntity.hatchTimer),x+5,y+25, 0x000000, false);
-        guiGraphics.drawString(Minecraft.getInstance().font,goneBad?"Gone Bad":(isWarm?"Warm":"Cold"),x+40,y+15, goneBad?0x98BB23:(isWarm?0xF37E22:0x36D2FC), false);
+        guiGraphics.drawString(Minecraft.getInstance().font, eggBlockEntity.getCleanSpecies().replace("_"," "),
+                x+5,y+5, 0x000000, false);
+
+        guiGraphics.drawString(Minecraft.getInstance().font, ownerName,x+5,y+15,
+                0x000000, false);
+
+        guiGraphics.drawString(Minecraft.getInstance().font,"Status: ",x+5,y+25,
+                0x000000, false);
+        guiGraphics.drawString(Minecraft.getInstance().font,goneBad?"Gone Bad":(isWarm?"Warm":"Cold"),x+40,y+25,
+                goneBad?0x98BB23:(isWarm?0xF37E22:0x36D2FC), false);
+
     }
 }

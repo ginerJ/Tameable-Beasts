@@ -21,32 +21,10 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 
 import java.util.function.Consumer;
 
-public class EggBlockItem extends BlockItem implements GeoItem {
+public class EggBlockItem extends BlockItem {
 
-    private String species;
-
-    public EggBlockItem(Block p_40565_, Properties p_40566_, String species) {
+    public EggBlockItem(Block p_40565_, Properties p_40566_) {
         super(p_40565_, p_40566_);
-        SingletonGeoAnimatable.registerSyncedAnimatable(this);
-        this.species = species;
-    }
-
-    public String getSpecies() {
-        return species;
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            private EggBlockItemRenderer renderer;
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                if (renderer == null) {
-                    renderer = new EggBlockItemRenderer();
-                }
-                return this.renderer;
-            }
-        });
     }
 
     @Override
@@ -79,17 +57,5 @@ public class EggBlockItem extends BlockItem implements GeoItem {
             egg.setTextureId(this.getTextureId(context.getItemInHand()));
 
         return interactionResult;
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-
-    }
-
-    private AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
     }
 }

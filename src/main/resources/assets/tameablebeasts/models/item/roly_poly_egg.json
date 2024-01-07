@@ -1,3 +1,6 @@
 {
-  "parent" : "tameablebeasts:block/roly_poly_egg"
+  "parent" : "minecraft:item/generated",
+  "textures" : {
+    "layer0" : "tameablebeasts:item/roly_poly_egg"
+  }
 }

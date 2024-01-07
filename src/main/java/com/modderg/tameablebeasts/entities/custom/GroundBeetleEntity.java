@@ -1,8 +1,12 @@
 package com.modderg.tameablebeasts.entities.custom;
 
+import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.entities.TameableGAnimal;
 import com.modderg.tameablebeasts.entities.EntityIinit;
 import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
+import com.modderg.tameablebeasts.entities.goals.TakeCareOfEggsGoal;
+import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.sound.SoundInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -74,14 +78,15 @@ public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, Ne
         super.registerGoals();
         this.goalSelector.addGoal(0, new GFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(1, new FleeSunGoal(this, 3.0F));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(2, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.4f));
-        this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, BlockInit.GROUND_BEETLE_EGG_BLOCK.get()));
+        this.goalSelector.addGoal(4, new FloatGoal(this));
+        this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4f));
+        this.goalSelector.addGoal(5, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false));
+        this.goalSelector.addGoal(7, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(9, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(10, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -122,12 +127,18 @@ public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, Ne
         return null;
     }
 
+    @Override
     public void updateAttributes(){
         if (isBaby()) {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.1D);
         } else {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         }
+    }
+
+    @Override
+    public EggBlockItem getEgg() {
+        return (EggBlockItem) ItemInit.GRASSHOPPER_EGG_ITEM.get();
     }
 
     //sounds

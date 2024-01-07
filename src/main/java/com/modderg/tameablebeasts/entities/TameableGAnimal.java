@@ -21,6 +21,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -37,6 +38,8 @@ import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+
+import java.util.Random;
 
 public class TameableGAnimal extends TamableAnimal implements GeoEntity {
 
@@ -97,6 +100,8 @@ public class TameableGAnimal extends TamableAnimal implements GeoEntity {
         }
     }
 
+
+
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
 
@@ -135,13 +140,19 @@ public class TameableGAnimal extends TamableAnimal implements GeoEntity {
 
     @Override
     public void spawnChildFromBreeding(ServerLevel level, Animal mob) {
-        if(getEgg()!= null){
+        if(getEgg()!= null && canSpawnEgg()){
             ItemStack itemstack = new ItemStack(getEgg());
             getEgg().setTextureId(itemstack, this.genChildTextId());
             ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemstack);
             level.addFreshEntity(itemEntity);
             super.finalizeSpawnChildFromBreeding(level, mob, null);
+        } else {
+            super.spawnChildFromBreeding(level, mob);
         }
+    }
+
+    public boolean canSpawnEgg(){
+        return this.isTame();
     }
 
     public EggBlockItem getEgg(){
@@ -168,22 +179,25 @@ public class TameableGAnimal extends TamableAnimal implements GeoEntity {
 
     protected int textureIdSize = 0;
     protected int specialTxtIdSize = 0;
-
-    protected int randomHealthFloor = 0;
+    protected int healthFloor = 0;
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
         this.setTextureId(this.random.nextInt(textureIdSize));
-        if(randomHealthFloor != 0){
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(this.generateRandomMaxHealth(levelAccessor.getRandom()));
-            this.setHealth(this.getMaxHealth());
-        }
         this.updateAttributes();
+
+        if(healthFloor > 0){
+            float health = generateRandomMaxHealth(healthFloor);
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(health);
+            this.setHealth(health);
+        }
+
         return super.finalizeSpawn(levelAccessor, p_146747_, p_146748_, p_146749_, p_146750_);
     }
 
-    protected float generateRandomMaxHealth(RandomSource p_218806_) {
-        return randomHealthFloor + (float)p_218806_.nextInt(8) + (float)p_218806_.nextInt(9);
+    protected float generateRandomMaxHealth(int floor) {
+        RandomSource random = this.getRandom();
+        return floor + random.nextInt(8) + random.nextInt(9);
     }
 
     public boolean isTameFood(ItemStack itemStack) {
@@ -203,10 +217,10 @@ public class TameableGAnimal extends TamableAnimal implements GeoEntity {
     public void tameGAnimal(Player player, ItemStack itemStack, int chance){
         if (!player.getAbilities().instabuild && itemStack!= null) itemStack.shrink(1);
         if (this.random.nextInt(chance) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
-            this.playSound(getTameSound(), 0.15F, 1.0F);
             this.setOwnerUUID(player.getUUID());
             this.setTame(true);
             this.level().broadcastEntityEvent(this, (byte) 7);
+            this.playSound(getTameSound(), 0.15F, 1.0F);
         } else {
             this.level().broadcastEntityEvent(this, (byte) 6);
         }
@@ -251,7 +265,7 @@ public class TameableGAnimal extends TamableAnimal implements GeoEntity {
             if(entity.isInSittingPose()){
                 event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
             } else {
-                if(event.isMoving()){
+                if(event.isMoving()||entity.onClimbable()){
                     event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
                 } else {
                     event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));

@@ -1,9 +1,11 @@
 package com.modderg.tameablebeasts.entities.custom;
 
+import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.entities.RideableTameableGAnimal;
 import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
 import com.modderg.tameablebeasts.entities.goals.RunFromNowAndThenGoal;
+import com.modderg.tameablebeasts.entities.goals.TakeCareOfEggsGoal;
 import com.modderg.tameablebeasts.entities.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.item.ItemInit;
 import com.modderg.tameablebeasts.item.block.EggBlockItem;
@@ -40,16 +42,20 @@ public class RolyPolyEntity extends RideableTameableGAnimal {
         return ItemInit.ROLYPOLY_SADDLE.get();
     }
 
+    @Override
+    protected Item hatBoostItem() {
+        return ItemInit.BIKER_HELMET.get();
+    }
+
     public RolyPolyEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.textureIdSize = 4;
-        randomHealthFloor = 10;
+        this.textureIdSize = 9;
+        this.healthFloor = 15;
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D);
+                .add(Attributes.MOVEMENT_SPEED, 0.225D);
     }
 
     public static boolean checkRolyPolySpawnRules(EntityType<RolyPolyEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
@@ -65,6 +71,7 @@ public class RolyPolyEntity extends RideableTameableGAnimal {
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(ItemInit.LEAF.get()), false));
         this.goalSelector.addGoal(3, new RunFromNowAndThenGoal(this, 1.2F));
+        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, BlockInit.ROLY_POLY_EGG_BLOCK.get()));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new FollowParentGoalIfNotSitting(this, 1.0D));
@@ -76,7 +83,7 @@ public class RolyPolyEntity extends RideableTameableGAnimal {
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isTameFood(itemstack) && !this.isTame()) {
-            tameGAnimal(player, itemstack, 30);
+            tameGAnimal(player, itemstack, 4);
             return InteractionResult.CONSUME;
         }
 
@@ -90,7 +97,7 @@ public class RolyPolyEntity extends RideableTameableGAnimal {
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return itemStack.is(Items.OAK_LEAVES);
+        return itemStack.is(ItemInit.EGG_RESTS.get());
     }
 
     @Override
@@ -138,12 +145,13 @@ public class RolyPolyEntity extends RideableTameableGAnimal {
     @Override
     public void updateAttributes(){
         if (this.isRunning()) {
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         }else {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.25D);
         }
     }
-    //animation stuff
+
+//animation stuff
 
     public static <T extends RolyPolyEntity & GeoEntity> AnimationController<T> runController(T entity) {
         return new AnimationController<>(entity,"movement", 10, event ->{

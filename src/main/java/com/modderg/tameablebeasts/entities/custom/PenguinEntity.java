@@ -1,11 +1,14 @@
 package com.modderg.tameablebeasts.entities.custom;
 
+import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.entities.TameableGAnimal;
 import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
+import com.modderg.tameablebeasts.entities.goals.TakeCareOfEggsGoal;
 import com.modderg.tameablebeasts.entities.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.entities.EntityIinit;
 import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.sound.SoundInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -94,13 +97,14 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new OwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(2, new GFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-        this.goalSelector.addGoal(2, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.4f));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.TROPICAL_FISH), false));
-        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new FloatGoal(this));
+        this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4f));
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new TakeCareOfEggsGoal(this, 15, BlockInit.PENGUIN_EGG_BLOCK.get()));
+        this.goalSelector.addGoal(4, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.1D, Ingredient.of(Items.TROPICAL_FISH), false));
+        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(9, new FollowParentGoalIfNotSitting(this, 1.0D));
@@ -226,6 +230,11 @@ public class PenguinEntity extends TameableGAnimal implements GeoEntity {
     @Override
     public SoundEvent getInteractSound(){
         return SoundInit.PENGUIN_INTERACT.get();
+    }
+
+    @Override
+    public EggBlockItem getEgg() {
+        return (EggBlockItem) ItemInit.PENGUIN_EGG_ITEM.get();
     }
 
     //animation stuff

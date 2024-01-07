@@ -16,6 +16,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -56,6 +57,7 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new SwitchingMeleeAttackGoal(this, 2D, true));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
     }

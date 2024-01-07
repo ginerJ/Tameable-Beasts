@@ -1,3 +1,6 @@
 {
-  "parent" : "tameablebeasts:block/quetzalcoatlus_egg"
+  "parent" : "minecraft:item/generated",
+  "textures" : {
+    "layer0" : "tameablebeasts:item/quetzalcoatlus_egg"
+  }
 }

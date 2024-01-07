@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.block.entity;
 
-import com.modderg.tameablebeasts.block.BlockEntitiesInit;
+import com.modderg.tameablebeasts.block.BlockEntityInit;
 import com.modderg.tameablebeasts.block.custom.EggBlock;
 import com.modderg.tameablebeasts.entities.TameableGAnimal;
 import com.modderg.tameablebeasts.entities.EntityIinit;
@@ -24,8 +24,8 @@ import java.util.UUID;
 public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     //check gone bad and hatch timer
-    public int goBadTimer = 500;
-    public int hatchTimer = 600;
+    public int goBadTimer = 3000;
+    public int hatchTimer = 30000;
 
     public int textureID = 0;
 
@@ -61,12 +61,12 @@ public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
     }
 
     public EggBlockEntity(BlockPos p_155229_, BlockState block){
-        super(BlockEntitiesInit.EGG_BLOCK_ENTITY.get(), p_155229_, block);
+        super(BlockEntityInit.EGG_BLOCK_ENTITY.get(), p_155229_, block);
         this.species = ((EggBlock)block.getBlock()).getSpecies();
     }
 
     public EggBlockEntity(BlockPos p_155229_, BlockState p_155230_, String species){
-        super(BlockEntitiesInit.EGG_BLOCK_ENTITY.get(), p_155229_, p_155230_);
+        super(BlockEntityInit.EGG_BLOCK_ENTITY.get(), p_155229_, p_155230_);
         this.species = species;
     }
 

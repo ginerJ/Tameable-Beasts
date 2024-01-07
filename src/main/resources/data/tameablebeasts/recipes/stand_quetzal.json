@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "l l",
+    "lsl",
+    " l "
+  ],
+  "key": {
+    "l": {
+      "item": "minecraft:iron_ingot"
+    },
+    "s": {
+      "item": "tameablebeasts:roly_plaque"
+    }
+  },
+  "result": {
+    "item": "tameablebeasts:quetzal_stand",
+    "count": 1
+  }
+}

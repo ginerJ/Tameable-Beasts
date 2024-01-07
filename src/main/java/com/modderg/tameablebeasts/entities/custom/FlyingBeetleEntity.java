@@ -1,11 +1,11 @@
 package com.modderg.tameablebeasts.entities.custom;
 
+import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.entities.FlyingTameableGAnimal;
-import com.modderg.tameablebeasts.entities.goals.FlyFromNowAndThen;
-import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
-import com.modderg.tameablebeasts.entities.goals.SwitchingMeleeAttackGoal;
-import com.modderg.tameablebeasts.entities.goals.TameablePanicGoal;
+import com.modderg.tameablebeasts.entities.goals.*;
+import com.modderg.tameablebeasts.item.ItemInit;
+import com.modderg.tameablebeasts.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.sound.SoundInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -54,6 +54,7 @@ public class FlyingBeetleEntity extends FlyingTameableGAnimal {
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new SwitchingMeleeAttackGoal(this, 2D, true));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, BlockInit.FLYING_BEETLE_EGG_BLOCK.get()));
         this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this,1.0D));
@@ -95,6 +96,11 @@ public class FlyingBeetleEntity extends FlyingTameableGAnimal {
                 (owner != null && this.distanceTo(owner)>10&&!this.isWandering())||
                 (this.isFlying() && owner!= null && !owner.onGround()))
                 && !this.isBaby() && super.shouldFly();
+    }
+
+    @Override
+    public EggBlockItem getEgg() {
+        return (EggBlockItem) ItemInit.FLYING_BEETLE_EGG_ITEM.get();
     }
 
     //sounds

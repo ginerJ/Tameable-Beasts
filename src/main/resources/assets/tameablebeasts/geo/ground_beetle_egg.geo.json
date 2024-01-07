@@ -1,0 +1,29 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.roly_poly_egg",
+				"texture_width": 64,
+				"texture_height": 32,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "bb_main",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-3.5, 0, -3.5], "size": [7, 12, 7], "uv": [35, 12]},
+						{"origin": [-3.5, 7, -3.5], "size": [7, 5, 7], "inflate": 0.2, "uv": [5, 12]}
+					]
+				},
+				{
+					"name": "bone",
+					"pivot": [8, 0, -8]
+				}
+			]
+		}
+	]
+}

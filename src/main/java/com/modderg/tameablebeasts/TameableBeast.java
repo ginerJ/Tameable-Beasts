@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts;
 
-import com.modderg.tameablebeasts.block.BlockEntitiesInit;
+import com.modderg.tameablebeasts.block.BlockEntityInit;
 import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.core.GBiomeModifier;
 import com.modderg.tameablebeasts.entities.custom.*;
@@ -13,6 +13,7 @@ import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.particles.TameableParticles;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.biome.Biome;
@@ -48,7 +49,7 @@ public class TameableBeast {
         CreativeTameableTab.TAMEABLE_TABS.register(bus);
 
         BlockInit.BLOCKS.register(bus);
-        BlockEntitiesInit.register(bus);
+        BlockEntityInit.register(bus);
 
         GeckoLib.initialize();
 
@@ -94,6 +95,9 @@ public class TameableBeast {
             SpawnPlacements.register(EntityIinit.GIANT_ROLY_POLY.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RolyPolyEntity::checkRolyPolySpawnRules);
 
+            SpawnPlacements.register(EntityIinit.CRESTED_GECKO.get(), SpawnPlacements.Type.ON_GROUND,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrestedGeckoEntity::checkCrestedGeckoSpawnRules);
+
             SpawnPlacements.register(EntityIinit.FUR_GOLEM.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
         });
@@ -119,6 +123,8 @@ public class TameableBeast {
         event.put(EntityIinit.GIANT_ROLY_POLY.get(), RolyPolyEntity.setCustomAttributes().build());
 
         event.put(EntityIinit.FUR_GOLEM.get(), FurGolemEntity.setCustomAttributes().build());
+
+        event.put(EntityIinit.CRESTED_GECKO.get(), CrestedGeckoEntity.setCustomAttributes().build());
     }
 
     private void addCreativeTab(BuildCreativeModeTabContentsEvent event){
@@ -131,6 +137,7 @@ public class TameableBeast {
             event.accept(ItemInit.ROLYPOLY_SADDLE);
             event.accept(ItemInit.CHIKOTE_SADDLE);
             event.accept(ItemInit.QUETZAL_SADDLE);
+            event.accept(ItemInit.QUETZAL_STAND);
             event.accept(ItemInit.RACOON_SPAWN_EGG);
             event.accept(ItemInit.PENGUIN_SPAWN_EGG);
             event.accept(ItemInit.CHIKOTE_SPAWN_EGG);
@@ -140,20 +147,26 @@ public class TameableBeast {
             event.accept(ItemInit.GROUND_BEETLE_SPAWN_EGG);
             event.accept(ItemInit.GROUND_ROLY_POLY_SPAWN_EGG);
             event.accept(ItemInit.SCARECROW_SPAWN_EGG);
+            event.accept(ItemInit.CRESTED_GECKO_SPAWN_EGG);
             event.accept(ItemInit.SCARECROW_STRAW_HAT);
             event.accept(ItemInit.FLYING_HELMET);
             event.accept(ItemInit.BIKER_HELMET);
             event.accept(ItemInit.RACOON_HAT);
             event.accept(ItemInit.IRON_BIG_HOE);
-            event.accept(BlockInit.SCARECROW_BLOCK);
             event.accept(ItemInit.FUR);
-            event.accept(BlockInit.FUR_BLOCK);
+            event.accept(ItemInit.ROLY_POLY_PLAQUE);
+            event.accept(ItemInit.EGG_RESTS);
             event.accept(ItemInit.QUETZAL_EGG_ITEM);
             event.accept(ItemInit.CHIKOTE_EGG_ITEM);
             event.accept(ItemInit.ROLY_POLY_EGG_ITEM);
             event.accept(ItemInit.FLYING_BEETLE_EGG_ITEM);
+            event.accept(ItemInit.GROUND_BEETLE_EGG_ITEM);
+            event.accept(ItemInit.GRASSHOPPER_EGG_ITEM);
+            event.accept(ItemInit.PENGUIN_EGG_ITEM);
             event.accept(ItemInit.QUETZAL_MEAT);
             event.accept(ItemInit.COOKED_QUETZAL_MEAT);
+            event.accept(BlockInit.FUR_BLOCK);
+            event.accept(BlockInit.SCARECROW_BLOCK);
         }
     }
 

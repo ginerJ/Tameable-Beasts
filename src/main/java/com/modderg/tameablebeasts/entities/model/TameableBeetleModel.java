@@ -53,7 +53,7 @@ public class TameableBeetleModel extends GeoModel<FlyingBeetleEntity> {
         CoreGeoBone head = getAnimationProcessor().getBone("head");
         CoreGeoBone bone2 = getAnimationProcessor().getBone("bone2");
 
-        if (head != null && bone2 != null) {
+        if (head != null && bone2 != null && !animatable.isBaby()) {
             EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
             head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD-bone2.getRotX());

@@ -76,6 +76,11 @@ public class EntityIinit {
 
     public static final RegistryObject<EntityType<FurGolemEntity>> FUR_GOLEM = ENTITY_TYPES.register("fur_golem",
             () -> EntityType.Builder.of(FurGolemEntity:: new, MobCategory.CREATURE)
-                    .sized(1f,1.65f)
+                    .sized(0.9f,1.65f)
                     .build(new ResourceLocation(TameableBeast.MOD_ID, "fur_golem").toString()));
+
+    public static final RegistryObject<EntityType<CrestedGeckoEntity>> CRESTED_GECKO = ENTITY_TYPES.register("crested_gecko",
+            () -> EntityType.Builder.of(CrestedGeckoEntity:: new, MobCategory.CREATURE)
+                    .sized(1.5f,0.75f)
+                    .build(new ResourceLocation(TameableBeast.MOD_ID, "crested_gecko").toString()));
 }

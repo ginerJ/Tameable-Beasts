@@ -1,3 +1,6 @@
 {
-  "parent" : "tameablebeasts:block/chikote_egg"
+  "parent" : "minecraft:item/generated",
+  "textures" : {
+    "layer0" : "tameablebeasts:item/chikote_egg"
+  }
 }

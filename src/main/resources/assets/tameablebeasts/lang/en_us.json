@@ -5,6 +5,8 @@
   "item.tameablebeasts.iron_big_hoe" : "Big Iron Hoe",
   "item.tameablebeasts.leaf" : "Leaf",
   "item.tameablebeasts.racoon_fur" : "Racoon Fur",
+  "item.tameablebeasts.roly_plaque" : "Roly Poly Plaque",
+  "item.tameablebeasts.egg_rests" : "Egg Rests",
   "item.tameablebeasts.quetzal_meat" : "Quetzalcoatlus Meat",
   "item.tameablebeasts.cooked_quetzal_meat" : "Cooked Quetzalcoatlus Meat",
 
@@ -14,9 +16,11 @@
   "item.tameablebeasts.racoon_hat" : "Racoon Hat",
 
   "item.tameablebeasts.roly_poly_saddle" : "Roly Poly Saddle",
+  "item.tameablebeasts.crested_gecko_saddle" : "Crested Gecko Saddle",
   "item.tameablebeasts.grasshopper_saddle" : "Grasshopper Saddle",
   "item.tameablebeasts.chikote_saddle" : "Chikote Saddle",
   "item.tameablebeasts.quetzal_saddle" : "Quetzalcoatulus Saddle",
+  "item.tameablebeasts.quetzal_stand" : "Quetzalcoatulus Stand Gear",
 
 
 
@@ -29,6 +33,7 @@
   "item.tameablebeasts.ground_beetle_spawn_egg" : "Ground Beetle Spawn Egg",
   "item.tameablebeasts.giant_roly_poly_spawn_egg" : "Giant Roly Poly Spawn Egg",
   "item.tameablebeasts.scarecrow_spawn_egg" : "Scarecrow Spawn Egg",
+  "item.tameablebeasts.crested_gecko_spawn_egg" : "Crested Gecko Spawn Egg",
 
 
   "block.tameablebeasts.scarecrow_block" : "Scarecrow",
@@ -44,12 +49,16 @@
   "entity.tameablebeasts.giant_grasshopper" : "Giant Grasshopper",
   "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
   "entity.tameablebeasts.giant_roly_poly" : "Giant Roly Poly",
+  "entity.tameablebeasts.crested_gecko" : "Crested Gecko",
 
 
   "block.tameablebeasts.quetzalcoatlus_egg" : "Quetzal Egg",
   "block.tameablebeasts.chikote_egg" : "Chikote Egg",
   "block.tameablebeasts.roly_poly_egg" : "Roly Poly Egg",
-  "block.tameablebeasts.beetle_egg" : "Beetle Egg",
+  "block.tameablebeasts.beetle_egg" : "Flying Beetle Larva",
+  "block.tameablebeasts.ground_beetle_egg" : "Ground Beetle Larva",
+  "block.tameablebeasts.grasshopper_egg" : "Grasshopper Egg",
+  "block.tameablebeasts.penguin_egg" : "Penguin Egg",
 
 
 

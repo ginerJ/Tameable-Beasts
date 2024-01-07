@@ -13,7 +13,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class QuetzalcoatlusRender extends GeoEntityRenderer<QuetzalcoatlusEntity> {
     public QuetzalcoatlusRender(EntityRendererProvider.Context renderManager) {
-        super(renderManager, (GeoModel<QuetzalcoatlusEntity>) new QuetzalcoatlusModel());
+        super(renderManager, new QuetzalcoatlusModel());
     }
 
     @Override
@@ -28,6 +28,9 @@ public class QuetzalcoatlusRender extends GeoEntityRenderer<QuetzalcoatlusEntity
     @Override
     public void renderRecursively(PoseStack poseStack, QuetzalcoatlusEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if(!animatable.hasSaddle() && bone.getName().contains("saddle")){
+            return;
+        }
+        if(!animatable.hasStand() && bone.getName().contains("stand")){
             return;
         }
         super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);

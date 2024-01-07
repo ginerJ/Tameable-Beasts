@@ -1,11 +1,9 @@
 package com.modderg.tameablebeasts.entities.custom;
 
-import com.modderg.tameablebeasts.block.custom.ScarecrowBlock;
+import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.entities.RideableTameableGAnimal;
-import com.modderg.tameablebeasts.entities.goals.AvoidBlockGoal;
-import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
-import com.modderg.tameablebeasts.entities.goals.TameablePanicGoal;
+import com.modderg.tameablebeasts.entities.goals.*;
 import com.modderg.tameablebeasts.item.ItemInit;
 import com.modderg.tameablebeasts.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.sound.SoundInit;
@@ -30,12 +28,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import software.bernie.geckolib.animatable.GeoEntity;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
 
 public class ChikoteEntity extends RideableTameableGAnimal {
 
@@ -48,17 +43,12 @@ public class ChikoteEntity extends RideableTameableGAnimal {
         super(p_21803_, p_21804_);
         this.textureIdSize = 8;
         this.specialTxtIdSize = 9;
-        this.randomHealthFloor = 20;
+        this.healthFloor = 18;
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D);
-    }
-
-    protected float generateRandomMaxHealth(RandomSource p_218806_) {
-        return 20.0F + (float)p_218806_.nextInt(8) + (float)p_218806_.nextInt(9);
+                .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
     public static boolean checkChikoteSpawnRules(EntityType<ChikoteEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
@@ -72,15 +62,15 @@ public class ChikoteEntity extends RideableTameableGAnimal {
         this.goalSelector.addGoal(0, new GFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new TakeCareOfEggsGoal(this, 15, BlockInit.CHIKOTE_EGG_BLOCK.get()));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.BEETROOT), false));
-        this.goalSelector.addGoal(4, new AvoidBlockGoal<>(this, ScarecrowBlock.class, 6.0F, 1.0D, 1.2D));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, ScarecrowAllayEntity.class, 6.0F, 1.0D, 1.2D));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(8, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new FollowParentGoalIfNotSitting(this, 1.0D));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(11, new RandomStrollGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(12, new RaidCropsTameableGoal(this, 15));
     }
 
     @Override
@@ -108,12 +98,26 @@ public class ChikoteEntity extends RideableTameableGAnimal {
     @Override
     public void updateAttributes(){
         if (this.isBaby()) {
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.05D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15D);
         } else if (this.getTextureID() == 8){
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.4D);
         } else{
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         }
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        Vec3 vec3 = this.getDeltaMovement();
+        if (!this.onGround() && vec3.y < 0.0D) {
+            this.setDeltaMovement(vec3.multiply(1.0D, 0.8D, 1.0D));
+        }
+    }
+
+    @Override
+    public boolean causeFallDamage(float p_147187_, float p_147188_, DamageSource p_147189_) {
+        return false;
     }
 
     @Override

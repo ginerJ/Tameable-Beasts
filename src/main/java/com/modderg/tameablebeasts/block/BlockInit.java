@@ -29,16 +29,25 @@ public class BlockInit {
             object -> () -> new BlockItem(object.get(), new Item.Properties()));
 
     public static final RegistryObject<Block> QUETZAL_EGG_BLOCK = BLOCKS.register("quetzalcoatlus_egg",
-            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"Quetzalcoatlus"));
+            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"Quetzalcoatlus",14,16));
 
     public static final RegistryObject<Block> CHIKOTE_EGG_BLOCK = BLOCKS.register("chikote_egg",
-            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"tameable_Chikote"));
+            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"tameable_Chikote", 10,11));
 
     public static final RegistryObject<Block> ROLY_POLY_EGG_BLOCK = BLOCKS.register("roly_poly_egg",
-            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"giant_Roly_Poly"));
+            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"giant_Roly_Poly", 10, 13));
 
-    public static final RegistryObject<Block> FLYING_BEETLE_EGG = BLOCKS.register("beetle_egg",
-            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"tameable_Beetle"));
+    public static final RegistryObject<Block> FLYING_BEETLE_EGG_BLOCK = BLOCKS.register("beetle_egg",
+            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"tameable_Beetle", 10,13));
+
+    public static final RegistryObject<Block> GROUND_BEETLE_EGG_BLOCK = BLOCKS.register("ground_beetle_egg",
+            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"Ground_Beetle", 10, 13));
+
+    public static final RegistryObject<Block> GRASSHOPPER_EGG_BLOCK = BLOCKS.register("grasshopper_egg",
+            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"giant_Grasshopper", 12, 4));
+
+    public static final RegistryObject<Block> PENGUIN_EGG_BLOCK = BLOCKS.register("penguin_egg",
+            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"tameable_Penguin", 6 ,7));
 
     private static <T extends Block> RegistryObject<T> registerBlock(final String name, final Supplier<? extends T> block) {
         return BLOCKS.register(name, block);

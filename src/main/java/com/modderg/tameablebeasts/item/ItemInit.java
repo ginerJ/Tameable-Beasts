@@ -24,15 +24,20 @@ public class ItemInit {
         public static final RegistryObject<Item> ICEPOP = ITEMS.register("icepop", () -> new Item(new Properties().food(Foods.SWEET_BERRIES)));
         public static final RegistryObject<Item> ICE_HELMET = ITEMS.register("ice_helmet", () -> new IceHelmetItem(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> PURPLE_ALLAY = ITEMS.register("purple_allay", () -> new PurpleAllay(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(new Properties().stacksTo(16)));
-        public static final RegistryObject<Item> FUR = ITEMS.register("racoon_fur", () -> new Item(new Properties().stacksTo(64)));
+        public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(new Properties()));
+        public static final RegistryObject<Item> FUR = ITEMS.register("racoon_fur", () -> new Item(new Properties()));
+        public static final RegistryObject<Item> ROLY_POLY_PLAQUE = ITEMS.register("roly_plaque", () -> new Item(new Properties()));
+
+        public static final RegistryObject<Item> EGG_RESTS = ITEMS.register("egg_rests", () -> new Item(new Properties()));
         public static final RegistryObject<Item> QUETZAL_MEAT = ITEMS.register("quetzal_meat", () -> new Item(new Properties().food(Foods.BEEF)));
         public static final RegistryObject<Item> COOKED_QUETZAL_MEAT = ITEMS.register("cooked_quetzal_meat", () -> new Item(new Properties().food(Foods.COOKED_BEEF)));
 
         public static final RegistryObject<Item> GRASSHOPPER_SADDLE = ITEMS.register("grasshopper_saddle", () -> new Item(new Properties().stacksTo(1)));
+        public static final RegistryObject<Item> CRESTED_GECKO_SADDLE = ITEMS.register("crested_gecko_saddle", () -> new Item(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> ROLYPOLY_SADDLE = ITEMS.register("roly_poly_saddle", () -> new Item(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> CHIKOTE_SADDLE = ITEMS.register("chikote_saddle", () -> new Item(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> QUETZAL_SADDLE = ITEMS.register("quetzal_saddle", () -> new Item(new Properties().stacksTo(1)));
+        public static final RegistryObject<Item> QUETZAL_STAND = ITEMS.register("quetzal_stand", () -> new Item(new Properties().stacksTo(1)));
 
 
         //spawn eggs
@@ -63,6 +68,9 @@ public class ItemInit {
         public static final RegistryObject<ForgeSpawnEggItem> SCARECROW_SPAWN_EGG = ITEMS.register("scarecrow_spawn_egg", () -> new ForgeSpawnEggItem(
                 EntityIinit.SCARECROW_ALLAY, 0xFFC347, 0x6A5ACD, new Properties()));
 
+        public static final RegistryObject<ForgeSpawnEggItem> CRESTED_GECKO_SPAWN_EGG = ITEMS.register("crested_gecko_spawn_egg", () -> new ForgeSpawnEggItem(
+                EntityIinit.CRESTED_GECKO, 0x728452, 0xC9B96A, new Properties()));
+
 
         //hats
         public static final RegistryObject<Item> SCARECROW_STRAW_HAT = ITEMS.register("scarecrow_straw_hat", () -> new HatItem(new Properties().stacksTo(1)));
@@ -72,16 +80,25 @@ public class ItemInit {
 
         //blocks
         public static final RegistryObject<Item> QUETZAL_EGG_ITEM = ITEMS.register("quetzalcoatlus_egg",
-                () -> new EggBlockItem(BlockInit.QUETZAL_EGG_BLOCK.get() ,new Properties().stacksTo(1), "Quetzalcoatlus"));
+                () -> new EggBlockItem(BlockInit.QUETZAL_EGG_BLOCK.get(), new Properties().stacksTo(1)));
 
         public static final RegistryObject<Item> CHIKOTE_EGG_ITEM = ITEMS.register("chikote_egg",
-                () -> new EggBlockItem(BlockInit.CHIKOTE_EGG_BLOCK.get() ,new Properties().stacksTo(1), "Chikote"));
+                () -> new EggBlockItem(BlockInit.CHIKOTE_EGG_BLOCK.get(), new Properties().stacksTo(1)));
 
         public static final RegistryObject<Item> ROLY_POLY_EGG_ITEM = ITEMS.register("roly_poly_egg",
-                () -> new EggBlockItem(BlockInit.ROLY_POLY_EGG_BLOCK.get() ,new Properties().stacksTo(1), "Roly_Poly"));
+                () -> new EggBlockItem(BlockInit.ROLY_POLY_EGG_BLOCK.get(), new Properties().stacksTo(1)));
 
         public static final RegistryObject<Item> FLYING_BEETLE_EGG_ITEM = ITEMS.register("beetle_egg",
-                () -> new EggBlockItem(BlockInit.FLYING_BEETLE_EGG.get() ,new Properties().stacksTo(1), "Beetle"));
+                () -> new EggBlockItem(BlockInit.FLYING_BEETLE_EGG_BLOCK.get(), new Properties().stacksTo(1)));
+
+        public static final RegistryObject<Item> GROUND_BEETLE_EGG_ITEM = ITEMS.register("ground_beetle_egg",
+                () -> new EggBlockItem(BlockInit.GROUND_BEETLE_EGG_BLOCK.get(), new Properties().stacksTo(1)));
+
+        public static final RegistryObject<Item> GRASSHOPPER_EGG_ITEM = ITEMS.register("grasshopper_egg",
+                () -> new EggBlockItem(BlockInit.GRASSHOPPER_EGG_BLOCK.get(), new Properties().stacksTo(1)));
+
+        public static final RegistryObject<Item> PENGUIN_EGG_ITEM = ITEMS.register("penguin_egg",
+                () -> new EggBlockItem(BlockInit.PENGUIN_EGG_BLOCK.get(), new Properties().stacksTo(1)));
 
         //tools
         public static final RegistryObject<Item> IRON_BIG_HOE = ITEMS.register("iron_big_hoe", () -> new HoeItem(Tiers.IRON, -1, -1.0F, (new Properties())));
