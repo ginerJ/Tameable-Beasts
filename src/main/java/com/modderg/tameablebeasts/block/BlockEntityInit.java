@@ -18,7 +18,8 @@ public class BlockEntityInit {
                     BlockInit.QUETZAL_EGG_BLOCK.get(), BlockInit.CHIKOTE_EGG_BLOCK.get(),
                     BlockInit.ROLY_POLY_EGG_BLOCK.get(), BlockInit.FLYING_BEETLE_EGG_BLOCK.get(),
                     BlockInit.GROUND_BEETLE_EGG_BLOCK.get(), BlockInit.GRASSHOPPER_EGG_BLOCK.get(),
-                    BlockInit.PENGUIN_EGG_BLOCK.get()
+                    BlockInit.PENGUIN_EGG_BLOCK.get(),BlockInit.CRESTED_GECKO_EGG_BLOCK.get(),
+                    BlockInit.ARGENTAVIS_EGG_BLOCK.get()
             ).build(null));
 
     public static void register(IEventBus eventBus){

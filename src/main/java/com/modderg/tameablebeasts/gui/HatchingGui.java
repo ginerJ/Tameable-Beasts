@@ -59,6 +59,5 @@ public class HatchingGui {
                 0x000000, false);
         guiGraphics.drawString(Minecraft.getInstance().font,goneBad?"Gone Bad":(isWarm?"Warm":"Cold"),x+40,y+25,
                 goneBad?0x98BB23:(isWarm?0xF37E22:0x36D2FC), false);
-
     }
 }

@@ -258,5 +258,51 @@
     "sounds": [
       "tameablebeasts:grasshopper_hurt"
     ]
+  },
+
+
+
+  "entity.argentavis.argentavis_ambient": {
+    "sounds": [
+      "tameablebeasts:argentavis_ambient"
+    ]
+  },
+  "entity.argentavis.argentavis_interact": {
+    "sounds": [
+      "tameablebeasts:argentavis_interact"
+    ]
+  },
+  "entity.argentavis.argentavis_death": {
+    "sounds": [
+      "tameablebeasts:argentavis_death"
+    ]
+  },
+  "entity.argentavis.argentavis_hurt": {
+    "sounds": [
+      "tameablebeasts:argentavis_hurt"
+    ]
+  },
+
+
+
+  "entity.crested_gecko.crested_gecko_ambient": {
+    "sounds": [
+      "tameablebeasts:crested_gecko_ambient"
+    ]
+  },
+  "entity.crested_gecko.crested_gecko_interact": {
+    "sounds": [
+      "tameablebeasts:crested_gecko_interact"
+    ]
+  },
+  "entity.crested_gecko.crested_gecko_death": {
+    "sounds": [
+      "tameablebeasts:crested_gecko_death"
+    ]
+  },
+  "entity.crested_gecko.crested_gecko_hurt": {
+    "sounds": [
+      "tameablebeasts:crested_gecko_hurt"
+    ]
   }
 }

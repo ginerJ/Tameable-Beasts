@@ -82,7 +82,7 @@ public class FlyingTameableGAnimal extends TameableGAnimal {
         return this.entityData.get(GOALSWANTFLYING);
     }
 
-    protected boolean isStill() {
+    public boolean isStill() {
         return !(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-3D);
     }
 

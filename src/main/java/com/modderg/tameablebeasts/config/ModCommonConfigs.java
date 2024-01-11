@@ -13,6 +13,7 @@ public class ModCommonConfigs {
     public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_GROUND_BEETLE;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_PENGUIN;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_QUETZAL;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_ARGENTAVIS;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_RACOON;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_CRESTED_GECKO;
 
@@ -45,6 +46,9 @@ public class ModCommonConfigs {
 
         CAN_SPAWN_CRESTED_GECKO = BUILDER.comment("Spawn Crested Gecko")
                 .define("Crested Geckos enabled:", true);
+
+        CAN_SPAWN_ARGENTAVIS = BUILDER.comment("Spawn Argentavis Gecko")
+                .define("Argentavis enabled:", true);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -26,6 +27,8 @@ import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+
+import java.util.stream.IntStream;
 
 public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEntity {
 
@@ -116,6 +119,14 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
         } else {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3.0D);
         }
+    }
+
+    @Override
+    protected void dropAllDeathLoot(DamageSource p_21192_) {
+        if(this.getHoe()){
+            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemInit.IRON_BIG_HOE.get())));
+        }
+        super.dropAllDeathLoot(p_21192_);
     }
 
     //sounds

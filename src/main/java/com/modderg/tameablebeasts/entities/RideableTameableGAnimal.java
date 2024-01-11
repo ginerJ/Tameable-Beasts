@@ -78,7 +78,7 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isOwnedBy(player)){
-            if (this.hasSaddle()){
+            if (this.hasSaddle() && !isFood(itemstack)){
                 if(!player.isShiftKeyDown() && !this.isInSittingPose()){
                     player.startRiding(this);
                     return InteractionResult.sidedSuccess(this.level().isClientSide);
@@ -97,10 +97,19 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
 
     @Override
     protected void dropAllDeathLoot(DamageSource p_21192_) {
-        if(this.hasSaddle()){
+        if(this.hasSaddle() && this.itemSaddle()!=null){
             this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(itemSaddle())));
         }
         super.dropAllDeathLoot(p_21192_);
+    }
+
+    public float getRidingSpeedMultiplier(){
+        LivingEntity passenger = getControllingPassenger();
+        if (passenger instanceof Player p  && this.hatBoostItem() != null &&
+                isHatBoostItem(p.getInventory().getArmor(3))){
+            return 1.6f;
+        }
+        else return 1f;
     }
 
     @Override
@@ -125,11 +134,8 @@ public class RideableTameableGAnimal extends TameableGAnimal implements ItemStee
                 if (z <= 0)
                     z *= 0.25f;
 
-                float speedMul = 1f;
-                if (passenger instanceof Player p  && this.hatBoostItem() != null &&
-                        isHatBoostItem(p.getInventory().getArmor(3))){
-                    speedMul = 1.6f;
-                }
+                float speedMul = this.getRidingSpeedMultiplier();
+
 
                 this.setSpeed((float) this.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue() * speedMul);
 

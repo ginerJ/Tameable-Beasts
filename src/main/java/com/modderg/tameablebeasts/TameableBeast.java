@@ -13,7 +13,6 @@ import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.particles.TameableParticles;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.biome.Biome;
@@ -100,6 +99,9 @@ public class TameableBeast {
 
             SpawnPlacements.register(EntityIinit.FUR_GOLEM.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+
+            SpawnPlacements.register(EntityIinit.ARGENTAVIS.get(), SpawnPlacements.Type.ON_GROUND,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ArgentavisEntity::checkArgentavisSpawnRules);
         });
     }
 
@@ -125,19 +127,24 @@ public class TameableBeast {
         event.put(EntityIinit.FUR_GOLEM.get(), FurGolemEntity.setCustomAttributes().build());
 
         event.put(EntityIinit.CRESTED_GECKO.get(), CrestedGeckoEntity.setCustomAttributes().build());
+
+        event.put(EntityIinit.ARGENTAVIS.get(), ArgentavisEntity.setCustomAttributes().build());
     }
 
     private void addCreativeTab(BuildCreativeModeTabContentsEvent event){
         if(event.getTab() == CreativeTameableTab.TAMEABLE_TAB.get()){
             event.accept(ItemInit.ICEPOP);
             event.accept(ItemInit.ICE_HELMET);
+            event.accept(ItemInit.ICE_CHESTPLATE);
             event.accept(ItemInit.PURPLE_ALLAY);
             event.accept(ItemInit.LEAF);
             event.accept(ItemInit.GRASSHOPPER_SADDLE);
             event.accept(ItemInit.ROLYPOLY_SADDLE);
             event.accept(ItemInit.CHIKOTE_SADDLE);
+            event.accept(ItemInit.CRESTED_GECKO_SADDLE);
             event.accept(ItemInit.QUETZAL_SADDLE);
             event.accept(ItemInit.QUETZAL_STAND);
+            event.accept(ItemInit.ARGENTAVIS_SADDLE);
             event.accept(ItemInit.RACOON_SPAWN_EGG);
             event.accept(ItemInit.PENGUIN_SPAWN_EGG);
             event.accept(ItemInit.CHIKOTE_SPAWN_EGG);
@@ -148,6 +155,7 @@ public class TameableBeast {
             event.accept(ItemInit.GROUND_ROLY_POLY_SPAWN_EGG);
             event.accept(ItemInit.SCARECROW_SPAWN_EGG);
             event.accept(ItemInit.CRESTED_GECKO_SPAWN_EGG);
+            event.accept(ItemInit.ARGENTAVIS_SPAWN_EGG);
             event.accept(ItemInit.SCARECROW_STRAW_HAT);
             event.accept(ItemInit.FLYING_HELMET);
             event.accept(ItemInit.BIKER_HELMET);
@@ -163,8 +171,12 @@ public class TameableBeast {
             event.accept(ItemInit.GROUND_BEETLE_EGG_ITEM);
             event.accept(ItemInit.GRASSHOPPER_EGG_ITEM);
             event.accept(ItemInit.PENGUIN_EGG_ITEM);
+            event.accept(ItemInit.CRESTED_GECKO_EGG_ITEM);
+            event.accept(ItemInit.ARGENTAVIS_EGG_ITEM);
             event.accept(ItemInit.QUETZAL_MEAT);
             event.accept(ItemInit.COOKED_QUETZAL_MEAT);
+            event.accept(ItemInit.BIG_BIRD_MEAT);
+            event.accept(ItemInit.COOKED_BIG_BIRD_MEAT);
             event.accept(BlockInit.FUR_BLOCK);
             event.accept(BlockInit.SCARECROW_BLOCK);
         }

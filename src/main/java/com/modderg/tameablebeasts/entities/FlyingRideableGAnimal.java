@@ -86,7 +86,7 @@ public class FlyingRideableGAnimal extends FlyingTameableGAnimal implements Item
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isOwnedBy(player)){
-            if (this.hasSaddle()){
+            if (this.hasSaddle() && !isFood(itemstack)){
                 if(!player.isShiftKeyDown() && !this.isInSittingPose()){
                     player.startRiding(this);
                     return InteractionResult.sidedSuccess(this.level().isClientSide);
@@ -109,6 +109,15 @@ public class FlyingRideableGAnimal extends FlyingTameableGAnimal implements Item
             this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(itemSaddle())));
         }
         super.dropAllDeathLoot(p_21192_);
+    }
+
+    public float getRidingSpeedMultiplier(){
+        LivingEntity passenger = getControllingPassenger();
+        if (passenger instanceof Player p  && this.hatBoostItem() != null &&
+                isHatBoostItem(p.getInventory().getArmor(3))){
+            return 1.8f;
+        }
+        else return 1f;
     }
 
     @Override
@@ -141,10 +150,7 @@ public class FlyingRideableGAnimal extends FlyingTameableGAnimal implements Item
                 {
                     float speed = (float) getAttributeValue(isFlying()? FLYING_SPEED : MOVEMENT_SPEED) * 0.2f;
 
-                    if (passenger instanceof Player p  && this.hatBoostItem() != null &&
-                            isHatBoostItem(p.getInventory().getArmor(3))){
-                        speed *= 2f;
-                    }
+                    speed *= this.getRidingSpeedMultiplier();
 
                     moveDist = moveDist > 0? moveDist : 0;
                     float movY = (float) (-passenger.getXRot() * (Math.PI / 180));

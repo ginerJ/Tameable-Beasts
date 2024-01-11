@@ -1,6 +1,7 @@
 {
   "item.tameablebeasts.icepop" : "Icepop",
   "item.tameablebeasts.ice_helmet" : "Ice Helmet",
+  "item.tameablebeasts.ice_chestplate" : "Ice Chestplate",
   "item.tameablebeasts.purple_allay" : "Purple Allay",
   "item.tameablebeasts.iron_big_hoe" : "Big Iron Hoe",
   "item.tameablebeasts.leaf" : "Leaf",
@@ -9,6 +10,8 @@
   "item.tameablebeasts.egg_rests" : "Egg Rests",
   "item.tameablebeasts.quetzal_meat" : "Quetzalcoatlus Meat",
   "item.tameablebeasts.cooked_quetzal_meat" : "Cooked Quetzalcoatlus Meat",
+  "item.tameablebeasts.big_bird_meat" : "Raw Big Bird Meat",
+  "item.tameablebeasts.cooked_big_bird_meat" : "Cooked Big Bird Meat",
 
   "item.tameablebeasts.scarecrow_straw_hat" : "Straw Hat",
   "item.tameablebeasts.biker_helmet" : "Poly Biker Helmet",
@@ -16,6 +19,7 @@
   "item.tameablebeasts.racoon_hat" : "Racoon Hat",
 
   "item.tameablebeasts.roly_poly_saddle" : "Roly Poly Saddle",
+  "item.tameablebeasts.argentavis_saddle" : "Argentavis Saddle",
   "item.tameablebeasts.crested_gecko_saddle" : "Crested Gecko Saddle",
   "item.tameablebeasts.grasshopper_saddle" : "Grasshopper Saddle",
   "item.tameablebeasts.chikote_saddle" : "Chikote Saddle",
@@ -34,6 +38,7 @@
   "item.tameablebeasts.giant_roly_poly_spawn_egg" : "Giant Roly Poly Spawn Egg",
   "item.tameablebeasts.scarecrow_spawn_egg" : "Scarecrow Spawn Egg",
   "item.tameablebeasts.crested_gecko_spawn_egg" : "Crested Gecko Spawn Egg",
+  "item.tameablebeasts.argentavis_spawn_egg" : "Argentavis Spawn Egg",
 
 
   "block.tameablebeasts.scarecrow_block" : "Scarecrow",
@@ -50,6 +55,7 @@
   "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
   "entity.tameablebeasts.giant_roly_poly" : "Giant Roly Poly",
   "entity.tameablebeasts.crested_gecko" : "Crested Gecko",
+  "entity.tameablebeasts.argentavis" : "Argentavis",
 
 
   "block.tameablebeasts.quetzalcoatlus_egg" : "Quetzal Egg",
@@ -59,6 +65,8 @@
   "block.tameablebeasts.ground_beetle_egg" : "Ground Beetle Larva",
   "block.tameablebeasts.grasshopper_egg" : "Grasshopper Egg",
   "block.tameablebeasts.penguin_egg" : "Penguin Egg",
+  "block.tameablebeasts.crested_gecko_egg" : "Crested Gecko Egg",
+  "block.tameablebeasts.argentavis_egg" : "Argentavis Egg",
 
 
 

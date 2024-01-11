@@ -185,7 +185,7 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
                     double d0 = this.getCustomJump() * (double) this.playerJumpPendingScale * (double) this.getBlockJumpFactor();
                     double d1 = d0 + this.getJumpPower();
                     Vec3 vec3 = this.getDeltaMovement();
-                    this.setDeltaMovement(vec3.x, d1/4, vec3.z);
+                    this.setDeltaMovement(vec3.x, d1*0.7f, vec3.z);
                     this.setIsJumping(true);
                     this.hasImpulse = true;
                     net.minecraftforge.common.ForgeHooks.onLivingJump(this);
@@ -290,7 +290,7 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
                 if(!entity.onGround() && entity.getDeltaMovement().y > 0){
                     event.getController().setAnimation(RawAnimation.begin().then("jump", Animation.LoopType.LOOP));
                 } else {
-                    if(event.isMoving() && entity.onGround()){
+                    if((event.isMoving() && entity.onGround())){
                         event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
                     } else {
                         event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));

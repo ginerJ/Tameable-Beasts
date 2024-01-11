@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "l l",
-    "l l",
+    "lpl",
     " s "
   ],
   "key": {
@@ -11,6 +11,9 @@
     },
     "s": {
       "item": "minecraft:saddle"
+    },
+    "p": {
+      "item": "tameablebeasts:roly_plaque"
     }
   },
   "result": {

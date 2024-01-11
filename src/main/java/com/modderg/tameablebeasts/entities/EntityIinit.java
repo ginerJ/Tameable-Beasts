@@ -36,7 +36,7 @@ public class EntityIinit {
 
     public static final RegistryObject<EntityType<PenguinEntity>> TAMEABLE_PENGUIN = ENTITY_TYPES.register("tameable_penguin",
             () -> EntityType.Builder.of(PenguinEntity:: new, MobCategory.CREATURE)
-                    .sized(0.5f,0.75f)
+                    .sized(0.5f,0.95f)
                     .build(new ResourceLocation(TameableBeast.MOD_ID, "tameable_penguin").toString()));
 
     public static final RegistryObject<EntityType<ChikoteEntity>> TAMEABLE_CHIKOTE = ENTITY_TYPES.register("tameable_chikote",
@@ -83,4 +83,9 @@ public class EntityIinit {
             () -> EntityType.Builder.of(CrestedGeckoEntity:: new, MobCategory.CREATURE)
                     .sized(1.5f,0.75f)
                     .build(new ResourceLocation(TameableBeast.MOD_ID, "crested_gecko").toString()));
+
+    public static final RegistryObject<EntityType<ArgentavisEntity>> ARGENTAVIS = ENTITY_TYPES.register("argentavis",
+            () -> EntityType.Builder.of(ArgentavisEntity:: new, MobCategory.CREATURE)
+                    .sized(1f,1.3f)
+                    .build(new ResourceLocation(TameableBeast.MOD_ID, "argentavis").toString()));
 }

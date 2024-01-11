@@ -49,6 +49,12 @@ public class BlockInit {
     public static final RegistryObject<Block> PENGUIN_EGG_BLOCK = BLOCKS.register("penguin_egg",
             () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"tameable_Penguin", 6 ,7));
 
+    public static final RegistryObject<Block> CRESTED_GECKO_EGG_BLOCK = BLOCKS.register("crested_gecko_egg",
+            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"Crested_Gecko", 8 ,13));
+
+    public static final RegistryObject<Block> ARGENTAVIS_EGG_BLOCK = BLOCKS.register("argentavis_egg",
+            () -> new EggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG),"Argentavis",14,16));
+
     private static <T extends Block> RegistryObject<T> registerBlock(final String name, final Supplier<? extends T> block) {
         return BLOCKS.register(name, block);
     }

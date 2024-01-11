@@ -5,7 +5,7 @@ import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.entities.EntityIinit;
 import com.modderg.tameablebeasts.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.item.block.HatItem;
-import com.modderg.tameablebeasts.item.custom.IceHelmetItem;
+import com.modderg.tameablebeasts.item.custom.PenguinArmor;
 import com.modderg.tameablebeasts.item.custom.PurpleAllay;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.HoeItem;
@@ -22,7 +22,8 @@ public class ItemInit {
 
         //items
         public static final RegistryObject<Item> ICEPOP = ITEMS.register("icepop", () -> new Item(new Properties().food(Foods.SWEET_BERRIES)));
-        public static final RegistryObject<Item> ICE_HELMET = ITEMS.register("ice_helmet", () -> new IceHelmetItem(new Properties().stacksTo(1)));
+        public static final RegistryObject<Item> ICE_HELMET = ITEMS.register("ice_helmet", () -> new PenguinArmor(new Properties().stacksTo(1)));
+        public static final RegistryObject<Item> ICE_CHESTPLATE = ITEMS.register("ice_chestplate", () -> new PenguinArmor(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> PURPLE_ALLAY = ITEMS.register("purple_allay", () -> new PurpleAllay(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(new Properties()));
         public static final RegistryObject<Item> FUR = ITEMS.register("racoon_fur", () -> new Item(new Properties()));
@@ -31,12 +32,16 @@ public class ItemInit {
         public static final RegistryObject<Item> EGG_RESTS = ITEMS.register("egg_rests", () -> new Item(new Properties()));
         public static final RegistryObject<Item> QUETZAL_MEAT = ITEMS.register("quetzal_meat", () -> new Item(new Properties().food(Foods.BEEF)));
         public static final RegistryObject<Item> COOKED_QUETZAL_MEAT = ITEMS.register("cooked_quetzal_meat", () -> new Item(new Properties().food(Foods.COOKED_BEEF)));
+        public static final RegistryObject<Item> BIG_BIRD_MEAT = ITEMS.register("big_bird_meat", () -> new Item(new Properties().food(Foods.BEEF)));
+        public static final RegistryObject<Item> COOKED_BIG_BIRD_MEAT = ITEMS.register("cooked_big_bird_meat", () -> new Item(new Properties().food(Foods.COOKED_BEEF)));
+
 
         public static final RegistryObject<Item> GRASSHOPPER_SADDLE = ITEMS.register("grasshopper_saddle", () -> new Item(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> CRESTED_GECKO_SADDLE = ITEMS.register("crested_gecko_saddle", () -> new Item(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> ROLYPOLY_SADDLE = ITEMS.register("roly_poly_saddle", () -> new Item(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> CHIKOTE_SADDLE = ITEMS.register("chikote_saddle", () -> new Item(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> QUETZAL_SADDLE = ITEMS.register("quetzal_saddle", () -> new Item(new Properties().stacksTo(1)));
+        public static final RegistryObject<Item> ARGENTAVIS_SADDLE = ITEMS.register("argentavis_saddle", () -> new Item(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> QUETZAL_STAND = ITEMS.register("quetzal_stand", () -> new Item(new Properties().stacksTo(1)));
 
 
@@ -71,6 +76,9 @@ public class ItemInit {
         public static final RegistryObject<ForgeSpawnEggItem> CRESTED_GECKO_SPAWN_EGG = ITEMS.register("crested_gecko_spawn_egg", () -> new ForgeSpawnEggItem(
                 EntityIinit.CRESTED_GECKO, 0x728452, 0xC9B96A, new Properties()));
 
+        public static final RegistryObject<ForgeSpawnEggItem> ARGENTAVIS_SPAWN_EGG = ITEMS.register("argentavis_spawn_egg", () -> new ForgeSpawnEggItem(
+                EntityIinit.ARGENTAVIS, 0xECB67D, 0x86511A, new Properties()));
+
 
         //hats
         public static final RegistryObject<Item> SCARECROW_STRAW_HAT = ITEMS.register("scarecrow_straw_hat", () -> new HatItem(new Properties().stacksTo(1)));
@@ -99,6 +107,12 @@ public class ItemInit {
 
         public static final RegistryObject<Item> PENGUIN_EGG_ITEM = ITEMS.register("penguin_egg",
                 () -> new EggBlockItem(BlockInit.PENGUIN_EGG_BLOCK.get(), new Properties().stacksTo(1)));
+
+        public static final RegistryObject<Item> CRESTED_GECKO_EGG_ITEM = ITEMS.register("crested_gecko_egg",
+                () -> new EggBlockItem(BlockInit.CRESTED_GECKO_EGG_BLOCK.get(), new Properties().stacksTo(1)));
+
+        public static final RegistryObject<Item> ARGENTAVIS_EGG_ITEM = ITEMS.register("argentavis_egg",
+                () -> new EggBlockItem(BlockInit.ARGENTAVIS_EGG_BLOCK.get(), new Properties().stacksTo(1)));
 
         //tools
         public static final RegistryObject<Item> IRON_BIG_HOE = ITEMS.register("iron_big_hoe", () -> new HoeItem(Tiers.IRON, -1, -1.0F, (new Properties())));

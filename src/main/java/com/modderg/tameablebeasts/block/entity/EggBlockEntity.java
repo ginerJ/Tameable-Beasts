@@ -90,13 +90,13 @@ public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (!level.isClientSide) {
-            if ( goBadTimer-- >= 0) {
+            if (goBadTimer-- >= 0) {
                 if(isWarm())goBadTimer = 3000;
                 hatchTimer--;
             }
 
 
-            if(hatchTimer == 0){
+            if(hatchTimer <= 0){
                 TameableGAnimal animal = (TameableGAnimal) EntityIinit.beastsMap.get(getSpecies().toLowerCase()).get().create(level);
                 animal.setPos(this.getBlockPos().getCenter());
                 animal.setBaby(true);

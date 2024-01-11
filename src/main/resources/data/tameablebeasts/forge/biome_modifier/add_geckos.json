@@ -1,0 +1,14 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:jungle",
+    "minecraft:sparse_jungle",
+    "minecraft:bamboo_jungle"
+  ],
+  "spawners": {
+    "type": "tameablebeasts:crested_gecko",
+    "weight": 60,
+    "maxCount": 4,
+    "minCount": 1
+  }
+}

@@ -31,6 +31,7 @@ public class ModEventClient {
         event.registerEntityRenderer(EntityIinit.GIANT_ROLY_POLY.get(), GiantTameableRolyPolyRender::new);
         event.registerEntityRenderer(EntityIinit.FUR_GOLEM.get(), FurGolemRender::new);
         event.registerEntityRenderer(EntityIinit.CRESTED_GECKO.get(), CrestedGeckoRender::new);
+        event.registerEntityRenderer(EntityIinit.ARGENTAVIS.get(), ArgentavisRender::new);
 
         event.registerBlockEntityRenderer(BlockEntityInit.EGG_BLOCK_ENTITY.get(), EggBlockRender::new);
     }

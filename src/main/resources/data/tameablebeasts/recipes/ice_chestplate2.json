@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "i i",
+    "iii",
+    "   "
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:packed_ice"
+    }
+  },
+  "result": {
+    "item": "tameablebeasts:ice_chestplate",
+    "count": 1
+  }
+}

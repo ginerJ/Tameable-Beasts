@@ -29,6 +29,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -67,7 +68,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableGAnimal {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.FLYING_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 7.0D)
+                .add(Attributes.ATTACK_DAMAGE, 8.0D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D)
                 .add(Attributes.JUMP_STRENGTH);
     }
@@ -86,7 +87,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableGAnimal {
         this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, BlockInit.QUETZAL_EGG_BLOCK.get()));
         this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this,1.0D));
-        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(Items.ROTTEN_FLESH), false));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(ItemInit.BIG_BIRD_MEAT.get()), false));
         this.goalSelector.addGoal(7, new FlyFromNowAndThen(this));
         this.goalSelector.addGoal(8, new FollowParentGoalIfNotSitting(this, 1.0D));
         this.goalSelector.addGoal(9, new BreedGoal(this, 1.0D));
@@ -148,7 +149,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableGAnimal {
 
     @Override
     public boolean isFood(ItemStack p_27600_) {
-        return p_27600_.is(ItemInit.QUETZAL_MEAT.get());
+        return p_27600_.is(ItemInit.BIG_BIRD_MEAT.get());
     }
 
     @Override
@@ -156,7 +157,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableGAnimal {
         Entity owner = this.getOwner();
         if(this.isTame()) this.setGoalsRequireFlying(false);
         return ((this.getGoalsRequireFlying())||
-                this.isAggressive()||
+                (this.isAggressive()&&!isControlledByLocalInstance())||
                 (this.getRiderWantsFlying()||
                 (owner != null && this.distanceTo(owner)>10) && !this.isWandering())||
                 (this.isFlying() && owner!= null && !owner.onGround() && !hasPassenger(owner)))
@@ -209,6 +210,26 @@ public class QuetzalcoatlusEntity extends FlyingRideableGAnimal {
                 || (this.isOwnedBy((LivingEntity) entity) && super.canAddPassenger(entity));
     }
 
+    @Override
+    protected void dropAllDeathLoot(DamageSource p_21192_) {
+        if(this.hasStand()){
+            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemInit.QUETZAL_STAND.get())));
+        }
+        super.dropAllDeathLoot(p_21192_);
+    }
+
+    @Override
+    public boolean canSpawnEgg() {
+        return true;
+    }
+
+    @Override
+    public float getRidingSpeedMultiplier() {
+        if(this.isInWater())
+            return 0.25f;
+        return super.getRidingSpeedMultiplier();
+    }
+
     //sounds
 
     @Override
@@ -240,11 +261,6 @@ public class QuetzalcoatlusEntity extends FlyingRideableGAnimal {
     @Override
     public SoundEvent getInteractSound(){
         return SoundInit.QUETZAL_INTERACT.get();
-    }
-
-    @Override
-    public boolean canSpawnEgg() {
-        return true;
     }
 
     //animation stuff

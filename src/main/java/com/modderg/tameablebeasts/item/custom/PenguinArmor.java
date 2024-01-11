@@ -9,8 +9,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class IceHelmetItem extends Item {
-    public IceHelmetItem(Properties p_41383_) {
+public class PenguinArmor extends Item {
+    public PenguinArmor(Properties p_41383_) {
         super(p_41383_);
     }
 

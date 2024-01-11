@@ -78,7 +78,7 @@
 					"parent": "entity",
 					"pivot": [0, 4.3, 2],
 					"cubes": [
-						{"origin": [-4.5, 2.3, -3], "size": [9, 7, 10], "inflate": 0.01, "uv": [4, 32]}
+						{"origin": [-4.5, 2.3, -3], "size": [9, 7, 10], "inflate": 0.2, "uv": [4, 32]}
 					]
 				},
 				{

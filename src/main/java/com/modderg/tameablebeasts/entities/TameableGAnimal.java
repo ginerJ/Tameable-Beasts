@@ -1,7 +1,9 @@
 package com.modderg.tameablebeasts.entities;
 
 import com.modderg.tameablebeasts.block.entity.EggBlockEntity;
+import com.modderg.tameablebeasts.entities.custom.RolyPolyEntity;
 import com.modderg.tameablebeasts.item.block.EggBlockItem;
+import com.modderg.tameablebeasts.sound.SoundInit;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -123,6 +125,7 @@ public class TameableGAnimal extends TamableAnimal implements GeoEntity {
 
         if(!this.isInSittingPose() && !(this instanceof FlyingTameableGAnimal flyAnimal && flyAnimal.isFlying()))
             triggerAnim("InteractionController", "interact");
+        this.playSound(this.getInteractSound(), 0.45F, 1.0F);
 
         return  super.mobInteract(player, hand);
     }
@@ -183,7 +186,9 @@ public class TameableGAnimal extends TamableAnimal implements GeoEntity {
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
-        this.setTextureId(this.random.nextInt(textureIdSize));
+
+        if(textureIdSize > 0)
+            this.setTextureId(this.random.nextInt(textureIdSize));
         this.updateAttributes();
 
         if(healthFloor > 0){
@@ -267,6 +272,29 @@ public class TameableGAnimal extends TamableAnimal implements GeoEntity {
             } else {
                 if(event.isMoving()||entity.onClimbable()){
                     event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
+                } else {
+                    event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
+                }
+            }
+            return PlayState.CONTINUE;
+        });
+    }
+
+    public static <T extends RolyPolyEntity & GeoEntity> AnimationController<T> runController(T entity) {
+        return new AnimationController<>(entity,"movement", 10, event ->{
+
+            if(entity.isInSittingPose() || (entity.canBeControlledByRider() && !event.isMoving()) || entity.hurtTime > 0){
+                event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
+                return PlayState.CONTINUE;
+            } else {
+                if (event.isMoving()) {
+                    if (entity.isRunning()) {
+                        event.getController().transitionLength(1);
+                        event.getController().setAnimation(RawAnimation.begin().then("run", Animation.LoopType.LOOP));
+                        return PlayState.CONTINUE;
+                    } else {
+                        event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
+                    }
                 } else {
                     event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
                 }

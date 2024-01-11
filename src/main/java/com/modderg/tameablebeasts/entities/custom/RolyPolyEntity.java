@@ -151,30 +151,7 @@ public class RolyPolyEntity extends RideableTameableGAnimal {
         }
     }
 
-//animation stuff
-
-    public static <T extends RolyPolyEntity & GeoEntity> AnimationController<T> runController(T entity) {
-        return new AnimationController<>(entity,"movement", 10, event ->{
-
-            if(entity.isInSittingPose() || (entity.canBeControlledByRider() && !event.isMoving()) || entity.hurtTime > 0){
-                event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
-                return PlayState.CONTINUE;
-            } else {
-                if (event.isMoving()) {
-                    if (entity.isRunning()) {
-                        event.getController().transitionLength(1);
-                        event.getController().setAnimation(RawAnimation.begin().then("run", Animation.LoopType.LOOP));
-                        return PlayState.CONTINUE;
-                    } else {
-                        event.getController().setAnimation(RawAnimation.begin().then("walk", Animation.LoopType.LOOP));
-                    }
-                } else {
-                    event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
-                }
-            }
-            return PlayState.CONTINUE;
-        });
-    }
+    //animation stuff
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
