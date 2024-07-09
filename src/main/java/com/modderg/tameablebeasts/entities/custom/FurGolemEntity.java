@@ -58,8 +58,8 @@ public class FurGolemEntity extends Animal implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar data) {
         data.add(animController(this));
-        data.add(new AnimationController<>(this, "TakeCareOfEggControl", state -> PlayState.STOP)
-                .triggerableAnim("hatch", RawAnimation.begin().then("hatch", Animation.LoopType.PLAY_ONCE)));
+        data.add(new AnimationController<>(this, "InteractionController", state -> PlayState.STOP)
+                .triggerableAnim("interact", RawAnimation.begin().then("hatch", Animation.LoopType.PLAY_ONCE)));
     }
 
     @Override

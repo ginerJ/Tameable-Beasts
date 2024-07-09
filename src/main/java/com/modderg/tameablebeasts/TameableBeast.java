@@ -4,6 +4,7 @@ import com.modderg.tameablebeasts.block.BlockEntityInit;
 import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.core.GBiomeModifier;
 import com.modderg.tameablebeasts.entities.custom.*;
+import com.modderg.tameablebeasts.entities.goals.InitPOITypes;
 import com.modderg.tameablebeasts.item.CreativeTameableTab;
 import com.modderg.tameablebeasts.entities.EntityIinit;
 import com.modderg.tameablebeasts.item.ItemInit;
@@ -49,6 +50,7 @@ public class TameableBeast {
 
         BlockInit.BLOCKS.register(bus);
         BlockEntityInit.register(bus);
+        InitPOITypes.POI_TYPES.register(bus);
 
         GeckoLib.initialize();
 

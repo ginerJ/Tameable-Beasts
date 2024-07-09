@@ -4,6 +4,7 @@ import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.entities.TameableGAnimal;
 import com.modderg.tameablebeasts.entities.EntityIinit;
 import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
+import com.modderg.tameablebeasts.entities.goals.InitPOITypes;
 import com.modderg.tameablebeasts.entities.goals.TakeCareOfEggsGoal;
 import com.modderg.tameablebeasts.item.ItemInit;
 import com.modderg.tameablebeasts.item.block.EggBlockItem;
@@ -72,7 +73,6 @@ public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, Ne
     public static boolean checkGroundBeetleSpawnRules(EntityType<GroundBeetleEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
         return true;
     }
-
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -81,7 +81,7 @@ public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, Ne
         this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, BlockInit.GROUND_BEETLE_EGG_BLOCK.get()));
+        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.GROUND_BEETLE_POI));
         this.goalSelector.addGoal(4, new FloatGoal(this));
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4f));
         this.goalSelector.addGoal(5, new SitWhenOrderedToGoal(this));
@@ -138,7 +138,7 @@ public class GroundBeetleEntity extends TameableGAnimal implements GeoEntity, Ne
 
     @Override
     public EggBlockItem getEgg() {
-        return (EggBlockItem) ItemInit.GRASSHOPPER_EGG_ITEM.get();
+        return (EggBlockItem) ItemInit.GROUND_BEETLE_EGG_ITEM.get();
     }
 
     //sounds

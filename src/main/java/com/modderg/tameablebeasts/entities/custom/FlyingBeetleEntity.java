@@ -54,7 +54,7 @@ public class FlyingBeetleEntity extends FlyingTameableGAnimal {
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new SwitchingMeleeAttackGoal(this, 2D, true));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, BlockInit.FLYING_BEETLE_EGG_BLOCK.get()));
+        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.FLYING_BEETLE_POI));
         this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this,1.0D));

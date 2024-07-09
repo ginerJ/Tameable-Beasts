@@ -62,7 +62,7 @@ public class ChikoteEntity extends RideableTameableGAnimal {
         this.goalSelector.addGoal(0, new GFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new TakeCareOfEggsGoal(this, 15, BlockInit.CHIKOTE_EGG_BLOCK.get()));
+        this.goalSelector.addGoal(2, new TakeCareOfEggsGoal(this, 15, InitPOITypes.CHIKOTE_POI));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.BEETROOT), false));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));

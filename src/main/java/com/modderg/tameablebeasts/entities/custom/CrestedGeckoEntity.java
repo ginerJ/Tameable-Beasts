@@ -4,6 +4,7 @@ import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.entities.RideableTameableGAnimal;
 import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
+import com.modderg.tameablebeasts.entities.goals.InitPOITypes;
 import com.modderg.tameablebeasts.entities.goals.TakeCareOfEggsGoal;
 import com.modderg.tameablebeasts.entities.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.item.ItemInit;
@@ -65,7 +66,7 @@ public class CrestedGeckoEntity extends RideableTameableGAnimal {
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.1D, Ingredient.of(Items.MELON), false));
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, BlockInit.CRESTED_GECKO_EGG_BLOCK.get()));
+        //this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.CRESTED_GECKO_POI));
         this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(5, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));

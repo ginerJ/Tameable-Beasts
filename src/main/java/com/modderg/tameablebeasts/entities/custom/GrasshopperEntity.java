@@ -4,6 +4,7 @@ import com.modderg.tameablebeasts.block.BlockInit;
 import com.modderg.tameablebeasts.config.ModCommonConfigs;
 import com.modderg.tameablebeasts.entities.RideableTameableGAnimal;
 import com.modderg.tameablebeasts.entities.goals.GFollowOwnerGoal;
+import com.modderg.tameablebeasts.entities.goals.InitPOITypes;
 import com.modderg.tameablebeasts.entities.goals.TakeCareOfEggsGoal;
 import com.modderg.tameablebeasts.entities.goals.TameablePanicGoal;
 import com.modderg.tameablebeasts.item.ItemInit;
@@ -68,7 +69,7 @@ public class GrasshopperEntity extends RideableTameableGAnimal implements Player
         this.goalSelector.addGoal(0, new GFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, BlockInit.GRASSHOPPER_EGG_BLOCK.get()));
+        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.GRASSHOPPER_POI));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(ItemInit.LEAF.get()), false));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new TameablePanicGoal(this, 1.25D));

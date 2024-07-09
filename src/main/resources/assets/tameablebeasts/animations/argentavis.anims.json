@@ -1135,10 +1135,10 @@
 				"prewing": {
 					"rotation": {
 						"0.0": {
-							"vector": [0, 0, "-180-math.cos(+40+query.anim_time*360)*50"]
+							"vector": [0, 0, "-180-math.cos(40+query.anim_time*360)*50"]
 						},
 						"0.5833": {
-							"vector": [0, 0, "-180-math.cos(+40+query.anim_time*360)*50"]
+							"vector": [0, 0, "-180-math.cos(40+query.anim_time*360)*50"]
 						},
 						"0.6667": {
 							"vector": [0, 0, -180]
@@ -1164,10 +1164,10 @@
 				"prewing2": {
 					"rotation": {
 						"0.0": {
-							"vector": [0, 0, "-180+math.cos(+40+query.anim_time*360)*50"]
+							"vector": [0, 0, "-180+math.cos(40+query.anim_time*360)*50"]
 						},
 						"0.5833": {
-							"vector": [0, 0, "-180+math.cos(+40+query.anim_time*360)*50"]
+							"vector": [0, 0, "-180+math.cos(40+query.anim_time*360)*50"]
 						},
 						"0.6667": {
 							"vector": [0, 0, -180]

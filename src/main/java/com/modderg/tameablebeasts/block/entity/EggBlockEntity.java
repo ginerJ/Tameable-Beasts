@@ -84,7 +84,7 @@ public class EggBlockEntity extends BlockEntity implements GeoBlockEntity {
         super.load(compound);
         this.setOwnerUUID(compound.getString("ownerUUUID"));
         goBadTimer = compound.getInt("badTimer");
-        goBadTimer = compound.getInt("hatchTimer");
+        hatchTimer = compound.getInt("hatchTimer");
         textureID = compound.getInt("textureID");
     }
 

@@ -48,7 +48,7 @@ public class ScarecrowAllayEntity extends FlyingTameableGAnimal implements GeoEn
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0D)
-                .add(Attributes.FLYING_SPEED, 0.175F)
+                .add(Attributes.FLYING_SPEED, 0.15F)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D);
