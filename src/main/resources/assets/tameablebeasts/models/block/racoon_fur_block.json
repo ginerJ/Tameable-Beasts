@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "tameablebeasts:block/racoon_fur_block"
+  }
+}

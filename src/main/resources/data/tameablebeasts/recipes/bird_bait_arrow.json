@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:arrow"
+    },
+    {
+      "item": "tameablebeasts:big_bird_bait"
+    }
+  ],
+  "result": {
+    "item": "tameablebeasts:bird_bait_arrow",
+    "count": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "builtin/entity",
+  "texture_size": [
+    64,
+    32
+  ],
+  "textures": {
+    "particle": "tameablebeasts:block/argentavis_egg"
+  }
+}

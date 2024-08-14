@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "tameablebeasts:gecko_nest",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 164532323,
+
+    "spacing": 40,
+
+    "separation": 10,
+
+    "type": "minecraft:random_spread"
+  }
+}

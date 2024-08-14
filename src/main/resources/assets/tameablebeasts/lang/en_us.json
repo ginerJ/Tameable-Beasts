@@ -1,0 +1,84 @@
+{
+  "item.tameablebeasts.icepop" : "Icepop",
+  "item.tameablebeasts.ice_helmet" : "Ice Helmet",
+  "item.tameablebeasts.ice_chestplate" : "Ice Chestplate",
+  "item.tameablebeasts.purple_allay" : "Purple Allay",
+  "item.tameablebeasts.iron_big_hoe" : "Big Iron Hoe",
+  "item.tameablebeasts.bird_bait_arrow" : "Bird Bait In An Arrow",
+  "item.tameablebeasts.ptera_meal_arrow" : "Pteranodon Meal In An Arrow",
+  "item.tameablebeasts.leaf" : "Leaf",
+  "item.tameablebeasts.racoon_fur" : "Racoon Fur",
+  "item.tameablebeasts.roly_plaque" : "Roly Poly Plaque",
+  "item.tameablebeasts.egg_rests" : "Egg Rests",
+  "item.tameablebeasts.quetzal_meat" : "Quetzalcoatlus Meat",
+  "item.tameablebeasts.cooked_quetzal_meat" : "Cooked Quetzalcoatlus Meat",
+  "item.tameablebeasts.big_bird_meat" : "Raw Big Bird Meat",
+  "item.tameablebeasts.cooked_big_bird_meat" : "Cooked Big Bird Meat",
+  "item.tameablebeasts.big_bird_bait" : "Big Bird Bait",
+  "item.tameablebeasts.pteranodon_meal" : "Pteranodon Meal",
+  "item.tameablebeasts.bug_salad" : "Bug Salad",
+  "item.tameablebeasts.asphalt" : "Asphalt Chunk",
+
+  "item.tameablebeasts.scarecrow_straw_hat" : "Straw Hat",
+  "item.tameablebeasts.biker_helmet" : "Poly Biker Helmet",
+  "item.tameablebeasts.flying_helmet" : "Flying Helmet",
+  "item.tameablebeasts.racoon_hat" : "Racoon Hat",
+
+  "item.tameablebeasts.roly_poly_saddle" : "Roly Poly Saddle",
+  "item.tameablebeasts.argentavis_saddle" : "Argentavis Saddle",
+  "item.tameablebeasts.crested_gecko_saddle" : "Crested Gecko Saddle",
+  "item.tameablebeasts.grasshopper_saddle" : "Grasshopper Saddle",
+  "item.tameablebeasts.chikote_saddle" : "Chikote Saddle",
+  "item.tameablebeasts.quetzal_saddle" : "Quetzalcoatulus Saddle",
+  "item.tameablebeasts.quetzal_stand" : "Quetzalcoatulus Stand Gear",
+
+
+
+  "item.tameablebeasts.racoon_spawn_egg" : "Racoon Spawn Egg",
+  "item.tameablebeasts.penguin_spawn_egg" : "Penguin Spawn Egg",
+  "item.tameablebeasts.chikote_spawn_egg" : "Chikote Spawn Egg",
+  "item.tameablebeasts.beetle_spawn_egg" : "Shiny Beetle Spawn Egg",
+  "item.tameablebeasts.quetzal_spawn_egg" : "Quetzalcoatlus Spawn Egg",
+  "item.tameablebeasts.giant_grasshopper_spawn_egg" : "Giant Grasshopper Spawn Egg",
+  "item.tameablebeasts.ground_beetle_spawn_egg" : "Ground Beetle Spawn Egg",
+  "item.tameablebeasts.giant_roly_poly_spawn_egg" : "Giant Roly Poly Spawn Egg",
+  "item.tameablebeasts.scarecrow_spawn_egg" : "Scarecrow Spawn Egg",
+  "item.tameablebeasts.crested_gecko_spawn_egg" : "Crested Gecko Spawn Egg",
+  "item.tameablebeasts.argentavis_spawn_egg" : "Argentavis Spawn Egg",
+  "item.tameablebeasts.graptera_spawn_egg" : "Grapteranodon Spawn Egg",
+
+
+  "block.tameablebeasts.scarecrow_block" : "Scarecrow",
+  "block.tameablebeasts.racoon_fur_block" : "Racoon Fur Block",
+  "block.tameablebeasts.asphalted_dirt" : "Asphalted Dirt Block",
+
+
+  "entity.tameablebeasts.tameable_racoon" : "Racoon",
+  "entity.tameablebeasts.tameable_penguin" : "Penguin",
+  "entity.tameablebeasts.tameable_chikote" : "Chikote",
+  "entity.tameablebeasts.tameable_beetle" : "Shiny Beetle",
+  "entity.tameablebeasts.scarecrow_allay" : "Scarecrow",
+  "entity.tameablebeasts.quetzalcoatlus" : "Quetzalcoatlus",
+  "entity.tameablebeasts.giant_grasshopper" : "Giant Grasshopper",
+  "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
+  "entity.tameablebeasts.giant_roly_poly" : "Giant Roly Poly",
+  "entity.tameablebeasts.crested_gecko" : "Crested Gecko",
+  "entity.tameablebeasts.argentavis" : "Argentavis",
+  "entity.tameablebeasts.graptera" : "Grapteranodon",
+
+
+  "block.tameablebeasts.quetzalcoatlus_egg" : "Quetzal Egg",
+  "block.tameablebeasts.chikote_egg" : "Chikote Egg",
+  "block.tameablebeasts.roly_poly_egg" : "Roly Poly Egg",
+  "block.tameablebeasts.beetle_egg" : "Flying Beetle Larva",
+  "block.tameablebeasts.ground_beetle_egg" : "Ground Beetle Larva",
+  "block.tameablebeasts.grasshopper_egg" : "Grasshopper Egg",
+  "block.tameablebeasts.penguin_egg" : "Penguin Egg",
+  "block.tameablebeasts.crested_gecko_egg" : "Crested Gecko Egg",
+  "block.tameablebeasts.argentavis_egg" : "Argentavis Egg",
+  "block.tameablebeasts.graptera_egg" : "Grapteranodon Egg",
+
+
+
+  "itemGroup.tameabletab" : "Tameable Beasts Tab"
+}

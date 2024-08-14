@@ -1,0 +1,22 @@
+{
+  "name": "tameablebeasts:nest_pools/beetle_nest_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "tameablebeasts:beetle_nest",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

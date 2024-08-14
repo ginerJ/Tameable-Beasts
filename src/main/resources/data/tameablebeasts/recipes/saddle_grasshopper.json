@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " w ",
+    "lsl",
+    "lll"
+  ],
+  "key": {
+    "l": {
+      "item": "minecraft:leather"
+    },
+    "w": {
+      "tag": "minecraft:wool"
+    },
+    "s": {
+      "item": "minecraft:saddle"
+    }
+  },
+  "result": {
+    "item": "tameablebeasts:grasshopper_saddle",
+    "count": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " b ",
+    " s ",
+    " i "
+  ],
+  "key": {
+    "b": {
+      "item": "tameablebeasts:scarecrow_straw_hat"
+    },
+    "s": {
+      "item": "minecraft:carved_pumpkin"
+    },
+    "i": {
+      "item": "minecraft:white_wool"
+    }
+  },
+  "result": {
+    "item": "tameablebeasts:scarecrow_block",
+    "count": 1
+  }
+}

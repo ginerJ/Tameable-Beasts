@@ -1,0 +1,308 @@
+{
+  "entity.tameable_racoon.racoon_happy": {
+    "sounds": [
+      "tameablebeasts:racoon_happy"
+    ]
+  },
+
+  "entity.tameable_racoon.racoon_ambient": {
+    "sounds": [
+      "tameablebeasts:racoon_ambient",
+      "tameablebeasts:racoon_ambient2"
+    ]
+  },
+  "entity.tameable_racoon.racoon_interact": {
+    "sounds": [
+      "tameablebeasts:racoon_interact"
+    ]
+  },
+  "entity.tameable_racoon.racoon_death": {
+    "sounds": [
+      "tameablebeasts:racoon_death"
+    ]
+  },
+  "entity.tameable_racoon.racoon_steps": {
+    "sounds": [
+      "tameablebeasts:racoon_steps"
+    ]
+  },
+  "entity.tameable_racoon.racoon_hurt": {
+    "sounds": [
+      "tameablebeasts:racoon_hurt"
+    ]
+  },
+
+
+
+  "entity.tameable_penguin.penguin_happy": {
+  "sounds": [
+    "tameablebeasts:penguin_happy"
+  ]
+},
+  "entity.tameable_penguin.penguin_ambient": {
+    "sounds": [
+      "tameablebeasts:penguin_ambient"
+    ]
+  },
+  "entity.tameable_penguin.penguin_interact": {
+    "sounds": [
+      "tameablebeasts:penguin_interact"
+    ]
+  },
+  "entity.tameable_penguin.penguin_death": {
+    "sounds": [
+      "tameablebeasts:penguin_death"
+    ]
+  },
+  "entity.tameable_penguin.penguin_steps": {
+    "sounds": [
+      "tameablebeasts:penguin_steps"
+    ]
+  },
+  "entity.tameable_penguin.penguin_hurt": {
+    "sounds": [
+      "tameablebeasts:penguin_hurt"
+    ]
+  },
+
+
+
+  "entity.tameable_chikote.chikote_happy": {
+    "sounds": [
+      "tameablebeasts:chikote_happy"
+    ]
+  },
+  "entity.tameable_chikote.chikote_ambient": {
+    "sounds": [
+      "tameablebeasts:chikote_ambient_1",
+      "tameablebeasts:chikote_ambient_2",
+      "tameablebeasts:chikote_ambient_3"
+    ]
+  },
+  "entity.tameable_chikote.chikote_interact": {
+    "sounds": [
+      "tameablebeasts:chikote_interact"
+    ]
+  },
+  "entity.tameable_chikote.chikote_death": {
+    "sounds": [
+      "tameablebeasts:chikote_death"
+    ]
+  },
+  "entity.tameable_chikote.chikote_steps": {
+    "sounds": [
+      "tameablebeasts:chikote_steps"
+    ]
+  },
+  "entity.tameable_chikote.chikote_hurt": {
+    "sounds": [
+      "tameablebeasts:chikote_hurt"
+    ]
+  },
+
+
+
+  "entity.quetzalcoatlus.quetzal_fly": {
+    "sounds": [
+      "tameablebeasts:quetzal_fly"
+    ]
+  },
+  "entity.quetzalcoatlus.quetzal_ambient": {
+    "sounds": [
+      "tameablebeasts:quetzal_ambient"
+    ]
+  },
+  "entity.quetzalcoatlus.quetzal_interact": {
+    "sounds": [
+      "tameablebeasts:quetzal_interact"
+    ]
+  },
+  "entity.quetzalcoatlus.quetzal_death": {
+    "sounds": [
+      "tameablebeasts:quetzal_death"
+    ]
+  },
+  "entity.quetzalcoatlus.quetzal_step": {
+    "sounds": [
+      "tameablebeasts:quetzal_step"
+    ]
+  },
+  "entity.quetzalcoatlus.quetzal_hurt": {
+    "sounds": [
+      "tameablebeasts:quetzal_hurt"
+    ]
+  },
+
+
+
+  "entity.scarecrow_allay.scarecrow_fly": {
+    "sounds": [
+      "tameablebeasts:scarecrow_fly"
+    ]
+  },
+  "entity.scarecrow_allay.scarecrow_ambient": {
+    "sounds": [
+      "tameablebeasts:scarecrow_ambient"
+    ]
+  },
+  "entity.scarecrow_allay.scarecrow_interact": {
+    "sounds": [
+      "tameablebeasts:scarecrow_interact"
+    ]
+  },
+  "entity.scarecrow_allay.scarecrow_death": {
+    "sounds": [
+      "tameablebeasts:scarecrow_death"
+    ]
+  },
+  "entity.quetzalcoatlus.scarecrow_hurt": {
+    "sounds": [
+      "tameablebeasts:scarecrow_hurt"
+    ]
+  },
+
+
+
+  "entity.tameable_beetle.beetle_fly": {
+    "sounds": [
+      "tameablebeasts:beetle_fly"
+    ]
+  },
+  "entity.tameable_beetle.beetle_ambient": {
+    "sounds": [
+      "tameablebeasts:beetle_ambient"
+    ]
+  },
+  "entity.tameable_beetle.beetle_interact": {
+    "sounds": [
+      "tameablebeasts:beetle_interact"
+    ]
+  },
+  "entity.tameable_beetle.beetle_death": {
+    "sounds": [
+      "tameablebeasts:beetle_death"
+    ]
+  },
+  "entity.tameable_beetle.beetle_steps": {
+    "sounds": [
+      "tameablebeasts:beetle_steps"
+    ]
+  },
+  "entity.tameable_beetle.beetle_hurt": {
+    "sounds": [
+      "tameablebeasts:beetle_hurt"
+    ]
+  },
+
+
+
+  "entity.roly_poly.roly_poly_roll": {
+    "sounds": [
+      "tameablebeasts:roly_poly_roll"
+    ]
+  },
+  "entity.roly_poly.roly_poly_ambient": {
+    "sounds": [
+      "tameablebeasts:roly_poly_ambient"
+    ]
+  },
+  "entity.roly_poly.roly_poly_interact": {
+    "sounds": [
+      "tameablebeasts:roly_poly_interact"
+    ]
+  },
+  "entity.roly_poly.roly_poly_death": {
+    "sounds": [
+      "tameablebeasts:roly_poly_death"
+    ]
+  },
+  "entity.roly_poly.roly_poly_steps": {
+    "sounds": [
+      "tameablebeasts:roly_poly_steps"
+    ]
+  },
+  "entity.roly_poly.roly_poly_hurt": {
+    "sounds": [
+      "tameablebeasts:roly_poly_hurt"
+    ]
+  },
+
+
+
+  "entity.giant_grasshopper.grasshopper_jump": {
+    "sounds": [
+      "tameablebeasts:grasshopper_jump"
+    ]
+  },
+  "entity.giant_grasshopper.grasshopper_ambient": {
+    "sounds": [
+      "tameablebeasts:grasshopper_ambient"
+    ]
+  },
+  "entity.giant_grasshopper.grasshopper_interact": {
+    "sounds": [
+      "tameablebeasts:grasshopper_interact"
+    ]
+  },
+  "entity.giant_grasshopper.grasshopper_death": {
+    "sounds": [
+      "tameablebeasts:grasshopper_death"
+    ]
+  },
+  "entity.giant_grasshopper.grasshopper_steps": {
+    "sounds": [
+      "tameablebeasts:grasshopper_steps"
+    ]
+  },
+  "entity.giant_grasshopper.grasshopper_hurt": {
+    "sounds": [
+      "tameablebeasts:grasshopper_hurt"
+    ]
+  },
+
+
+
+  "entity.argentavis.argentavis_ambient": {
+    "sounds": [
+      "tameablebeasts:argentavis_ambient"
+    ]
+  },
+  "entity.argentavis.argentavis_interact": {
+    "sounds": [
+      "tameablebeasts:argentavis_interact"
+    ]
+  },
+  "entity.argentavis.argentavis_death": {
+    "sounds": [
+      "tameablebeasts:argentavis_death"
+    ]
+  },
+  "entity.argentavis.argentavis_hurt": {
+    "sounds": [
+      "tameablebeasts:argentavis_hurt"
+    ]
+  },
+
+
+
+  "entity.crested_gecko.crested_gecko_ambient": {
+    "sounds": [
+      "tameablebeasts:crested_gecko_ambient"
+    ]
+  },
+  "entity.crested_gecko.crested_gecko_interact": {
+    "sounds": [
+      "tameablebeasts:crested_gecko_interact"
+    ]
+  },
+  "entity.crested_gecko.crested_gecko_death": {
+    "sounds": [
+      "tameablebeasts:crested_gecko_death"
+    ]
+  },
+  "entity.crested_gecko.crested_gecko_hurt": {
+    "sounds": [
+      "tameablebeasts:crested_gecko_hurt"
+    ]
+  }
+}

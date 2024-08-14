@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tameablebeasts:leaf"
+    },
+    {
+      "item": "tameablebeasts:egg_rests"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "item": "tameablebeasts:bug_salad",
+    "count": 3
+  }
+}

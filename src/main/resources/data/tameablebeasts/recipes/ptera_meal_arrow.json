@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:arrow"
+    },
+    {
+      "item": "tameablebeasts:pteranodon_meal"
+    }
+  ],
+  "result": {
+    "item": "tameablebeasts:ptera_meal_arrow",
+    "count": 1
+  }
+}

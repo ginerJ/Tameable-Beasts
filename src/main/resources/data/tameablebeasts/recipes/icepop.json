@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " b ",
+    " S ",
+    " s "
+  ],
+  "key": {
+    "b": {
+      "item": "minecraft:sweet_berries"
+    },
+    "S": {
+      "item": "minecraft:snowball"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "tameablebeasts:icepop",
+    "count": 1
+  }
+}

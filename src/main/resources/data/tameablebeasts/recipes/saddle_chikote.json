@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " l ",
+    "fsl",
+    " l "
+  ],
+  "key": {
+    "l": {
+      "item": "minecraft:leather"
+    },
+    "f": {
+      "item": "minecraft:feather"
+    },
+    "s": {
+      "item": "minecraft:saddle"
+    }
+  },
+  "result": {
+    "item": "tameablebeasts:chikote_saddle",
+    "count": 1
+  }
+}
