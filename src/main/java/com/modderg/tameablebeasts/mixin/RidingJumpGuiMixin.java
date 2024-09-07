@@ -18,13 +18,13 @@ public abstract class RidingJumpGuiMixin {
     private static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
 
     @Inject(method = "renderJumpMeter", at = @At("HEAD"), cancellable = true)
-    private void renderJumpMeterFlying(PlayerRideableJumping p_282774_, GuiGraphics p_282939_, int p_283351_, CallbackInfo ci) {
+    private void renderJumpMeterFlying(PlayerRideableJumping p_282774_, GuiGraphics guiGraphics, int p_283351_, CallbackInfo ci) {
         if (p_282774_ instanceof FlyingRideableTBAnimal animal) {
-            int k = p_282939_.guiHeight() - 32 + 3;
+            int k = guiGraphics.guiHeight() - 32 + 3;
 
-            p_282939_.blit(GUI_ICONS_LOCATION, p_283351_, k, 0, 84, 182, 5);
+            guiGraphics.blit(GUI_ICONS_LOCATION, p_283351_, k, 0, 84, 182, 5);
 
-            p_282939_.blit(GUI_ICONS_LOCATION, p_283351_, k, 0, 89, (int) (182 * animal.getStaminaScale()), 5);
+            guiGraphics.blit(GUI_ICONS_LOCATION, p_283351_, k, 0, 89, (int) (182 * animal.getStaminaScale()), 5);
 
             ci.cancel();
         }

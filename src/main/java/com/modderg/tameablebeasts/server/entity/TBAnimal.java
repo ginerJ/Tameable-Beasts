@@ -125,12 +125,12 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
             return InteractionResult.SUCCESS;
         }
 
-        if(isFood(player.getItemInHand(hand))){
+        if(isFood(player.getItemInHand(hand)))
             this.heal(5f);
-        }
 
         if(!this.isInSittingPose() && !(this instanceof FlyingTBAnimal flyAnimal && flyAnimal.isFlying()))
             triggerAnim("movement", "interact");
+
         this.playSound(this.getInteractSound(), 0.45F, 1.0F);
 
         return  super.mobInteract(player, hand);
@@ -201,9 +201,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
             ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemstack);
             level.addFreshEntity(itemEntity);
             super.finalizeSpawnChildFromBreeding(level, mob, null);
-        } else {
+        } else
             super.spawnChildFromBreeding(level, mob);
-        }
     }
 
     @Nullable
