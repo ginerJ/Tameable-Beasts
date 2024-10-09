@@ -39,8 +39,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
-import static com.modderg.tameablebeasts.server.entity.custom.ArgentavisEntity.glideFlyController;
-
 public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal {
 
     private static final EntityDataAccessor<Boolean> STAND = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);

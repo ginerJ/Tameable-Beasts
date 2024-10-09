@@ -30,7 +30,7 @@ public class ScarecrowAllayModel extends TBGeoModel<ScarecrowAllayEntity> {
 
     @Override
     public void setCustomAnimations(ScarecrowAllayEntity animatable, long instanceId, AnimationState<ScarecrowAllayEntity> animationState) {
-        setLookAngeRots(animatable, animationState);
+        setLookAngle(animatable, animationState);
         super.setCustomAnimations(animatable, instanceId, animationState);
     }
 }

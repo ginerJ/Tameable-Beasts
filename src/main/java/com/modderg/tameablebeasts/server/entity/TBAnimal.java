@@ -2,6 +2,8 @@ package com.modderg.tameablebeasts.server.entity;
 
 import com.modderg.tameablebeasts.server.entity.goals.TBGroundPathNavigatorNoSpin;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
+import com.modderg.tameablebeasts.server.packet.InitPackets;
+import com.modderg.tameablebeasts.server.packet.StoCSynchGoalName;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -20,6 +22,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -42,6 +45,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TBAnimal extends TamableAnimal implements GeoEntity {
 
@@ -217,7 +221,17 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     }
 
     @Override
+    public void tick() {
+        if(this.tickCount % 20 == 0)
+            this.goalSelector.getRunningGoals().findFirst().ifPresent(
+                    goal -> InitPackets.sendToServer(new StoCSynchGoalName(this.getId(), goal.getGoal().toString())));
+
+        super.tick();
+    }
+
+    @Override
     public void aiStep() {
+
         if (!this.level().isClientSide && this.isAlive() && this.tickCount % 240 == 0)
             this.heal(1.0F);
 
@@ -287,21 +301,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
 
-    public static <T extends TBAnimal & GeoEntity> AnimationController<T> groundController(T entity) {
+    public <T extends TBAnimal & GeoEntity> AnimationController<T> groundController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event -> groundState(entity, event));
-    }
-
-    public static <T extends TBAnimal & GeoEntity> PlayState groundState(T entity, software.bernie.geckolib.core.animation.AnimationState<T> event) {
-
-        if(event.isMoving()||entity.onClimbable())
-            event.getController().setAnimation(RawAnimation.begin().then(entity.isRunning() ? "run" : "walk", Animation.LoopType.LOOP));
-        else
-            if(entity.isInSittingPose())
-                event.setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
-            else
-                event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
-
-        return PlayState.CONTINUE;
     }
 
     @Override
@@ -329,5 +330,18 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
+    }
+
+    public <T extends TBAnimal & GeoEntity> PlayState groundState(T entity, software.bernie.geckolib.core.animation.AnimationState<T> event) {
+
+        if(event.isMoving()||entity.onClimbable())
+            event.getController().setAnimation(RawAnimation.begin().then(entity.isRunning() ? "run" : "walk", Animation.LoopType.LOOP));
+        else
+        if(entity.isInSittingPose())
+            event.setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
+        else
+            event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
+
+        return PlayState.CONTINUE;
     }
 }

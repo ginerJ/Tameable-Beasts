@@ -36,11 +36,6 @@ import software.bernie.geckolib.core.object.PlayState;
 
 public class ArgentavisEntity extends FlyingRideableTBAnimal {
 
-    @Override
-    public Item itemSaddle() {
-        return ItemInit.ARGENTAVIS_SADDLE.get();
-    }
-
     public ArgentavisEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.textureIdSize = 7;
@@ -70,6 +65,11 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal {
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public Item itemSaddle() {
+        return ItemInit.ARGENTAVIS_SADDLE.get();
     }
 
     public static boolean checkArgentavisSpawnRules(EntityType<ArgentavisEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos blockpos, RandomSource p_218246_) {
@@ -109,7 +109,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal {
     @Override
     public float getRidingSpeedMultiplier() {
         if(this.isInWater())
-            return 0.5f;
+            return 0.6f;
         if(this.getDeltaMovement().y < 0)
             return 1.5f;
 

@@ -1,38 +1,37 @@
 package com.modderg.tameablebeasts.client.packet;
 
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
+import com.modderg.tameablebeasts.server.entity.custom.GrapteranodonEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class CToSUpdateFlyingUpKey {
+public class CToSUpdateRiderClicked {
 
     private final int uuid;
-    private final boolean value;
 
 
-    public CToSUpdateFlyingUpKey(int uuid, boolean value) {
+    public CToSUpdateRiderClicked(int uuid) {
         this.uuid = uuid;
-        this.value = value;
     }
 
-    public CToSUpdateFlyingUpKey(FriendlyByteBuf buffer) {
-        this(buffer.readInt(), buffer.readBoolean());
+    public CToSUpdateRiderClicked(FriendlyByteBuf buffer) {
+        this(buffer.readInt());
     }
 
     public void encode(FriendlyByteBuf buffer) {
         buffer.writeInt(uuid);
-        buffer.writeBoolean(value);
     }
+
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(()->{
             Entity entity = context.get().getSender().level().getEntity(uuid);
 
-            if(entity instanceof FlyingRideableTBAnimal animal)
-                animal.upInput = value;
+            if(entity instanceof GrapteranodonEntity graptera)
+                graptera.tryGrabbing();
         });
     }
 

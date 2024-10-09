@@ -3,6 +3,8 @@ package com.modderg.tameablebeasts.server.entity.goals;
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
 
+import java.util.EnumSet;
+
 public class RunFromNowAndThenGoal extends Goal {
 
     TBAnimal mob;
@@ -14,6 +16,7 @@ public class RunFromNowAndThenGoal extends Goal {
         this.mob = mob;
         this.speedModifier = speedModifier;
         this.timer = mob.getRandom().nextInt(0,maxWait);
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
     @Override
@@ -33,11 +36,5 @@ public class RunFromNowAndThenGoal extends Goal {
             this.timer = mob.getRandom().nextInt(0,maxWait);
         }
         super.tick();
-    }
-
-    @Override
-    public void stop() {
-        mob.setRunning(false);
-        super.stop();
     }
 }

@@ -44,7 +44,7 @@ public class FlyingTBAnimal extends TBAnimal {
     protected FlyingTBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
 
-        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, -this.getDimensions(this.getPose()).height);
         this.setPathfindingMalus(BlockPathTypes.LAVA, -this.getDimensions(this.getPose()).height);
 
         moveControlRotation.add(new FlyingMoveControl(this, 20, true));
@@ -146,7 +146,7 @@ public class FlyingTBAnimal extends TBAnimal {
         return false;
     }
 
-    public static <T extends FlyingTBAnimal & GeoEntity> PlayState flyState(T entity, software.bernie.geckolib.core.animation.AnimationState<T> event) {
+    public <T extends FlyingTBAnimal & GeoEntity> PlayState flyState(T entity, software.bernie.geckolib.core.animation.AnimationState<T> event) {
         if(entity.isStill())
             event.getController().setAnimation(RawAnimation.begin().then("fly_idle", Animation.LoopType.LOOP));
         else
@@ -155,7 +155,7 @@ public class FlyingTBAnimal extends TBAnimal {
         return PlayState.CONTINUE;
     }
 
-    public static <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> flyController(T entity) {
+    public <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> flyController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
             if(entity.isFlying())
                 return flyState(entity, event);
@@ -164,7 +164,7 @@ public class FlyingTBAnimal extends TBAnimal {
         });
     }
 
-    public static <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> justFlyController(T entity) {
+    public <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> justFlyController(T entity) {
         return new AnimationController<>(entity,"movement", 10, event ->{
             if(!entity.isInSittingPose() || !entity.isStill())
                 return flyState(entity, event);

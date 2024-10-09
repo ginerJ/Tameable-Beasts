@@ -4,12 +4,7 @@ import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.custom.GrasshopperEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 
 public class GrasshopperModel extends TBGeoModel<GrasshopperEntity> {
 
@@ -34,7 +29,7 @@ public class GrasshopperModel extends TBGeoModel<GrasshopperEntity> {
 
     @Override
     public void setCustomAnimations(GrasshopperEntity animatable, long instanceId, AnimationState<GrasshopperEntity> animationState) {
-        setLookAngeRots(animatable, animationState);
+        setLookAngle(animatable, animationState);
         super.setCustomAnimations(animatable, instanceId, animationState);
     }
 }

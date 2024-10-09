@@ -4,14 +4,7 @@ import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.custom.ChikoteEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 
 public class ChikoteModel extends TBGeoModel<ChikoteEntity> {
 
@@ -36,7 +29,7 @@ public class ChikoteModel extends TBGeoModel<ChikoteEntity> {
 
     @Override
     public void setCustomAnimations(ChikoteEntity animatable, long instanceId, AnimationState<ChikoteEntity> animationState) {
-        setLookAngeRots(animatable, animationState);
+        setLookAngle(animatable, animationState);
         super.setCustomAnimations(animatable, instanceId, animationState);
     }
 }

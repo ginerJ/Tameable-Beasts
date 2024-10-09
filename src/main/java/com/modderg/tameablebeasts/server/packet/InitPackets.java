@@ -3,6 +3,8 @@ package com.modderg.tameablebeasts.server.packet;
 import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.client.packet.CToSUpdateFlyingDownKey;
 import com.modderg.tameablebeasts.client.packet.CToSUpdateFlyingUpKey;
+import com.modderg.tameablebeasts.client.packet.CToSUpdateRiderClicked;
+import com.modderg.tameablebeasts.client.packet.CtoSSyncRiderWantsFlying;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkConstants;
@@ -51,6 +53,18 @@ public class InitPackets {
                 .encoder(CtoSSyncRiderWantsFlying::encode)
                 .decoder(CtoSSyncRiderWantsFlying::new)
                 .consumerMainThread(CtoSSyncRiderWantsFlying::handle)
+                .add();
+
+        INSTANCE.messageBuilder(CToSUpdateRiderClicked.class, id++)
+                .encoder(CToSUpdateRiderClicked::encode)
+                .decoder(CToSUpdateRiderClicked::new)
+                .consumerMainThread(CToSUpdateRiderClicked::handle)
+                .add();
+
+        INSTANCE.messageBuilder(StoCSynchGoalName.class, id++)
+                .encoder(StoCSynchGoalName::encode)
+                .decoder(StoCSynchGoalName::new)
+                .consumerMainThread(StoCSynchGoalName::handle)
                 .add();
     }
 

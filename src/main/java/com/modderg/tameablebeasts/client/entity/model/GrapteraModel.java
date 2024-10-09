@@ -23,12 +23,12 @@ public class GrapteraModel extends TBGeoModel<GrapteranodonEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(GrapteranodonEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID, "animations/quetzal_anims.json");
+        return new ResourceLocation(TameableBeast.MOD_ID, "animations/graptera_anims.json");
     }
 
     @Override
     public void setCustomAnimations(GrapteranodonEntity animatable, long instanceId, AnimationState<GrapteranodonEntity> animationState) {
-        setHeadAndBodyRots(animatable, animationState);
+        setLookAngle(animatable, animationState);
         super.setCustomAnimations(animatable, instanceId, animationState);
     }
 

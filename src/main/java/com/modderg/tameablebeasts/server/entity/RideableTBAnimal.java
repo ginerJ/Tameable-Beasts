@@ -130,7 +130,7 @@ public class RideableTBAnimal extends TBAnimal implements ItemSteerable, TBRidea
         return false;
     }
 
-    public static <T extends RideableTBAnimal & GeoEntity> AnimationController<T> vehicleController(T entity) {
+    public <T extends RideableTBAnimal & GeoEntity> AnimationController<T> vehicleController(T entity) {
         return new AnimationController<>(entity,"movement", 3, event ->{
             if(entity.isVehicle()){
                 if(entity.moving)

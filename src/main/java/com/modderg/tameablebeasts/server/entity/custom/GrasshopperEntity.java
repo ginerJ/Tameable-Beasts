@@ -290,7 +290,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
 
     //animation stuff
 
-    public static <T extends RideableTBAnimal & GeoEntity> AnimationController<T> jumpController(T entity) {
+    public <T extends RideableTBAnimal & GeoEntity> AnimationController<T> jumpController(T entity) {
         return new AnimationController<>(entity,"movement", 2, event ->{
             if(!entity.onGround() && entity.getDeltaMovement().y > 0){
                 event.getController().setAnimation(RawAnimation.begin().then("jump", Animation.LoopType.LOOP));

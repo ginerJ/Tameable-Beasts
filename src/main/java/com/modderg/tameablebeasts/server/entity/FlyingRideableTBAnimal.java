@@ -1,11 +1,8 @@
 package com.modderg.tameablebeasts.server.entity;
 
-import com.modderg.tameablebeasts.server.packet.CtoSSyncRiderWantsFlying;
+import com.modderg.tameablebeasts.client.packet.CtoSSyncRiderWantsFlying;
 import com.modderg.tameablebeasts.server.packet.InitPackets;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -36,6 +33,7 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
 
     protected boolean riderWantsFlying = false;
     public void setRiderWantsFlying(boolean i) {this.riderWantsFlying = i;}
+    public boolean getRiderWantFlying() {return !this.getPassengers().isEmpty() && this.riderWantsFlying;}
 
     protected boolean wasWalking = this.onGround();
 
@@ -192,7 +190,7 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
                                 this.isOverFluidOrVoid())
                 ) ||
 
-                this.riderWantsFlying ||
+                this.getRiderWantFlying() ||
 
                 (owner != null && (
                         (this.distanceTo(owner) > 10 && !this.isWandering()) ||
@@ -219,7 +217,7 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
     public void handleStopJump() {}
     public void onPlayerJump(int o) {}
 
-    public static <T extends FlyingRideableTBAnimal & GeoEntity> AnimationController<T> glideFlyController(T entity) {
+    public <T extends FlyingRideableTBAnimal & GeoEntity> AnimationController<T> glideFlyController(T entity) {
         return new AnimationController<>(entity,"movement", 10, event ->{
 
             if(entity.isFlying() && !entity.isInSittingPose()) {
@@ -227,23 +225,24 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
                 if(entity.isControlledByLocalInstance())
                     if (entity.downInput){
                         event.getController().setAnimation(RawAnimation.begin().then("glide_down", Animation.LoopType.LOOP));
-                        return PlayState.CONTINUE;
                     }
-                    else if(entity.getDeltaMovement().y > 0){
+                    else if(entity.upInput){
                         event.getController().setAnimation(RawAnimation.begin().then("fly", Animation.LoopType.LOOP));
-                        return PlayState.CONTINUE;
-                    }
-
-                if (entity.isStill())
-                    event.getController().setAnimation(RawAnimation.begin().then("fly_idle", Animation.LoopType.LOOP));
-
-                else if (entity.getDeltaMovement().y < (entity.isControlledByLocalInstance() ? 0 : -0.25))
-                    event.getController().setAnimation(RawAnimation.begin().then("glide", Animation.LoopType.LOOP));
-
-                else
-                    event.getController().setAnimation(RawAnimation.begin().then("fly", Animation.LoopType.LOOP));
-
+                    }else
+                        if(entity.isStill())
+                            event.getController().setAnimation(RawAnimation.begin().then("fly_idle", Animation.LoopType.LOOP));
+                        else
+                            event.getController().setAnimation(RawAnimation.begin().then("glide", Animation.LoopType.LOOP));
+                else{
+                    if (entity.isStill())
+                        event.getController().setAnimation(RawAnimation.begin().then("fly_idle", Animation.LoopType.LOOP));
+                    else if (entity.getDeltaMovement().y < (entity.isControlledByLocalInstance() ? 0 : -0.2))
+                        event.getController().setAnimation(RawAnimation.begin().then("glide", Animation.LoopType.LOOP));
+                    else
+                        event.getController().setAnimation(RawAnimation.begin().then("fly", Animation.LoopType.LOOP));
+                }
                 return PlayState.CONTINUE;
+
             }
             return groundState(entity, event);
         });

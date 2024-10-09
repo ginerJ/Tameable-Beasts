@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,13 +31,14 @@ public class RaidCropsTameableGoal extends Goal {
         this.mob = mob;
         this.radius = radius;
         this.checkTimer = mob.getRandom().nextInt(40);
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
     int checkTimer;
 
     @Override
     public boolean canUse() {
-        if(!(checkTimer++ % 40 == 0))
+        if(checkTimer++ % 40 != 0)
             return false;
 
         if (!mob.isTame() &&

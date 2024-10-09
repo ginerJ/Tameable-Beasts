@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.server.packet;
+package com.modderg.tameablebeasts.client.packet;
 
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
 import net.minecraft.network.FriendlyByteBuf;

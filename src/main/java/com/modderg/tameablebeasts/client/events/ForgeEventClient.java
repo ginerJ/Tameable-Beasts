@@ -3,22 +3,28 @@ package com.modderg.tameablebeasts.client.events;
 import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.client.packet.CToSUpdateFlyingDownKey;
 import com.modderg.tameablebeasts.client.packet.CToSUpdateFlyingUpKey;
+import com.modderg.tameablebeasts.client.packet.CToSUpdateRiderClicked;
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
 import com.modderg.tameablebeasts.server.entity.custom.CrestedGeckoEntity;
+import com.modderg.tameablebeasts.server.entity.custom.GrapteranodonEntity;
 import com.modderg.tameablebeasts.server.packet.InitPackets;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.lwjgl.glfw.GLFW;
+import software.bernie.shadowed.eliotlash.mclib.math.functions.limit.Min;
 
 
 @Mod.EventBusSubscriber(modid = TameableBeast.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
@@ -41,7 +47,20 @@ public class ForgeEventClient {
                 if(animal.downInput != playerPressingShift){
                     animal.downInput = Minecraft.getInstance().options.keySprint.isDown();
                     InitPackets.sendToServer(new CToSUpdateFlyingDownKey(animal.getId(), playerPressingShift));
+                }
+            }
+        }
+    }
 
+    @SubscribeEvent
+    public static void onMouseInput(InputEvent.MouseButton event) {
+        if (Minecraft.getInstance().screen == null && event.getButton() == GLFW.GLFW_MOUSE_BUTTON_1 && event.getAction() == GLFW.GLFW_PRESS) {
+            LocalPlayer player = Minecraft.getInstance().player;
+
+            if (player != null && player.getVehicle() instanceof FlyingRideableTBAnimal animal) {
+                if (animal instanceof GrapteranodonEntity pteranodon && !pteranodon.playGrip) {
+                    pteranodon.playGrip = true;
+                    InitPackets.sendToServer(new CToSUpdateRiderClicked(animal.getId()));
                 }
             }
         }

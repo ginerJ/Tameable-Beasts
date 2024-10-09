@@ -9,7 +9,7 @@
 						"vector": ["29.9256+math.cos(-135+query.anim_time*180)*1", "math.cos(query.anim_time*180)*1", 0]
 					},
 					"position": {
-						"vector": ["math.cos(-90+query.anim_time*180)*0.5", 4, "12+math.cos(query.anim_time*180)*0.5"]
+						"vector": ["math.cos(-90+query.anim_time*180)*0.5", 2, "12+math.cos(query.anim_time*180)*0.5"]
 					}
 				},
 				"leg": {
@@ -95,7 +95,7 @@
 						"vector": ["161.0477+math.sin(-90+query.anim_time * 2880) * 1", -35.7611, -87.69012]
 					},
 					"position": {
-						"vector": [0, 1, -8]
+						"vector": [2, 1, -9]
 					}
 				},
 				"prewing": {
@@ -108,7 +108,7 @@
 						"vector": ["161.5533+math.sin(-90+query.anim_time * 2880) * 1", 35.89474, 92.46697]
 					},
 					"position": {
-						"vector": [0, 1, -8]
+						"vector": [-2, 1, -9]
 					}
 				},
 				"prewing2": {
@@ -158,12 +158,16 @@
 					"rotation": {
 						"vector": ["math.cos(90+query.anim_time*90)*2", 0, 0]
 					}
+				},
+				"entity": {
+					"position": {
+						"vector": [0, 0, -3]
+					}
 				}
 			}
 		},
 		"sit": {
 			"loop": true,
-			"animation_length": 0.1,
 			"bones": {
 				"entity": {
 					"position": {
@@ -776,6 +780,11 @@
 							"vector": [0, 0, 0]
 						}
 					}
+				},
+				"entity": {
+					"position": {
+						"vector": [0, 0, -4]
+					}
 				}
 			}
 		},
@@ -845,19 +854,18 @@
 					},
 					"position": {
 						"0.0": {
-							"vector": [0, 0, 0]
+							"vector": [0, 0, -2]
 						},
 						"0.375": {
-							"vector": [0, -0.5, 0],
+							"vector": [0, -0.5, -2],
 							"easing": "easeOutSine"
 						},
 						"0.625": {
-							"vector": [0, 1, 0],
+							"vector": [0, 1, -2],
 							"easing": "easeInOutSine"
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, -2]
 						}
 					}
 				},
@@ -902,7 +910,7 @@
 						"vector": ["112.5+math.sin(query.anim_time * 360) * 37.5", -37.5, "-90-math.sin(query.anim_time * 360) * 75"]
 					},
 					"position": {
-						"vector": [0, 1, -8]
+						"vector": [-1, 3, -11]
 					}
 				},
 				"prewing": {
@@ -915,7 +923,7 @@
 						"vector": ["112.5+math.sin(query.anim_time * 360) * 37.5", 37.5, "90+math.sin(query.anim_time * 360) * 75"]
 					},
 					"position": {
-						"vector": [0, 1, -8]
+						"vector": [1, 3, -11]
 					}
 				},
 				"prewing2": {
@@ -991,18 +999,18 @@
 					},
 					"position": {
 						"0.0": {
-							"vector": [0, 0, 0]
+							"vector": [0, 0, -2]
 						},
 						"0.375": {
-							"vector": [0, -0.5, 0],
+							"vector": [0, -0.5, -2],
 							"easing": "easeOutSine"
 						},
 						"0.625": {
-							"vector": [0, 1, 0],
+							"vector": [0, 1, -2],
 							"easing": "easeInOutSine"
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
+							"vector": [0, 0, -2],
 							"easing": "easeInOutSine"
 						}
 					}
@@ -1048,7 +1056,7 @@
 						"vector": ["112.5+math.sin(query.anim_time * 360) * 37.5", -37.5, "-90-math.sin(query.anim_time * 360) * 75"]
 					},
 					"position": {
-						"vector": [0, 1, -8]
+						"vector": [-1, 3, -11]
 					}
 				},
 				"prewing": {
@@ -1061,7 +1069,7 @@
 						"vector": ["112.5+math.sin(query.anim_time * 360) * 37.5", 37.5, "90+math.sin(query.anim_time * 360) * 75"]
 					},
 					"position": {
-						"vector": [0, 1, -8]
+						"vector": [1, 3, -11]
 					}
 				},
 				"prewing2": {
@@ -1162,10 +1170,10 @@
 				},
 				"wing": {
 					"rotation": {
-						"vector": ["112.5+math.sin(-90+query.anim_time * 2880) * 1", -37.5, -90]
+						"vector": ["140+math.sin(-90+query.anim_time * 2880) * 1", -37.5, -90]
 					},
 					"position": {
-						"vector": [0, 1, -8]
+						"vector": [0, 3, -13]
 					}
 				},
 				"prewing": {
@@ -1175,10 +1183,10 @@
 				},
 				"wing2": {
 					"rotation": {
-						"vector": ["112.5+math.sin(-90+query.anim_time * 2880) * 1", 37.5, 90]
+						"vector": ["140+math.sin(-90+query.anim_time * 2880) * 1", 37.5, 90]
 					},
 					"position": {
-						"vector": [0, 1, -8]
+						"vector": [0, 3, -13]
 					}
 				},
 				"prewing2": {
@@ -1290,6 +1298,11 @@
 						"1.6": {
 							"vector": [0, 0, 0]
 						}
+					}
+				},
+				"entity": {
+					"position": {
+						"vector": [0, 0, -3]
 					}
 				}
 			}

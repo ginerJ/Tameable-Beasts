@@ -1,7 +1,11 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
 import com.modderg.tameablebeasts.server.entity.FlyingTBAnimal;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
+
+import java.util.EnumSet;
 
 public class FlyFromNowAndThenGoal extends Goal {
 
@@ -10,7 +14,8 @@ public class FlyFromNowAndThenGoal extends Goal {
 
     public FlyFromNowAndThenGoal(FlyingTBAnimal mob) {
         this.mob = mob;
-        this.timer = mob.getRandom().nextInt(0,3000);
+        this.timer = mob.getRandom().nextInt(0,2000);
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
     @Override
@@ -23,21 +28,32 @@ public class FlyFromNowAndThenGoal extends Goal {
         return !mob.isTame() && !mob.isOrderedToSit();
     }
 
+    BlockPos landingPos = null;
     @Override
     public void tick() {
         if(timer--<=0){
             mob.setGoalsRequireFlying(!mob.getGoalsRequireFlying());
-            this.timer = mob.getRandom().nextInt(0,4000);
+            this.timer = mob.getRandom().nextInt(0,2000);
+            landingPos = null;
 
-        } else if (timer < 50 && !mob.onGround() && mob.isFlying())
-            mob.setDeltaMovement(mob.getDeltaMovement().x,-0.005f,mob.getDeltaMovement().z);
+        } else if (timer < 50 && !mob.onGround() && mob.getGoalsRequireFlying())
+            landingPos = findLandingSpot();
+
+        if(landingPos != null)
+            mob.getNavigation().moveTo(landingPos.getX(), landingPos.getY(), landingPos.getZ(), 1.0D);
 
         super.tick();
     }
 
-    @Override
-    public void stop() {
-        mob.setGoalsRequireFlying(false);
-        super.stop();
+    protected BlockPos findLandingSpot() {
+        BlockPos position = mob.blockPosition();
+        Level level = mob.level();
+
+        while (position.getY() > level.getMinBuildHeight() && level.isEmptyBlock(position))
+            position = position.below();
+
+        if (!level.getFluidState(position).isEmpty())
+            return position;
+        return null;
     }
 }

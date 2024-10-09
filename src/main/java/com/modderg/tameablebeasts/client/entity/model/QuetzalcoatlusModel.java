@@ -4,15 +4,7 @@ import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.custom.QuetzalcoatlusEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
-import org.joml.Quaterniond;
-import org.joml.Quaternionf;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 
 public class QuetzalcoatlusModel extends TBGeoModel<QuetzalcoatlusEntity> {
 
@@ -36,7 +28,7 @@ public class QuetzalcoatlusModel extends TBGeoModel<QuetzalcoatlusEntity> {
 
     @Override
     public void setCustomAnimations(QuetzalcoatlusEntity animatable, long instanceId, AnimationState<QuetzalcoatlusEntity> animationState) {
-        setHeadAndBodyRots(animatable, animationState);
+        setLookAngle(animatable, animationState);
         super.setCustomAnimations(animatable, instanceId, animationState);
     }
 

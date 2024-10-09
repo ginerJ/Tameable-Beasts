@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.server.entity.custom;
 
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.RideableTBAnimal;
+import com.modderg.tameablebeasts.server.entity.TBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
@@ -33,6 +34,7 @@ import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.core.animation.AnimationState;
 
 public class ChikoteEntity extends RideableTBAnimal {
 
@@ -160,25 +162,26 @@ public class ChikoteEntity extends RideableTBAnimal {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
-        control.add(addAnimationTriggers(ridingController(this))
+        control.add(addAnimationTriggers(groundController(this))
                 .triggerableAnim("eat_crop", RawAnimation.begin().then("eat_crop", Animation.LoopType.PLAY_ONCE)));
     }
 
-    public static <T extends RideableTBAnimal & GeoEntity> AnimationController<T> ridingController(T entity) {
-        return new AnimationController<>(entity,"movement", 5, event ->{
-            if(!entity.onGround() && entity.getDeltaMovement().y < 0.0D){
-                event.getController().setAnimation(RawAnimation.begin().then("riding_up", Animation.LoopType.LOOP));
-                return PlayState.CONTINUE;
-            }
-            else if(entity.isControlledByLocalInstance()) {
-                if(event.isMoving())
-                    event.getController().setAnimation(RawAnimation.begin().then("riding_walk", Animation.LoopType.LOOP));
-                else
-                    event.getController().setAnimation(RawAnimation.begin().then("idle_riding", Animation.LoopType.LOOP));
+    @Override
+    public <T extends TBAnimal & GeoEntity> PlayState groundState(T entity, AnimationState<T> event) {
 
-                return PlayState.CONTINUE;
-            }
-            return groundState(entity, event);
-        });
+        if(!entity.onGround() && entity.getDeltaMovement().y < 0.0D){
+            event.getController().setAnimation(RawAnimation.begin().then("riding_up", Animation.LoopType.LOOP));
+            return PlayState.CONTINUE;
+        }
+
+        if(entity.isControlledByLocalInstance()) {
+            if(event.isMoving())
+                event.getController().setAnimation(RawAnimation.begin().then("riding_walk", Animation.LoopType.LOOP));
+            else
+                event.getController().setAnimation(RawAnimation.begin().then("idle_riding", Animation.LoopType.LOOP));
+            return PlayState.CONTINUE;
+        }
+
+        else return super.groundState(entity, event);
     }
 }
