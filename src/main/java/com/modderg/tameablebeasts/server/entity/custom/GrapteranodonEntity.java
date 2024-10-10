@@ -45,7 +45,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
 
     public GrapteranodonEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.textureIdSize = 3;
+        this.textureIdSize = 5;
         this.healthFloor = 15;
         this.attackAnims.add("attack");
         this.consumeStaminaModule = 10;
