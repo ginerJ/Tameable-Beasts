@@ -13,10 +13,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
@@ -131,16 +133,18 @@ public class RideableTBAnimal extends TBAnimal implements ItemSteerable, TBRidea
     }
 
     public <T extends RideableTBAnimal & GeoEntity> AnimationController<T> vehicleController(T entity) {
-        return new AnimationController<>(entity,"movement", 3, event ->{
-            if(entity.isVehicle()){
-                if(entity.moving)
-                    event.getController().setAnimation(RawAnimation.begin().then("run", Animation.LoopType.LOOP));
-                else
-                    event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
-                return PlayState.CONTINUE;
-            }
-            return groundState(entity, event);
-        });
+        return new AnimationController<>(entity,"movement", 3, event -> vehicleState(entity, event));
+    }
+
+    public <T extends RideableTBAnimal & GeoEntity> PlayState vehicleState(T entity, AnimationState<T> event) {
+        if(entity.isVehicle()){
+            if(entity.moving)
+                event.getController().setAnimation(RawAnimation.begin().then("run", Animation.LoopType.LOOP));
+            else
+                event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
+            return PlayState.CONTINUE;
+        }
+        return groundState(entity, event);
     }
 
     public boolean moving = false;

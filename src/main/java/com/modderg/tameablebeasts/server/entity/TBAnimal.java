@@ -1,11 +1,10 @@
 package com.modderg.tameablebeasts.server.entity;
 
-import com.modderg.tameablebeasts.server.entity.goals.TBGroundPathNavigatorNoSpin;
+import com.modderg.tameablebeasts.server.entity.navigation.TBGroundPathNavigation;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.server.packet.InitPackets;
 import com.modderg.tameablebeasts.server.packet.StoCSynchGoalName;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,7 +21,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -30,7 +30,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -45,16 +44,15 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class TBAnimal extends TamableAnimal implements GeoEntity {
 
-    private static final EntityDataAccessor<Integer> TEXTUREID = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> TEXTURE_ID = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.INT);
     public void setTextureId(int i){
-        this.getEntityData().set(TEXTUREID, i);
+        this.getEntityData().set(TEXTURE_ID, i);
     }
     public int getTextureID(){
-        return this.getEntityData().get(TEXTUREID);
+        return this.getEntityData().get(TEXTURE_ID);
     }
 
     private static final EntityDataAccessor<Boolean> WANDERING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
@@ -65,14 +63,14 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         return this.getEntityData().get(WANDERING);
     }
 
-    protected static final EntityDataAccessor<Boolean> GOALSWANTSRUNNING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> GOALS_WANT_RUNNING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
     public void setRunning(boolean i){
-        this.getEntityData().set(GOALSWANTSRUNNING, i);
+        this.getEntityData().set(GOALS_WANT_RUNNING, i);
         updateAttributes();
     }
 
     public boolean isRunning(){
-        return this.getEntityData().get(GOALSWANTSRUNNING);
+        return this.getEntityData().get(GOALS_WANT_RUNNING);
     }
 
     protected List<String> attackAnims = new ArrayList<>();
@@ -83,35 +81,96 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     }
 
     @Override
-    protected PathNavigation createNavigation(Level p_21480_) {
-        return new TBGroundPathNavigatorNoSpin(this, this.level());
-    }
-
-    @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTUREID", this.getTextureID());
+        compound.putInt("TEXTURE_ID", this.getTextureID());
         compound.putBoolean("WANDERING", this.isWandering());
+        compound.putBoolean("GOALS_WANT_RUNNING", this.isWandering());
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTUREID, 0);
+        this.entityData.define(TEXTURE_ID, 0);
         this.entityData.define(WANDERING, false);
-        this.entityData.define(GOALSWANTSRUNNING, false);
+        this.entityData.define(GOALS_WANT_RUNNING, false);
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTUREID")) {
+        
+        if (compound.contains("TEXTUREID")) 
             this.setTextureId(compound.getInt("TEXTUREID"));
-            updateAttributes();
-        }
+        
         if (compound.contains("WANDERING"))
             this.setWandering(compound.getBoolean("WANDERING"));
+
+        if (compound.contains("GOALS_WANT_RUNNING"))
+            this.setWandering(compound.getBoolean("GOALS_WANT_RUNNING"));
     }
+
+    @Override
+    public boolean canAttack(@NotNull LivingEntity target) {
+        return !(target instanceof TBAnimal tg && (this.getOwner() instanceof Player p && tg.isOwnedBy(p))) && super.canAttack(target);
+    }
+
+    protected int textureIdSize = 0;
+    protected int healthFloor = 0;
+
+    @Override
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance p_146747_, @NotNull MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
+
+        if(textureIdSize > 0)
+            this.setTextureId(this.random.nextInt(textureIdSize));
+        this.updateAttributes();
+
+        if(healthFloor > 0){
+            float health = generateRandomMaxHealth(healthFloor);
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(health);
+            this.setHealth(health);
+        }
+
+        return super.finalizeSpawn(levelAccessor, p_146747_, p_146748_, p_146749_, p_146750_);
+    }
+
+    @Override
+    public void tick() {
+        if(this.tickCount % 20 == 0)
+            this.goalSelector.getRunningGoals().findFirst().ifPresent(
+                    goal -> InitPackets.sendToServer(new StoCSynchGoalName(this.getId(), goal.getGoal().toString())));
+
+        super.tick();
+    }
+
+    @Override
+    public void aiStep() {
+        if (!this.level().isClientSide && this.isAlive() && this.tickCount % 240 == 0)
+            this.heal(1.0F);
+
+        super.aiStep();
+    }
+
+    protected float generateRandomMaxHealth(int floor) {
+        RandomSource random = this.getRandom();
+        return floor + random.nextInt(8) + random.nextInt(9);
+    }
+
+    public void updateAttributes(){}
+
+    protected void addGoals(Goal... goals){
+        int i = 0;
+        for (Goal goal: goals)
+            this.goalSelector.addGoal(i, goal);
+    }
+
+    protected void addTargetGoals(Goal... goals){
+        int i = 0;
+        for (Goal goal: goals)
+            this.targetSelector.addGoal(i, goal);
+    }
+
+    //SITTING STUFF
 
     @Override
     public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
@@ -140,35 +199,11 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         return  super.mobInteract(player, hand);
     }
 
-    @Override
-    public boolean canAttack(@NotNull LivingEntity target) {
-        return !(target instanceof TBAnimal tg && (this.getOwner() instanceof Player p && tg.isOwnedBy(p))) && super.canAttack(target);
-    }
-
-    public boolean breedDropsEgg(){
-        return this.getEgg() != null && this.isTame();
-    }
-
-    public EggBlockItem getEgg(){
-        return null;
-    }
-
-    public int genChildTextId(){
-        int poll = this.random.nextInt(100);
-
-        if(poll <= 30)
-            return this.random.nextInt(textureIdSize);
-
-        return this.getTextureID();
-    }
-
-    @Override
-    public boolean isOrderedToSit() {
+    @Override public boolean isOrderedToSit() {
         return !this.isVehicle() && super.isOrderedToSit();
     }
 
-    @Override
-    public boolean isInSittingPose() {
+    @Override public boolean isInSittingPose() {
         return !this.isVehicle() && super.isInSittingPose();
     }
 
@@ -178,83 +213,10 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         super.setInSittingPose(p_21838_);
     }
 
-    protected int textureIdSize = 0;
-    protected int healthFloor = 0;
-
-    @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance p_146747_, @NotNull MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
-
-        if(textureIdSize > 0)
-            this.setTextureId(this.random.nextInt(textureIdSize));
-        this.updateAttributes();
-
-        if(healthFloor > 0){
-            float health = generateRandomMaxHealth(healthFloor);
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(health);
-            this.setHealth(health);
-        }
-
-        return super.finalizeSpawn(levelAccessor, p_146747_, p_146748_, p_146749_, p_146750_);
-    }
-
-    @Override
-    public void spawnChildFromBreeding(@NotNull ServerLevel level, @NotNull Animal mob) {
-        if(breedDropsEgg()){
-            ItemStack itemstack = new ItemStack(getEgg());
-            getEgg().setTextureId(itemstack, this.genChildTextId());
-            ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemstack);
-            level.addFreshEntity(itemEntity);
-            super.finalizeSpawnChildFromBreeding(level, mob, null);
-        } else
-            super.spawnChildFromBreeding(level, mob);
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel p_146743_, @NotNull AgeableMob p_146744_) {
-        if(!this.isTame()){
-            TBAnimal animal = ((EntityType<? extends TBAnimal>) this.getType()).create(this.level());
-            animal.setTextureId(this.genChildTextId());
-            return animal;
-        }
-        return null;
-    }
-
-    @Override
-    public void tick() {
-        if(this.tickCount % 20 == 0)
-            this.goalSelector.getRunningGoals().findFirst().ifPresent(
-                    goal -> InitPackets.sendToServer(new StoCSynchGoalName(this.getId(), goal.getGoal().toString())));
-
-        super.tick();
-    }
-
-    @Override
-    public void aiStep() {
-
-        if (!this.level().isClientSide && this.isAlive() && this.tickCount % 240 == 0)
-            this.heal(1.0F);
-
-        super.aiStep();
-    }
-
-    protected float generateRandomMaxHealth(int floor) {
-        RandomSource random = this.getRandom();
-        return floor + random.nextInt(8) + random.nextInt(9);
-    }
+    //TAMING STUFF
 
     public boolean isTameFood(ItemStack itemStack) {
         return false;
-    }
-
-    public void updateAttributes(){}
-
-    public SoundEvent getTameSound(){
-        return null;
-    }
-
-    public SoundEvent getInteractSound(){
-        return null;
     }
 
     public void tameGAnimal(Player player, ItemStack itemStack, int chance){
@@ -267,6 +229,74 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         } else
             this.level().broadcastEntityEvent(this, (byte) 6);
     }
+
+    //BREEDING STUFF
+
+    public EggBlockItem getEgg(){
+        return null;
+    }
+
+    public boolean breedDropsEgg(){
+        return this.getEgg() != null && this.isTame();
+    }
+
+    public int genChildTextId(){
+        if(this.random.nextInt(100) <= 30)
+            return this.random.nextInt(textureIdSize);
+        return this.getTextureID();
+    }
+
+    @Override
+    public void spawnChildFromBreeding(@NotNull ServerLevel level, @NotNull Animal mob) {
+        if(!breedDropsEgg()) {
+            super.spawnChildFromBreeding(level, mob);
+            return;
+        }
+
+        spawnAtLocation(getEgg());
+        super.finalizeSpawnChildFromBreeding(level, mob, null);
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel p_146743_, @NotNull AgeableMob p_146744_) {
+        if(!this.isTame()){
+            TBAnimal animal = (TBAnimal) this.getType().create(this.level());
+            animal.setTextureId(this.genChildTextId());
+            return animal;
+        }
+        return null;
+    }
+
+    //RIDING STUFF
+
+    @Override
+    public LivingEntity getControllingPassenger() {
+        if(!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof LivingEntity passenger && this.isOwnedBy(passenger))
+            return passenger;
+        return null;
+    }
+
+    //NAVIGATION STUFF
+
+    @Override
+    public @NotNull PathNavigation createNavigation(@NotNull Level p_21480_) {
+        return new TBGroundPathNavigation(this, this.level());
+    }
+
+    public void setMoveControl(MoveControl control){this.moveControl = control;}
+    public void setPathNavigation(PathNavigation navigation){this.navigation = navigation;}
+
+    //SOUND STUFF
+
+    public SoundEvent getTameSound(){
+        return null;
+    }
+    public SoundEvent getInteractSound(){
+        return null;
+    }
+
+    //CLIENT EFFECTS
 
     public void messageState(String txt, Player player){
         if (player instanceof LocalPlayer)
@@ -288,13 +318,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
             else
                 animal.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, p_21061_), vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z);
         }
-    }
-
-    @Override
-    public LivingEntity getControllingPassenger() {
-        if(!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof LivingEntity passenger && this.isOwnedBy(passenger))
-            return passenger;
-        return null;
     }
 
     //ANIMATION STUFF
@@ -320,15 +343,12 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         for (String attack: attackAnims)
             controller.triggerableAnim(attack, RawAnimation.begin().then(attack, Animation.LoopType.PLAY_ONCE));
         controller.triggerableAnim("interact", RawAnimation.begin().then("interact", Animation.LoopType.PLAY_ONCE));
-        controller.triggerableAnim("sit", RawAnimation.begin().then("sit", Animation.LoopType.PLAY_ONCE));
         return controller;
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {}
+    @Override public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {}
 
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
+    @Override public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
 

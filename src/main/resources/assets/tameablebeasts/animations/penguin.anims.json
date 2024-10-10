@@ -272,7 +272,6 @@
 		},
 		"sit": {
 			"loop": true,
-			"animation_length": 0.1,
 			"bones": {
 				"entity": {
 					"rotation": {
@@ -615,6 +614,58 @@
 						"0.12": {
 							"vector": [0, -35, 55]
 						}
+					}
+				}
+			}
+		},
+		"swim": {
+			"loop": true,
+			"bones": {
+				"entity": {
+					"rotation": {
+						"vector": ["90 + math.cos(query.anim_time*480)*2", "math.cos(query.anim_time*360)/2", 0]
+					},
+					"position": {
+						"vector": [0, -2, 0]
+					}
+				},
+				"tail": {
+					"rotation": {
+						"vector": [-70, 0, 0]
+					}
+				},
+				"feet2": {
+					"rotation": {
+						"vector": ["100+math.sin(query.anim_time * 480 - 80) * 30", 0, 0]
+					}
+				},
+				"feet": {
+					"rotation": {
+						"vector": ["100+math.sin(query.anim_time * 480) * 30", 0, 0]
+					}
+				},
+				"head": {
+					"rotation": {
+						"vector": [-72.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, 1, 0]
+					}
+				},
+				"wing2": {
+					"rotation": {
+						"vector": [-65, "math.cos(query.anim_time*360)*15", "math.cos(query.anim_time*360)*15"]
+					},
+					"position": {
+						"vector": [0, 0, "math.cos(query.anim_time*360)/2"]
+					}
+				},
+				"wing": {
+					"rotation": {
+						"vector": [-65, "-math.cos(query.anim_time*360)*15", "-math.cos(query.anim_time*360)*15"]
+					},
+					"position": {
+						"vector": [0, 0, "math.cos(query.anim_time*360)/2"]
 					}
 				}
 			}

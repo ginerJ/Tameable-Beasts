@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.server.entity.goals;
+package com.modderg.tameablebeasts.server.entity.navigation;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;

@@ -63,6 +63,17 @@ public class SoundInit {
     public static final RegistryObject<SoundEvent> QUETZAL_STEPS = SOUNDS.register("entity.quetzalcoatlus.quetzal_step",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeast.MOD_ID, "entity.quetzalcoatlus.quetzal_step")));
 
+    public static final RegistryObject<SoundEvent> GRAPTERA_FLY = SOUNDS.register("entity.graptera.graptera_fly",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeast.MOD_ID, "entity.graptera.graptera_fly")));
+    public static final RegistryObject<SoundEvent> GRAPTERA_AMBIENT = SOUNDS.register("entity.graptera.graptera_ambient",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeast.MOD_ID, "entity.graptera.graptera_ambient")));
+    public static final RegistryObject<SoundEvent> GRAPTERA_INTERACT = SOUNDS.register("entity.graptera.graptera_interact",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeast.MOD_ID, "entity.graptera.graptera_interact")));
+    public static final RegistryObject<SoundEvent> GRAPTERA_DEATH = SOUNDS.register("entity.graptera.graptera_death",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeast.MOD_ID, "entity.graptera.graptera_death")));
+    public static final RegistryObject<SoundEvent> GRAPTERA_HURT = SOUNDS.register("entity.graptera.graptera_hurt",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeast.MOD_ID, "entity.graptera.graptera_hurt")));
+
     public static final RegistryObject<SoundEvent> SCARECROW_FLY = SOUNDS.register("entity.scarecrow_allay.scarecrow_fly",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeast.MOD_ID, "entity.scarecrow_allay.scarecrow_fly")));
     public static final RegistryObject<SoundEvent> SCARECROW_AMBIENT = SOUNDS.register("entity.scarecrow_allay.scarecrow_ambient",
@@ -121,7 +132,6 @@ public class SoundInit {
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeast.MOD_ID, "entity.argentavis.argentavis_death")));
     public static final RegistryObject<SoundEvent> ARGENTAVIS_HURT = SOUNDS.register("entity.argentavis.argentavis_hurt",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeast.MOD_ID, "entity.argentavis.argentavis_hurt")));
-
 
     public static final RegistryObject<SoundEvent> CRESTED_GECKO_AMBIENT = SOUNDS.register("entity.crested_gecko.crested_gecko_ambient",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeast.MOD_ID, "entity.crested_gecko.crested_gecko_ambient")));

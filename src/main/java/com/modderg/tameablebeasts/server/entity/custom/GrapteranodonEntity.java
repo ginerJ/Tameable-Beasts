@@ -198,42 +198,42 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
         return super.shouldRiderSit();
     }
 
+    @Override
+    public String getRidingMessage() {
+        return super.getRidingMessage() + ", Left Click to Grab";
+    }
+
     //sounds
 
     @Override
     public SoundEvent getAmbientSound() {
         if(isFlying())
-            return SoundInit.QUETZAL_FLY.get();
+            return SoundInit.GRAPTERA_FLY.get();
 
-        return SoundInit.QUETZAL_AMBIENT.get();
+        return SoundInit.GRAPTERA_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return SoundInit.QUETZAL_DEATH.get();
+        return SoundInit.GRAPTERA_DEATH.get();
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.QUETZAL_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.GRAPTERA_HURT.get();}
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
-        this.playSound(SoundInit.QUETZAL_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(SoundInit.CHIKOTE_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
-        return SoundInit.QUETZAL_INTERACT.get();
+        return SoundInit.GRAPTERA_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
-        return SoundInit.QUETZAL_INTERACT.get();
-    }
-
-    @Override
-    public String getRidingMessage() {
-        return super.getRidingMessage() + ", Left Click to Grab";
+        return SoundInit.GRAPTERA_INTERACT.get();
     }
 
     //animation stuff

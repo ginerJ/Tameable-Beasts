@@ -4,6 +4,7 @@ import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.RideableTBAnimal;
 
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
+import com.modderg.tameablebeasts.server.entity.TBSemiAquatic;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
@@ -36,14 +37,21 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.stream.IntStream;
 
-public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
+public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemiAquatic {
 
     private static final EntityDataAccessor<Integer> SWORD = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.INT);
     public void setSword(int i){this.getEntityData().set(SWORD, i);}
@@ -70,6 +78,13 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
         this.attackAnims.add("attack");
         this.attackAnims.add("sword_attack");
         this.attackAnims.add("sword_attack2");
+
+        initPathAndMoveControls();
+    }
+
+    @Override
+    public @NotNull MobType getMobType() {
+        return MobType.WATER;
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -88,27 +103,35 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
                 && ModCommonConfigs.CAN_SPAWN_PENGUIN.get();
     }
 
+    TBFollowOwnerGoal followOwnerGoal;
+    @Override public TBFollowOwnerGoal getFollowOwnerGoal() {return followOwnerGoal;}
+
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new TameablePanicGoal(this, 1.2D));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(2, new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F));
-        this.goalSelector.addGoal(3, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4f));
-        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new TakeCareOfEggsGoal(this, 15, InitPOITypes.PENGUIN_POI));
-        this.goalSelector.addGoal(4, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(5, new RunFromNowAndThenGoal(this, 1.2F));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 1.1D, Ingredient.of(Items.TROPICAL_FISH), false));
-        this.goalSelector.addGoal(5, new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new TameablePanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(9, new TBFollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
+        followOwnerGoal = new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F);
+
+        addGoals(
+                new TameablePanicGoal(this, 1.2D),
+                followOwnerGoal,
+                new BreedGoal(this, 1.0D),
+                new TakeCareOfEggsGoal(this, 15, InitPOITypes.PENGUIN_POI),
+                new SitWhenOrderedToGoal(this),
+                new RunFromNowAndThenGoal(this, 1.2F),
+                new TemptGoal(this, 1.1D, Ingredient.of(Items.TROPICAL_FISH), false),
+                new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
+                new TameablePanicGoal(this, 1.25D),
+                new RandomSwimmingGoal(this, 5.0D, 40),
+                new RandomStrollGoal(this, 1.0D, 10),
+                new TBFollowParentGoal(this, 1.0D),
+                new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new RandomLookAroundGoal(this)
+        );
+
+        addTargetGoals(
+                new OwnerHurtByTargetGoal(this),
+                new OwnerHurtTargetGoal(this)
+        );
     }
 
     @Override
@@ -121,12 +144,11 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("SWORD")) {
+        if (compound.contains("SWORD"))
             this.setSword(compound.getInt("SWORD"));
-        }
-        if (compound.contains("HELMET")) {
+
+        if (compound.contains("HELMET"))
             this.setHelmet(compound.getBoolean("HELMET"));
-        }
     }
 
     @Override
@@ -135,6 +157,78 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
         compound.putInt("SWORD", this.getSword());
         compound.putBoolean("HELMET", this.getHelmet());
     }
+
+    @Override
+    public void updateAttributes(){
+        if (this.isTame()) {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
+
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(5.0D + 5.0D * this.getSword());
+
+            double armor = 0;
+            if(this.getHelmet()) armor += 8d;
+            if(this.hasSaddle()) armor += 12d;
+
+            this.getAttribute(Attributes.ARMOR).setBaseValue(armor);
+
+            return;
+        }
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5D);
+        this.getAttribute(Attributes.ARMOR).setBaseValue(0.0D);
+    }
+
+    @Override
+    protected void dropAllDeathLoot(@NotNull DamageSource p_21192_) {
+        if(this.getHelmet())
+            this.spawnAtLocation(ItemInit.ICE_HELMET.get());
+
+        IntStream.range(0,this.getSword()).forEach(e->
+                this.spawnAtLocation(ItemInit.ICEPOP.get()));
+
+        super.dropAllDeathLoot(p_21192_);
+    }
+
+    @Override
+    public EggBlockItem getEgg() {
+        return (EggBlockItem) ItemInit.PENGUIN_EGG_ITEM.get();
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return super.isNoGravity() || this.isInWater();
+    }
+
+    @Override
+    public void tick() {
+        if(this.isInWater() && !this.getPassengers().isEmpty())
+            ejectPassengers();
+        if(!level().isClientSide() && this.isInWater() != isSwimming())
+            switchNavigation();
+
+        super.tick();
+    }
+
+    @Override
+    public void travel(@NotNull Vec3 p_27490_) {
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(0.01F, p_27490_);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.getTarget() == null) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
+            }
+        } else
+            super.travel(p_27490_);
+    }
+
+    @Override
+    public boolean canDrownInFluidType(FluidType type) {
+        if (type == ForgeMod.WATER_TYPE.get()) return false;
+        return super.canDrownInFluidType(type);
+    }
+
+    //TAMING STUFF
 
     @Override
     public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
@@ -151,9 +245,9 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
                     itemstack.shrink(1);
                     return InteractionResult.SUCCESS;
                 } else if (itemstack.is(ItemInit.ICE_HELMET.get()) && !getHelmet()) {
-                        this.setHelmet(true);
-                        itemstack.shrink(1);
-                        return InteractionResult.SUCCESS;
+                    this.setHelmet(true);
+                    itemstack.shrink(1);
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
@@ -173,34 +267,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
         return itemStack.is(Items.SALMON)||itemStack.is(Items.COD);
     }
 
-    @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return null;
-    }
-
-    @Override
-    public void updateAttributes(){
-        if (this.isTame()) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
-            if(this.getSword() == 1){
-                this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(10.0D);
-            } else if(this.getSword() == 2){
-                this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(15.0D);
-            } else {
-                this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(5.0D);
-            }
-            double armor = 0;
-            if(this.getHelmet()) armor += 8d;
-            if(this.hasSaddle()) armor += 12d;
-
-            this.getAttribute(Attributes.ARMOR).setBaseValue(armor);
-
-        } else {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5D);
-            this.getAttribute(Attributes.ARMOR).setBaseValue(0.0D);
-        }
-    }
+    //RIDING STUFF
 
     @Override
     public boolean shouldRiderSit() {
@@ -221,18 +288,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
         return 0.1f;
     }
 
-    @Override
-    protected void dropAllDeathLoot(@NotNull DamageSource p_21192_) {
-        if(this.getHelmet()){
-            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemInit.ICE_HELMET.get())));
-        }
-        IntStream.range(0,this.getSword()).forEach(e->
-                this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemInit.ICEPOP.get()))));
-
-        super.dropAllDeathLoot(p_21192_);
-    }
-
-    //sounds
+    //SOUND STUFF
 
     @Override
     public SoundEvent getAmbientSound() {
@@ -246,10 +302,10 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.PENGUIN_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.PENGUIN_HURT.get();}
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState blockState) {
+    protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState blockState) {
         if(this.isVehicle() && (blockState.is(Blocks.ICE)||
                 blockState.is(Blocks.BLUE_ICE)||
                 blockState.is(Blocks.PACKED_ICE)||
@@ -269,12 +325,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
         return SoundInit.PENGUIN_INTERACT.get();
     }
 
-    @Override
-    public EggBlockItem getEgg() {
-        return (EggBlockItem) ItemInit.PENGUIN_EGG_ITEM.get();
-    }
-
-    //animation stuff
+    //ANIMATION STUFF
 
     @Override
     public void playAttackAnim() {
@@ -283,6 +334,19 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
-        control.add(addAnimationTriggers(vehicleController(this)));
+        control.add(addAnimationTriggers(penguinVehicleController(this)));
+    }
+
+    public <T extends RideableTBAnimal & GeoEntity> AnimationController<T> penguinVehicleController(T entity) {
+        return new AnimationController<>(entity,"movement", 3, event ->{
+            if(entity.isInWater()){
+                if(event.isMoving())
+                    event.getController().setAnimation(RawAnimation.begin().then("swim", Animation.LoopType.LOOP));
+                else
+                    event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
+                return PlayState.CONTINUE;
+            }
+            return vehicleState(entity, event);
+        });
     }
 }

@@ -1,9 +1,15 @@
 package com.modderg.tameablebeasts.server.entity;
 
 import com.modderg.tameablebeasts.server.entity.goals.*;
+import com.modderg.tameablebeasts.server.entity.navigation.TBFlyingPathNavigation;
+import com.modderg.tameablebeasts.server.entity.navigation.TBGroundPathNavigation;
 import com.modderg.tameablebeasts.server.packet.InitPackets;
 import com.modderg.tameablebeasts.server.packet.StoCSyncFlying;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
@@ -30,10 +36,12 @@ public class FlyingTBAnimal extends TBAnimal {
     public boolean isFlying() {return isFlying;}
     public void setIsFlying(boolean flying) {isFlying = flying;}
 
-    protected  boolean goalsWantFlying = false;
-    public void setGoalsRequireFlying(boolean i) {this.goalsWantFlying = i;}
-    public boolean getGoalsRequireFlying() {
-        return goalsWantFlying;
+    private static final EntityDataAccessor<Boolean> GOAL_WANT_FLYING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+    public void setGoalsRequireFlying(boolean i){
+        this.getEntityData().set(GOAL_WANT_FLYING, i);
+    }
+    public boolean getGoalsRequireFlying(){
+        return this.getEntityData().get(GOAL_WANT_FLYING);
     }
 
     protected LinkedList<MoveControl> moveControlRotation = new LinkedList<>();
@@ -51,13 +59,33 @@ public class FlyingTBAnimal extends TBAnimal {
         moveControlRotation.add(new MoveControl(this));
 
         pathNavigationRotation.add(new TBFlyingPathNavigation(this, this.level()).canFloat(true));
-        pathNavigationRotation.add(new TBGroundPathNavigatorNoSpin(this, this.level()));
+        pathNavigationRotation.add(new TBGroundPathNavigation(this, this.level()));
 
         this.moveControl = moveControlRotation.getFirst();
     }
 
     @Override
-    protected PathNavigation createNavigation(Level p_21480_) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("GOAL_WANT_FLYING", this.getGoalsRequireFlying());
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(GOAL_WANT_FLYING, false);
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+
+        if (compound.contains("GOAL_WANT_FLYING"))
+            this.setGoalsRequireFlying(compound.getBoolean("GOAL_WANT_FLYING"));
+    }
+
+    @Override
+    public @NotNull PathNavigation createNavigation(@NotNull Level p_21480_) {
         return new TBFlyingPathNavigation(this, this.level());
     }
 
@@ -105,21 +133,19 @@ public class FlyingTBAnimal extends TBAnimal {
 
     @Override
     public void travel(@NotNull Vec3 p_218382_) {
-        if(isFlying()){
-            if (this.isControlledByLocalInstance()) {
-                if (this.isInWater()) {
-                    this.moveRelative(0.02F, p_218382_);
-                    this.move(MoverType.SELF, this.getDeltaMovement());
-                    this.setDeltaMovement(this.getDeltaMovement().scale( 0.8F));
-                } else if (this.isInLava()) {
-                    this.moveRelative(0.02F, p_218382_);
-                    this.move(MoverType.SELF, this.getDeltaMovement());
-                    this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
-                } else {
-                    this.moveRelative(this.getSpeed(), p_218382_);
-                    this.move(MoverType.SELF, this.getDeltaMovement());
-                    this.setDeltaMovement(this.getDeltaMovement().scale( 0.91F));
-                }
+        if(isFlying() && this.isControlledByLocalInstance()){
+            if (this.isInWater()) {
+                this.moveRelative(0.02F, p_218382_);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale( 0.8F));
+            } else if (this.isInLava()) {
+                this.moveRelative(0.02F, p_218382_);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
+            } else {
+                this.moveRelative(this.getSpeed(), p_218382_);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale( 0.91F));
             }
         } else
             super.travel(p_218382_);

@@ -127,7 +127,7 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
     @Override
     protected void dropAllDeathLoot(DamageSource p_21192_) {
         if(this.hasHoe())
-            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemInit.IRON_BIG_HOE.get())));
+            this.spawnAtLocation(ItemInit.IRON_BIG_HOE.get());
 
         super.dropAllDeathLoot(p_21192_);
     }

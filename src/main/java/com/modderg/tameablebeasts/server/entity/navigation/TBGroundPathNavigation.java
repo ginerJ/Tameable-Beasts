@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.server.entity.goals;
+package com.modderg.tameablebeasts.server.entity.navigation;
 
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.Mob;
@@ -6,14 +6,14 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class TBGroundPathNavigatorNoSpin extends GroundPathNavigation {
+public class TBGroundPathNavigation extends GroundPathNavigation {
     private float distancemodifier = 0.75F;
 
-    public TBGroundPathNavigatorNoSpin(Mob entitylivingIn, Level worldIn) {
+    public TBGroundPathNavigation(Mob entitylivingIn, Level worldIn) {
         super(entitylivingIn, worldIn);
     }
 
-    public TBGroundPathNavigatorNoSpin(Mob entitylivingIn, Level worldIn, float distancemodifier) {
+    public TBGroundPathNavigation(Mob entitylivingIn, Level worldIn, float distancemodifier) {
         super(entitylivingIn, worldIn);
         this.distancemodifier = distancemodifier;
     }

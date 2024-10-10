@@ -15,6 +15,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 
 public interface TBRideable {
@@ -93,9 +94,10 @@ public interface TBRideable {
 
      default void dropSaddle() {
         if(this.hasSaddle() && this.itemSaddle()!=null)
-            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(itemSaddle())));
+            spawnAtLocation(itemSaddle());
     }
 
+     ItemEntity spawnAtLocation(ItemLike itemLike);
      boolean hasEffect(MobEffect p_21024_);
      SynchedEntityData getEntityData();
      MobEffectInstance getEffect(MobEffect p_21125_);

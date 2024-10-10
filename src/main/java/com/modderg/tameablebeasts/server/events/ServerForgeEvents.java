@@ -23,12 +23,9 @@ public class ServerForgeEvents {
 
     @SubscribeEvent
     public static void onDeath(final LivingDeathEvent event){
-        if(event.getEntity() instanceof AbstractIllager){
+        if(event.getEntity() instanceof AbstractIllager illager){
             if(event.getEntity().getRandom().nextInt(100) <= 5){
-                Level level = event.getEntity().level();
-                Vec3 vec3 = event.getEntity().position();
-                ItemEntity item = new ItemEntity(level, vec3.x, vec3.y, vec3.z, new ItemStack(ItemInit.PURPLE_ALLAY.get()));
-                level.addFreshEntity(item);
+                illager.spawnAtLocation(ItemInit.PURPLE_ALLAY.get());
             }
         }
 

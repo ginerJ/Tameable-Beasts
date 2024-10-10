@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.server.entity.goals;
+package com.modderg.tameablebeasts.server.entity.navigation;
 
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
 import net.minecraft.world.entity.Entity;

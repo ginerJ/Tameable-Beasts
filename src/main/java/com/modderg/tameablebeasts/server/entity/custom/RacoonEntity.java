@@ -133,9 +133,7 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
         if(this.hasPolen() && dropFurTime-- <= 0) {
             dropFurTime = getRandom().nextInt(300,1500);
             if(this.hasPolen()){
-                ItemEntity item = new ItemEntity(this.level(),this.getX(),this.getY(),this.getX(),new ItemStack(ItemInit.FUR.get()));
-                item.setPos(this.getPosition(1.0F));
-                level().addFreshEntity(item);
+                spawnAtLocation(ItemInit.FUR.get());
                 this.setPolen(false);
             }
         }

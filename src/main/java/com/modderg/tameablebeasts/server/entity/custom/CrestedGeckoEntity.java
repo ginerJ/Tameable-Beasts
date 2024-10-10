@@ -4,6 +4,7 @@ import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.RideableTBAnimal;
 
 import com.modderg.tameablebeasts.server.entity.goals.*;
+import com.modderg.tameablebeasts.server.entity.navigation.TBWallClimberNavigation;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
@@ -51,7 +52,8 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+    @NotNull
+    public PathNavigation createNavigation(@NotNull Level level) {
         return new TBWallClimberNavigation(this, level);
     }
 

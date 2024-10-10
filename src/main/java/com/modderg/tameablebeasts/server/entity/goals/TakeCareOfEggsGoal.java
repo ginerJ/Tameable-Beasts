@@ -86,9 +86,6 @@ public class TakeCareOfEggsGoal extends Goal {
 
         if(mob.distanceToSqr(targetPos.getCenter()) < 4 && level.getBlockEntity(targetPos) instanceof EggBlockEntity egg){
 
-            if (GeoEntity.class.isAssignableFrom(mob.getClass()))
-                ((GeoEntity) mob).triggerAnim("movement","sit");
-
             egg.goBadTimer = 3000;
 
             InitPackets.sendToAll(new StoCLoveEggPacket(targetPos));

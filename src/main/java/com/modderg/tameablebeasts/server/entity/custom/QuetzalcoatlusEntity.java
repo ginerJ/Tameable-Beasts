@@ -204,7 +204,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal {
     @Override
     protected void dropAllDeathLoot(@NotNull DamageSource p_21192_) {
         if(this.hasStand())
-            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemInit.QUETZAL_STAND.get())));
+            spawnAtLocation(ItemInit.QUETZAL_STAND.get());
 
         super.dropAllDeathLoot(p_21192_);
     }
