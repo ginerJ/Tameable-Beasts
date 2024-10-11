@@ -15,7 +15,6 @@ public class FlyFromNowAndThenGoal extends Goal {
     public FlyFromNowAndThenGoal(FlyingTBAnimal mob) {
         this.mob = mob;
         this.timer = mob.getRandom().nextInt(0,2000);
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
     @Override

@@ -14,7 +14,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -27,7 +26,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +35,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidType;
@@ -122,7 +119,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
                 new TemptGoal(this, 1.1D, Ingredient.of(Items.TROPICAL_FISH), false),
                 new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
                 new TameablePanicGoal(this, 1.25D),
-                new RandomSwimmingGoal(this, 5.0D, 40),
+                new RandomSwimmingGoal(this, 1.0D, 10),
                 new RandomStrollGoal(this, 1.0D, 10),
                 new TBFollowParentGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),

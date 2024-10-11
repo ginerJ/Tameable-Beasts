@@ -16,7 +16,6 @@ public class RunFromNowAndThenGoal extends Goal {
         this.mob = mob;
         this.speedModifier = speedModifier;
         this.timer = mob.getRandom().nextInt(0,maxWait);
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
     @Override
