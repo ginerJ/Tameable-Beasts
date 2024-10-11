@@ -25,7 +25,7 @@ public interface TBSemiAquatic {
         return new WaterBoundPathNavigation((Mob) this, level());
     }
 
-    default boolean isSwimming() {
+    default boolean getSwimming() {
         return this.moveControlRotation.getFirst() instanceof TBWaterMoveControl;
     }
 

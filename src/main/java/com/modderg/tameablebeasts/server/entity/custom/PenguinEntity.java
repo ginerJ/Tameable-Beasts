@@ -37,6 +37,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidType;
@@ -160,6 +161,12 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
     @Override
     public void updateAttributes(){
+
+        if(this.isInWater())
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(1.2D);
+        else
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+
         if (this.isTame()) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
 
@@ -196,15 +203,17 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
     @Override
     public boolean isNoGravity() {
-        return super.isNoGravity() || this.isInWater();
+        return this.isInWater();
     }
 
     @Override
     public void tick() {
         if(this.isInWater() && !this.getPassengers().isEmpty())
             ejectPassengers();
-        if(!level().isClientSide() && this.isInWater() != isSwimming())
+        if(!level().isClientSide() && this.isInWater() != getSwimming()){
+            updateAttributes();
             switchNavigation();
+        }
 
         super.tick();
     }
