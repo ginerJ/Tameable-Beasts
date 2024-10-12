@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
+import com.modderg.tameablebeasts.server.entity.TBSemiAquatic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -70,7 +71,6 @@ public class TBFollowOwnerGoal extends Goal {
     public void start() {
         this.timeToRecalcPath = 0;
         this.oldWaterCost = this.mob.getPathfindingMalus(BlockPathTypes.WATER);
-        this.mob.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
     public void stop() {
@@ -119,13 +119,13 @@ public class TBFollowOwnerGoal extends Goal {
 
     private boolean canTeleportTo(BlockPos p_25308_) {
         BlockPathTypes blockpathtypes = WalkNodeEvaluator.getBlockPathTypeStatic(this.level, p_25308_.mutable());
-        if (blockpathtypes != BlockPathTypes.WALKABLE) {
+        if (blockpathtypes != BlockPathTypes.WALKABLE && !(mob instanceof TBSemiAquatic))
             return false;
-        } else {
+        else {
             BlockState blockstate = this.level.getBlockState(p_25308_.below());
-            if (!this.canFly && blockstate.getBlock() instanceof LeavesBlock) {
+            if (!this.canFly && blockstate.getBlock() instanceof LeavesBlock)
                 return false;
-            } else {
+            else {
                 BlockPos blockpos = p_25308_.subtract(this.mob.blockPosition());
                 return this.level.noCollision(this.mob, this.mob.getBoundingBox().move(blockpos));
             }

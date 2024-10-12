@@ -20,12 +20,12 @@ public class RunFromNowAndThenGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !mob.isTame() && !mob.isOrderedToSit();
+        return !mob.isTame() && !mob.isOrderedToSit() && !mob.isInWater();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return !mob.isTame() && !mob.isOrderedToSit();
+        return canUse();
     }
 
     @Override

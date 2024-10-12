@@ -73,7 +73,7 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
         this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.CRESTED_GECKO_POI));
         this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
     }
 
     public static boolean checkCrestedGeckoSpawnRules(EntityType<CrestedGeckoEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {

@@ -5,6 +5,8 @@ import com.modderg.tameablebeasts.server.entity.navigation.TBGroundPathNavigatio
 import com.modderg.tameablebeasts.server.entity.navigation.TBWaterMoveControl;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.level.Level;
@@ -16,18 +18,6 @@ public interface TBSemiAquatic {
 
     LinkedList<MoveControl> moveControlRotation = new LinkedList<>();
     LinkedList<PathNavigation> pathNavigationRotation = new LinkedList<>();
-
-    default boolean isPushedByFluid() {
-        return false;
-    }
-
-    default PathNavigation createNavigation(Level p_21480_) {
-        return new WaterBoundPathNavigation((Mob) this, level());
-    }
-
-    default boolean getSwimming() {
-        return this.moveControlRotation.getFirst() instanceof TBWaterMoveControl;
-    }
 
     default void switchNavigation(){
 
@@ -50,6 +40,7 @@ public interface TBSemiAquatic {
         pathNavigationRotation.add(new TBGroundPathNavigation((Mob) this, this.level()));
 
         setMoveControl(moveControlRotation.getFirst());
+        setPathNavigation(pathNavigationRotation.getFirst());
     }
 
     Level level();

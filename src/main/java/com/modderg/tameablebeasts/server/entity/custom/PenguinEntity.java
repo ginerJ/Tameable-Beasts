@@ -11,6 +11,7 @@ import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,8 +25,13 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Cod;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +41,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
@@ -47,6 +52,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemiAquatic {
@@ -78,6 +84,8 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         this.attackAnims.add("sword_attack2");
 
         initPathAndMoveControls();
+        if(!level().isClientSide())
+            switchNavigation();
     }
 
     @Override
@@ -119,8 +127,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
                 new TemptGoal(this, 1.1D, Ingredient.of(Items.TROPICAL_FISH), false),
                 new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
                 new TameablePanicGoal(this, 1.25D),
-                new RandomSwimmingGoal(this, 1.0D, 10),
-                new RandomStrollGoal(this, 1.0D, 10),
+                new SemiAquaticRandomStrollGoal(this, 0.8D),
                 new TBFollowParentGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
                 new RandomLookAroundGoal(this)
@@ -128,7 +135,8 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
         addTargetGoals(
                 new OwnerHurtByTargetGoal(this),
-                new OwnerHurtTargetGoal(this)
+                new OwnerHurtTargetGoal(this),
+                new NonTameRandomTargetGoal<>(this, AbstractFish.class, false, null)
         );
     }
 
@@ -159,10 +167,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     @Override
     public void updateAttributes(){
 
-        if(this.isInWater())
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(1.2D);
-        else
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 
         if (this.isTame()) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
@@ -198,6 +203,8 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         return (EggBlockItem) ItemInit.PENGUIN_EGG_ITEM.get();
     }
 
+    //SWIMMING STUFF
+
     @Override
     public boolean isNoGravity() {
         return this.isInWater();
@@ -207,31 +214,31 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     public void tick() {
         if(this.isInWater() && !this.getPassengers().isEmpty())
             ejectPassengers();
-        if(!level().isClientSide() && this.isInWater() != getSwimming()){
+        if(!level().isClientSide() &&
+                this.isInWater() != (this.navigation instanceof WaterBoundPathNavigation)){
             updateAttributes();
             switchNavigation();
+            this.setCustomName(Component.literal(String.valueOf((this.navigation instanceof WaterBoundPathNavigation))));
         }
 
-        super.tick();
-    }
 
-    @Override
-    public void travel(@NotNull Vec3 p_27490_) {
-        if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(0.01F, p_27490_);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.getTarget() == null) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-            }
-        } else
-            super.travel(p_27490_);
+        super.tick();
     }
 
     @Override
     public boolean canDrownInFluidType(FluidType type) {
         if (type == ForgeMod.WATER_TYPE.get()) return false;
         return super.canDrownInFluidType(type);
+    }
+    @Override
+    public boolean isPushedByFluid(FluidType type) {
+        if (type == ForgeMod.WATER_TYPE.get()) return false;
+        return super.isPushedByFluid(type);
+    }
+
+    @Override
+    protected boolean isAffectedByFluids() {
+        return false;
     }
 
     //TAMING STUFF

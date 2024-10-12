@@ -100,8 +100,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         
-        if (compound.contains("TEXTUREID")) 
-            this.setTextureId(compound.getInt("TEXTUREID"));
+        if (compound.contains("TEXTURE_ID"))
+            this.setTextureId(compound.getInt("TEXTURE_ID"));
         
         if (compound.contains("WANDERING"))
             this.setWandering(compound.getBoolean("WANDERING"));
@@ -135,18 +135,14 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     }
 
     @Override
-    public void tick() {
-        if(this.tickCount % 20 == 0)
-            this.goalSelector.getRunningGoals().findFirst().ifPresent(
-                    goal -> InitPackets.sendToServer(new StoCSynchGoalName(this.getId(), goal.getGoal().toString())));
-
-        super.tick();
-    }
-
-    @Override
     public void aiStep() {
         if (!this.level().isClientSide && this.isAlive() && this.tickCount % 240 == 0)
             this.heal(1.0F);
+
+//        goalSelector.getRunningGoals().findFirst().ifPresent(
+//                goal -> this.setCustomName(Component.literal(goal.getGoal().toString()))
+//        );
+
 
         super.aiStep();
     }
@@ -160,14 +156,18 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     protected void addGoals(Goal... goals){
         int i = 0;
-        for (Goal goal: goals)
+        for (Goal goal: goals){
+            i++;
             this.goalSelector.addGoal(i, goal);
+        }
     }
 
     protected void addTargetGoals(Goal... goals){
         int i = 0;
-        for (Goal goal: goals)
+        for (Goal goal: goals){
+            i++;
             this.targetSelector.addGoal(i, goal);
+        }
     }
 
     //SITTING STUFF
