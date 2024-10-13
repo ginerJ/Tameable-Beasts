@@ -59,20 +59,24 @@ public class ChikoteEntity extends RideableTBAnimal {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new TameablePanicGoal(this, 1.2D));
-        this.goalSelector.addGoal(0, new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F));
-        this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new TakeCareOfEggsGoal(this, 15, InitPOITypes.CHIKOTE_POI));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.BEETROOT), false));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, ScarecrowAllayEntity.class, 8.0F, 2.2D, 2.2D));
-        this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(8, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new TBFollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(11, new RandomStrollGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(12, new RaidCropsTameableGoal(this, 15));
+
+        addGoals(
+                new TameablePanicGoal(this, 1.2D),
+                new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
+                new FloatGoal(this),
+                new SitWhenOrderedToGoal(this),
+                new TakeCareOfEggsGoal(this, 15, InitPOITypes.CHIKOTE_POI),
+                new TemptGoal(this, 1.1D, Ingredient.of(Items.BEETROOT), false),
+                new WaterAvoidingRandomStrollGoal(this, 1.0D),
+                new AvoidEntityGoal<>(this, ScarecrowAllayEntity.class, 8.0F, 2.2D, 2.2D),
+                new RandomSwimmingGoal(this, 1.0D, 10),
+                new BreedGoal(this, 1.0D),
+                new TBFollowParentGoal(this, 1.0D),
+                new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new RandomStrollGoal(this, 1.0D, 10),
+                new RaidCropsTameableGoal(this, 15)
+        );
+
     }
 
     @Override

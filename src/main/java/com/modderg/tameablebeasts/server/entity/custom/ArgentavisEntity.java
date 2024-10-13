@@ -74,21 +74,27 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.targetSelector.addGoal(1, new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true));
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this).setAlertOthers());
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
-        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.ARGENTAVIS_POI));
-        this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(5, new RandomStrollGoal(this,1.0D));
-        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(ItemInit.QUETZAL_MEAT.get()), false));
-        this.goalSelector.addGoal(7, new FlyFromNowAndThenGoal(this));
-        this.goalSelector.addGoal(8, new TBFollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(11, new FloatGoal(this));
+
+        this.addGoals(
+                new SitWhenOrderedToGoal(this),
+                new TakeCareOfEggsGoal(this, 15, InitPOITypes.ARGENTAVIS_POI),
+                new TameablePanicGoal(this, 1.25D),
+                new RandomStrollGoal(this,1.0D),
+                new TemptGoal(this, 1.0D, Ingredient.of(ItemInit.QUETZAL_MEAT.get()), false),
+                new FlyFromNowAndThenGoal(this),
+                new TBFollowParentGoal(this, 1.0D),
+                new BreedGoal(this, 1.0D),
+                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
+                new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new FloatGoal(this)
+        );
+
+        this.addTargetGoals(
+                new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
+                new HurtByTargetGoal(this).setAlertOthers(),
+                new OwnerHurtTargetGoal(this),
+                new OwnerHurtByTargetGoal(this)
+        );
     }
 
     @Override

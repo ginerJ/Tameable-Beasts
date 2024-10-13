@@ -7,6 +7,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.level.Level;
@@ -16,16 +17,19 @@ import java.util.LinkedList;
 
 public interface TBSemiAquatic {
 
-    LinkedList<MoveControl> moveControlRotation = new LinkedList<>();
-    LinkedList<PathNavigation> pathNavigationRotation = new LinkedList<>();
+    default boolean isAquatic(){
+        return ((Mob) this).getMoveControl() instanceof SmoothSwimmingMoveControl;
+    }
 
     default void switchNavigation(){
 
-        moveControlRotation.addFirst(moveControlRotation.removeLast());
-        pathNavigationRotation.addFirst(pathNavigationRotation.removeLast());
-
-        setMoveControl(moveControlRotation.getFirst());
-        setPathNavigation(pathNavigationRotation.getFirst());
+        if(((Mob)this).getMoveControl() instanceof SmoothSwimmingMoveControl){
+            setMoveControl(new MoveControl((TBAnimal) this));
+            setPathNavigation(new GroundPathNavigation((Mob) this, this.level()));
+        } else {
+            setMoveControl(new SmoothSwimmingMoveControl((Mob)this, 85, 10, 0.02F, 0.1F, false));
+            setPathNavigation(new WaterBoundPathNavigation((Mob) this, this.level()));
+        }
 
         getFollowOwnerGoal().refreshNavigatorPath();
     }
@@ -33,14 +37,7 @@ public interface TBSemiAquatic {
     default void initPathAndMoveControls(){
         setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
 
-        moveControlRotation.add(new TBWaterMoveControl((TBAnimal) this));
-        moveControlRotation.add(new MoveControl((Mob) this));
-
-        pathNavigationRotation.add(new WaterBoundPathNavigation((Mob) this, this.level()));
-        pathNavigationRotation.add(new TBGroundPathNavigation((Mob) this, this.level()));
-
-        setMoveControl(moveControlRotation.getFirst());
-        setPathNavigation(pathNavigationRotation.getFirst());
+        switchNavigation();
     }
 
     Level level();

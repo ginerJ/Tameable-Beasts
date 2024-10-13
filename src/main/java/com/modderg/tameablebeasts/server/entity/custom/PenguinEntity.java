@@ -83,13 +83,11 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         this.attackAnims.add("sword_attack");
         this.attackAnims.add("sword_attack2");
 
-        initPathAndMoveControls();
         if(!level().isClientSide())
-            switchNavigation();
+            initPathAndMoveControls();
     }
 
-    @Override
-    public @NotNull MobType getMobType() {
+    @Override public @NotNull MobType getMobType() {
         return MobType.WATER;
     }
 
@@ -100,13 +98,6 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_DAMAGE, 2.5D)
                 .add(Attributes.ARMOR, 2.0D);
-    }
-
-    public static boolean checkPenguinSpawnRules(EntityType<PenguinEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
-        return (p_218243_.getBlockState(p_218245_.below()).is(Blocks.PACKED_ICE)
-                || p_218243_.getBlockState(p_218245_.below()).is(Blocks.ICE)
-                || p_218243_.getBlockState(p_218245_.below()).is(Blocks.BLUE_ICE))
-                && ModCommonConfigs.CAN_SPAWN_PENGUIN.get();
     }
 
     TBFollowOwnerGoal followOwnerGoal;
@@ -125,9 +116,9 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
                 new SitWhenOrderedToGoal(this),
                 new RunFromNowAndThenGoal(this, 1.2F),
                 new TemptGoal(this, 1.1D, Ingredient.of(Items.TROPICAL_FISH), false),
-                new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
+                new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, false),
                 new TameablePanicGoal(this, 1.25D),
-                new SemiAquaticRandomStrollGoal(this, 0.8D),
+                new SemiAquaticRandomStrollGoal(this, 1.0D),
                 new TBFollowParentGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
                 new RandomLookAroundGoal(this)
@@ -167,7 +158,10 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     @Override
     public void updateAttributes(){
 
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+        if(isInWater())
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(1.4D);
+        else
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 
         if (this.isTame()) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
@@ -203,6 +197,13 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         return (EggBlockItem) ItemInit.PENGUIN_EGG_ITEM.get();
     }
 
+    public static boolean checkPenguinSpawnRules(EntityType<PenguinEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+        return (p_218243_.getBlockState(p_218245_.below()).is(Blocks.PACKED_ICE)
+                || p_218243_.getBlockState(p_218245_.below()).is(Blocks.ICE)
+                || p_218243_.getBlockState(p_218245_.below()).is(Blocks.BLUE_ICE))
+                && ModCommonConfigs.CAN_SPAWN_PENGUIN.get();
+    }
+
     //SWIMMING STUFF
 
     @Override
@@ -215,12 +216,10 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         if(this.isInWater() && !this.getPassengers().isEmpty())
             ejectPassengers();
         if(!level().isClientSide() &&
-                this.isInWater() != (this.navigation instanceof WaterBoundPathNavigation)){
-            updateAttributes();
+                this.isInWater() != this.isAquatic()){
             switchNavigation();
-            this.setCustomName(Component.literal(String.valueOf((this.navigation instanceof WaterBoundPathNavigation))));
+            updateAttributes();
         }
-
 
         super.tick();
     }
