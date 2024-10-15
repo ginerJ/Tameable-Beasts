@@ -69,24 +69,32 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
     public static boolean checkGroundBeetleSpawnRules(EntityType<GroundBeetleEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
         return true;
     }
+
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F));
-        this.goalSelector.addGoal(1, new FleeSunGoal(this, 3.0F));
-        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.GROUND_BEETLE_POI));
-        this.goalSelector.addGoal(4, new FloatGoal(this));
-        this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4f));
-        this.goalSelector.addGoal(5, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(6, new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false));
-        this.goalSelector.addGoal(7, new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(9, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(10, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(13, new RandomLookAroundGoal(this));
+
+        this.addGoals(
+                new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
+                new FleeSunGoal(this, 3.0F),
+                new TakeCareOfEggsGoal(this, 15, InitPOITypes.GROUND_BEETLE_POI),
+                new FloatGoal(this),
+                new LeapAtTargetGoal(this, 0.4f),
+                new SitWhenOrderedToGoal(this),
+                new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false),
+                new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
+                new BreedGoal(this, 1.0D),
+                new WaterAvoidingRandomStrollGoal(this, 1.0D),
+                new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new RandomLookAroundGoal(this)
+        );
+
+        this.addTargetGoals(
+                new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
+                new OwnerHurtByTargetGoal(this),
+                new HurtByTargetGoal(this),
+                new OwnerHurtTargetGoal(this)
+        );
     }
 
     @Override

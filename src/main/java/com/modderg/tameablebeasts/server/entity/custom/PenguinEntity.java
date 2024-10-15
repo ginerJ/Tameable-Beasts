@@ -106,7 +106,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        followOwnerGoal = new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F);
+        followOwnerGoal = new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F, false, true);
 
         addGoals(
                 new TameablePanicGoal(this, 1.2D),
@@ -114,7 +114,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
                 new BreedGoal(this, 1.0D),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.PENGUIN_POI),
                 new SitWhenOrderedToGoal(this),
-                new RunFromNowAndThenGoal(this, 1.2F),
+                new RunFromNowAndThenGoal(this),
                 new TemptGoal(this, 1.1D, Ingredient.of(Items.TROPICAL_FISH), false),
                 new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, false),
                 new TameablePanicGoal(this, 1.25D),
@@ -159,7 +159,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     public void updateAttributes(){
 
         if(isInWater())
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(1.4D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(2.5D);
         else
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 
@@ -294,9 +294,9 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         if(blockState.is(Blocks.ICE)||
                 blockState.is(Blocks.BLUE_ICE)||
                 blockState.is(Blocks.PACKED_ICE)||
-                blockState.is(Blocks.FROSTED_ICE)){
+                blockState.is(Blocks.FROSTED_ICE))
             return 2f;
-        }
+
         return 0.1f;
     }
 

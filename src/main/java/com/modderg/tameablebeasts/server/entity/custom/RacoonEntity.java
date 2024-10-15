@@ -61,23 +61,27 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new TameablePanicGoal(this, 1.2D));
-        this.goalSelector.addGoal(1, new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(2, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.4f));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, Ingredient.of(Items.EGG), false));
-        this.goalSelector.addGoal(3, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(4, new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(5, new StealPolenGoal(this, 1.1D));
-        this.goalSelector.addGoal(6, new TameablePanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(8, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(10, new TBFollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
+
+        this.addGoals(
+                new TameablePanicGoal(this, 1.2D),
+                new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
+                new FloatGoal(this),
+                new LeapAtTargetGoal(this, 0.4f),
+                new TemptGoal(this, 1.1D, Ingredient.of(Items.EGG), false),
+                new SitWhenOrderedToGoal(this),
+                new StealPolenGoal(this, 1.1D),
+                new BreedGoal(this, 1.0D),
+                new WaterAvoidingRandomStrollGoal(this, 1.0D),
+                new TBFollowParentGoal(this, 1.0D),
+                new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new RandomLookAroundGoal(this)
+        );
+
+        this.addTargetGoals(
+                new OwnerHurtByTargetGoal(this),
+                new OwnerHurtTargetGoal(this),
+                new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true)
+        );
     }
 
     @Override
@@ -89,12 +93,11 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTUREID")) {
+        if (compound.contains("TEXTUREID"))
             this.setTextureId(compound.getInt("TEXTUREID"));
-        }
-        if (compound.contains("HASPOLEN")) {
+
+        if (compound.contains("HASPOLEN"))
             this.setPolen(compound.getBoolean("HASPOLEN"));
-        }
     }
 
     @Override
@@ -141,11 +144,11 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
     }
 
     public void updateAttributes(){
-        if (this.isTame()) {
+        if (this.isTame())
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(15.0D);
-        } else {
+        else
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
-        }
+
         if(hasPolen()) this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
         else this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
     }
@@ -170,8 +173,6 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
         this.playSound(SoundInit.RACOON_STEPS.get(), 0.15F, 1.0F);
     }
-
-
 
     @Override
     public SoundEvent getTameSound(){

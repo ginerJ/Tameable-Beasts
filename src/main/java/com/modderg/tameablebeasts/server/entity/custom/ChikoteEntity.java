@@ -64,6 +64,7 @@ public class ChikoteEntity extends RideableTBAnimal {
                 new TameablePanicGoal(this, 1.2D),
                 new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
                 new FloatGoal(this),
+                new RaidCropsTameableGoal(this, 15),
                 new SitWhenOrderedToGoal(this),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.CHIKOTE_POI),
                 new TemptGoal(this, 1.1D, Ingredient.of(Items.BEETROOT), false),
@@ -73,8 +74,7 @@ public class ChikoteEntity extends RideableTBAnimal {
                 new BreedGoal(this, 1.0D),
                 new TBFollowParentGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
-                new RandomStrollGoal(this, 1.0D, 10),
-                new RaidCropsTameableGoal(this, 15)
+                new RandomStrollGoal(this, 1.0D, 10)
         );
 
     }
@@ -102,14 +102,19 @@ public class ChikoteEntity extends RideableTBAnimal {
     }
 
     @Override
+    public EggBlockItem getEgg() {
+        return (EggBlockItem) ItemInit.CHIKOTE_EGG_ITEM.get();
+    }
+
+    @Override
     public void updateAttributes(){
         if (this.isBaby())
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15D);
-        else if (this.getTextureID() == 8)
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
         else
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
     }
+
+    //SLOWFALLING STUFF
 
     @Override
     public void aiStep() {
@@ -120,13 +125,8 @@ public class ChikoteEntity extends RideableTBAnimal {
     }
 
     @Override
-    public boolean causeFallDamage(float p_147187_, float p_147188_, DamageSource p_147189_) {
+    public boolean causeFallDamage(float p_147187_, float p_147188_, @NotNull DamageSource p_147189_) {
         return false;
-    }
-
-    @Override
-    public EggBlockItem getEgg() {
-        return (EggBlockItem) ItemInit.CHIKOTE_EGG_ITEM.get();
     }
 
     //sounds
@@ -143,10 +143,10 @@ public class ChikoteEntity extends RideableTBAnimal {
 
     @org.jetbrains.annotations.Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.CHIKOTE_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.CHIKOTE_HURT.get();}
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+    protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
         this.playSound(SoundInit.CHIKOTE_STEPS.get(), 0.15F, 1.0F);
     }
 

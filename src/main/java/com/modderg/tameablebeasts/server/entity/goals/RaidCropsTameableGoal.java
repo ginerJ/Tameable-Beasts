@@ -9,7 +9,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
@@ -41,26 +40,26 @@ public class RaidCropsTameableGoal extends Goal {
         if(checkTimer++ % 40 != 0)
             return false;
 
-        if (!mob.isTame() &&
-                net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(mob.level(), mob) &&
-                hasCropsToRaid() &&
-                checkForScarecrowBlock() &&
-                checkForScarecrow()){
-            return true;
-        }
+        if(mob.isTame())
+            return false;
 
-        targetPos = null;
-        return false;
+        if(!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(mob.level(), mob))
+            return false;
+
+        return !mob.isTame() &&
+                hasCropsToRaid() &&
+                areNotScarecrowBlocksNearBy() &&
+                areNotScareCrowsNearby();
     }
 
     @Override
     public boolean canContinueToUse() {
-        if(!(checkTimer++ % 40 == 0))
+        if(checkTimer++ % 40 != 0)
             return true;
 
         return targetPos != null &&
                 mob.level().getBlockState(targetPos).getBlock() instanceof CropBlock
-                && (checkTimer != 0 && (checkForScarecrowBlock() && checkForScarecrow()));
+                && areNotScarecrowBlocksNearBy() && areNotScareCrowsNearby();
     }
 
     @Override
@@ -76,10 +75,10 @@ public class RaidCropsTameableGoal extends Goal {
             this.mob.getNavigation()
                     .moveTo(targetPos.getX(),targetPos.getY(),targetPos.getZ(),1f);
 
-        if(targetPos != null && mob.distanceToSqr(targetPos.getCenter()) <= 1){
+        if(targetPos != null && mob.distanceToSqr(targetPos.getCenter()) <= 2.5){
             mob.triggerAnim("movement", "eat_crop");
             mob.level().destroyBlock(targetPos,false);
-            mob.level().playLocalSound(targetPos, SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 2.0F, mob.level().random.nextFloat() * 0.1F + 0.9F, false);
+            mob.playSound(SoundEvents.GENERIC_EAT);
             targetPos = null;
             raidTimer = 60;
         }
@@ -87,12 +86,12 @@ public class RaidCropsTameableGoal extends Goal {
 
     private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forNonCombat().range(8.0D).ignoreLineOfSight();
 
-    private boolean checkForScarecrow(){
+    private boolean areNotScareCrowsNearby(){
         List<? extends ScarecrowAllayEntity> list = mob.level().getNearbyEntities(ScarecrowAllayEntity.class, TARGETING_CONDITIONS, this.mob, this.mob.getBoundingBox().inflate(10.0D));
         return list.isEmpty();
     }
 
-    private boolean checkForScarecrowBlock(){
+    private boolean areNotScarecrowBlocksNearBy(){
 
         Level level = mob.level();
 

@@ -3,7 +3,6 @@ package com.modderg.tameablebeasts.server.entity.custom;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
@@ -23,22 +22,20 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class GrapteranodonEntity extends FlyingRideableTBAnimal {
@@ -68,26 +65,27 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.targetSelector.addGoal(1, new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true));
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this).setAlertOthers());
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
-        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.GRAPTERANODON_POI));
-        this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(5, new RandomStrollGoal(this,1.0D));
-        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(ItemInit.BIG_BIRD_MEAT.get()), false));
-        this.goalSelector.addGoal(7, new FlyFromNowAndThenGoal(this));
-        this.goalSelector.addGoal(8, new TBFollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(11, new FloatGoal(this));
-    }
 
-    @Override
-    public void tick() {
-        super.tick();
+        this.addGoals(
+                new SitWhenOrderedToGoal(this),
+                new TakeCareOfEggsGoal(this, 15, InitPOITypes.GRAPTERANODON_POI),
+                new TameablePanicGoal(this, 1.25D),
+                new RandomStrollGoal(this,1.0D),
+                new TemptGoal(this, 1.0D, Ingredient.of(Items.SALMON), false),
+                new FlyFromNowAndThenGoal(this),
+                new TBFollowParentGoal(this, 1.0D),
+                new BreedGoal(this, 1.0D),
+                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
+                new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new FloatGoal(this)
+        );
+
+        this.addTargetGoals(
+                new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
+                new HurtByTargetGoal(this),
+                new OwnerHurtTargetGoal(this),
+                new OwnerHurtByTargetGoal(this)
+        );
     }
 
     @Override
@@ -114,12 +112,18 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
 
     @Override
     public boolean isFood(ItemStack p_27600_) {
-        return p_27600_.is(ItemInit.BIG_BIRD_MEAT.get());
+        boolean isFood = p_27600_.is(Items.SALMON);
+        if(isFood)
+            eatEmote = true;
+        return isFood;
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return this.getHealth() < 5 && itemStack.is(ItemInit.PTERANODON_MEAL.get());
+        boolean isFood = this.getHealth() < 5 && itemStack.is(ItemInit.PTERANODON_MEAL.get());
+        if(isFood)
+            eatEmote = true;
+        return isFood;
     }
 
     @Override
@@ -209,17 +213,21 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
     public SoundEvent getAmbientSound() {
         if(isFlying())
             return SoundInit.GRAPTERA_FLY.get();
-
-        return SoundInit.GRAPTERA_AMBIENT.get();
+        eatEmote = true;
+        return SoundInit.QUETZAL_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
+        eatEmote = true;
         return SoundInit.GRAPTERA_DEATH.get();
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.GRAPTERA_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {
+        eatEmote = true;
+        return SoundInit.GRAPTERA_HURT.get();
+    }
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
@@ -228,11 +236,13 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
 
     @Override
     public SoundEvent getTameSound(){
+        eatEmote = true;
         return SoundInit.GRAPTERA_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
+        eatEmote = true;
         return SoundInit.GRAPTERA_INTERACT.get();
     }
 
@@ -241,18 +251,24 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(addAnimationTriggers(glideFlyController(this)));
-        controllers.add(legGripController(this));
+        controllers.add(legsMouthController(this));
     }
 
     public boolean playGrip = false;
+    public boolean eatEmote = false;
 
-    public <T extends FlyingRideableTBAnimal & GeoEntity> AnimationController<T> legGripController(T entity) {
-        return new AnimationController<>(entity, "legsController", 10, event -> {
+    public <T extends FlyingRideableTBAnimal & GeoEntity> AnimationController<T> legsMouthController(T entity) {
+        return new AnimationController<>(entity, "legs&mouthController", 10, event -> {
             AnimationController<T> controller = event.getController();
 
             if (playGrip) {
                 controller.setAnimation(RawAnimation.begin().then("leg_grab", Animation.LoopType.PLAY_ONCE));
                 playGrip = false;
+                controller.forceAnimationReset();
+            }
+            if (eatEmote) {
+                controller.setAnimation(RawAnimation.begin().then("bite", Animation.LoopType.PLAY_ONCE));
+                eatEmote = false;
                 controller.forceAnimationReset();
             }
             return PlayState.CONTINUE;

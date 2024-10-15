@@ -66,14 +66,19 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F));
-        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.1D, Ingredient.of(Items.MELON), false));
-        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.CRESTED_GECKO_POI));
-        this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
+
+        addGoals(
+                new SitWhenOrderedToGoal(this),
+                new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
+                new FloatGoal(this),
+                new TemptGoal(this, 1.1D, Ingredient.of(Items.MELON), false),
+                new TameablePanicGoal(this, 1.5D),
+                new BreedGoal(this, 1.0D),
+                new WaterAvoidingRandomStrollGoal(this, 1.0D),
+                new TBFollowParentGoal(this, 1.0D),
+                new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new RandomLookAroundGoal(this)
+        );
     }
 
     public static boolean checkCrestedGeckoSpawnRules(EntityType<CrestedGeckoEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
@@ -110,6 +115,14 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
     }
 
     @Override
+    public boolean causeFallDamage(float p_147187_, float p_147188_, @NotNull DamageSource p_147189_) {
+        if(!this.isTame()) return super.causeFallDamage(p_147187_, p_147188_, p_147189_);
+        return false;
+    }
+
+    //CLIMB STUFF
+
+    @Override
     public void tick() {
         super.tick();
         if (!this.level().isClientSide)
@@ -117,44 +130,32 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
     }
 
     @Override
-    public boolean causeFallDamage(float p_147187_, float p_147188_, DamageSource p_147189_) {
-        if(!this.isTame()) return super.causeFallDamage(p_147187_, p_147188_, p_147189_);
-        return false;
-    }
-
-    @Override
     public boolean onClimbable() {
-        return this.isClimbing();
-    }
-
-    public boolean isClimbing() {
-        return (this.entityData.get(DATA_FLAGS_ID) & 128) != 0 ||
+        return !this.isOrderedToSit() && (this.entityData.get(DATA_FLAGS_ID) & 128) != 0 ||
                 (this.isControlledByLocalInstance() && this.horizontalCollision);
     }
 
     public void setClimbing(boolean climbing) {
-        if (!this.isInSittingPose()) {
-            byte b0 = this.entityData.get(DATA_FLAGS_ID);
-            if (climbing)
-                b0 |= (byte) 128;
-             else
-                b0 &= (byte) ~128;
+        byte b0 = this.entityData.get(DATA_FLAGS_ID);
+        if (climbing)
+            b0 |= (byte) 128;
+         else
+            b0 &= (byte) ~128;
 
-            this.entityData.set(DATA_FLAGS_ID, b0);
-        }
+        this.entityData.set(DATA_FLAGS_ID, b0);
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose p_19975_) {
-        if(isClimbing())
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose p_19975_) {
+        if(onClimbable())
             return new EntityDimensions(0.9f,1.6f,true);
         return this.getType().getDimensions();
     }
 
     @Override
-    protected void positionRider(Entity rider, MoveFunction moveFunction) {
+    protected void positionRider(@NotNull Entity rider, @NotNull MoveFunction moveFunction) {
         if (this.hasPassenger(rider))
-            if(this.isClimbing())
+            if(this.onClimbable())
                 positionWithOffSets(rider, moveFunction, -0.5f, 0,0);
             else
                 positionWithOffSets(rider, moveFunction, 0.5f, 0,0);
@@ -182,24 +183,22 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
         Vec3 vec3 = this.getDeltaMovement();
         if ((this.horizontalCollision || this.jumping) && (this.onClimbable() || this.getFeetBlockState().is(Blocks.POWDER_SNOW) && PowderSnowBlock.canEntityWalkOnPowderSnow(this)))
             vec3 = new Vec3(vec3.x, 0.2D, vec3.z);
-
         return vec3;
     }
 
-    private float getFrictionInfluencedSpeed(float p_21331_) {
+    protected float getFrictionInfluencedSpeed(float p_21331_) {
         return this.onGround() ? this.getSpeed() * (0.21600002F / (p_21331_ * p_21331_ * p_21331_)) : this.getFlyingSpeed();
     }
 
-    private Vec3 handleOnClimbable(Vec3 p_21298_) {
+    protected Vec3 handleOnClimbable(Vec3 p_21298_) {
         if (this.onClimbable()) {
             this.resetFallDistance();
             float f = 0.45F;
             double d0 = Mth.clamp(p_21298_.x, -f, f);
             double d1 = Mth.clamp(p_21298_.z, -f, f);
             double d2 = Math.max(p_21298_.y, -f);
-            if (d2 < 0.0D && !this.getFeetBlockState().isScaffolding(this) && this.isSuppressingSlidingDownLadder()) {
+            if (d2 < 0.0D && !this.getFeetBlockState().isScaffolding(this) && this.isSuppressingSlidingDownLadder())
                 d2 = 0.0D;
-            }
 
             p_21298_ = new Vec3(d0, d2, d1);
         }
@@ -220,10 +219,10 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.CRESTED_GECKO_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.CRESTED_GECKO_HURT.get();}
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+    protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
         this.playSound(SoundInit.CHIKOTE_STEPS.get(), 0.15F, 1.0F);
     }
 

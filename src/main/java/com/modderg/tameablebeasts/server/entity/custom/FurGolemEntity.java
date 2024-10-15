@@ -40,6 +40,7 @@ public class FurGolemEntity extends Animal implements GeoEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+
         this.goalSelector.addGoal(0, new TakeCareOfEggsGoal(this,15));
         this.goalSelector.addGoal(1, new RandomStrollGoal(this, 0.9D));
     }

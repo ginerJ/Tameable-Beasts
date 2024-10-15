@@ -2,8 +2,6 @@ package com.modderg.tameablebeasts.server.entity;
 
 import com.modderg.tameablebeasts.server.entity.navigation.TBGroundPathNavigation;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.server.packet.InitPackets;
-import com.modderg.tameablebeasts.server.packet.StoCSynchGoalName;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -25,7 +23,6 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -142,7 +139,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         goalSelector.getRunningGoals().findFirst().ifPresent(
                 goal -> this.setCustomName(Component.literal(goal.getGoal().toString()))
         );
-
 
         super.aiStep();
     }
@@ -356,8 +352,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
         if(event.isMoving()||entity.onClimbable())
             event.getController().setAnimation(RawAnimation.begin().then(entity.isRunning() ? "run" : "walk", Animation.LoopType.LOOP));
-        else
-        if(entity.isInSittingPose())
+        else if(entity.isInSittingPose())
             event.setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
         else
             event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));

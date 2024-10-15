@@ -71,7 +71,7 @@ public class ForgeEventClient {
 
         Player player = event.getEntity();
 
-        if(player.getVehicle() instanceof CrestedGeckoEntity gecko && gecko.isClimbing()){
+        if(player.getVehicle() instanceof CrestedGeckoEntity gecko && gecko.onClimbable()){
             PoseStack poseStack = event.getPoseStack();
 
             CameraType cameraType = Minecraft.getInstance().options.getCameraType();
@@ -94,7 +94,7 @@ public class ForgeEventClient {
     public static void onPlayerRender(RenderPlayerEvent.Post event) {
         Player player = event.getEntity();
 
-        if(player.getVehicle() instanceof CrestedGeckoEntity gecko && gecko.isClimbing()) {
+        if(player.getVehicle() instanceof CrestedGeckoEntity gecko && gecko.onClimbable()) {
             PoseStack poseStack = event.getPoseStack();
             poseStack.popPose();
         }

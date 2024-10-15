@@ -22,7 +22,7 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-public class RideableTBAnimal extends TBAnimal implements ItemSteerable, TBRideable {
+public abstract class RideableTBAnimal extends TBAnimal implements ItemSteerable, TBRideable {
 
     protected RideableTBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);

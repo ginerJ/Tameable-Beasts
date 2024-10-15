@@ -29,7 +29,7 @@ public class CrestedGeckoModel extends TBGeoModel<CrestedGeckoEntity> {
         CoreGeoBone climb = getAnimationProcessor().getBone("climb");
 
         if(climb != null){
-            if(animatable.isClimbing())
+            if(animatable.onClimbable())
                 climb.setRotX((float) (Math.PI/2));
             else climb.setRotX(0);
         }

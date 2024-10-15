@@ -63,17 +63,20 @@ public class RolyPolyEntity extends RideableTBAnimal {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new TameablePanicGoal(this, 1.2D));
-        this.goalSelector.addGoal(1, new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F));
-        this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(ItemInit.LEAF.get()), false));
-        this.goalSelector.addGoal(3, new RunFromNowAndThenGoal(this, 1.2F));
-        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.ROLY_POLY_POI));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new TBFollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
+
+        this.addGoals(
+                new TameablePanicGoal(this, 1.2D),
+                new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
+                new FloatGoal(this),
+                new SitWhenOrderedToGoal(this),
+                new TemptGoal(this, 1.0D, Ingredient.of(ItemInit.LEAF.get()), false),
+                new RunFromNowAndThenGoal(this),
+                new TakeCareOfEggsGoal(this, 15, InitPOITypes.ROLY_POLY_POI),
+                new WaterAvoidingRandomStrollGoal(this, 1.0D),
+                new BreedGoal(this, 1.0D),
+                new TBFollowParentGoal(this, 1.0D),
+                new LookAtPlayerGoal(this, Player.class, 6.0F)
+        );
     }
 
     @Override

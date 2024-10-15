@@ -17,6 +17,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -56,19 +58,26 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(1, new IncludesSitingRidingMeleeAttackGoal(this, 2D, true));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(3, new TakeCareOfEggsGoal(this, 15, InitPOITypes.FLYING_BEETLE_POI));
-        this.goalSelector.addGoal(4, new TameablePanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false));
-        this.goalSelector.addGoal(5, new RandomStrollGoal(this,1.0D));
-        this.goalSelector.addGoal(6, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this,Player.class, 6.0F, 1.0D, 1.2D));
-        this.goalSelector.addGoal(6, new FlyFromNowAndThenGoal(this));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new TBFollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
+
+        this.addGoals(
+                new SitWhenOrderedToGoal(this),
+                new OwnerHurtTargetGoal(this),
+                new TakeCareOfEggsGoal(this, 15, InitPOITypes.FLYING_BEETLE_POI),
+                new TameablePanicGoal(this, 1.25D),
+                new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false),
+                new RandomStrollGoal(this,1.0D),
+                new BreedGoal(this, 1.0D),
+                new AvoidEntityGoal<>(this,Player.class, 6.0F, 1.0D, 1.2D),
+                new FlyFromNowAndThenGoal(this),
+                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
+                new TBFollowParentGoal(this, 1.0D),
+                new LookAtPlayerGoal(this, Player.class, 6.0F)
+        );
+        this.addTargetGoals(
+                new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
+                new OwnerHurtTargetGoal(this),
+                new OwnerHurtByTargetGoal(this)
+        );
     }
 
     @Override

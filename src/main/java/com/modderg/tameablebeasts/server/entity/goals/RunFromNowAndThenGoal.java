@@ -8,13 +8,11 @@ import java.util.EnumSet;
 public class RunFromNowAndThenGoal extends Goal {
 
     TBAnimal mob;
-    float speedModifier;
     private int timer;
     int maxWait = 1000;
 
-    public RunFromNowAndThenGoal(TBAnimal mob, float speedModifier) {
+    public RunFromNowAndThenGoal(TBAnimal mob) {
         this.mob = mob;
-        this.speedModifier = speedModifier;
         this.timer = mob.getRandom().nextInt(0,maxWait);
     }
 

@@ -17,6 +17,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -61,14 +62,21 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(1, new IncludesSitingRidingMeleeAttackGoal(this, 2D, true));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.targetSelector.addGoal(3, new OwnerHurtByTargetGoal(this));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new FloatGoal(this));
 
+        this.addGoals(
+                new SitWhenOrderedToGoal(this),
+                new IncludesSitingRidingMeleeAttackGoal(this, 2D, true),
+                new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new RandomLookAroundGoal(this),
+                new FloatGoal(this)
+        );
+
+        this.addTargetGoals(
+                new OwnerHurtByTargetGoal(this),
+                new OwnerHurtTargetGoal(this),
+                new HurtByTargetGoal(this),
+                new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true)
+        );
     }
 
     @Override

@@ -16,6 +16,15 @@ public class TBWallClimberNavigation extends WallClimberNavigation {
 
     @Override
     public boolean moveTo(Entity p_26583_, double p_26584_) {
-        return !animal.isInSittingPose() && super.moveTo(p_26583_, p_26584_);
+        if (animal.isOrderedToSit())
+            return false;
+        return super.moveTo(p_26583_, p_26584_);
+    }
+
+    @Override
+    public void tick() {
+        if(animal.isOrderedToSit())
+            return;
+        super.tick();
     }
 }

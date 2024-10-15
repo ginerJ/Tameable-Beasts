@@ -91,7 +91,7 @@ public class FlyingTBAnimal extends TBAnimal {
 
     protected void registerGoals() {
         super.registerGoals();
-        followOwnerGoal = new TBFollowOwnerGoal(this, 1.0D, 6.0F, 8.0F);
+        followOwnerGoal = new TBFollowOwnerGoal(this, 1.0D, 6.0F, 8.0F, true);
         this.goalSelector.addGoal(0, followOwnerGoal);
     }
 
