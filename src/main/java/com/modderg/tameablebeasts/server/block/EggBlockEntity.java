@@ -151,7 +151,8 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {}
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+    }
 
     private AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
     @Override

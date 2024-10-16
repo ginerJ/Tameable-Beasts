@@ -80,6 +80,9 @@ public class TameableBeast {
             SpawnPlacements.register(EntityIinit.FLYING_BEETLE.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FlyingBeetleEntity::checkFlyingBeetleSpawnRules);
 
+            SpawnPlacements.register(EntityIinit.BEETLE_DRONE.get(), SpawnPlacements.Type.ON_GROUND,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+
             SpawnPlacements.register(EntityIinit.QUETZALCOATLUS.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuetzalcoatlusEntity::checkQuetzalSpawnRules);
 
@@ -116,6 +119,7 @@ public class TameableBeast {
         event.put(EntityIinit.SCARECROW_ALLAY.get(), ScarecrowAllayEntity.setCustomAttributes().build());
 
         event.put(EntityIinit.FLYING_BEETLE.get(), FlyingBeetleEntity.setCustomAttributes().build());
+        event.put(EntityIinit.BEETLE_DRONE.get(), FlyingBeetleEntity.setCustomAttributes().build());
 
         event.put(EntityIinit.QUETZALCOATLUS.get(), QuetzalcoatlusEntity.setCustomAttributes().build());
 

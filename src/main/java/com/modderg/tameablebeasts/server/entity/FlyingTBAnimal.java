@@ -52,16 +52,17 @@ public class FlyingTBAnimal extends TBAnimal {
     protected FlyingTBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
 
-        this.setPathfindingMalus(BlockPathTypes.WATER, -this.getDimensions(this.getPose()).height);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, -this.getDimensions(this.getPose()).height);
+        this.setPathfindingMalus(BlockPathTypes.WATER, -8f);
+        this.setPathfindingMalus(BlockPathTypes.LAVA, -8f);
 
-        moveControlRotation.add(new FlyingMoveControl(this, 20, true));
+        moveControlRotation.add(new FlyingMoveControl(this, 20, false));
         moveControlRotation.add(new MoveControl(this));
 
         pathNavigationRotation.add(new TBFlyingPathNavigation(this, this.level()).canFloat(true));
         pathNavigationRotation.add(new TBGroundPathNavigation(this, this.level()));
 
         this.moveControl = moveControlRotation.getFirst();
+        this.navigation = pathNavigationRotation.getFirst();
     }
 
     @Override
@@ -84,14 +85,9 @@ public class FlyingTBAnimal extends TBAnimal {
             this.setGoalsRequireFlying(compound.getBoolean("GOAL_WANT_FLYING"));
     }
 
-    @Override
-    public @NotNull PathNavigation createNavigation(@NotNull Level p_21480_) {
-        return new TBFlyingPathNavigation(this, this.level());
-    }
-
     protected void registerGoals() {
         super.registerGoals();
-        followOwnerGoal = new TBFollowOwnerGoal(this, 1.0D, 6.0F, 8.0F, true);
+        followOwnerGoal = new TBFollowOwnerGoal(this, 1.0D, 10f, 6F, true);
         this.goalSelector.addGoal(0, followOwnerGoal);
     }
 

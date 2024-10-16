@@ -26,6 +26,7 @@ public class ModEventClient {
         event.registerEntityRenderer(EntityIinit.CHIKOTE.get(), TameableChikoteRender::new);
         event.registerEntityRenderer(EntityIinit.SCARECROW_ALLAY.get(), ScarecrowAllayRender::new);
         event.registerEntityRenderer(EntityIinit.FLYING_BEETLE.get(), TameableBeetleRender::new);
+        event.registerEntityRenderer(EntityIinit.BEETLE_DRONE.get(), BeetleDroneRender::new);
         event.registerEntityRenderer(EntityIinit.QUETZALCOATLUS.get(), QuetzalcoatlusRender::new);
         event.registerEntityRenderer(EntityIinit.GIANT_GRASSHOPPER.get(), GiantTameableGrasshopperRender::new);
         event.registerEntityRenderer(EntityIinit.GROUND_BEETLE.get(), TameableGroundBeetleRender::new);

@@ -8,6 +8,7 @@ import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -17,7 +18,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
@@ -29,7 +29,9 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
 
 public class FlyingBeetleEntity extends FlyingTBAnimal {
 
@@ -134,9 +136,9 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     @Override
     public SoundEvent getAmbientSound() {
-        if(isFlying()){
+        if(isFlying())
             return SoundInit.BEETLE_FLY.get();
-        }
+
         return SoundInit.BEETLE_AMBIENT.get();
     }
 
@@ -169,6 +171,18 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
-        control.add(addAnimationTriggers(flyController(this)));
+        control.add(addAnimationTriggers(flyingBeetleController(this)));
+    }
+
+    public <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> flyingBeetleController(T entity) {
+        return new AnimationController<>(entity,"movement", 5, event ->{
+            if(entity.isFlying()){
+                if(entity.tickCount % 5 == 0)
+                    entity.level().addParticle(ParticleTypes.GLOW, this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
+                return flyState(entity, event);
+            }
+
+            return groundState(entity, event);
+        });
     }
 }

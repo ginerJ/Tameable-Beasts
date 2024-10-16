@@ -6,7 +6,7 @@
   ],
   "spawners": {
     "type": "tameablebeasts:giant_grasshopper",
-    "weight": 60,
+    "weight": 30,
     "maxCount": 4,
     "minCount": 1
   }

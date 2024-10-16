@@ -3,7 +3,6 @@
 	"animations": {
 		"fly": {
 			"loop": true,
-			"animation_length": 2,
 			"bones": {
 				"bone2": {
 					"rotation": {

@@ -57,6 +57,11 @@ public class EntityIinit {
                     .sized(0.75f,0.75f)
                     .build(new ResourceLocation(TameableBeast.MOD_ID, "tameable_beetle").toString()));
 
+    public static final RegistryObject<EntityType<BeetleDrone>> BEETLE_DRONE = ENTITY_TYPES.register("beetle_drone",
+            () -> EntityType.Builder.of(BeetleDrone:: new, MobCategory.CREATURE)
+                    .sized(0.3f,0.3f)
+                    .build(new ResourceLocation(TameableBeast.MOD_ID, "beetle_drone").toString()));
+
     public static final RegistryObject<EntityType<QuetzalcoatlusEntity>> QUETZALCOATLUS = ENTITY_TYPES.register("quetzalcoatlus",
                 () -> EntityType.Builder.of(QuetzalcoatlusEntity:: new, MobCategory.CREATURE)
                     .sized(1f,1.6f)

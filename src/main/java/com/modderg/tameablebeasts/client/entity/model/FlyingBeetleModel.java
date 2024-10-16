@@ -8,17 +8,6 @@ import software.bernie.geckolib.core.animation.AnimationState;
 
 public class FlyingBeetleModel extends TBGeoModel<FlyingBeetleEntity> {
 
-        private final ResourceLocation[][] textures = {
-                new ResourceLocation[]{
-                        new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_beetle.png"),
-                        new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_beetle2.png"),
-                        new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_beetle3.png")
-
-                },
-                new ResourceLocation[]{
-                        new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_beetle_baby.png")
-                },
-        };
 
         @Override
         public ResourceLocation getModelResource(FlyingBeetleEntity entity) {
@@ -30,17 +19,17 @@ public class FlyingBeetleModel extends TBGeoModel<FlyingBeetleEntity> {
 
     @Override
     public ResourceLocation getTextureResource(FlyingBeetleEntity entity) {
-       if(entity.isBaby()){
-           return textures[1][0];
-       }
-        return textures[0][entity.getTextureID()];
+       if(entity.isBaby())
+           return  new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_beetle_baby.png");
+
+        return new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_beetle" + entity.getTextureID() + ".png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(FlyingBeetleEntity entity) {
-        if(entity.isBaby()){
+        if(entity.isBaby())
             return new ResourceLocation(TameableBeast.MOD_ID, "animations/tameable_baby_beetle_anims.json");
-        }
+
         return new ResourceLocation(TameableBeast.MOD_ID, "animations/tameable_beetle_anims.json");
     }
 
