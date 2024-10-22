@@ -19,7 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.modderg.tameablebeasts.server.entity.EntityIinit.*;
+import static com.modderg.tameablebeasts.server.entity.EntityInit.*;
 import static com.modderg.tameablebeasts.server.item.ItemInit.ITEMS;
 
 public class BlockInit {

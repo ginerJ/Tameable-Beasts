@@ -1,15 +1,18 @@
 package com.modderg.tameablebeasts.server.entity.custom;
 
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
+import com.modderg.tameablebeasts.server.entity.EntityInit;
 import com.modderg.tameablebeasts.server.entity.FlyingTBAnimal;
 
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -22,7 +25,6 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -50,7 +52,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
                 .add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.FLYING_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                .add(Attributes.ATTACK_DAMAGE, 2.0D)
                 .add(Attributes.ARMOR, 15.0D);
     }
 
@@ -58,6 +60,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
         return ModCommonConfigs.CAN_SPAWN_FLYING_BEETLE.get();
     }
 
+    @Override
     protected void registerGoals() {
         super.registerGoals();
 
@@ -66,8 +69,8 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
                 new OwnerHurtTargetGoal(this),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.FLYING_BEETLE_POI),
                 new TameablePanicGoal(this, 1.25D),
-                new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false),
-                new RandomStrollGoal(this,1.0D),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.SHINY_BEETLE_FOOD), false),
+                new NoFlyRandomStrollGoal(this,1.0D),
                 new BreedGoal(this, 1.0D),
                 new AvoidEntityGoal<>(this,Player.class, 6.0F, 1.0D, 1.2D),
                 new FlyFromNowAndThenGoal(this),
@@ -88,6 +91,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
         if (isTameFood(itemstack) && !this.isTame()) {
             tameGAnimal(player, itemstack, 20);
+            updateAttributes();
             return InteractionResult.SUCCESS;
         }
 
@@ -96,12 +100,12 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return itemStack.is(Items.HONEYCOMB);
+        return itemStack.is(TBTags.Items.SHINY_BEETLE_FOOD);
     }
 
     @Override
-    public boolean isFood(ItemStack p_27600_) {
-        return p_27600_.is(Items.HONEY_BOTTLE);
+    public boolean isFood(ItemStack itemStack) {
+        return itemStack.is(TBTags.Items.SHINY_BEETLE_TAME_FOOD);
     }
 
     @Override
@@ -130,6 +134,55 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
     @Override
     public EggBlockItem getEgg() {
         return (EggBlockItem) ItemInit.FLYING_BEETLE_EGG_ITEM.get();
+    }
+
+    @Override
+    public void updateAttributes() {
+        if (this.isTame())
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
+    }
+
+    //BEETLE DRONE STUFF
+
+    @Override
+    public boolean doHurtTarget(@NotNull Entity entity) {
+        if(entity instanceof LivingEntity living){
+
+            if(random.nextInt(100) < 5)
+                this.spawnAtLocation(ItemInit.BEETLE_DUST.get());
+
+            spawnDroneWithTarget(this, living);
+            spawnDroneWithTarget(this, living);
+        }
+        return super.doHurtTarget(entity);
+    }
+
+    @Override
+    public boolean hurt(@NotNull DamageSource source, float p_27568_) {
+        if(source.getEntity() instanceof LivingEntity living){
+            spawnDroneWithTarget(this, living);
+            spawnDroneWithTarget(this, living);
+            spawnDroneWithTarget(this, living);
+        }
+
+        return super.hurt(source, p_27568_);
+    }
+
+    public static void spawnDroneWithTarget(LivingEntity entity, LivingEntity target){
+        BeetleDrone drone = EntityInit.BEETLE_DRONE.get().create(entity.level());
+
+        if(drone == null)
+            return;
+
+        RandomSource random = entity.getRandom();
+        drone.setTarget(target);
+        drone.setPos(
+                entity.getX() + random.nextFloat() - random.nextFloat(),
+                entity.getY() + random.nextFloat(),
+                entity.getZ() + random.nextFloat() - random.nextFloat());
+
+        entity.level().addFreshEntity(drone);
+        drone.playSound(SoundEvents.BEEHIVE_EXIT, 1.0F, 1.0F);
     }
 
     //sounds

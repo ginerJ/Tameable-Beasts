@@ -5,7 +5,7 @@ import com.modderg.tameablebeasts.client.entity.render.*;
 import com.modderg.tameablebeasts.client.projectile.TameArrowRenderer;
 import com.modderg.tameablebeasts.server.block.BlockEntityInit;
 import com.modderg.tameablebeasts.client.block.EggBlockRender;
-import com.modderg.tameablebeasts.server.entity.EntityIinit;
+import com.modderg.tameablebeasts.server.entity.EntityInit;
 
 import com.modderg.tameablebeasts.client.particles.TameableParticles;
 import com.modderg.tameablebeasts.client.particles.custom.CitrineParticles;
@@ -21,23 +21,23 @@ public class ModEventClient {
 
     @SubscribeEvent
     public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(EntityIinit.RACOON.get(), TameableRacoonRender::new);
-        event.registerEntityRenderer(EntityIinit.PENGUIN.get(), PenguinRenderer::new);
-        event.registerEntityRenderer(EntityIinit.CHIKOTE.get(), TameableChikoteRender::new);
-        event.registerEntityRenderer(EntityIinit.SCARECROW_ALLAY.get(), ScarecrowAllayRender::new);
-        event.registerEntityRenderer(EntityIinit.FLYING_BEETLE.get(), TameableBeetleRender::new);
-        event.registerEntityRenderer(EntityIinit.BEETLE_DRONE.get(), BeetleDroneRender::new);
-        event.registerEntityRenderer(EntityIinit.QUETZALCOATLUS.get(), QuetzalcoatlusRender::new);
-        event.registerEntityRenderer(EntityIinit.GIANT_GRASSHOPPER.get(), GiantTameableGrasshopperRender::new);
-        event.registerEntityRenderer(EntityIinit.GROUND_BEETLE.get(), TameableGroundBeetleRender::new);
-        event.registerEntityRenderer(EntityIinit.GIANT_ROLY_POLY.get(), RolyPolyRender::new);
-        event.registerEntityRenderer(EntityIinit.FUR_GOLEM.get(), FurGolemRender::new);
-        event.registerEntityRenderer(EntityIinit.CRESTED_GECKO.get(), CrestedGeckoRender::new);
-        event.registerEntityRenderer(EntityIinit.ARGENTAVIS.get(), ArgentavisRender::new);
-        event.registerEntityRenderer(EntityIinit.GRAPTERANODON.get(), GrapteraRender::new);
+        event.registerEntityRenderer(EntityInit.RACOON.get(), TameableRacoonRender::new);
+        event.registerEntityRenderer(EntityInit.PENGUIN.get(), PenguinRenderer::new);
+        event.registerEntityRenderer(EntityInit.CHIKOTE.get(), TameableChikoteRender::new);
+        event.registerEntityRenderer(EntityInit.SCARECROW_ALLAY.get(), ScarecrowAllayRender::new);
+        event.registerEntityRenderer(EntityInit.FLYING_BEETLE.get(), FlyingBeetleRender::new);
+        event.registerEntityRenderer(EntityInit.BEETLE_DRONE.get(), BeetleDroneRender::new);
+        event.registerEntityRenderer(EntityInit.QUETZALCOATLUS.get(), QuetzalcoatlusRender::new);
+        event.registerEntityRenderer(EntityInit.GIANT_GRASSHOPPER.get(), GiantTameableGrasshopperRender::new);
+        event.registerEntityRenderer(EntityInit.GROUND_BEETLE.get(), TameableGroundBeetleRender::new);
+        event.registerEntityRenderer(EntityInit.GIANT_ROLY_POLY.get(), RolyPolyRender::new);
+        event.registerEntityRenderer(EntityInit.FUR_GOLEM.get(), FurGolemRender::new);
+        event.registerEntityRenderer(EntityInit.CRESTED_GECKO.get(), CrestedGeckoRender::new);
+        event.registerEntityRenderer(EntityInit.ARGENTAVIS.get(), ArgentavisRender::new);
+        event.registerEntityRenderer(EntityInit.GRAPTERANODON.get(), GrapteraRender::new);
 
-        event.registerEntityRenderer(EntityIinit.BIRD_BAIT_ARROW.get(), TameArrowRenderer::new);
-        event.registerEntityRenderer(EntityIinit.PTERA_MEAL_ARROW.get(), TameArrowRenderer::new);
+        event.registerEntityRenderer(EntityInit.BIRD_BAIT_ARROW.get(), TameArrowRenderer::new);
+        event.registerEntityRenderer(EntityInit.PTERA_MEAL_ARROW.get(), TameArrowRenderer::new);
 
         event.registerBlockEntityRenderer(BlockEntityInit.EGG_BLOCK_ENTITY.get(), EggBlockRender::new);
     }

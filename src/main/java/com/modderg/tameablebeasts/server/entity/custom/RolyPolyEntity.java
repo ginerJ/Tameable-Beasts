@@ -8,6 +8,7 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -69,7 +70,7 @@ public class RolyPolyEntity extends RideableTBAnimal {
                 new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
                 new FloatGoal(this),
                 new SitWhenOrderedToGoal(this),
-                new TemptGoal(this, 1.0D, Ingredient.of(ItemInit.LEAF.get()), false),
+                new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.ROLY_POLY_FOOD), false),
                 new RunFromNowAndThenGoal(this),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.ROLY_POLY_POI),
                 new WaterAvoidingRandomStrollGoal(this, 1.0D),
@@ -93,12 +94,12 @@ public class RolyPolyEntity extends RideableTBAnimal {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(ItemInit.LEAF.get());
+        return itemStack.is(TBTags.Items.ROLY_POLY_FOOD);
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return itemStack.is(ItemInit.BUG_SALAD.get());
+        return itemStack.is(TBTags.Items.ROLY_POLY_TAME_FOOD);
     }
 
     @Override
@@ -124,10 +125,10 @@ public class RolyPolyEntity extends RideableTBAnimal {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.ROLYPOLY_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.ROLYPOLY_HURT.get();}
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+    protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
         if(isRunning()){
             this.playSound(SoundInit.ROLYPOLY_ROLL.get(), 0.15F, 1.0F);
         } else{

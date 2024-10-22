@@ -136,9 +136,9 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         if (!this.level().isClientSide && this.isAlive() && this.tickCount % 240 == 0)
             this.heal(1.0F);
 
-        goalSelector.getRunningGoals().findFirst().ifPresent(
-                goal -> this.setCustomName(Component.literal(goal.getGoal().toString()))
-        );
+//        goalSelector.getRunningGoals().findFirst().ifPresent(
+//                goal -> this.setCustomName(Component.literal(goal.getGoal().toString()))
+//        );
 
         super.aiStep();
     }

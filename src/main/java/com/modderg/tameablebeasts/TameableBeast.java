@@ -2,10 +2,11 @@ package com.modderg.tameablebeasts;
 
 import com.modderg.tameablebeasts.server.block.BlockEntityInit;
 import com.modderg.tameablebeasts.server.block.BlockInit;
+import com.modderg.tameablebeasts.server.enchantments.EnchantmentInit;
 import com.modderg.tameablebeasts.server.entity.custom.*;
 import com.modderg.tameablebeasts.server.entity.goals.InitPOITypes;
 import com.modderg.tameablebeasts.server.item.CreativeTameableTab;
-import com.modderg.tameablebeasts.server.entity.EntityIinit;
+import com.modderg.tameablebeasts.server.entity.EntityInit;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.client.ModClientConfigs;
@@ -38,6 +39,7 @@ public class TameableBeast {
         bus.addListener(this::setAttributes);
 
         ItemInit.ITEMS.register(bus);
+        EnchantmentInit.ENCHANTMENTS.register(bus);
         bus.addListener(this::addCreativeTab);
         CreativeTameableTab.TAMEABLE_TABS.register(bus);
 
@@ -47,8 +49,8 @@ public class TameableBeast {
 
         GeckoLib.initialize();
 
-        EntityIinit.ENTITY_TYPES.register(bus);
-        EntityIinit.init();
+        EntityInit.ENTITY_TYPES.register(bus);
+        EntityInit.init();
 
         SoundInit.SOUNDS.register(bus);
 
@@ -65,77 +67,77 @@ public class TameableBeast {
         event.enqueueWork(InitPackets::register);
 
         event.enqueueWork(() -> {
-            SpawnPlacements.register(EntityIinit.RACOON.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.RACOON.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING, RacoonEntity::checkRacoonSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.PENGUIN.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.PENGUIN.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PenguinEntity::checkPenguinSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.CHIKOTE.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.CHIKOTE.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ChikoteEntity::checkChikoteSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.SCARECROW_ALLAY.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.SCARECROW_ALLAY.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.FLYING_BEETLE.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.FLYING_BEETLE.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FlyingBeetleEntity::checkFlyingBeetleSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.BEETLE_DRONE.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.BEETLE_DRONE.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.QUETZALCOATLUS.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.QUETZALCOATLUS.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuetzalcoatlusEntity::checkQuetzalSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.GIANT_GRASSHOPPER.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.GIANT_GRASSHOPPER.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GrasshopperEntity::checkGrasshopperSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.GROUND_BEETLE.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.GROUND_BEETLE.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GroundBeetleEntity::checkGroundBeetleSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.GIANT_ROLY_POLY.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.GIANT_ROLY_POLY.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RolyPolyEntity::checkRolyPolySpawnRules);
 
-            SpawnPlacements.register(EntityIinit.CRESTED_GECKO.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.CRESTED_GECKO.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrestedGeckoEntity::checkCrestedGeckoSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.FUR_GOLEM.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.FUR_GOLEM.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.ARGENTAVIS.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.ARGENTAVIS.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ArgentavisEntity::checkArgentavisSpawnRules);
 
-            SpawnPlacements.register(EntityIinit.GRAPTERANODON.get(), SpawnPlacements.Type.ON_GROUND,
+            SpawnPlacements.register(EntityInit.GRAPTERANODON.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GrapteranodonEntity::checkGrapteraSpawnRules);
         });
     }
 
     private void setAttributes(final EntityAttributeCreationEvent event) {
-        event.put(EntityIinit.RACOON.get(), RacoonEntity.setCustomAttributes().build());
+        event.put(EntityInit.RACOON.get(), RacoonEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.PENGUIN.get(), PenguinEntity.setCustomAttributes().build());
+        event.put(EntityInit.PENGUIN.get(), PenguinEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.CHIKOTE.get(), ChikoteEntity.setCustomAttributes().build());
+        event.put(EntityInit.CHIKOTE.get(), ChikoteEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.SCARECROW_ALLAY.get(), ScarecrowAllayEntity.setCustomAttributes().build());
+        event.put(EntityInit.SCARECROW_ALLAY.get(), ScarecrowAllayEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.FLYING_BEETLE.get(), FlyingBeetleEntity.setCustomAttributes().build());
-        event.put(EntityIinit.BEETLE_DRONE.get(), FlyingBeetleEntity.setCustomAttributes().build());
+        event.put(EntityInit.FLYING_BEETLE.get(), FlyingBeetleEntity.setCustomAttributes().build());
+        event.put(EntityInit.BEETLE_DRONE.get(), BeetleDrone.setCustomAttributes().build());
 
-        event.put(EntityIinit.QUETZALCOATLUS.get(), QuetzalcoatlusEntity.setCustomAttributes().build());
+        event.put(EntityInit.QUETZALCOATLUS.get(), QuetzalcoatlusEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.GIANT_GRASSHOPPER.get(), GrasshopperEntity.setCustomAttributes().build());
+        event.put(EntityInit.GIANT_GRASSHOPPER.get(), GrasshopperEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.GROUND_BEETLE.get(), GroundBeetleEntity.setCustomAttributes().build());
+        event.put(EntityInit.GROUND_BEETLE.get(), GroundBeetleEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.GIANT_ROLY_POLY.get(), RolyPolyEntity.setCustomAttributes().build());
+        event.put(EntityInit.GIANT_ROLY_POLY.get(), RolyPolyEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.FUR_GOLEM.get(), FurGolemEntity.setCustomAttributes().build());
+        event.put(EntityInit.FUR_GOLEM.get(), FurGolemEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.CRESTED_GECKO.get(), CrestedGeckoEntity.setCustomAttributes().build());
+        event.put(EntityInit.CRESTED_GECKO.get(), CrestedGeckoEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.ARGENTAVIS.get(), ArgentavisEntity.setCustomAttributes().build());
+        event.put(EntityInit.ARGENTAVIS.get(), ArgentavisEntity.setCustomAttributes().build());
 
-        event.put(EntityIinit.GRAPTERANODON.get(), GrapteranodonEntity.setCustomAttributes().build());
+        event.put(EntityInit.GRAPTERANODON.get(), GrapteranodonEntity.setCustomAttributes().build());
     }
 
     private void addCreativeTab(BuildCreativeModeTabContentsEvent event){
@@ -145,6 +147,8 @@ public class TameableBeast {
             event.accept(ItemInit.ICE_CHESTPLATE);
             event.accept(ItemInit.PURPLE_ALLAY);
             event.accept(ItemInit.LEAF);
+            event.accept(ItemInit.GRASSHOPPER_LEG);
+            event.accept(ItemInit.BEETLE_DUST);
             event.accept(ItemInit.GRASSHOPPER_SADDLE);
             event.accept(ItemInit.ROLYPOLY_SADDLE);
             event.accept(ItemInit.CHIKOTE_SADDLE);
@@ -169,6 +173,7 @@ public class TameableBeast {
             event.accept(ItemInit.BIKER_HELMET);
             event.accept(ItemInit.RACOON_HAT);
             event.accept(ItemInit.IRON_BIG_HOE);
+            event.accept(ItemInit.BUG_SWORD);
             event.accept(ItemInit.BIRD_BAIT_ARROW);
             event.accept(ItemInit.PTERA_MEAL_ARROW);
             event.accept(ItemInit.FUR);

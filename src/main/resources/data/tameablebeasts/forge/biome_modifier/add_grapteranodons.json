@@ -8,7 +8,7 @@
   ],
   "spawners": {
     "type": "tameablebeasts:graptera",
-    "weight": 40,
+    "weight": 10,
     "maxCount": 4,
     "minCount": 1
   }

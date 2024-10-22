@@ -1,9 +1,10 @@
 package com.modderg.tameablebeasts.server.projectiles;
 
-import com.modderg.tameablebeasts.server.entity.EntityIinit;
+import com.modderg.tameablebeasts.server.entity.EntityInit;
 import com.modderg.tameablebeasts.server.entity.custom.ArgentavisEntity;
 import com.modderg.tameablebeasts.server.entity.custom.ChikoteEntity;
 import com.modderg.tameablebeasts.server.item.ItemInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +18,7 @@ public class BirdBaitTameArrow extends AbstractTameArrow {
     }
 
     public BirdBaitTameArrow(Level p_36866_, LivingEntity p_36867_) {
-        super(EntityIinit.BIRD_BAIT_ARROW.get(), p_36867_, p_36866_);
+        super(EntityInit.BIRD_BAIT_ARROW.get(), p_36867_, p_36866_);
     }
 
     @Override
@@ -29,6 +30,6 @@ public class BirdBaitTameArrow extends AbstractTameArrow {
 
     @Override
     protected boolean canTame(Entity entity){
-        return entity instanceof ArgentavisEntity || entity instanceof ChikoteEntity;
+        return entity.getType().is(TBTags.EntityTypes.TAMED_BY_BIRD_BAIT_ARROW);
     }
 }

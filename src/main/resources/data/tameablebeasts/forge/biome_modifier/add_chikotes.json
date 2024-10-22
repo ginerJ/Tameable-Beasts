@@ -6,7 +6,7 @@
   ],
   "spawners": {
     "type": "tameablebeasts:tameable_chikote",
-    "weight": 30,
+    "weight": 15,
     "maxCount": 4,
     "minCount": 1
   }

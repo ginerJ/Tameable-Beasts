@@ -5,6 +5,7 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -21,10 +22,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -34,13 +33,17 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
+import java.util.function.Predicate;
+
 public class RacoonEntity extends TBAnimal implements GeoEntity {
 
-    private static final EntityDataAccessor<Boolean> HASPOLEN = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
-    public void setPolen(boolean i){
-        this.getEntityData().set(HASPOLEN, i);
+    private static final Predicate<LivingEntity> AVOID_VICTIMS = (p_28463_) -> !p_28463_.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p_28463_);
+
+    private static final EntityDataAccessor<Boolean> IS_BELLY_FULL = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+    public void setBellyFull(boolean i){
+        this.getEntityData().set(IS_BELLY_FULL, i);
     }
-    public boolean hasPolen(){return this.getEntityData().get(HASPOLEN);}
+    public boolean isBellyFull(){return this.getEntityData().get(IS_BELLY_FULL);}
 
     public RacoonEntity(EntityType<? extends TBAnimal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
@@ -63,17 +66,18 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
         super.registerGoals();
 
         this.addGoals(
-                new TameablePanicGoal(this, 1.2D),
                 new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
                 new FloatGoal(this),
+                new RacoonStealFoodGoal(this, 1.3D),
+                new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.6D, 1.4D, (player) -> this.isBellyFull() && !this.isTame() && AVOID_VICTIMS.test(player)),
                 new LeapAtTargetGoal(this, 0.4f),
-                new TemptGoal(this, 1.1D, Ingredient.of(Items.EGG), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.RACOON_FOOD), false),
                 new SitWhenOrderedToGoal(this),
-                new StealPolenGoal(this, 1.1D),
                 new BreedGoal(this, 1.0D),
-                new WaterAvoidingRandomStrollGoal(this, 1.0D),
                 new TBFollowParentGoal(this, 1.0D),
+                new TameablePanicGoal(this, 1.2D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new WaterAvoidingRandomStrollGoal(this, 1.0D),
                 new RandomLookAroundGoal(this)
         );
 
@@ -87,7 +91,7 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(HASPOLEN, false);
+        this.entityData.define(IS_BELLY_FULL, false);
     }
 
     @Override
@@ -96,18 +100,18 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
         if (compound.contains("TEXTUREID"))
             this.setTextureId(compound.getInt("TEXTUREID"));
 
-        if (compound.contains("HASPOLEN"))
-            this.setPolen(compound.getBoolean("HASPOLEN"));
+        if (compound.contains("IS_BELLY_FULL"))
+            this.setBellyFull(compound.getBoolean("IS_BELLY_FULL"));
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("TEXTUREID", this.getTextureID());
-        compound.putBoolean("HASPOLEN", this.hasPolen());
+        compound.putBoolean("IS_BELLY_FULL", this.isBellyFull());
     }
 
-    private int dropFurTime = getRandom().nextInt(300,1500);
+    private int dropFurTime = getRandom().nextInt(300,1000);
 
     @Override
     public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
@@ -124,21 +128,19 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(Items.EGG);
+        return itemStack.is(TBTags.Items.RACOON_FOOD);
     }
 
     public boolean isTameFood(ItemStack itemStack) {
-        return itemStack.is(Items.MELON_SLICE);
+        return itemStack.is(TBTags.Items.RACOON_TAME_FOOD);
     }
 
     @Override
     public void tick() {
-        if(this.hasPolen() && dropFurTime-- <= 0) {
+        if(this.isBellyFull() && dropFurTime-- <= 0) {
             dropFurTime = getRandom().nextInt(300,1500);
-            if(this.hasPolen()){
-                spawnAtLocation(ItemInit.FUR.get());
-                this.setPolen(false);
-            }
+            spawnAtLocation(ItemInit.FUR.get());
+            this.setBellyFull(false);
         }
         super.tick();
     }
@@ -149,7 +151,7 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
         else
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
 
-        if(hasPolen()) this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+        if(isBellyFull()) this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
         else this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
     }
 

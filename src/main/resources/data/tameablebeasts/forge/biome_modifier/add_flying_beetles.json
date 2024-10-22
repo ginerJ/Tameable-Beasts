@@ -6,7 +6,7 @@
   ],
   "spawners": {
     "type": "tameablebeasts:tameable_beetle",
-    "weight": 100,
+    "weight": 15,
     "maxCount": 4,
     "minCount": 1
   }

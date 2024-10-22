@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class TameableBeetleRender extends GeoEntityRenderer<FlyingBeetleEntity> {
-    public TameableBeetleRender(EntityRendererProvider.Context renderManager) {
+public class FlyingBeetleRender extends GeoEntityRenderer<FlyingBeetleEntity> {
+    public FlyingBeetleRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new FlyingBeetleModel());
         this.shadowRadius = 0.6f;
     }

@@ -7,6 +7,7 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -73,7 +74,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
                 new FloatGoal(this),
                 new SitWhenOrderedToGoal(this),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.GRASSHOPPER_POI),
-                new TemptGoal(this, 1.1D, Ingredient.of(ItemInit.LEAF.get()), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.GRASSHOPPER_FOOD), false),
                 new WaterAvoidingRandomStrollGoal(this, 1.0D),
                 new TameablePanicGoal(this, 1.25D),
                 new RandomSwimmingGoal(this, 1.0D, 10),
@@ -102,12 +103,12 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(ItemInit.LEAF.get());
+        return itemStack.is(TBTags.Items.GRASSHOPPER_FOOD);
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return itemStack.is(ItemInit.BUG_SALAD.get());
+        return itemStack.is(TBTags.Items.GRASSHOPPER_TAME_FOOD);
     }
 
     @Override
@@ -157,9 +158,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
         return SoundInit.GRASSHOPPER_INTERACT.get();
     }
 
-
     //ride stuff
-
 
     @Override
     public float getRidingSpeedMultiplier() {

@@ -2,17 +2,14 @@ package com.modderg.tameablebeasts.server.events;
 
 import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.server.block.BlockInit;
-import com.modderg.tameablebeasts.server.entity.EntityIinit;
+import com.modderg.tameablebeasts.server.entity.EntityInit;
 import com.modderg.tameablebeasts.server.entity.custom.FurGolemEntity;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -70,7 +67,7 @@ public class ServerForgeEvents {
     }
 
     public static void summonGolem(Level level, BlockPos pos){
-        FurGolemEntity golem = new FurGolemEntity(EntityIinit.FUR_GOLEM.get(),level);
+        FurGolemEntity golem = new FurGolemEntity(EntityInit.FUR_GOLEM.get(),level);
         golem.setPos(pos.getX(), pos.getY(), pos.getZ());
         level.addFreshEntity(golem);
     }

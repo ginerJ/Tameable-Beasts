@@ -30,7 +30,7 @@ public class RacoonModel extends GeoModel<RacoonEntity> {
         if(entity.isBaby()){
             return new ResourceLocation(TameableBeast.MOD_ID, "geo/tameable_baby_racoon.geo.json");
         }
-        return new ResourceLocation(TameableBeast.MOD_ID, "geo/tameable_racoon" + (entity.hasPolen()?"_fat":"") + ".geo.json");
+        return new ResourceLocation(TameableBeast.MOD_ID, "geo/tameable_racoon" + (entity.isBellyFull()?"_fat":"") + ".geo.json");
     }
 
     @Override

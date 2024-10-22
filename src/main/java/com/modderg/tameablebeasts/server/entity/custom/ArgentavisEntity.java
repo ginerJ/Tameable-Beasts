@@ -1,12 +1,16 @@
 package com.modderg.tameablebeasts.server.entity.custom;
 
+import com.modderg.tameablebeasts.TameableBeast;
+import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -26,18 +30,19 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec2;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
-public class ArgentavisEntity extends FlyingRideableTBAnimal {
+public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
 
     public ArgentavisEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.textureIdSize = 7;
         this.healthFloor = 20;
         this.attackAnims.add("attack");
-        this.consumeStaminaModule = 7;
-        this.recoverStaminaModule = 15;
+        this.consumeStaminaModule = 2;
+        this.recoverStaminaModule = 10;
         this.downMovementAngle = 5F;
     }
 
@@ -79,8 +84,8 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal {
                 new SitWhenOrderedToGoal(this),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.ARGENTAVIS_POI),
                 new TameablePanicGoal(this, 1.25D),
-                new RandomStrollGoal(this,1.0D),
-                new TemptGoal(this, 1.0D, Ingredient.of(ItemInit.QUETZAL_MEAT.get()), false),
+                new NoFlyRandomStrollGoal(this,1.0D),
+                new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.ARGENTAVIS_FOOD), false),
                 new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
@@ -99,12 +104,12 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(ItemInit.QUETZAL_MEAT.get());
+        return itemStack.is(TBTags.Items.ARGENTAVIS_FOOD);
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return this.getHealth() < 5 && itemStack.is(ItemInit.BIG_BIRD_BAIT.get());
+        return this.getHealth() < 5 && itemStack.is(TBTags.Items.ARGENTAVIS_TAME_FOOD);
     }
 
     @Override
@@ -126,6 +131,22 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal {
     public EggBlockItem getEgg() {
         return (EggBlockItem) ItemInit.ARGENTAVIS_EGG_ITEM.get();
     }
+
+    //gui stuff
+
+    @Override
+    public ResourceLocation getStaminaSpriteLocation() {
+        return new ResourceLocation(TameableBeast.MOD_ID, "textures/gui/argentavis_stamina.png");}
+
+    @Override
+    public ResourceLocation getStaminaBackgroundLocation() {
+        return new ResourceLocation(TameableBeast.MOD_ID, "textures/gui/argentavis_stamina_back.png");}
+
+    @Override
+    public Vec2 getStaminaSpriteDimensions() {return new Vec2(47, 30);}
+
+    @Override
+    public float getStaminaHeight() {return (float) this.flyingStamina / this.maxFlyingStamina;}
 
     //sound stuff
 

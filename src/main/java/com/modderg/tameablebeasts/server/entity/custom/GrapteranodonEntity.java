@@ -1,12 +1,16 @@
 package com.modderg.tameablebeasts.server.entity.custom;
 
+import com.modderg.tameablebeasts.TameableBeast;
+import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -28,6 +32,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec2;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -38,15 +43,15 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.List;
 
-public class GrapteranodonEntity extends FlyingRideableTBAnimal {
+public class GrapteranodonEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
 
     public GrapteranodonEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.textureIdSize = 5;
         this.healthFloor = 15;
         this.attackAnims.add("attack");
-        this.consumeStaminaModule = 10;
-        this.recoverStaminaModule = 10;
+        this.consumeStaminaModule = 4;
+        this.recoverStaminaModule = 9;
         this.downMovementAngle = 10F;
     }
 
@@ -70,8 +75,8 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
                 new SitWhenOrderedToGoal(this),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.GRAPTERANODON_POI),
                 new TameablePanicGoal(this, 1.25D),
-                new RandomStrollGoal(this,1.0D),
-                new TemptGoal(this, 1.0D, Ingredient.of(Items.SALMON), false),
+                new NoFlyRandomStrollGoal(this,1.0D),
+                new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.GRAPTERA_FOOD), false),
                 new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
@@ -112,7 +117,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
 
     @Override
     public boolean isFood(ItemStack p_27600_) {
-        boolean isFood = p_27600_.is(Items.SALMON);
+        boolean isFood = p_27600_.is(TBTags.Items.GRAPTERA_FOOD);
         if(isFood)
             eatEmote = true;
         return isFood;
@@ -120,7 +125,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        boolean isFood = this.getHealth() < 5 && itemStack.is(ItemInit.PTERANODON_MEAL.get());
+        boolean isFood = this.getHealth() < 5 && itemStack.is(TBTags.Items.GRAPTERA_TAME_FOOD);
         if(isFood)
             eatEmote = true;
         return isFood;
@@ -206,6 +211,22 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal {
     public String getRidingMessage() {
         return super.getRidingMessage() + ", Left Click to Grab";
     }
+
+    //gui stuff
+
+    @Override
+    public ResourceLocation getStaminaSpriteLocation() {
+        return new ResourceLocation(TameableBeast.MOD_ID, "textures/gui/graptera_stamina.png");}
+
+    @Override
+    public ResourceLocation getStaminaBackgroundLocation() {
+        return new ResourceLocation(TameableBeast.MOD_ID, "textures/gui/graptera_stamina_back.png");}
+
+    @Override
+    public Vec2 getStaminaSpriteDimensions() {return new Vec2(43, 29);}
+
+    @Override
+    public float getStaminaHeight() {return (float) this.flyingStamina / this.maxFlyingStamina;}
 
     //sounds
 

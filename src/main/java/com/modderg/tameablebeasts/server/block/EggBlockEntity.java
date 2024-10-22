@@ -1,7 +1,6 @@
 package com.modderg.tameablebeasts.server.block;
 
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
-import com.modderg.tameablebeasts.server.entity.EntityIinit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

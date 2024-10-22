@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.mixin;
 
+import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -19,13 +20,8 @@ public abstract class RidingJumpGuiMixin {
 
     @Inject(method = "renderJumpMeter", at = @At("HEAD"), cancellable = true)
     private void renderJumpMeterFlying(PlayerRideableJumping p_282774_, GuiGraphics guiGraphics, int p_283351_, CallbackInfo ci) {
-        if (p_282774_ instanceof FlyingRideableTBAnimal animal) {
-            int k = guiGraphics.guiHeight() - 32 + 3;
-
-            guiGraphics.blit(GUI_ICONS_LOCATION, p_283351_, k, 0, 84, 182, 5);
-
-            guiGraphics.blit(GUI_ICONS_LOCATION, p_283351_, k, 0, 89, (int) (182 * animal.getStaminaScale()), 5);
-
+        if (p_282774_ instanceof CustomJumpMeter animal) {
+            animal.renderJumpMeter(guiGraphics);
             ci.cancel();
         }
     }

@@ -9,6 +9,7 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -115,7 +116,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.PENGUIN_POI),
                 new SitWhenOrderedToGoal(this),
                 new RunFromNowAndThenGoal(this),
-                new TemptGoal(this, 1.1D, Ingredient.of(Items.TROPICAL_FISH), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.PENGUIN_FOOD), false),
                 new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, false),
                 new TameablePanicGoal(this, 1.25D),
                 new SemiAquaticRandomStrollGoal(this, 1.0D),
@@ -271,12 +272,12 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(Items.TROPICAL_FISH);
+        return itemStack.is(TBTags.Items.PENGUIN_FOOD);
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return itemStack.is(Items.SALMON)||itemStack.is(Items.COD);
+        return itemStack.is(TBTags.Items.PENGUIN_TAME_FOOD);
     }
 
     //RIDING STUFF

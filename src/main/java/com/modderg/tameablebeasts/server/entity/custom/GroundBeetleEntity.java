@@ -8,6 +8,7 @@ import com.modderg.tameablebeasts.server.entity.goals.TakeCareOfEggsGoal;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -29,7 +30,6 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -81,7 +81,7 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
                 new FloatGoal(this),
                 new LeapAtTargetGoal(this, 0.4f),
                 new SitWhenOrderedToGoal(this),
-                new TemptGoal(this, 1.1D, Ingredient.of(Items.HONEY_BOTTLE), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.GROUND_BEETLE_FOOD), false),
                 new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
                 new BreedGoal(this, 1.0D),
                 new WaterAvoidingRandomStrollGoal(this, 1.0D),
@@ -118,12 +118,12 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return itemStack.is(Items.HONEYCOMB);
+        return itemStack.is(TBTags.Items.GROUND_BEETLE_FOOD);
     }
 
     @Override
     public boolean isFood(ItemStack p_27600_) {
-        return p_27600_.is(Items.HONEY_BOTTLE);
+        return p_27600_.is(TBTags.Items.GROUND_BEETLE_TAME_FOOD);
     }
 
     @Override
@@ -133,11 +133,10 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
     @Override
     public void updateAttributes(){
-        if (isBaby()) {
+        if (isBaby())
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.1D);
-        } else {
+        else
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
-        }
     }
 
     @Override
@@ -159,10 +158,10 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
     @org.jetbrains.annotations.Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.BEETLE_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.BEETLE_HURT.get();}
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+    protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
         this.playSound(SoundInit.BEETLE_STEPS.get(), 0.15F, 1.0F);
     }
 
@@ -175,7 +174,6 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
     public SoundEvent getInteractSound(){
         return SoundInit.BEETLE_INTERACT.get();
     }
-
 
 
     //anger stuff

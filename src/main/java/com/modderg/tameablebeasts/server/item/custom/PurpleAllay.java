@@ -2,7 +2,7 @@ package com.modderg.tameablebeasts.server.item.custom;
 
 import com.modderg.tameablebeasts.server.block.ScarecrowBlock;
 import com.modderg.tameablebeasts.server.entity.custom.ScarecrowAllayEntity;
-import com.modderg.tameablebeasts.server.entity.EntityIinit;
+import com.modderg.tameablebeasts.server.entity.EntityInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
@@ -25,7 +25,7 @@ public class PurpleAllay extends Item {
         Block block = blockstate.getBlock();
 
         if (block instanceof ScarecrowBlock) {
-            ScarecrowAllayEntity scarecrow = EntityIinit.SCARECROW_ALLAY.get().create(level);
+            ScarecrowAllayEntity scarecrow = EntityInit.SCARECROW_ALLAY.get().create(level);
             scarecrow.setPos(new Vec3(blockpos.getX(), blockpos.getY(), blockpos.getZ()));
             level.addFreshEntity(scarecrow);
             level.destroyBlock(blockpos, false);

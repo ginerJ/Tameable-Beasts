@@ -19,4 +19,9 @@ public class BeetleDroneRender extends GeoEntityRenderer<BeetleDrone> {
         super(renderManager, new BeetleDroneModel());
         this.shadowRadius = 0.2f;
     }
+
+    @Override
+    public void renderRecursively(PoseStack poseStack, BeetleDrone animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, LightTexture.FULL_BRIGHT, packedOverlay, red, green, blue, alpha);
+    }
 }

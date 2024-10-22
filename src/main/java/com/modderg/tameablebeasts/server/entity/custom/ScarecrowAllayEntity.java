@@ -5,6 +5,7 @@ import com.modderg.tameablebeasts.server.entity.TBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.IncludesSitingRidingMeleeAttackGoal;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -122,7 +123,7 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
 
     @Override
     public boolean isFood(ItemStack itemstack) {
-        return itemstack.is(Items.WHEAT);
+        return itemstack.is(TBTags.Items.SCARECROW_FOOD);
     }
 
     public void updateAttributes(){

@@ -1,5 +1,7 @@
 package com.modderg.tameablebeasts.server.entity.custom;
 
+import com.modderg.tameablebeasts.TameableBeast;
+import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
 
@@ -8,11 +10,13 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -33,10 +37,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec2;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
-public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal {
+public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
 
     private static final EntityDataAccessor<Boolean> STAND = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
     public void setStand(boolean i){
@@ -53,8 +58,8 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal {
         this.healthFloor = 30;
         this.attackAnims.add("attack");
         this.consumeStaminaModule = 14;
-        this.recoverStaminaModule = 7;
-        this.downMovementAngle = 15F;
+        this.recoverStaminaModule = 8;
+        this.downMovementAngle = 8F;
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -78,8 +83,8 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal {
                 new SitWhenOrderedToGoal(this),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.QUETZAL_POI),
                 new TameablePanicGoal(this, 1.25D),
-                new RandomStrollGoal(this, 1.0D),
-                new TemptGoal(this, 1.0D, Ingredient.of(ItemInit.BIG_BIRD_MEAT.get()), false),
+                new NoFlyRandomStrollGoal(this, 1.0D),
+                new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.QUETZAL_FOOD), false),
                 new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
@@ -152,12 +157,12 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal {
 
     @Override
     public boolean isFood(ItemStack p_27600_) {
-        return p_27600_.is(ItemInit.BIG_BIRD_MEAT.get());
+        return p_27600_.is(TBTags.Items.QUETZAL_FOOD);
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return this.getHealth() < 5 && itemStack.is(ItemInit.PTERANODON_MEAL.get());
+        return this.getHealth() < 5 && itemStack.is(TBTags.Items.QUETZAL_TAME_FOOD);
     }
 
     @Override
@@ -171,7 +176,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal {
     }
 
     @Override
-    protected void positionRider(Entity rider, MoveFunction p_19958_) {
+    protected void positionRider(@NotNull Entity rider, @NotNull MoveFunction p_19958_) {
         if(this.getPassengers().get(0).equals(rider))
             super.positionRider(rider, p_19958_);
         else
@@ -226,6 +231,22 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal {
         return 0.6F;
     }
 
+    //gui stuff
+
+    @Override
+    public ResourceLocation getStaminaSpriteLocation() {
+        return new ResourceLocation(TameableBeast.MOD_ID, "textures/gui/quetzal_stamina.png");}
+
+    @Override
+    public ResourceLocation getStaminaBackgroundLocation() {
+        return new ResourceLocation(TameableBeast.MOD_ID, "textures/gui/quetzal_stamina_back.png");}
+
+    @Override
+    public Vec2 getStaminaSpriteDimensions() {return new Vec2(53, 40);}
+
+    @Override
+    public float getStaminaHeight() {return (float) this.flyingStamina / this.maxFlyingStamina;}
+
     //sounds
 
     @Override
@@ -242,10 +263,10 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.QUETZAL_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.QUETZAL_HURT.get();}
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+    protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
         this.playSound(SoundInit.QUETZAL_STEPS.get(), 0.15F, 1.0F);
     }
 

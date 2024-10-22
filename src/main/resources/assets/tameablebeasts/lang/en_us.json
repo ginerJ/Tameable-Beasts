@@ -7,6 +7,9 @@
   "item.tameablebeasts.bird_bait_arrow" : "Bird Bait In An Arrow",
   "item.tameablebeasts.ptera_meal_arrow" : "Pteranodon Meal In An Arrow",
   "item.tameablebeasts.leaf" : "Leaf",
+  "item.tameablebeasts.beetle_dust" : "Beetle Dust",
+  "item.tameablebeasts.bug_sword" : "Bug Sword",
+  "item.tameablebeasts.grasshopper_leg" : "Grasshopper Leg",
   "item.tameablebeasts.racoon_fur" : "Racoon Fur",
   "item.tameablebeasts.roly_plaque" : "Roly Poly Plaque",
   "item.tameablebeasts.egg_rests" : "Egg Rests",
@@ -57,6 +60,7 @@
   "entity.tameablebeasts.tameable_penguin" : "Penguin",
   "entity.tameablebeasts.tameable_chikote" : "Chikote",
   "entity.tameablebeasts.tameable_beetle" : "Shiny Beetle",
+  "entity.tameablebeasts.beetle_drone" : "Beetle Drone",
   "entity.tameablebeasts.scarecrow_allay" : "Scarecrow",
   "entity.tameablebeasts.quetzalcoatlus" : "Quetzalcoatlus",
   "entity.tameablebeasts.giant_grasshopper" : "Giant Grasshopper",
@@ -78,6 +82,9 @@
   "block.tameablebeasts.argentavis_egg" : "Argentavis Egg",
   "block.tameablebeasts.graptera_egg" : "Grapteranodon Egg",
 
+
+  "enchantment.tameablebeasts.swarm" : "Swarm",
+  "enchantment.tameablebeasts.sting" : "Sting",
 
 
   "itemGroup.tameabletab" : "Tameable Beasts Tab"

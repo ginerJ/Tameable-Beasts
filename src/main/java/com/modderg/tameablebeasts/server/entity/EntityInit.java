@@ -3,7 +3,6 @@ import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.server.entity.custom.*;
 import com.modderg.tameablebeasts.server.projectiles.BirdBaitTameArrow;
 import com.modderg.tameablebeasts.server.projectiles.PteraMealTameArrow;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class EntityIinit {
+public class EntityInit {
 
     public static Map<String, RegistryObject<EntityType<?>>> beastsMap;
 

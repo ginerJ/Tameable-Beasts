@@ -8,6 +8,7 @@ import com.modderg.tameablebeasts.server.entity.navigation.TBWallClimberNavigati
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -71,7 +72,7 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
                 new SitWhenOrderedToGoal(this),
                 new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
                 new FloatGoal(this),
-                new TemptGoal(this, 1.1D, Ingredient.of(Items.MELON), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.CRESTED_GECKO_FOOD), false),
                 new TameablePanicGoal(this, 1.5D),
                 new BreedGoal(this, 1.0D),
                 new WaterAvoidingRandomStrollGoal(this, 1.0D),
@@ -99,14 +100,12 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(Items.MELON);
+        return itemStack.is(TBTags.Items.CRESTED_GECKO_FOOD);
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return itemStack.is(ItemInit.FLYING_BEETLE_EGG_ITEM.get())||
-                itemStack.is(ItemInit.GROUND_BEETLE_EGG_ITEM.get())||
-                itemStack.is(ItemInit.GRASSHOPPER_EGG_ITEM.get());
+        return itemStack.is(TBTags.Items.CRESTED_GECKO_TAME_FOOD);
     }
 
     @Override

@@ -3,7 +3,7 @@
   "biomes": "#minecraft:has_closer_water_fog",
   "spawners": {
     "type": "tameablebeasts:tameable_beetle",
-    "weight": 100,
+    "weight": 15,
     "maxCount": 4,
     "minCount": 1
   }

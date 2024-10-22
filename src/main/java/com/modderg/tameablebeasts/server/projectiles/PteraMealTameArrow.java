@@ -1,11 +1,8 @@
 package com.modderg.tameablebeasts.server.projectiles;
 
-import com.modderg.tameablebeasts.server.entity.EntityIinit;
-import com.modderg.tameablebeasts.server.entity.custom.ArgentavisEntity;
-import com.modderg.tameablebeasts.server.entity.custom.ChikoteEntity;
-import com.modderg.tameablebeasts.server.entity.custom.GrapteranodonEntity;
-import com.modderg.tameablebeasts.server.entity.custom.QuetzalcoatlusEntity;
+import com.modderg.tameablebeasts.server.entity.EntityInit;
 import com.modderg.tameablebeasts.server.item.ItemInit;
+import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,7 +16,7 @@ public class PteraMealTameArrow extends AbstractTameArrow {
     }
 
     public PteraMealTameArrow(Level p_36866_, LivingEntity p_36867_) {
-        super(EntityIinit.PTERA_MEAL_ARROW.get(), p_36867_, p_36866_);
+        super(EntityInit.PTERA_MEAL_ARROW.get(), p_36867_, p_36866_);
     }
 
     @Override
@@ -31,6 +28,6 @@ public class PteraMealTameArrow extends AbstractTameArrow {
 
     @Override
     protected boolean canTame(Entity entity){
-        return entity instanceof QuetzalcoatlusEntity || entity instanceof GrapteranodonEntity;
+        return entity.getType().is(TBTags.EntityTypes.TAMED_BY_PTERA_MEAL_ARROW);
     }
 }

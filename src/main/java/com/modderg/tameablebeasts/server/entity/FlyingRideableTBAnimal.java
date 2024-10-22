@@ -23,7 +23,7 @@ import static net.minecraft.world.entity.ai.attributes.Attributes.FLYING_SPEED;
 
 public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable, PlayerRideableJumping {
 
-    private final int maxFlyingStamina = 50;
+    protected final int maxFlyingStamina = 50;
     protected int flyingStamina = maxFlyingStamina;
     private int travelCount = 0;
 

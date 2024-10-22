@@ -34,7 +34,7 @@ public class FlyingTBAnimal extends TBAnimal {
     protected boolean isFlying = true;
 
     public boolean isFlying() {return isFlying;}
-    public void setIsFlying(boolean flying) {isFlying = flying;}
+    public void setIsFlying(boolean flying) {this.isFlying = flying;}
 
     private static final EntityDataAccessor<Boolean> GOAL_WANT_FLYING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
     public void setGoalsRequireFlying(boolean i){
@@ -74,7 +74,7 @@ public class FlyingTBAnimal extends TBAnimal {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(GOAL_WANT_FLYING, false);
+        this.entityData.define(GOAL_WANT_FLYING, !this.onGround());
     }
 
     @Override

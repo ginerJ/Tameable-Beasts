@@ -2,7 +2,7 @@ package com.modderg.tameablebeasts.server.item;
 
 import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.server.block.BlockInit;
-import com.modderg.tameablebeasts.server.entity.EntityIinit;
+import com.modderg.tameablebeasts.server.entity.EntityInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.server.item.block.HatItem;
 import com.modderg.tameablebeasts.server.item.custom.AsphaltItem;
@@ -25,12 +25,14 @@ import org.jetbrains.annotations.NotNull;
 public class ItemInit {
         public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TameableBeast.MOD_ID);
 
-        //items
+        //misc
         public static final RegistryObject<Item> ICEPOP = ITEMS.register("icepop", () -> new Item(new Properties().food(Foods.SWEET_BERRIES)));
         public static final RegistryObject<Item> ICE_HELMET = ITEMS.register("ice_helmet", () -> new PenguinArmor(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> ICE_CHESTPLATE = ITEMS.register("ice_chestplate", () -> new PenguinArmor(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> PURPLE_ALLAY = ITEMS.register("purple_allay", () -> new PurpleAllay(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(new Properties()));
+        public static final RegistryObject<Item> GRASSHOPPER_LEG = ITEMS.register("grasshopper_leg", () -> new Item(new Properties()));
+        public static final RegistryObject<Item> BEETLE_DUST = ITEMS.register("beetle_dust", () -> new GlowInkSacItem(new Properties()));
         public static final RegistryObject<Item> FUR = ITEMS.register("racoon_fur", () -> new Item(new Properties()));
         public static final RegistryObject<Item> ROLY_POLY_PLAQUE = ITEMS.register("roly_plaque", () -> new Item(new Properties()));
         public static final RegistryObject<Item> ASPHALT = ITEMS.register("asphalt", () -> new AsphaltItem(new Properties()));
@@ -54,42 +56,47 @@ public class ItemInit {
         public static final RegistryObject<Item> QUETZAL_STAND = ITEMS.register("quetzal_stand", () -> new Item(new Properties().stacksTo(1)));
 
 
+        //tools and weapons
+        public static final RegistryObject<Item> IRON_BIG_HOE = ITEMS.register("iron_big_hoe", () -> new HoeItem(Tiers.IRON, -1, -1.0F, (new Properties())));
+        public static final RegistryObject<Item> BUG_SWORD = ITEMS.register("bug_sword", () -> new SwordItem(Tiers.DIAMOND, 2, -2F, new Item.Properties()));
+
+
         //spawn eggs
         public static final RegistryObject<ForgeSpawnEggItem> RACOON_SPAWN_EGG = ITEMS.register("racoon_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.RACOON, 0xA8846E, 0x5D4130, new Properties()));
+                EntityInit.RACOON, 0xA8846E, 0x5D4130, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> PENGUIN_SPAWN_EGG = ITEMS.register("penguin_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.PENGUIN, 0x080A27, 0xECEDF6, new Properties()));
+                EntityInit.PENGUIN, 0x080A27, 0xECEDF6, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> CHIKOTE_SPAWN_EGG = ITEMS.register("chikote_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.CHIKOTE, 0xFFF38E, 0xDCB834, new Properties()));
+                EntityInit.CHIKOTE, 0xFFF38E, 0xDCB834, new Properties()));
     
         public static final RegistryObject<ForgeSpawnEggItem> BEETLE_SPAWN_EGG = ITEMS.register("beetle_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.FLYING_BEETLE, 0x224E79, 0x3991A9, new Properties()));
+                EntityInit.FLYING_BEETLE, 0x224E79, 0x3991A9, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> QUETZAL_SPAWN_EGG = ITEMS.register("quetzal_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.QUETZALCOATLUS, 0x743B62, 0xAC786E, new Properties()));
+                EntityInit.QUETZALCOATLUS, 0x743B62, 0xAC786E, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> GIANT_GRASSHOPPER_SPAWN_EGG = ITEMS.register("giant_grasshopper_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.GIANT_GRASSHOPPER, 0xC5E152, 0x7EBB27, new Properties()));
+                EntityInit.GIANT_GRASSHOPPER, 0xC5E152, 0x7EBB27, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> GROUND_BEETLE_SPAWN_EGG = ITEMS.register("ground_beetle_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.GROUND_BEETLE, 0x9E75D3, 0x7346AC, new Properties()));
+                EntityInit.GROUND_BEETLE, 0x9E75D3, 0x7346AC, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> GROUND_ROLY_POLY_SPAWN_EGG = ITEMS.register("giant_roly_poly_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.GIANT_ROLY_POLY, 0x6E77B8, 0x3A4072, new Properties()));
+                EntityInit.GIANT_ROLY_POLY, 0x6E77B8, 0x3A4072, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> SCARECROW_SPAWN_EGG = ITEMS.register("scarecrow_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.SCARECROW_ALLAY, 0xFFC347, 0x6A5ACD, new Properties()));
+                EntityInit.SCARECROW_ALLAY, 0xFFC347, 0x6A5ACD, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> CRESTED_GECKO_SPAWN_EGG = ITEMS.register("crested_gecko_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.CRESTED_GECKO, 0x728452, 0xC9B96A, new Properties()));
+                EntityInit.CRESTED_GECKO, 0x728452, 0xC9B96A, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> ARGENTAVIS_SPAWN_EGG = ITEMS.register("argentavis_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.ARGENTAVIS, 0xECB67D, 0x86511A, new Properties()));
+                EntityInit.ARGENTAVIS, 0xECB67D, 0x86511A, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> GRAPTERA_SPAWN_EGG = ITEMS.register("graptera_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityIinit.GRAPTERANODON, 0xC36B58, 0x828673, new Properties()));
+                EntityInit.GRAPTERANODON, 0xC36B58, 0x828673, new Properties()));
 
 
         //hats
@@ -97,6 +104,7 @@ public class ItemInit {
         public static final RegistryObject<Item> FLYING_HELMET = ITEMS.register("flying_helmet", () -> new HatItem(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> BIKER_HELMET = ITEMS.register("biker_helmet", () -> new HatItem(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> RACOON_HAT = ITEMS.register("racoon_hat", () -> new HatItem(new Properties().stacksTo(1)));
+
 
         //blocks
         public static final RegistryObject<Item> QUETZAL_EGG_ITEM = ITEMS.register("quetzalcoatlus_egg",
@@ -129,18 +137,14 @@ public class ItemInit {
         public static final RegistryObject<Item> GRAPTERANODON_EGG_ITEM = ITEMS.register("grapterandon_egg",
                 () -> new EggBlockItem(BlockInit.GRAPTERANODON_EGG_BLOCK.get(), new Properties().stacksTo(1)));
 
-        //tools
-        public static final RegistryObject<Item> IRON_BIG_HOE = ITEMS.register("iron_big_hoe", () -> new HoeItem(Tiers.IRON, -1, -1.0F, (new Properties())));
 
         //weapon
-        public static final RegistryObject<Item> BIRD_BAIT_ARROW = ITEMS.register("bird_bait_arrow",
-                () -> new ArrowItem(new Properties()){
+        public static final RegistryObject<Item> BIRD_BAIT_ARROW = ITEMS.register("bird_bait_arrow", () -> new ArrowItem(new Properties()){
                         public @NotNull AbstractArrow createArrow(@NotNull Level p_40513_, @NotNull ItemStack p_40514_, @NotNull LivingEntity p_40515_) {
                                 return new BirdBaitTameArrow(p_40513_, p_40515_);
                         }});
 
-        public static final RegistryObject<Item> PTERA_MEAL_ARROW = ITEMS.register("ptera_meal_arrow",
-                () -> new ArrowItem(new Properties()){
+        public static final RegistryObject<Item> PTERA_MEAL_ARROW = ITEMS.register("ptera_meal_arrow", () -> new ArrowItem(new Properties()){
                         public @NotNull AbstractArrow createArrow(@NotNull Level p_40513_, @NotNull ItemStack p_40514_, @NotNull LivingEntity p_40515_) {
                                 return new PteraMealTameArrow(p_40513_, p_40515_);
                         }});
