@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    {
+      "item": "tameablebeasts:quetzal_meat"
+    },
+    {
+      "tag": "minecraft:villager_plantable_seeds"
+    }
+  ],
+  "result": {
+    "item": "tameablebeasts:big_bird_bait",
+    "count": 3
+  }
+}

@@ -1,0 +1,117 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "entity",
+					"pivot": [0, 5.65, 0],
+					"cubes": [
+						{"origin": [-4, 1.15, -3], "size": [8, 8, 6], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "armor",
+					"parent": "entity",
+					"pivot": [0, 2, 0],
+					"cubes": [
+						{"origin": [-4, 1.15, -3], "size": [8, 8, 6], "inflate": 0.2, "uv": [36, 37]},
+						{"origin": [-3, 1.15, -7], "size": [0, 6, 4], "uv": [56, 20]},
+						{"origin": [3, 1.15, -7], "size": [0, 6, 4], "uv": [56, 20]}
+					]
+				},
+				{
+					"name": "tail",
+					"parent": "entity",
+					"pivot": [0, 3.15, 3],
+					"cubes": [
+						{"origin": [-3, 2.15, 3], "size": [6, 1, 4], "inflate": 0.01, "uv": [26, 10]}
+					]
+				},
+				{
+					"name": "feet2",
+					"parent": "entity",
+					"pivot": [-2.5, 1.05, -1],
+					"cubes": [
+						{"origin": [-5, 0.05, -6], "size": [4, 1, 7], "inflate": 0.01, "uv": [0, 29], "mirror": true}
+					]
+				},
+				{
+					"name": "feet",
+					"parent": "entity",
+					"pivot": [2.5, 1.05, -1],
+					"cubes": [
+						{"origin": [1, 0.05, -6], "size": [4, 1, 7], "inflate": 0.01, "uv": [0, 29]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "entity",
+					"pivot": [0, 9.11667, 0.03333]
+				},
+				{
+					"name": "look_angle",
+					"parent": "head",
+					"pivot": [0, 9.11667, 0.03333],
+					"cubes": [
+						{"origin": [-5, 9.15, -4], "size": [10, 6, 8], "uv": [0, 15]},
+						{"origin": [0, 15.15, -4], "size": [0, 3, 8], "uv": [5, 33]},
+						{"origin": [-9, 13.15, -2], "size": [6, 5, 0], "uv": [48, 15]},
+						{"origin": [3, 13.15, -2], "size": [6, 5, 0], "uv": [48, 15], "mirror": true},
+						{"origin": [-2, 9.15, -6], "size": [4, 4, 2], "uv": [43, 8]}
+					]
+				},
+				{
+					"name": "helmet",
+					"parent": "look_angle",
+					"pivot": [0, 2, 0],
+					"cubes": [
+						{"origin": [-5, 9.15, -4], "size": [10, 6, 8], "inflate": 0.2, "uv": [28, 22]}
+					]
+				},
+				{
+					"name": "wing",
+					"parent": "entity",
+					"pivot": [4, 9.15, 0],
+					"cubes": [
+						{"origin": [4, 8.15, -3], "size": [7, 1, 6], "inflate": 0.01, "uv": [28, 0]}
+					]
+				},
+				{
+					"name": "sword",
+					"parent": "wing",
+					"pivot": [7.5, 9.15, 0],
+					"cubes": [
+						{"origin": [8, 7.65, -5], "size": [2, 1, 6], "inflate": 0.01, "uv": [48, 1]},
+						{"origin": [6, 6.65, -14], "size": [6, 3, 9], "inflate": 0.01, "uv": [34, 52]}
+					]
+				},
+				{
+					"name": "wing2",
+					"parent": "entity",
+					"pivot": [-4, 9.15, 0],
+					"cubes": [
+						{"origin": [-11, 8.15, -3], "size": [7, 1, 6], "inflate": 0.01, "uv": [28, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "sword2",
+					"parent": "wing2",
+					"pivot": [-7.5, 9.15, 0],
+					"cubes": [
+						{"origin": [-10, 7.65, -5], "size": [2, 1, 6], "inflate": 0.01, "uv": [48, 1], "mirror": true},
+						{"origin": [-12, 6.65, -14], "size": [6, 3, 9], "inflate": 0.01, "uv": [0, 52], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

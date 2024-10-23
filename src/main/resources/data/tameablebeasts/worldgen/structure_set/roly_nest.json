@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "tameablebeasts:roly_nest",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 164534523,
+
+    "spacing": 40,
+
+    "separation": 10,
+
+    "type": "minecraft:random_spread"
+  }
+}

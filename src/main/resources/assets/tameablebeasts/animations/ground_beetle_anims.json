@@ -73,6 +73,7 @@
 		},
 		"sit": {
 			"loop": true,
+			"animation_length": 0.1,
 			"bones": {
 				"entity": {
 					"position": {

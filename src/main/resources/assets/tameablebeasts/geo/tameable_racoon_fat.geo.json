@@ -72,6 +72,11 @@
 				{
 					"name": "head",
 					"parent": "entity",
+					"pivot": [0, 6.97062, -5.01667]
+				},
+				{
+					"name": "look_angle",
+					"parent": "head",
 					"pivot": [0, 6.97062, -5.01667],
 					"cubes": [
 						{"origin": [-4, 4, -11], "size": [8, 6, 6], "uv": [1, 5]},

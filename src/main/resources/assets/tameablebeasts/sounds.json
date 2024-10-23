@@ -135,6 +135,34 @@
 
 
 
+  "entity.graptera.graptera_fly": {
+    "sounds": [
+      "tameablebeasts:graptera_fly"
+    ]
+  },
+  "entity.graptera.graptera_ambient": {
+    "sounds": [
+      "tameablebeasts:graptera_ambient"
+    ]
+  },
+  "entity.graptera.graptera_interact": {
+    "sounds": [
+      "tameablebeasts:graptera_interact"
+    ]
+  },
+  "entity.graptera.graptera_death": {
+    "sounds": [
+      "tameablebeasts:graptera_death"
+    ]
+  },
+  "entity.graptera.graptera_hurt": {
+    "sounds": [
+      "tameablebeasts:graptera_hurt"
+    ]
+  },
+
+
+
   "entity.scarecrow_allay.scarecrow_fly": {
     "sounds": [
       "tameablebeasts:scarecrow_fly"

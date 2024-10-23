@@ -3,6 +3,7 @@
 	"animations": {
 		"sit": {
 			"loop": true,
+			"animation_length": 0.1,
 			"bones": {
 				"body4": {
 					"position": {

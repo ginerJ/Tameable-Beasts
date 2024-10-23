@@ -72,8 +72,13 @@
 					]
 				},
 				{
-					"name": "head",
+					"name": "look_angle",
 					"parent": "body",
+					"pivot": [0, 9.38657, 7.69965]
+				},
+				{
+					"name": "head",
+					"parent": "look_angle",
 					"pivot": [0, 9.38657, 7.69965],
 					"rotation": [-7.5, 0, 0],
 					"cubes": [

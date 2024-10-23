@@ -9,7 +9,7 @@
   ],
   "spawners": {
     "type": "tameablebeasts:giant_roly_poly",
-    "weight": 60,
+    "weight": 15,
     "maxCount": 4,
     "minCount": 1
   }

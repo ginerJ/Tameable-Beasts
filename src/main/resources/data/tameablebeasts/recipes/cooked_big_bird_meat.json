@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "tameablebeasts:big_bird_meat"
+  },
+  "result": "tameablebeasts:cooked_big_bird_meat",
+  "experience": 0.35,
+  "cookingtime": 200
+}

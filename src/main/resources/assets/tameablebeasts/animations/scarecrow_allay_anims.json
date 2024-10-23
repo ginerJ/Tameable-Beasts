@@ -6,7 +6,7 @@
 			"bones": {
 				"entity": {
 					"position": {
-						"vector": [0, -2.3, 0]
+						"vector": [0, -3.3, 0]
 					}
 				},
 				"light_wing": {
@@ -14,31 +14,30 @@
 						"vector": [-26.62963, -16.10207, 89.55182]
 					}
 				},
-				"light_wing2": {
-					"rotation": {
-						"vector": [26.6296, 16.1021, 89.55182]
-					}
-				},
 				"arm": {
 					"rotation": {
-						"vector": [35, 0, 0]
+						"vector": [-12.5, 0, 0]
 					}
 				},
 				"light_hoe": {
 					"rotation": {
-						"vector": [26.10044, -33.09357, -84.85201]
+						"vector": [-25.41957, 76.76744, 61.84665]
 					}
 				},
 				"arm3": {
 					"rotation": {
 						"vector": [-35, 0, 0]
 					}
+				},
+				"light_wing2": {
+					"rotation": {
+						"vector": [26.6296, 16.1021, 89.55182]
+					}
 				}
 			}
 		},
 		"fly": {
 			"loop": true,
-			"animation_length": 2,
 			"bones": {
 				"entity": {
 					"position": {
@@ -47,7 +46,7 @@
 				},
 				"whole": {
 					"rotation": {
-						"vector": [0, 0, -15]
+						"vector": [25, 0, 0]
 					}
 				},
 				"light_wing": {
@@ -67,7 +66,7 @@
 				},
 				"head": {
 					"rotation": {
-						"vector": [0, 0, 15]
+						"vector": [-15, 0, 0]
 					},
 					"position": {
 						"vector": [0, "-1+math.cos(40+query.anim_time*180)*0.25", 0]
@@ -134,50 +133,6 @@
 				}
 			}
 		},
-		"attack": {
-			"animation_length": 0.56,
-			"bones": {
-				"entity": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.16": {
-							"vector": [-44.31282, 17.60697, 45.68718]
-						},
-						"0.28": {
-							"vector": [172.5, 22.5, -180]
-						}
-					}
-				},
-				"arm": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.16": {
-							"vector": [7.5, 17.5, 0]
-						},
-						"0.28": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"arm3": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.16": {
-							"vector": [19.80864, 4.21541, 57.40093]
-						},
-						"0.28": {
-							"vector": [-47.08511, -25.02256, 45.1113]
-						}
-					}
-				}
-			}
-		},
 		"interact": {
 			"animation_length": 1,
 			"bones": {
@@ -225,6 +180,112 @@
 				"light_wing2": {
 					"rotation": {
 						"vector": ["-50+math.cos(40+query.anim_time*720)*32", "-15-math.cos(query.anim_time*720)*50", 10]
+					}
+				}
+			}
+		},
+		"attack": {
+			"animation_length": 0.56,
+			"bones": {
+				"entity": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [-38.58083, 29.25588, 59.965]
+						},
+						"0.28": {
+							"vector": [31.31346, -30.82817, -11.33644]
+						}
+					}
+				},
+				"arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [-4.26437, 18.52543, -36.85175]
+						},
+						"0.28": {
+							"vector": [57.50142, 21.46902, -13.12427]
+						}
+					}
+				},
+				"arm3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [19.80864, 4.21541, 57.40093]
+						},
+						"0.28": {
+							"vector": [-61.54739, -48.33043, 106.0311]
+						}
+					}
+				},
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [42.5, 0, -25]
+						},
+						"0.36": {
+							"vector": [-13.56032, 11.72652, 0.51519]
+						}
+					}
+				}
+			}
+		},
+		"idle": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"entity": {
+					"position": {
+						"vector": [0, "-math.cos(query.anim_time*180)*0.75", 0]
+					}
+				},
+				"whole": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"light_wing": {
+					"rotation": {
+						"vector": ["50-math.cos(40+query.anim_time*180)*25", "10+math.cos(query.anim_time*180)*32", 10]
+					}
+				},
+				"arm": {
+					"rotation": {
+						"vector": ["15-math.cos(80+query.anim_time*180)*5", 0, 0]
+					}
+				},
+				"arm3": {
+					"rotation": {
+						"vector": ["-15+math.cos(80+query.anim_time*180)*5", 0, 0]
+					}
+				},
+				"head": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"vector": [0, "math.cos(40+query.anim_time*180)*0.25", 0]
+					}
+				},
+				"body": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"light_wing2": {
+					"rotation": {
+						"vector": ["-50+math.cos(40+query.anim_time*180)*25", "-10-math.cos(query.anim_time*180)*32", 10]
 					}
 				}
 			}

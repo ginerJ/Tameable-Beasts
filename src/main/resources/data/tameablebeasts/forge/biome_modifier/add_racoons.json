@@ -3,7 +3,7 @@
   "biomes": "#minecraft:is_forest",
   "spawners": {
     "type": "tameablebeasts:tameable_racoon",
-    "weight": 50,
+    "weight": 15,
     "maxCount": 4,
     "minCount": 1
   }

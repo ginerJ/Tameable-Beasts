@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " ba",
+    "La ",
+    "lL "
+  ],
+  "key": {
+    "l": {
+      "item": "tameablebeasts:grasshopper_leg"
+    },
+    "L": {
+      "item": "tameablebeasts:leaf"
+    },
+    "a": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "b": {
+      "item": "tameablebeasts:beetle_dust"
+    }
+  },
+  "result": {
+    "item": "tameablebeasts:bug_sword",
+    "count": 1
+  }
+}

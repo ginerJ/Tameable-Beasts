@@ -1,3 +1,15 @@
 {
-	"parent": "tameablebeasts:block/biker_helmet"
+	"loader": "forge:separate_transforms",
+	"gui_light": "front",
+	"base": {
+		"parent": "minecraft:item/generated",
+		"textures": {
+			"layer0": "tameablebeasts:item/biker_helmet_item"
+		}
+	},
+	"perspectives": {
+		"head": {
+			"parent": "tameablebeasts:block/biker_helmet"
+		}
+	}
 }

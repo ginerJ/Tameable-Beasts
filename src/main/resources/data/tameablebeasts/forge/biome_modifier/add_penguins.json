@@ -3,8 +3,8 @@
   "biomes": "#minecraft:is_overworld",
   "spawners": {
     "type": "tameablebeasts:tameable_penguin",
-    "weight": 100,
-    "maxCount": 20,
+    "weight": 50,
+    "maxCount": 15,
     "minCount": 7
   }
 }

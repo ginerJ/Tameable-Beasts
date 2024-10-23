@@ -3,22 +3,19 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.argentavis_egg",
 				"texture_width": 64,
-				"texture_height": 80,
+				"texture_height": 32,
 				"visible_bounds_width": 2,
 				"visible_bounds_height": 2.5,
 				"visible_bounds_offset": [0, 0.75, 0]
 			},
 			"bones": [
 				{
-					"name": "bb_main",
-					"pivot": [0, 0, 0],
+					"name": "bone",
+					"pivot": [8, 0, -8],
 					"cubes": [
-						{"origin": [-7, 2, -7], "size": [14, 12, 14], "uv": [0, 54]},
-						{"origin": [-6, 0, -6], "size": [12, 2, 12], "uv": [0, 0]},
-						{"origin": [-6, 14, -6], "size": [12, 5, 12], "uv": [10, 16]},
-						{"origin": [-5, 19, -5], "size": [10, 2, 10], "uv": [19, 37]}
+						{"origin": [-5, 0, -5], "size": [10, 16, 10], "uv": [11, 3]}
 					]
 				}
 			]

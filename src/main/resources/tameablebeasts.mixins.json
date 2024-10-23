@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.modderg.tameablebeasts.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "mixins.tameablebeasts.refmap.json",
+  "mixins": [
+    "RabbitScaredScarecrowMixin",
+    "RidingJumpGuiMixin"
+  ],
+  "client": [
+  ],
+  "server": []
+}
