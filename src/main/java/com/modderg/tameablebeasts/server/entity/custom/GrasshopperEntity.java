@@ -160,6 +160,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
 
     //ride stuff
 
+    //max actual speed 0.27
     @Override
     public float getRidingSpeedMultiplier() {
         if(!this.onGround())

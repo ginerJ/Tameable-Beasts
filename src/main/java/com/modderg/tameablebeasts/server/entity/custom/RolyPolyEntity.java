@@ -107,6 +107,7 @@ public class RolyPolyEntity extends RideableTBAnimal {
         return (EggBlockItem) ItemInit.ROLY_POLY_EGG_ITEM.get();
     }
 
+    //max actual speed 0.84, min 0.3
     @Override
     public float getRidingSpeedMultiplier() {
         return super.getRidingSpeedMultiplier() * (this.getBlockStateOn().is(BlockInit.ASPHALTED_DIRT.get()) ? 1.75F : 1.0F);

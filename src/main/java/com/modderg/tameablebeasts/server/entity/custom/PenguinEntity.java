@@ -199,11 +199,15 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     }
 
     public static boolean checkPenguinSpawnRules(EntityType<PenguinEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+        boolean isColdBiome = p_218243_.getBiome(p_218245_).value().getBaseTemperature() < 0.15F;
+
         return (p_218243_.getBlockState(p_218245_.below()).is(Blocks.PACKED_ICE)
                 || p_218243_.getBlockState(p_218245_.below()).is(Blocks.ICE)
                 || p_218243_.getBlockState(p_218245_.below()).is(Blocks.BLUE_ICE))
+                && isColdBiome
                 && ModCommonConfigs.CAN_SPAWN_PENGUIN.get();
     }
+
 
     //SWIMMING STUFF
 
@@ -287,6 +291,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         return false;
     }
 
+    //max actual speed 0.6, min 0.03
     @Override
     public float getRidingSpeedMultiplier(){
 

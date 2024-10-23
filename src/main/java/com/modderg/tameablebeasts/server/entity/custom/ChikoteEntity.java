@@ -92,6 +92,12 @@ public class ChikoteEntity extends RideableTBAnimal {
         return super.mobInteract(player, hand);
     }
 
+    //actual speed 0.36
+    @Override
+    public float getRidingSpeedMultiplier() {
+        return 1.2f;
+    }
+
     @Override
     public boolean isFood(ItemStack itemStack) {
         return itemStack.is(TBTags.Items.CHIKOTE_FOOD);

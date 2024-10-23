@@ -47,6 +47,7 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
         this.textureIdSize = 8;
     }
 
+    //actual speed 0.21
     @Override
     public float getRidingSpeedMultiplier() {
         return 0.7F;
