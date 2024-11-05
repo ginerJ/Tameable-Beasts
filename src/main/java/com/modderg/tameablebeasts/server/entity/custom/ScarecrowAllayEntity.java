@@ -34,7 +34,7 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 
 public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
 
-    private static final EntityDataAccessor<Boolean> HASHOE = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HASHOE = SynchedEntityData.defineId(ScarecrowAllayEntity.class, EntityDataSerializers.BOOLEAN);
     public void setHoe(boolean i){
         this.getEntityData().set(HASHOE, i);
     }

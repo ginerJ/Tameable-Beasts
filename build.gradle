@@ -60,7 +60,7 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'archivesBaseName'
 
             mods {
-                examplemod {
+                tameablebeasts {
                     source sourceSets.main
                 }
             }
@@ -77,7 +77,7 @@ minecraft {
             args '--mod', 'archivesBaseName', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                tameablebeasts {
                     source sourceSets.main
                 }
             }
@@ -85,14 +85,10 @@ minecraft {
     }
 }
 
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-
 dependencies {
     minecraft 'net.neoforged:forge:1.20.1-47.1.76'
 
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.2.2')
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.9')
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
@@ -155,10 +151,11 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 mixin {
-    add sourceSets.main, "tameablebeasts.refmap.json"
+    add sourceSets.main, 'mixins.tameablebeasts.refmap.json'
     config 'tameablebeasts.mixins.json'
 
     debug.verbose = true
     debug.export = true
 }
+
 

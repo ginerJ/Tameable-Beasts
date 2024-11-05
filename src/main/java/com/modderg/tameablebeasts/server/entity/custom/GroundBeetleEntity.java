@@ -3,7 +3,7 @@ package com.modderg.tameablebeasts.server.entity.custom;
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.TBFollowOwnerGoal;
 import com.modderg.tameablebeasts.server.entity.goals.IncludesSitingRidingMeleeAttackGoal;
-import com.modderg.tameablebeasts.server.entity.goals.InitPOITypes;
+import com.modderg.tameablebeasts.server.block.InitPOITypes;
 import com.modderg.tameablebeasts.server.entity.goals.TakeCareOfEggsGoal;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;

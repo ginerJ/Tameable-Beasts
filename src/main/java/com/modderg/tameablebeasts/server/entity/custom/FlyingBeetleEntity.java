@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.server.entity.custom;
 
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
+import com.modderg.tameablebeasts.server.block.InitPOITypes;
 import com.modderg.tameablebeasts.server.entity.EntityInit;
 import com.modderg.tameablebeasts.server.entity.FlyingTBAnimal;
 

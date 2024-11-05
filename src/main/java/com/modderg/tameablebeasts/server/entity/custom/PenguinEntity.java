@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.server.entity.custom;
 
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
+import com.modderg.tameablebeasts.server.block.InitPOITypes;
 import com.modderg.tameablebeasts.server.entity.RideableTBAnimal;
 
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
@@ -12,7 +13,6 @@ import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -29,14 +29,10 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cod;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -53,18 +49,17 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemiAquatic {
 
-    private static final EntityDataAccessor<Integer> SWORD = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> SWORD = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.INT);
     public void setSword(int i){this.getEntityData().set(SWORD, i);}
     public int getSword(){
         return this.getEntityData().get(SWORD);
     }
 
-    private static final EntityDataAccessor<Boolean> HELMET = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HELMET = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
     public void setHelmet(boolean i){
         this.getEntityData().set(HELMET, i);
     }

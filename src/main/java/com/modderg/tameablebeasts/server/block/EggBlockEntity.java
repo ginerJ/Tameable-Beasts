@@ -115,8 +115,8 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
             if (goBadTimer-- >= 0)
                 if(isWarm()) goBadTimer = 3000;
 
-            if(hatchTimer-- <= 0){
-                TBAnimal animal = (TBAnimal) babyType.get().create(level);
+            if(hatchTimer-- <= 0 && babyType!= null){
+                TBAnimal animal = babyType.get().create(level);
                 animal.setPos(this.getBlockPos().getCenter());
                 animal.setBaby(true);
                 animal.setTame(true);

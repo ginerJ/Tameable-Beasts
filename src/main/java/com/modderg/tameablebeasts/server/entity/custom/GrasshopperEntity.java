@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.server.entity.custom;
 
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
+import com.modderg.tameablebeasts.server.block.InitPOITypes;
 import com.modderg.tameablebeasts.server.entity.RideableTBAnimal;
 
 import com.modderg.tameablebeasts.server.entity.goals.*;
@@ -170,7 +171,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
     }
 
     @Override
-    public void travel(Vec3 vec333) {
+    public void travel(@NotNull Vec3 vec333) {
         if (this.isAlive()) {
             if (!this.isTame()) {
                 if (jumpCount == 0 && this.onGround()) {

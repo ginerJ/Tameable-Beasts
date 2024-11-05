@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.server.entity.custom;
 
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
+import com.modderg.tameablebeasts.server.block.InitPOITypes;
 import com.modderg.tameablebeasts.server.entity.RideableTBAnimal;
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
@@ -21,7 +22,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;

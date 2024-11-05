@@ -8,7 +8,7 @@
   "entity.tameable_racoon.racoon_ambient": {
     "sounds": [
       "tameablebeasts:racoon_ambient",
-      "tameablebeasts:racoon_ambient2"
+      "tameablebeasts:racoon_ambient_2"
     ]
   },
   "entity.tameable_racoon.racoon_interact": {
@@ -183,7 +183,7 @@
       "tameablebeasts:scarecrow_death"
     ]
   },
-  "entity.quetzalcoatlus.scarecrow_hurt": {
+  "entity.scarecrow_allay.scarecrow_hurt": {
     "sounds": [
       "tameablebeasts:scarecrow_hurt"
     ]

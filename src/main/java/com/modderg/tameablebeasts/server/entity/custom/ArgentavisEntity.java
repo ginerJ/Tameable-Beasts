@@ -3,6 +3,7 @@ package com.modderg.tameablebeasts.server.entity.custom;
 import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
+import com.modderg.tameablebeasts.server.block.InitPOITypes;
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;

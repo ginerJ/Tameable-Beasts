@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.server.entity.goals;
+package com.modderg.tameablebeasts.server.block;
 
 import com.google.common.collect.ImmutableSet;
 import com.modderg.tameablebeasts.server.block.BlockInit;

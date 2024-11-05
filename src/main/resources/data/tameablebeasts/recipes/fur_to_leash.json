@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:racoon_fur"
+      "item": "tameablebeasts:racoon_fur"
     },
     {
-      "item": "minecraft:racoon_fur"
+      "item": "tameablebeasts:racoon_fur"
     }
   ],
   "result": {
-    "item": "minecraft:leash",
+    "item": "minecraft:lead",
     "count": 1
   }
 }
