@@ -5,10 +5,10 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "mixins.tameablebeasts.refmap.json",
   "mixins": [
-    "RabbitScaredScarecrowMixin",
-    "RidingJumpGuiMixin"
+    "RabbitScaredScarecrowMixin"
   ],
   "client": [
+    "RidingJumpGuiMixin"
   ],
   "server": []
 }

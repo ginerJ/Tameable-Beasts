@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -47,16 +48,16 @@ public class FurGolemEntity extends Animal implements GeoEntity {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel p_146743_, @NotNull AgeableMob p_146744_) {
         return null;
     }
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundEvents.WOOL_BREAK;}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundEvents.WOOL_BREAK;}
 
     @Override
-    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {this.playSound(SoundEvents.WOOL_STEP, 0.15F, 1.0F);}
+    protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {this.playSound(SoundEvents.WOOL_STEP, 0.15F, 1.0F);}
 
     //animation stuff
 

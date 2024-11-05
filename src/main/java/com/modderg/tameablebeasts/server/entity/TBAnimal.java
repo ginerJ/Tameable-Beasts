@@ -180,6 +180,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
                 this.messageState(this.isInSittingPose() ? "following":"sitting", player);
                 this.setInSittingPose(!this.isOrderedToSit());
                 this.setOrderedToSit(!this.isOrderedToSit());
+                if(this.isInSittingPose())
+                    playStepSound(this.getOnPos(), this.level().getBlockState(this.getOnPos()));
             }
             return InteractionResult.SUCCESS;
         }
@@ -205,7 +207,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     @Override
     public void setInSittingPose(boolean p_21838_) {
-        playStepSound(this.getOnPos(), this.level().getBlockState(this.getOnPos()));
         super.setInSittingPose(p_21838_);
     }
 

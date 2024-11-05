@@ -39,7 +39,7 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
 
     private static final Predicate<LivingEntity> AVOID_VICTIMS = (p_28463_) -> !p_28463_.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p_28463_);
 
-    private static final EntityDataAccessor<Boolean> IS_BELLY_FULL = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IS_BELLY_FULL = SynchedEntityData.defineId(RacoonEntity.class, EntityDataSerializers.BOOLEAN);
     public void setBellyFull(boolean i){
         this.getEntityData().set(IS_BELLY_FULL, i);
     }

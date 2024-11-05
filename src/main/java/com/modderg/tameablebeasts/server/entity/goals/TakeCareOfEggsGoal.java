@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
 import com.modderg.tameablebeasts.server.block.EggBlockEntity;
+import com.modderg.tameablebeasts.server.block.InitPOITypes;
 import com.modderg.tameablebeasts.server.packet.InitPackets;
 import com.modderg.tameablebeasts.server.packet.StoCLoveEggPacket;
 import net.minecraft.core.BlockPos;
@@ -14,7 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.RegistryObject;
-import software.bernie.geckolib.animatable.GeoEntity;
 
 import java.util.*;
 

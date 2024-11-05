@@ -3,6 +3,7 @@ package com.modderg.tameablebeasts.server.entity.custom;
 import com.modderg.tameablebeasts.TameableBeast;
 import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
+import com.modderg.tameablebeasts.server.block.InitPOITypes;
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
 
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
@@ -43,7 +44,7 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 
 public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
 
-    private static final EntityDataAccessor<Boolean> STAND = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> STAND = SynchedEntityData.defineId(QuetzalcoatlusEntity.class, EntityDataSerializers.BOOLEAN);
     public void setStand(boolean i){
         this.getEntityData().set(STAND, i);
     }

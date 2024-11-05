@@ -4,7 +4,7 @@ import com.modderg.tameablebeasts.server.block.BlockEntityInit;
 import com.modderg.tameablebeasts.server.block.BlockInit;
 import com.modderg.tameablebeasts.server.enchantments.EnchantmentInit;
 import com.modderg.tameablebeasts.server.entity.custom.*;
-import com.modderg.tameablebeasts.server.entity.goals.InitPOITypes;
+import com.modderg.tameablebeasts.server.block.InitPOITypes;
 import com.modderg.tameablebeasts.server.item.CreativeTameableTab;
 import com.modderg.tameablebeasts.server.entity.EntityInit;
 import com.modderg.tameablebeasts.server.item.ItemInit;

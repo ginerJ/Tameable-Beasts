@@ -16,7 +16,6 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -27,7 +26,6 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-import java.util.LinkedList;
 
 public class FlyingTBAnimal extends TBAnimal {
 
@@ -36,16 +34,13 @@ public class FlyingTBAnimal extends TBAnimal {
     public boolean isFlying() {return isFlying;}
     public void setIsFlying(boolean flying) {this.isFlying = flying;}
 
-    private static final EntityDataAccessor<Boolean> GOAL_WANT_FLYING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> GOAL_WANT_FLYING = SynchedEntityData.defineId(FlyingTBAnimal.class, EntityDataSerializers.BOOLEAN);
     public void setGoalsRequireFlying(boolean i){
         this.getEntityData().set(GOAL_WANT_FLYING, i);
     }
     public boolean getGoalsRequireFlying(){
         return this.getEntityData().get(GOAL_WANT_FLYING);
     }
-
-    protected LinkedList<MoveControl> moveControlRotation = new LinkedList<>();
-    protected LinkedList<PathNavigation> pathNavigationRotation = new LinkedList<>();
 
     protected TBFollowOwnerGoal followOwnerGoal;
 
@@ -54,15 +49,6 @@ public class FlyingTBAnimal extends TBAnimal {
 
         this.setPathfindingMalus(BlockPathTypes.WATER, -8f);
         this.setPathfindingMalus(BlockPathTypes.LAVA, -8f);
-
-        moveControlRotation.add(new FlyingMoveControl(this, 20, false));
-        moveControlRotation.add(new MoveControl(this));
-
-        pathNavigationRotation.add(new TBFlyingPathNavigation(this, this.level()).canFloat(true));
-        pathNavigationRotation.add(new TBGroundPathNavigation(this, this.level()));
-
-        this.moveControl = moveControlRotation.getFirst();
-        this.navigation = pathNavigationRotation.getFirst();
     }
 
     @Override
@@ -97,18 +83,18 @@ public class FlyingTBAnimal extends TBAnimal {
 
     protected void switchNavigation(){
 
-        moveControlRotation.addFirst(moveControlRotation.removeLast());
-        pathNavigationRotation.addFirst(pathNavigationRotation.removeLast());
-
-        this.moveControl = moveControlRotation.getFirst();
-        this.navigation = pathNavigationRotation.getFirst();
+        if(moveControl instanceof FlyingMoveControl){
+            this.moveControl = new MoveControl(this);
+            this.navigation = new TBGroundPathNavigation(this, this.level());
+        } else {
+            this.moveControl = new FlyingMoveControl(this, 20, false);
+            this.navigation = new TBFlyingPathNavigation(this, this.level()).canFloat(true);
+            this.jumpControl.jump();
+        }
 
         isFlying = moveControl instanceof FlyingMoveControl;
 
         this.setNoGravity(isFlying);
-
-        if(isFlying)
-            this.jumpControl.jump();
 
         followOwnerGoal.refreshNavigatorPath();
         InitPackets.sendToAll(new StoCSyncFlying(this.getId(), isFlying));
@@ -122,7 +108,7 @@ public class FlyingTBAnimal extends TBAnimal {
 
     @Override
     public void tick() {
-        if(!level().isClientSide() && updateFlyCount++ % 10 == 0 && this.shouldFly() != isFlying())
+        if(!level().isClientSide() && updateFlyCount++ % 20 == 0 && this.shouldFly() != isFlying())
             switchNavigation();
         super.tick();
     }
