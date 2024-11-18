@@ -177,8 +177,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
                 this.messageState("wandering", player);
             } else {
                 this.setWandering(false);
-                this.messageState(this.isInSittingPose() ? "following":"sitting", player);
-                this.setInSittingPose(!this.isOrderedToSit());
+                this.messageState(this.isInSittingPose() ? "following" : "sitting", player);
                 this.setOrderedToSit(!this.isOrderedToSit());
                 if(this.isInSittingPose())
                     playStepSound(this.getOnPos(), this.level().getBlockState(this.getOnPos()));
@@ -189,7 +188,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         if(isFood(player.getItemInHand(hand)))
             this.heal(5f);
 
-        if(!this.isInSittingPose() && !(this instanceof FlyingTBAnimal flyAnimal && flyAnimal.isFlying()))
+        if(!this.isInSittingPose() && !(this instanceof FlyingTBAnimal flyAnimal && flyAnimal.getIsFlying()))
             triggerAnim("movement", "interact");
 
         this.playSound(this.getInteractSound(), 0.45F, 1.0F);
@@ -296,7 +295,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     //CLIENT EFFECTS
 
     public void messageState(String txt, Player player){
-        if (player instanceof LocalPlayer)
+        if (level().isClientSide() && player instanceof LocalPlayer)
             Minecraft.getInstance().gui.setOverlayMessage(Component.literal(txt), false);
     }
 

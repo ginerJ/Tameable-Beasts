@@ -69,6 +69,7 @@
   "entity.tameablebeasts.crested_gecko" : "Crested Gecko",
   "entity.tameablebeasts.argentavis" : "Argentavis",
   "entity.tameablebeasts.graptera" : "Grapteranodon",
+  "entity.tameablebeasts.fur_golem" : "Fur Golem",
 
 
   "block.tameablebeasts.quetzalcoatlus_egg" : "Quetzal Egg",
@@ -86,6 +87,12 @@
   "enchantment.tameablebeasts.swarm" : "Swarm",
   "enchantment.tameablebeasts.sting" : "Sting",
 
+  "item.description.tameablebeasts.penguin_armor" : "Too small to be worn by a human.",
+  "gui.text.tameablebeasts.hatching_gui.owned_by" : "Owned by: ",
+  "gui.text.tameablebeasts.hatching_gui.status" : "Status: ",
+  "gui.text.tameablebeasts.hatching_gui.gone_bad" : "Gone Bad",
+  "gui.text.tameablebeasts.hatching_gui.warm" : "Warm",
+  "gui.text.tameablebeasts.hatching_gui.cold" : "Cold",
 
   "itemGroup.tameabletab" : "Tameable Beasts Tab"
 }

@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractTameArrow extends AbstractArrow {
 
@@ -50,7 +51,7 @@ public abstract class AbstractTameArrow extends AbstractArrow {
     protected abstract boolean canTame(Entity entity);
 
     @Override
-    protected void onHitEntity(EntityHitResult p_36757_) {
+    protected void onHitEntity(@NotNull EntityHitResult p_36757_) {
         super.onHitEntity(p_36757_);
 
         if(this.getOwner() instanceof Player player && canTame(p_36757_.getEntity()) && p_36757_.getEntity() instanceof TBAnimal tameable && !tameable.isTame())

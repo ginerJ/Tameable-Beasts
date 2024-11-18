@@ -29,11 +29,6 @@ import software.bernie.geckolib.core.object.PlayState;
 
 public class FlyingTBAnimal extends TBAnimal {
 
-    protected boolean isFlying = true;
-
-    public boolean isFlying() {return isFlying;}
-    public void setIsFlying(boolean flying) {this.isFlying = flying;}
-
     private static final EntityDataAccessor<Boolean> GOAL_WANT_FLYING = SynchedEntityData.defineId(FlyingTBAnimal.class, EntityDataSerializers.BOOLEAN);
     public void setGoalsRequireFlying(boolean i){
         this.getEntityData().set(GOAL_WANT_FLYING, i);
@@ -42,6 +37,10 @@ public class FlyingTBAnimal extends TBAnimal {
         return this.getEntityData().get(GOAL_WANT_FLYING);
     }
 
+    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(FlyingTBAnimal.class, EntityDataSerializers.BOOLEAN);
+    public void setIsFlying(boolean i){this.getEntityData().set(FLYING, i);}
+    public boolean getIsFlying(){return this.getEntityData().get(FLYING);}
+
     protected TBFollowOwnerGoal followOwnerGoal;
 
     protected FlyingTBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
@@ -49,18 +48,23 @@ public class FlyingTBAnimal extends TBAnimal {
 
         this.setPathfindingMalus(BlockPathTypes.WATER, -8f);
         this.setPathfindingMalus(BlockPathTypes.LAVA, -8f);
+
+        this.moveControl = new FlyingMoveControl(this, 20, false);
+        this.navigation = new TBFlyingPathNavigation(this, this.level()).canFloat(true);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("GOAL_WANT_FLYING", this.getGoalsRequireFlying());
+        compound.putBoolean("FLYING", this.getIsFlying());
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(GOAL_WANT_FLYING, !this.onGround());
+        this.entityData.define(FLYING, true);
     }
 
     @Override
@@ -69,6 +73,9 @@ public class FlyingTBAnimal extends TBAnimal {
 
         if (compound.contains("GOAL_WANT_FLYING"))
             this.setGoalsRequireFlying(compound.getBoolean("GOAL_WANT_FLYING"));
+
+        if (compound.contains("FLYING"))
+            this.setIsFlying(compound.getBoolean("FLYING"));
     }
 
     protected void registerGoals() {
@@ -81,23 +88,25 @@ public class FlyingTBAnimal extends TBAnimal {
         return !isOrderedToSit();
     }
 
-    protected void switchNavigation(){
+    public void switchNavigation(){
 
         if(moveControl instanceof FlyingMoveControl){
             this.moveControl = new MoveControl(this);
             this.navigation = new TBGroundPathNavigation(this, this.level());
+            this.setIsFlying(false);
         } else {
             this.moveControl = new FlyingMoveControl(this, 20, false);
             this.navigation = new TBFlyingPathNavigation(this, this.level()).canFloat(true);
             this.jumpControl.jump();
+            this.setIsFlying(true);
         }
 
-        isFlying = moveControl instanceof FlyingMoveControl;
+        this.setNoGravity(getIsFlying());
 
-        this.setNoGravity(isFlying);
+        if(!level().isClientSide())
+            InitPackets.sendToAll(new StoCSyncFlying(this.getId(), this.getIsFlying()));
 
         followOwnerGoal.refreshNavigatorPath();
-        InitPackets.sendToAll(new StoCSyncFlying(this.getId(), isFlying));
     }
 
     public boolean isStill() {
@@ -108,14 +117,14 @@ public class FlyingTBAnimal extends TBAnimal {
 
     @Override
     public void tick() {
-        if(!level().isClientSide() && updateFlyCount++ % 20 == 0 && this.shouldFly() != isFlying())
+        if(!level().isClientSide() && updateFlyCount++ % (this.isControlledByLocalInstance()? 2 : 10) == 0 && this.shouldFly() != getIsFlying())
             switchNavigation();
         super.tick();
     }
 
     @Override
     public void travel(@NotNull Vec3 p_218382_) {
-        if(isFlying() && this.isControlledByLocalInstance()){
+        if(getIsFlying() && this.isControlledByLocalInstance()){
             if (this.isInWater()) {
                 this.moveRelative(0.02F, p_218382_);
                 this.move(MoverType.SELF, this.getDeltaMovement());
@@ -146,7 +155,7 @@ public class FlyingTBAnimal extends TBAnimal {
 
     @Override
     public boolean isNoGravity() {
-        return this.isFlying();
+        return this.getIsFlying();
     }
 
     @Override
@@ -161,15 +170,6 @@ public class FlyingTBAnimal extends TBAnimal {
             event.getController().setAnimation(RawAnimation.begin().then("fly", Animation.LoopType.LOOP));
 
         return PlayState.CONTINUE;
-    }
-
-    public <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> flyController(T entity) {
-        return new AnimationController<>(entity,"movement", 5, event ->{
-            if(entity.isFlying())
-                return flyState(entity, event);
-
-            return groundState(entity, event);
-        });
     }
 
     public <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> justFlyController(T entity) {

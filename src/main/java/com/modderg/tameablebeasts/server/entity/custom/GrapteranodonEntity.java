@@ -50,7 +50,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
         this.textureIdSize = 5;
         this.healthFloor = 15;
         this.attackAnims.add("attack");
-        this.consumeStaminaModule = 4;
+        this.consumeStaminaModule = 6;
         this.recoverStaminaModule = 9;
         this.downMovementAngle = 10F;
     }
@@ -75,12 +75,11 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
                 new SitWhenOrderedToGoal(this),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.GRAPTERANODON_POI),
                 new TameablePanicGoal(this, 1.25D),
-                new NoFlyRandomStrollGoal(this,1.0D),
+                new RandomStrollAndFlightGoal(this,1.0D),
                 new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.GRAPTERA_FOOD), false),
                 new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
-                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
                 new FloatGoal(this)
         );
@@ -155,7 +154,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
     }
 
     public void tryGrabbing() {
-        if(!this.isFlying())
+        if(!this.getIsFlying())
             return;
 
         if(this.getPassengers().size() >= 2){
@@ -181,7 +180,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
     protected void positionRider(@NotNull Entity entity, @NotNull MoveFunction moveFunction) {
 
         if(this.getPassengers().size() >= 2 && this.getPassengers().get(1).equals(entity)){
-            double d0 = this.getY() + this.getPassengersRidingOffset() + entity.getMyRidingOffset() -0.4;
+            double d0 = this.getY() + this.getPassengersRidingOffset() + entity.getMyRidingOffset() - 0.8;
             moveFunction.accept(entity, this.getX(), d0 - entity.getBbHeight(), this.getZ());
         } else
             super.positionRider(entity, moveFunction);
@@ -232,10 +231,10 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
 
     @Override
     public SoundEvent getAmbientSound() {
-        if(isFlying())
+        if(getIsFlying())
             return SoundInit.GRAPTERA_FLY.get();
         eatEmote = true;
-        return SoundInit.QUETZAL_AMBIENT.get();
+        return SoundInit.GRAPTERA_AMBIENT.get();
     }
 
     @Override

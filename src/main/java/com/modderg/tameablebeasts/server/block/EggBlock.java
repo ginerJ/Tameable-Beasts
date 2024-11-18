@@ -38,7 +38,11 @@ public class EggBlock<T extends TBAnimal> extends BaseEntityBlock {
         return this.species;
     }
 
-    private VoxelShape CUSTOM_SHAPE;
+    public RegistryObject<EntityType<T>> getBabyType(){
+        return this.babyType;
+    }
+
+    private final VoxelShape CUSTOM_SHAPE;
 
     public EggBlock(Properties p_49224_, String species, RegistryObject<EntityType<T>> babyType, double width, double height){
         super(p_49224_);
@@ -50,13 +54,13 @@ public class EggBlock<T extends TBAnimal> extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
-        return new EggBlockEntity(p_153215_, p_153216_, species, babyType);
+    public BlockEntity newBlockEntity(@NotNull BlockPos p_153215_, @NotNull BlockState p_153216_) {
+        return new EggBlockEntity<>(p_153215_, p_153216_, species, babyType);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState p_153213_, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState p_153213_, @NotNull BlockEntityType<T> type) {
         if(level.isClientSide)
             return null;
 
@@ -65,17 +69,17 @@ public class EggBlock<T extends TBAnimal> extends BaseEntityBlock {
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState p_49232_) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState p_49232_) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
-    public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState p_60555_, @NotNull BlockGetter p_60556_, @NotNull BlockPos p_60557_, @NotNull CollisionContext p_60558_) {
         return CUSTOM_SHAPE;
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState p_49849_, @Nullable LivingEntity player, ItemStack p_49851_) {
+    public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState p_49849_, @Nullable LivingEntity player, @NotNull ItemStack p_49851_) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof EggBlockEntity egg && player!= null)
             egg.setOwnerUUID(player.getUUID().toString());
@@ -84,7 +88,7 @@ public class EggBlock<T extends TBAnimal> extends BaseEntityBlock {
     }
 
     @Override
-    public void playerDestroy(Level level, Player p_49828_, BlockPos pos, BlockState p_49830_, @Nullable BlockEntity p_49831_, ItemStack p_49832_) {
+    public void playerDestroy(Level level, @NotNull Player p_49828_, BlockPos pos, @NotNull BlockState p_49830_, @Nullable BlockEntity p_49831_, @NotNull ItemStack p_49832_) {
         level.addFreshEntity(new ItemEntity(level,pos.getX(),pos.getY(),pos.getZ(),
                 new ItemStack(ItemInit.EGG_RESTS.get())));
         super.playerDestroy(level, p_49828_, pos, p_49830_, p_49831_, p_49832_);

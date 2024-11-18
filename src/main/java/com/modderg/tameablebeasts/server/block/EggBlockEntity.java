@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.server.block;
 
 import com.modderg.tameablebeasts.server.entity.TBAnimal;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
@@ -29,13 +31,12 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
     public int textureID = 0;
 
     private String ownerUUID = "";
-    private RegistryObject<EntityType<T>> babyType;
+    private RegistryObject<? extends EntityType<?>> babyType;
 
     public UUID getOwnerUUID() {
-        if(ownerUUID.isEmpty()) return UUID.randomUUID();
-
-        return UUID.fromString(ownerUUID);
+        return ownerUUID.isEmpty() ? null : UUID.fromString(ownerUUID);
     }
+
 
     public void setOwnerUUID(String value) {
         this.ownerUUID = value;
@@ -44,11 +45,12 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
 
     private final String species;
 
-    public String getCleanSpecies(){
-        return getSpecies().replace("tameable_","").replace("giant_","");
-    }
     public String getSpecies(){
-        return this.species;
+        return species;
+    }
+
+    public String getGuiSpecies(){
+        return I18n.get(babyType.get().getDescriptionId());
     }
 
     public void  setTextureId(int id){
@@ -64,7 +66,8 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
 
     public EggBlockEntity(BlockPos p_155229_, BlockState block){
         super(BlockEntityInit.EGG_BLOCK_ENTITY.get(), p_155229_, block);
-        this.species = ((EggBlock)block.getBlock()).getSpecies();
+        this.species = ((EggBlock<?>)block.getBlock()).getSpecies();
+        this.babyType = ((EggBlock<?>)block.getBlock()).getBabyType();
     }
 
     public EggBlockEntity(BlockPos p_155229_, BlockState p_155230_, String species, RegistryObject<EntityType<T>> babyType){
@@ -74,7 +77,7 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(@NotNull CompoundTag compound) {
         super.saveAdditional(compound);
 
         compound.putString("ownerUUID",ownerUUID);
@@ -83,7 +86,7 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void load(@NotNull CompoundTag compound) {
         super.load(compound);
 
         this.textureID = compound.getInt("textureID");
@@ -92,7 +95,7 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public @NotNull CompoundTag getUpdateTag() {
         CompoundTag tag = this.saveWithoutMetadata();
 
         tag.putInt("hatchTimer", this.hatchTimer);
@@ -116,7 +119,7 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
                 if(isWarm()) goBadTimer = 3000;
 
             if(hatchTimer-- <= 0 && babyType!= null){
-                TBAnimal animal = babyType.get().create(level);
+                TBAnimal animal = (TBAnimal) babyType.get().create(level);
                 animal.setPos(this.getBlockPos().getCenter());
                 animal.setBaby(true);
                 animal.setTame(true);
@@ -153,7 +156,7 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
     }
 
-    private AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
+    private final AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;

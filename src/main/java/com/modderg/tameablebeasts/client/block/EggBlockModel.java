@@ -11,12 +11,12 @@ public class EggBlockModel<T extends BlockEntity & GeoBlockEntity> extends GeoMo
 
     @Override
     public ResourceLocation getModelResource(EggBlockEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID, "geo/"+entity.getCleanSpecies().toLowerCase()+"_egg.geo.json");
+        return new ResourceLocation(TameableBeast.MOD_ID, "geo/"+entity.getSpecies() +"_egg.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(EggBlockEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID,"textures/block/"+entity.getCleanSpecies().toLowerCase()+"_egg.png");
+        return new ResourceLocation(TameableBeast.MOD_ID,"textures/block/"+entity.getSpecies() +"_egg.png");
     }
 
     @Override

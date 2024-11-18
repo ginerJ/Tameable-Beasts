@@ -96,7 +96,7 @@ public class ItemInit {
                 EntityInit.ARGENTAVIS, 0xECB67D, 0x86511A, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> GRAPTERA_SPAWN_EGG = ITEMS.register("graptera_spawn_egg", () -> new ForgeSpawnEggItem(
-                EntityInit.GRAPTERANODON, 0xC36B58, 0x828673, new Properties()));
+                EntityInit.GRAPTERANODON, 0x857981, 0xC59856, new Properties()));
 
 
         //hats

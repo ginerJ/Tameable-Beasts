@@ -6,7 +6,6 @@ import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.block.InitPOITypes;
 import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
 
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.item.ItemInit;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
@@ -58,7 +57,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
         this.textureIdSize = 6;
         this.healthFloor = 30;
         this.attackAnims.add("attack");
-        this.consumeStaminaModule = 14;
+        this.consumeStaminaModule = 16;
         this.recoverStaminaModule = 8;
         this.downMovementAngle = 8F;
     }
@@ -84,12 +83,11 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
                 new SitWhenOrderedToGoal(this),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.QUETZAL_POI),
                 new TameablePanicGoal(this, 1.25D),
-                new NoFlyRandomStrollGoal(this, 1.0D),
+                new RandomStrollAndFlightGoal(this, 1.0D),
                 new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.QUETZAL_FOOD), false),
                 new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
-                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
                 new FloatGoal(this)
         );
@@ -201,7 +199,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
         double offsetZ2 = sin * zOffset;
 
         rider.setPos(this.getX() + offsetX + offsetX2,
-                this.getY() + rider.getMyRidingOffset() + (this.isFlying() ? yMovingOffSet : yStillOffSet),
+                this.getY() + rider.getMyRidingOffset() + (this.getIsFlying() ? yMovingOffSet : yStillOffSet),
                 this.getZ() + offsetZ + offsetZ2);
     }
 
@@ -252,9 +250,8 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
 
     @Override
     public SoundEvent getAmbientSound() {
-        if(isFlying())
+        if(getIsFlying())
             return SoundInit.QUETZAL_FLY.get();
-
         return SoundInit.QUETZAL_AMBIENT.get();
     }
 

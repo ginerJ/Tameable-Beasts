@@ -71,11 +71,10 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.FLYING_BEETLE_POI),
                 new TameablePanicGoal(this, 1.25D),
                 new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.SHINY_BEETLE_FOOD), false),
-                new NoFlyRandomStrollGoal(this,1.0D),
+                new RandomStrollAndFlightGoal(this,1.0D),
                 new BreedGoal(this, 1.0D),
                 new AvoidEntityGoal<>(this,Player.class, 6.0F, 1.0D, 1.2D),
                 new FlyFromNowAndThenGoal(this),
-                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
                 new TBFollowParentGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F)
         );
@@ -127,7 +126,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
                 (owner != null && (
                         (this.distanceTo(owner) > 10 && !this.isWandering()) ||
-                        (this.isFlying() && !owner.onGround()))
+                        (this.getIsFlying() && !owner.onGround()))
                 )
         );
     }
@@ -190,7 +189,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     @Override
     public SoundEvent getAmbientSound() {
-        if(isFlying())
+        if(getIsFlying())
             return SoundInit.BEETLE_FLY.get();
 
         return SoundInit.BEETLE_AMBIENT.get();
@@ -230,7 +229,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     public <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> flyingBeetleController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
-            if(entity.isFlying()){
+            if(entity.getIsFlying()){
                 if(entity.tickCount % 5 == 0)
                     entity.level().addParticle(ParticleTypes.GLOW, this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
                 return flyState(entity, event);

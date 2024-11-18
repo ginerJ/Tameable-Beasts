@@ -42,7 +42,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
         this.textureIdSize = 7;
         this.healthFloor = 20;
         this.attackAnims.add("attack");
-        this.consumeStaminaModule = 2;
+        this.consumeStaminaModule = 3;
         this.recoverStaminaModule = 10;
         this.downMovementAngle = 5F;
     }
@@ -85,14 +85,13 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
                 new SitWhenOrderedToGoal(this),
                 new TakeCareOfEggsGoal(this, 15, InitPOITypes.ARGENTAVIS_POI),
                 new TameablePanicGoal(this, 1.25D),
-                new NoFlyRandomStrollGoal(this,1.0D),
                 new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.ARGENTAVIS_FOOD), false),
                 new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
-                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
-                new FloatGoal(this)
+                new FloatGoal(this),
+                new RandomStrollAndFlightGoal(this,1.0D)
         );
 
         this.addTargetGoals(
@@ -153,7 +152,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
 
     @Override
     public SoundEvent getAmbientSound() {
-        if(isFlying())
+        if(getIsFlying())
             return SoundInit.QUETZAL_FLY.get();
 
         return SoundInit.ARGENTAVIS_AMBIENT.get();

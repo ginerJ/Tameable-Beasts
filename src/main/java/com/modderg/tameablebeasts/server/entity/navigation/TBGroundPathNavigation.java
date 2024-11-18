@@ -31,22 +31,4 @@ public class TBGroundPathNavigation extends GroundPathNavigation {
         }
         this.doStuckDetection(currentPos);
     }
-
-
-    private boolean shouldTargetNextNodeInDirection(Vec3 currentPosition) {
-        if (this.path.getNextNodeIndex() + 1 >= this.path.getNodeCount())
-            return false;
-        else {
-            Vec3 vector3d = Vec3.atBottomCenterOf(this.path.getNextNodePos());
-            if (!currentPosition.closerThan(vector3d, 2.0D))
-                return false;
-            else {
-                Vec3 vector3d1 = Vec3.atBottomCenterOf(this.path.getNodePos(this.path.getNextNodeIndex() + 1));
-                Vec3 vector3d2 = vector3d1.subtract(vector3d);
-                Vec3 vector3d3 = currentPosition.subtract(vector3d);
-                return vector3d2.dot(vector3d3) > 0.0D;
-            }
-        }
-    }
-
 }
