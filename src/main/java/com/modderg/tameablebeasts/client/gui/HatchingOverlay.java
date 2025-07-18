@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.client.gui;
 
-import com.modderg.tameablebeasts.TameableBeast;
+import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.server.block.EggBlockEntity;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
@@ -14,10 +14,10 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = TameableBeast.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = TameableBeasts.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class HatchingOverlay {
 
-    private static final ResourceLocation HATCH_MENU = new ResourceLocation(TameableBeast.MOD_ID, "textures/gui/hatch_gui.png");
+    private static final ResourceLocation HATCH_MENU = new ResourceLocation(TameableBeasts.MOD_ID, "textures/gui/hatch_gui.png");
 
     public static IGuiOverlay HATCH_OVERLAY = ((gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
 

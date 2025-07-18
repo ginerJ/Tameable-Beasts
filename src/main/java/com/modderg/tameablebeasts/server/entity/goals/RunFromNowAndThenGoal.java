@@ -1,9 +1,7 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
-
-import java.util.EnumSet;
 
 public class RunFromNowAndThenGoal extends Goal {
 

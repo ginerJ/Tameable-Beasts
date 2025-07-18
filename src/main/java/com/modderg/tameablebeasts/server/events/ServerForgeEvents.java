@@ -1,10 +1,10 @@
 package com.modderg.tameablebeasts.server.events;
 
-import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.server.block.BlockInit;
-import com.modderg.tameablebeasts.server.entity.EntityInit;
-import com.modderg.tameablebeasts.server.entity.custom.FurGolemEntity;
-import com.modderg.tameablebeasts.server.item.ItemInit;
+import com.modderg.tameablebeasts.TameableBeasts;
+import com.modderg.tameablebeasts.registry.TBBlockRegistry;
+import com.modderg.tameablebeasts.registry.TBEntityRegistry;
+import com.modderg.tameablebeasts.server.entity.FurGolemEntity;
+import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.level.Level;
@@ -15,14 +15,14 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = TameableBeast.MOD_ID)
+@Mod.EventBusSubscriber(modid = TameableBeasts.MOD_ID)
 public class ServerForgeEvents {
 
     @SubscribeEvent
     public static void onDeath(final LivingDeathEvent event){
         if(event.getEntity() instanceof AbstractIllager illager){
             if(event.getEntity().getRandom().nextInt(100) <= 5){
-                illager.spawnAtLocation(ItemInit.PURPLE_ALLAY.get());
+                illager.spawnAtLocation(TBItemRegistry.PURPLE_ALLAY.get());
             }
         }
 
@@ -37,8 +37,8 @@ public class ServerForgeEvents {
         BlockState blockState = event.getPlacedBlock();
         BlockPos pos = event.getPos();
 
-        if(blockState.is(BlockInit.FUR_BLOCK.get())){
-            if(level.getBlockState(pos.below()).is(BlockInit.FUR_BLOCK.get()) &&
+        if(blockState.is(TBBlockRegistry.FUR_BLOCK.get())){
+            if(level.getBlockState(pos.below()).is(TBBlockRegistry.FUR_BLOCK.get()) &&
                     level.getBlockState(pos.above()).is(Blocks.CARVED_PUMPKIN)){
                 level.destroyBlock(pos, false);
                 level.destroyBlock(pos.above(), false);
@@ -46,7 +46,7 @@ public class ServerForgeEvents {
 
                 summonGolem(level, event.getPos().below());
             }
-            if(level.getBlockState(pos.above()).is(BlockInit.FUR_BLOCK.get()) &&
+            if(level.getBlockState(pos.above()).is(TBBlockRegistry.FUR_BLOCK.get()) &&
                     level.getBlockState(pos.above().above()).is(Blocks.CARVED_PUMPKIN)){
                 level.destroyBlock(pos, false);
                 level.destroyBlock(pos.above(2), false);
@@ -56,8 +56,8 @@ public class ServerForgeEvents {
             }
         }
         if(blockState.is(Blocks.CARVED_PUMPKIN) &&
-                level.getBlockState(pos.below()).is(BlockInit.FUR_BLOCK.get()) &&
-                    level.getBlockState(pos.below().below()).is(BlockInit.FUR_BLOCK.get())){
+                level.getBlockState(pos.below()).is(TBBlockRegistry.FUR_BLOCK.get()) &&
+                    level.getBlockState(pos.below().below()).is(TBBlockRegistry.FUR_BLOCK.get())){
             level.destroyBlock(pos, false);
             level.destroyBlock(pos.below(), false);
             level.destroyBlock(pos.below(2), false);
@@ -67,7 +67,7 @@ public class ServerForgeEvents {
     }
 
     public static void summonGolem(Level level, BlockPos pos){
-        FurGolemEntity golem = new FurGolemEntity(EntityInit.FUR_GOLEM.get(),level);
+        FurGolemEntity golem = new FurGolemEntity(TBEntityRegistry.FUR_GOLEM.get(),level);
         golem.setPos(pos.getX(), pos.getY(), pos.getZ());
         level.addFreshEntity(golem);
     }

@@ -1,7 +1,6 @@
 package com.modderg.tameablebeasts.mixin;
 
 import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
-import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;

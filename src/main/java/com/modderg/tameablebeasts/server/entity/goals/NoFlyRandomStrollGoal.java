@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
-import com.modderg.tameablebeasts.server.entity.FlyingTBAnimal;
+import com.modderg.tameablebeasts.server.entity.abstracts.FlyingTBAnimal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 
 public class NoFlyRandomStrollGoal extends RandomStrollGoal {

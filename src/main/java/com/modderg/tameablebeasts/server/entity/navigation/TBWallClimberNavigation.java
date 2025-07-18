@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.server.entity.navigation;
 
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.level.Level;

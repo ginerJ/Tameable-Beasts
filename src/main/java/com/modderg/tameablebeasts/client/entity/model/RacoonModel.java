@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.model;
 
-import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.server.entity.custom.RacoonEntity;
+import com.modderg.tameablebeasts.TameableBeasts;
+import com.modderg.tameablebeasts.server.entity.RacoonEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.joml.Quaternionf;
@@ -14,23 +14,23 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class RacoonModel extends GeoModel<RacoonEntity> {
 
     private ResourceLocation[] textures = {
-            new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_racoon.png"),
-            new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_racoon2.png"),
-            new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_racoon3.png")
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_racoon.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_racoon2.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_racoon3.png")
     };
 
     private ResourceLocation[] bbytextures = {
-            new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_baby_racoon.png"),
-            new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_baby_racoon2.png"),
-            new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_baby_racoon3.png")
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_baby_racoon.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_baby_racoon2.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_baby_racoon3.png")
     };
 
     @Override
     public ResourceLocation getModelResource(RacoonEntity entity) {
         if(entity.isBaby()){
-            return new ResourceLocation(TameableBeast.MOD_ID, "geo/tameable_baby_racoon.geo.json");
+            return new ResourceLocation(TameableBeasts.MOD_ID, "geo/tameable_baby_racoon.geo.json");
         }
-        return new ResourceLocation(TameableBeast.MOD_ID, "geo/tameable_racoon" + (entity.isBellyFull()?"_fat":"") + ".geo.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "geo/tameable_racoon" + (entity.isBellyFull()?"_fat":"") + ".geo.json");
     }
 
     @Override
@@ -44,9 +44,9 @@ public class RacoonModel extends GeoModel<RacoonEntity> {
     @Override
     public ResourceLocation getAnimationResource(RacoonEntity entity) {
         if(entity.isBaby()){
-            return new ResourceLocation(TameableBeast.MOD_ID, "animations/tameable_baby_racoon.anims.json");
+            return new ResourceLocation(TameableBeasts.MOD_ID, "animations/tameable_baby_racoon.anims.json");
         }
-        return new ResourceLocation(TameableBeast.MOD_ID, "animations/tameable_racoon.anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/tameable_racoon.anims.json");
     }
 
     @Override

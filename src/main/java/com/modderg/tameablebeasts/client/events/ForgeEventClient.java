@@ -1,23 +1,21 @@
 package com.modderg.tameablebeasts.client.events;
 
-import com.modderg.tameablebeasts.TameableBeast;
+import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.packet.CToSUpdateFlyingDownKey;
 import com.modderg.tameablebeasts.client.packet.CToSUpdateFlyingUpKey;
 import com.modderg.tameablebeasts.client.packet.CToSUpdateRiderClicked;
-import com.modderg.tameablebeasts.server.entity.FlyingRideableTBAnimal;
-import com.modderg.tameablebeasts.server.entity.custom.CrestedGeckoEntity;
-import com.modderg.tameablebeasts.server.entity.custom.GrapteranodonEntity;
-import com.modderg.tameablebeasts.server.packet.InitPackets;
+import com.modderg.tameablebeasts.server.entity.abstracts.FlyingRideableTBAnimal;
+import com.modderg.tameablebeasts.server.entity.CrestedGeckoEntity;
+import com.modderg.tameablebeasts.server.entity.GrapteranodonEntity;
+import com.modderg.tameablebeasts.registry.TBPacketRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -26,7 +24,7 @@ import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 
 
-@Mod.EventBusSubscriber(modid = TameableBeast.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = TameableBeasts.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ForgeEventClient {
 
     @SubscribeEvent
@@ -40,12 +38,12 @@ public class ForgeEventClient {
 
                 if(animal.upInput != playerPressingSpace){
                     animal.upInput = playerPressingSpace;
-                    InitPackets.sendToServer(new CToSUpdateFlyingUpKey(animal.getId(), playerPressingSpace));
+                    TBPacketRegistry.sendToServer(new CToSUpdateFlyingUpKey(animal.getId(), playerPressingSpace));
                 }
 
                 if(animal.downInput != playerPressingShift){
                     animal.downInput = Minecraft.getInstance().options.keySprint.isDown();
-                    InitPackets.sendToServer(new CToSUpdateFlyingDownKey(animal.getId(), playerPressingShift));
+                    TBPacketRegistry.sendToServer(new CToSUpdateFlyingDownKey(animal.getId(), playerPressingShift));
                 }
             }
         }
@@ -59,7 +57,7 @@ public class ForgeEventClient {
             if (player != null && player.getVehicle() instanceof FlyingRideableTBAnimal animal) {
                 if (animal instanceof GrapteranodonEntity pteranodon && !pteranodon.playGrip) {
                     pteranodon.playGrip = true;
-                    InitPackets.sendToServer(new CToSUpdateRiderClicked(animal.getId()));
+                    TBPacketRegistry.sendToServer(new CToSUpdateRiderClicked(animal.getId()));
                 }
             }
         }

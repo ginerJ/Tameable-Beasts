@@ -1,16 +1,13 @@
 package com.modderg.tameablebeasts.client.entity.render;
 
 import com.modderg.tameablebeasts.client.entity.model.BeetleDroneModel;
-import com.modderg.tameablebeasts.client.entity.model.FlyingBeetleModel;
-import com.modderg.tameablebeasts.server.entity.custom.BeetleDrone;
-import com.modderg.tameablebeasts.server.entity.custom.FlyingBeetleEntity;
+import com.modderg.tameablebeasts.server.entity.BeetleDrone;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 

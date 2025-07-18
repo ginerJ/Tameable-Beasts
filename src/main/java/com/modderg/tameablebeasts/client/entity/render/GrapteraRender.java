@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.render;
 
 import com.modderg.tameablebeasts.client.entity.model.GrapteraModel;
-import com.modderg.tameablebeasts.server.entity.custom.GrapteranodonEntity;
+import com.modderg.tameablebeasts.server.entity.GrapteranodonEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;

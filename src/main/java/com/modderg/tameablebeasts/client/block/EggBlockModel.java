@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.client.block;
 
-import com.modderg.tameablebeasts.TameableBeast;
+import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.server.block.EggBlockEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -11,12 +11,12 @@ public class EggBlockModel<T extends BlockEntity & GeoBlockEntity> extends GeoMo
 
     @Override
     public ResourceLocation getModelResource(EggBlockEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID, "geo/"+entity.getCleanSpecies().toLowerCase()+"_egg.geo.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "geo/"+entity.getCleanSpecies().toLowerCase()+"_egg.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(EggBlockEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID,"textures/block/"+entity.getCleanSpecies().toLowerCase()+"_egg.png");
+        return new ResourceLocation(TameableBeasts.MOD_ID,"textures/block/"+entity.getCleanSpecies().toLowerCase()+"_egg.png");
     }
 
     @Override

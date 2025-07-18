@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.client.entity;
 
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.constant.DataTickets;

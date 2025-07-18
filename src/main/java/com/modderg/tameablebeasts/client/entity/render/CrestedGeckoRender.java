@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.client.entity.render;
 
-import com.modderg.tameablebeasts.server.entity.custom.CrestedGeckoEntity;
+import com.modderg.tameablebeasts.server.entity.CrestedGeckoEntity;
 import com.modderg.tameablebeasts.client.entity.model.CrestedGeckoModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.server.block;
 
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
+import com.modderg.tameablebeasts.registry.TBBlockEntityRegistry;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -63,12 +64,12 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
     }
 
     public EggBlockEntity(BlockPos p_155229_, BlockState block){
-        super(BlockEntityInit.EGG_BLOCK_ENTITY.get(), p_155229_, block);
+        super(TBBlockEntityRegistry.EGG_BLOCK_ENTITY.get(), p_155229_, block);
         this.species = ((EggBlock)block.getBlock()).getSpecies();
     }
 
     public EggBlockEntity(BlockPos p_155229_, BlockState p_155230_, String species, RegistryObject<EntityType<T>> babyType){
-        super(BlockEntityInit.EGG_BLOCK_ENTITY.get(), p_155229_, p_155230_);
+        super(TBBlockEntityRegistry.EGG_BLOCK_ENTITY.get(), p_155229_, p_155230_);
         this.babyType = babyType;
         this.species = species;
     }

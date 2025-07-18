@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.server.packet;
 
-import com.modderg.tameablebeasts.server.entity.FlyingTBAnimal;
+import com.modderg.tameablebeasts.server.entity.abstracts.FlyingTBAnimal;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 import software.bernie.geckolib.util.ClientUtils;

@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 

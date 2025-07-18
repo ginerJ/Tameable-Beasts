@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.server.enchantments;
 
-import com.modderg.tameablebeasts.server.entity.custom.FlyingBeetleEntity;
-import com.modderg.tameablebeasts.server.item.ItemInit;
+import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
+import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.stream.IntStream;
 
 public class SwarmEnchantment extends Enchantment {
-    protected SwarmEnchantment(Rarity p_44676_, EnchantmentCategory p_44677_, EquipmentSlot... p_44678_) {
+    public SwarmEnchantment(Rarity p_44676_, EnchantmentCategory p_44677_, EquipmentSlot... p_44678_) {
         super(p_44676_, p_44677_, p_44678_);
     }
 
@@ -33,12 +33,12 @@ public class SwarmEnchantment extends Enchantment {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack item) {
-         return item.is(ItemInit.BUG_SWORD.get());
+         return item.is(TBItemRegistry.BUG_SWORD.get());
     }
 
     @Override
     public boolean canEnchant(@NotNull ItemStack item) {
-        return item.is(ItemInit.BUG_SWORD.get());
+        return item.is(TBItemRegistry.BUG_SWORD.get());
     }
 
     @Override

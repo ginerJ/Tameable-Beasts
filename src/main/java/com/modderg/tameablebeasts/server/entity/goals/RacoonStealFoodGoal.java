@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
-import com.modderg.tameablebeasts.server.entity.custom.RacoonEntity;
+import com.modderg.tameablebeasts.server.entity.RacoonEntity;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;

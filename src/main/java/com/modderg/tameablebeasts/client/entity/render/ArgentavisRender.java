@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.client.entity.render;
 
-import com.modderg.tameablebeasts.server.entity.custom.ArgentavisEntity;
+import com.modderg.tameablebeasts.server.entity.ArgentavisEntity;
 import com.modderg.tameablebeasts.client.entity.model.ArgentavisModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

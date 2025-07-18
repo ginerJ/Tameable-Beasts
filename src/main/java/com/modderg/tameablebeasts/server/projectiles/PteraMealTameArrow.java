@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.server.projectiles;
 
-import com.modderg.tameablebeasts.server.entity.EntityInit;
-import com.modderg.tameablebeasts.server.item.ItemInit;
+import com.modderg.tameablebeasts.registry.TBEntityRegistry;
+import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -16,13 +16,13 @@ public class PteraMealTameArrow extends AbstractTameArrow {
     }
 
     public PteraMealTameArrow(Level p_36866_, LivingEntity p_36867_) {
-        super(EntityInit.PTERA_MEAL_ARROW.get(), p_36867_, p_36866_);
+        super(TBEntityRegistry.PTERA_MEAL_ARROW.get(), p_36867_, p_36866_);
     }
 
     @Override
     void init() {
-        pickUp = ItemInit.PTERA_MEAL_ARROW.get();
-        particle = ItemInit.PTERANODON_MEAL.get();
+        pickUp = TBItemRegistry.PTERA_MEAL_ARROW.get();
+        particle = TBItemRegistry.PTERANODON_MEAL.get();
         chance = 5;
     }
 

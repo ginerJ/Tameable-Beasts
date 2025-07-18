@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.render;
 
 import com.modderg.tameablebeasts.client.entity.model.FurGolemModel;
-import com.modderg.tameablebeasts.server.entity.custom.FurGolemEntity;
+import com.modderg.tameablebeasts.server.entity.FurGolemEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;

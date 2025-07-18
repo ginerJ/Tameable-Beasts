@@ -1,8 +1,8 @@
 package com.modderg.tameablebeasts.client.entity.model;
 
-import com.modderg.tameablebeasts.TameableBeast;
+import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
-import com.modderg.tameablebeasts.server.entity.custom.ArgentavisEntity;
+import com.modderg.tameablebeasts.server.entity.ArgentavisEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animation.AnimationState;
 
@@ -10,17 +10,17 @@ public class ArgentavisModel extends TBGeoModel<ArgentavisEntity> {
 
     @Override
     public ResourceLocation getModelResource(ArgentavisEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID, "geo/"+(entity.isBaby()?"baby_":"")+"argentavis.geo.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "geo/"+(entity.isBaby()?"baby_":"")+"argentavis.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(ArgentavisEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID,"textures/entity/argentavis"+entity.getTextureID()+".png");
+        return new ResourceLocation(TameableBeasts.MOD_ID,"textures/entity/argentavis"+entity.getTextureID()+".png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(ArgentavisEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID, "animations/argentavis.anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/argentavis.anims.json");
     }
 
     @Override

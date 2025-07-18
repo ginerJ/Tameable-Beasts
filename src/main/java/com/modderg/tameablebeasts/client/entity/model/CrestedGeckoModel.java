@@ -1,8 +1,8 @@
 package com.modderg.tameablebeasts.client.entity.model;
 
-import com.modderg.tameablebeasts.TameableBeast;
+import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
-import com.modderg.tameablebeasts.server.entity.custom.CrestedGeckoEntity;
+import com.modderg.tameablebeasts.server.entity.CrestedGeckoEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
@@ -11,17 +11,17 @@ public class CrestedGeckoModel extends TBGeoModel<CrestedGeckoEntity> {
 
     @Override
     public ResourceLocation getModelResource(CrestedGeckoEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID, "geo/crested_gecko"+(entity.isBaby()?"_baby":"") + ".geo.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "geo/crested_gecko"+(entity.isBaby()?"_baby":"") + ".geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(CrestedGeckoEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID,"textures/entity/crested_gecko"+entity.getTextureID()+".png");
+        return new ResourceLocation(TameableBeasts.MOD_ID,"textures/entity/crested_gecko"+entity.getTextureID()+".png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(CrestedGeckoEntity entity) {
-        return new ResourceLocation(TameableBeast.MOD_ID, "animations/crested_gecko.anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/crested_gecko.anims.json");
     }
 
     @Override

@@ -1,13 +1,11 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
-import com.modderg.tameablebeasts.server.entity.TBSemiAquatic;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;

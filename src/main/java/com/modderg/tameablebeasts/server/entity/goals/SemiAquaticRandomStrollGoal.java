@@ -1,8 +1,7 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
-import com.modderg.tameablebeasts.server.entity.TBSemiAquatic;
-import net.minecraft.world.entity.PathfinderMob;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBSemiAquatic;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.phys.Vec3;

@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.render;
 
 import com.modderg.tameablebeasts.client.entity.model.RacoonModel;
-import com.modderg.tameablebeasts.server.entity.custom.RacoonEntity;
+import com.modderg.tameablebeasts.server.entity.RacoonEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 

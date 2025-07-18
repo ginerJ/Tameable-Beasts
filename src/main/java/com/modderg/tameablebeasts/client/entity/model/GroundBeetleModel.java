@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.model;
 
-import com.modderg.tameablebeasts.TameableBeast;
-import com.modderg.tameablebeasts.server.entity.custom.GroundBeetleEntity;
+import com.modderg.tameablebeasts.TameableBeasts;
+import com.modderg.tameablebeasts.server.entity.GroundBeetleEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;
@@ -14,20 +14,20 @@ public class GroundBeetleModel extends GeoModel<GroundBeetleEntity> {
 
     private final ResourceLocation[][] textures = {
             new ResourceLocation[]{
-                    new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/ground_beetle.png"),
-                    new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/ground_beetle2.png")
+                    new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/ground_beetle.png"),
+                    new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/ground_beetle2.png")
             },
             new ResourceLocation[]{
-                    new ResourceLocation(TameableBeast.MOD_ID, "textures/entity/tameable_beetle_baby.png")
+                    new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_beetle_baby.png")
             },
     };
 
     @Override
     public ResourceLocation getModelResource(GroundBeetleEntity entity) {
         if(entity.isBaby()){
-            return new ResourceLocation(TameableBeast.MOD_ID, "geo/tameable_beetle_baby.geo.json");
+            return new ResourceLocation(TameableBeasts.MOD_ID, "geo/tameable_beetle_baby.geo.json");
         }
-        return new ResourceLocation(TameableBeast.MOD_ID, "geo/ground_beetle.geo.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "geo/ground_beetle.geo.json");
     }
 
     @Override
@@ -41,9 +41,9 @@ public class GroundBeetleModel extends GeoModel<GroundBeetleEntity> {
     @Override
     public ResourceLocation getAnimationResource(GroundBeetleEntity entity) {
         if(entity.isBaby()){
-            return new ResourceLocation(TameableBeast.MOD_ID, "animations/tameable_baby_beetle_anims.json");
+            return new ResourceLocation(TameableBeasts.MOD_ID, "animations/tameable_baby_beetle_anims.json");
         }
-        return new ResourceLocation(TameableBeast.MOD_ID, "animations/ground_beetle_anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/ground_beetle_anims.json");
     }
 
     @Override

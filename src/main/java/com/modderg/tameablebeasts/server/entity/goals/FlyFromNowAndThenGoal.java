@@ -1,11 +1,9 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
-import com.modderg.tameablebeasts.server.entity.FlyingTBAnimal;
+import com.modderg.tameablebeasts.server.entity.abstracts.FlyingTBAnimal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
-
-import java.util.EnumSet;
 
 public class FlyFromNowAndThenGoal extends Goal {
 

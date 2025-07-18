@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.render;
 
 import com.modderg.tameablebeasts.client.entity.model.FlyingBeetleModel;
-import com.modderg.tameablebeasts.server.entity.custom.FlyingBeetleEntity;
+import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.LightTexture;

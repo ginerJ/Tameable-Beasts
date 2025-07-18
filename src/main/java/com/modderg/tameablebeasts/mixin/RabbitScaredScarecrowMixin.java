@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.mixin;
 
-import com.modderg.tameablebeasts.server.entity.custom.ScarecrowAllayEntity;
+import com.modderg.tameablebeasts.server.entity.ScarecrowAllayEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Rabbit;

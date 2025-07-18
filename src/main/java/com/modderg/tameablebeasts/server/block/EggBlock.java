@@ -1,10 +1,9 @@
 package com.modderg.tameablebeasts.server.block;
 
-import com.modderg.tameablebeasts.server.block.BlockEntityInit;
-import com.modderg.tameablebeasts.server.block.EggBlockEntity;
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
-import com.modderg.tameablebeasts.server.entity.custom.FurGolemEntity;
-import com.modderg.tameablebeasts.server.item.ItemInit;
+import com.modderg.tameablebeasts.registry.TBBlockEntityRegistry;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
+import com.modderg.tameablebeasts.server.entity.FurGolemEntity;
+import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -60,7 +59,7 @@ public class EggBlock<T extends TBAnimal> extends BaseEntityBlock {
         if(level.isClientSide)
             return null;
 
-        return createTickerHelper(type, BlockEntityInit.EGG_BLOCK_ENTITY.get(),
+        return createTickerHelper(type, TBBlockEntityRegistry.EGG_BLOCK_ENTITY.get(),
                 (plevel,pos,state,entity) -> entity.tick(plevel, pos, state));
     }
 
@@ -86,7 +85,7 @@ public class EggBlock<T extends TBAnimal> extends BaseEntityBlock {
     @Override
     public void playerDestroy(Level level, Player p_49828_, BlockPos pos, BlockState p_49830_, @Nullable BlockEntity p_49831_, ItemStack p_49832_) {
         level.addFreshEntity(new ItemEntity(level,pos.getX(),pos.getY(),pos.getZ(),
-                new ItemStack(ItemInit.EGG_RESTS.get())));
+                new ItemStack(TBItemRegistry.EGG_RESTS.get())));
         super.playerDestroy(level, p_49828_, pos, p_49830_, p_49831_, p_49832_);
     }
 

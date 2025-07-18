@@ -1,8 +1,8 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
 import com.modderg.tameablebeasts.server.block.EggBlockEntity;
-import com.modderg.tameablebeasts.server.block.InitPOITypes;
-import com.modderg.tameablebeasts.server.packet.InitPackets;
+import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
+import com.modderg.tameablebeasts.registry.TBPacketRegistry;
 import com.modderg.tameablebeasts.server.packet.StoCLoveEggPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -23,16 +23,16 @@ public class TakeCareOfEggsGoal extends Goal {
     Animal mob;
 
     List<RegistryObject<PoiType>> targetEggs = List.of(
-            InitPOITypes.CHIKOTE_POI,
-            InitPOITypes.ARGENTAVIS_POI,
-            InitPOITypes.GRASSHOPPER_POI,
-            InitPOITypes.CRESTED_GECKO_POI,
-            InitPOITypes.PENGUIN_POI,
-            InitPOITypes.GRAPTERANODON_POI,
-            InitPOITypes.FLYING_BEETLE_POI,
-            InitPOITypes.GROUND_BEETLE_POI,
-            InitPOITypes.QUETZAL_POI,
-            InitPOITypes.ROLY_POLY_POI
+            TBPOITypesRegistry.CHIKOTE_POI,
+            TBPOITypesRegistry.ARGENTAVIS_POI,
+            TBPOITypesRegistry.GRASSHOPPER_POI,
+            TBPOITypesRegistry.CRESTED_GECKO_POI,
+            TBPOITypesRegistry.PENGUIN_POI,
+            TBPOITypesRegistry.GRAPTERANODON_POI,
+            TBPOITypesRegistry.FLYING_BEETLE_POI,
+            TBPOITypesRegistry.GROUND_BEETLE_POI,
+            TBPOITypesRegistry.QUETZAL_POI,
+            TBPOITypesRegistry.ROLY_POLY_POI
     );
 
     int radius;
@@ -88,7 +88,7 @@ public class TakeCareOfEggsGoal extends Goal {
 
             egg.goBadTimer = 3000;
 
-            InitPackets.sendToAll(new StoCLoveEggPacket(targetPos));
+            TBPacketRegistry.sendToAll(new StoCLoveEggPacket(targetPos));
 
             stop();
         } else {

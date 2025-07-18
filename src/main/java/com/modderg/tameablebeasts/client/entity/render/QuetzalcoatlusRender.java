@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.render;
 
 import com.modderg.tameablebeasts.client.entity.model.QuetzalcoatlusModel;
-import com.modderg.tameablebeasts.server.entity.custom.QuetzalcoatlusEntity;
+import com.modderg.tameablebeasts.server.entity.QuetzalcoatlusEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;

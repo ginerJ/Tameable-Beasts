@@ -1,9 +1,7 @@
 package com.modderg.tameablebeasts.server.projectiles;
 
-import com.modderg.tameablebeasts.server.entity.EntityInit;
-import com.modderg.tameablebeasts.server.entity.custom.ArgentavisEntity;
-import com.modderg.tameablebeasts.server.entity.custom.ChikoteEntity;
-import com.modderg.tameablebeasts.server.item.ItemInit;
+import com.modderg.tameablebeasts.registry.TBEntityRegistry;
+import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -18,13 +16,13 @@ public class BirdBaitTameArrow extends AbstractTameArrow {
     }
 
     public BirdBaitTameArrow(Level p_36866_, LivingEntity p_36867_) {
-        super(EntityInit.BIRD_BAIT_ARROW.get(), p_36867_, p_36866_);
+        super(TBEntityRegistry.BIRD_BAIT_ARROW.get(), p_36867_, p_36866_);
     }
 
     @Override
     void init() {
-        pickUp = ItemInit.BIRD_BAIT_ARROW.get();
-        particle = ItemInit.BIG_BIRD_BAIT.get();
+        pickUp = TBItemRegistry.BIRD_BAIT_ARROW.get();
+        particle = TBItemRegistry.BIG_BIRD_BAIT.get();
         chance = 5;
     }
 

@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.server.tags;
 
-import com.modderg.tameablebeasts.TameableBeast;
+import com.modderg.tameablebeasts.TameableBeasts;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -16,7 +16,7 @@ public class TBTags {
         public static final TagKey<EntityType<?>> TAMED_BY_BIRD_BAIT_ARROW = tag("tamed_by_bird_bait_arrow");
 
         private static TagKey<EntityType<?>> tag(String name){
-            return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(TameableBeast.MOD_ID, name));
+            return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(TameableBeasts.MOD_ID, name));
         }
     }
 
@@ -57,7 +57,7 @@ public class TBTags {
         public static final TagKey<Item> SHINY_BEETLE_TAME_FOOD = tag("shiny_beetle_tame_food");
 
         private static TagKey<Item> tag(String name){
-            return ItemTags.create(new ResourceLocation(TameableBeast.MOD_ID, name));
+            return ItemTags.create(new ResourceLocation(TameableBeasts.MOD_ID, name));
         }
     }
 }

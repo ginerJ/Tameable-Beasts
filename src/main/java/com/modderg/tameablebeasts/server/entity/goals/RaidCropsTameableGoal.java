@@ -1,8 +1,8 @@
 package com.modderg.tameablebeasts.server.entity.goals;
 
-import com.modderg.tameablebeasts.server.block.InitPOITypes;
-import com.modderg.tameablebeasts.server.entity.TBAnimal;
-import com.modderg.tameablebeasts.server.entity.custom.ScarecrowAllayEntity;
+import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
+import com.modderg.tameablebeasts.server.entity.ScarecrowAllayEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -100,7 +100,7 @@ public class RaidCropsTameableGoal extends Goal {
             PoiManager poiManager = serverLevel.getPoiManager();
 
             Optional<BlockPos> poiPos = poiManager.find((p_217376_) ->
-                    p_217376_.is(InitPOITypes.SCARECROW_POI.getId()),
+                    p_217376_.is(TBPOITypesRegistry.SCARECROW_POI.getId()),
                     pos -> true,
                     mob.blockPosition(), 48, PoiManager.Occupancy.ANY);
             return poiPos.isEmpty();

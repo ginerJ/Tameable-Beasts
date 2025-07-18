@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.render;
 
 import com.modderg.tameablebeasts.client.entity.model.PenguinModel;
-import com.modderg.tameablebeasts.server.entity.custom.PenguinEntity;
+import com.modderg.tameablebeasts.server.entity.PenguinEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;

@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.render;
 
 import com.modderg.tameablebeasts.client.entity.model.GroundBeetleModel;
-import com.modderg.tameablebeasts.server.entity.custom.GroundBeetleEntity;
+import com.modderg.tameablebeasts.server.entity.GroundBeetleEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
