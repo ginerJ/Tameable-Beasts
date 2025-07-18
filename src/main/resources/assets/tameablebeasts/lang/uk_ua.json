@@ -4,7 +4,12 @@
   "item.tameablebeasts.ice_chestplate": "Льодяний нагрудник",
   "item.tameablebeasts.purple_allay": "Фіолетовий збирик",
   "item.tameablebeasts.iron_big_hoe": "Велика залізна мотика",
+  "item.tameablebeasts.bird_bait_arrow": "Стріла з приманкою великої птиці",
+  "item.tameablebeasts.ptera_meal_arrow": "Стріла з ласощами ґраптеранодона",
   "item.tameablebeasts.leaf": "Листок",
+  "item.tameablebeasts.beetle_dust": "Порох жука",
+  "item.tameablebeasts.bug_sword": "Меч жука",
+  "item.tameablebeasts.grasshopper_leg": "Нога польового коника",
   "item.tameablebeasts.racoon_fur": "Хутро єнота",
   "item.tameablebeasts.roly_plaque": "Щиток мокриці",
   "item.tameablebeasts.egg_rests": "Рештки яйця",
@@ -12,17 +17,26 @@
   "item.tameablebeasts.cooked_quetzal_meat": "Смажене м'ясо кетцалькоатля",
   "item.tameablebeasts.big_bird_meat": "Сире м'ясо великої птиці",
   "item.tameablebeasts.cooked_big_bird_meat": "Смажене м'ясо великої птиці",
+  "item.tameablebeasts.big_bird_bait": "Приманка великої птиці",
+  "item.tameablebeasts.pteranodon_meal": "Ласощі ґраптеранодона",
+  "item.tameablebeasts.bug_salad": "Салат із жуків",
+  "item.tameablebeasts.asphalt": "Шматок асфальту",
+
   "item.tameablebeasts.scarecrow_straw_hat": "Солом'яний капелюх",
   "item.tameablebeasts.biker_helmet": "Байкерський шолом",
   "item.tameablebeasts.flying_helmet": "Льотний шолом",
   "item.tameablebeasts.racoon_hat": "Капелюх єнота",
+
   "item.tameablebeasts.roly_poly_saddle": "Сідло мокриці",
   "item.tameablebeasts.argentavis_saddle": "Сідло аргентавіса",
   "item.tameablebeasts.crested_gecko_saddle": "Сідло чубатого гекона",
   "item.tameablebeasts.grasshopper_saddle": "Сідло польового коника",
   "item.tameablebeasts.chikote_saddle": "Сідло чікоти",
-  "item.tameablebeasts.quetzal_saddle": "Сідло кетцалькоатля",
+  "item.tameablebeasts.quetzal_saddle": "Сідло ґраптеранодона",
   "item.tameablebeasts.quetzal_stand": "Збруя кетцалькоатля",
+
+
+
   "item.tameablebeasts.racoon_spawn_egg": "Яйце виклику єнота",
   "item.tameablebeasts.penguin_spawn_egg": "Яйце виклику пінгвіна",
   "item.tameablebeasts.chikote_spawn_egg": "Яйце виклику чікоти",
@@ -34,12 +48,19 @@
   "item.tameablebeasts.scarecrow_spawn_egg": "Яйце виклику опудала",
   "item.tameablebeasts.crested_gecko_spawn_egg": "Яйце виклику чубатого гекона",
   "item.tameablebeasts.argentavis_spawn_egg": "Яйце виклику аргентавіса",
+  "item.tameablebeasts.graptera_spawn_egg": "Яйце виклику ґраптеранодона",
+
+
   "block.tameablebeasts.scarecrow_block": "Опудало",
   "block.tameablebeasts.racoon_fur_block": "Блок хутра єнота",
+  "block.tameablebeasts.asphalted_dirt": "Асфальтований ґрунт",
+
+
   "entity.tameablebeasts.tameable_racoon": "Єнот",
   "entity.tameablebeasts.tameable_penguin": "Пінгвін",
   "entity.tameablebeasts.tameable_chikote": "Чікота",
   "entity.tameablebeasts.tameable_beetle": "Бронзівка",
+  "entity.tameablebeasts.beetle_drone": "Жук-дрон",
   "entity.tameablebeasts.scarecrow_allay": "Опудало",
   "entity.tameablebeasts.quetzalcoatlus": "Кетцалькоатль",
   "entity.tameablebeasts.giant_grasshopper": "Гігантський польовий коник",
@@ -47,6 +68,10 @@
   "entity.tameablebeasts.giant_roly_poly": "Гігантська мокриця",
   "entity.tameablebeasts.crested_gecko": "Чубатий гекон",
   "entity.tameablebeasts.argentavis": "Аргентавіс",
+  "entity.tameablebeasts.graptera": "Ґраптеранодон",
+  "entity.tameablebeasts.fur_golem": "Хутряний ґолем",
+
+
   "block.tameablebeasts.quetzalcoatlus_egg": "Яйце кетцалькоатля",
   "block.tameablebeasts.chikote_egg": "Яйце чікоти",
   "block.tameablebeasts.roly_poly_egg": "Яйце мокриці",
@@ -56,5 +81,18 @@
   "block.tameablebeasts.penguin_egg": "Яйце пінгвіна",
   "block.tameablebeasts.crested_gecko_egg": "Яйце чубатого гекона",
   "block.tameablebeasts.argentavis_egg": "Яйце аргентавіса",
+  "block.tameablebeasts.graptera_egg": "Яйце ґраптеранодона",
+
+
+  "enchantment.tameablebeasts.swarm": "Рій",
+  "enchantment.tameablebeasts.sting": "Жало",
+
+  "item.description.tameablebeasts.penguin_armor": "Надто малий, щоб споряджатися людиною.",
+  "gui.text.tameablebeasts.hatching_gui.owned_by": "Належить: ",
+  "gui.text.tameablebeasts.hatching_gui.status": "Стан: ",
+  "gui.text.tameablebeasts.hatching_gui.gone_bad": "Погано",
+  "gui.text.tameablebeasts.hatching_gui.warm": "Тепло",
+  "gui.text.tameablebeasts.hatching_gui.cold": "Холодно",
+
   "itemGroup.tameabletab": "Вкладка Tameable Beasts"
 }
