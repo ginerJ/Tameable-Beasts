@@ -105,7 +105,7 @@
   "item.tameablebeasts.big_bird_bait.tooltip" : "Tame giant birds with this seedy treat.",
   "item.tameablebeasts.pteranodon_meal.tooltip" : "Tame pteranodons with this ancient treat.",
   "item.tameablebeasts.bug_salad.tooltip" : "Tame giant insects with this sweet salad.",
-  "item.tameablebeasts.asphalt.tooltip" : "Use it to build roads over dirt.",
+  "item.tameablebeasts.asphalt.tooltip" : "Use it to build roads over dirt, roly polies get a better grip on these too.",
 
   "item.tameablebeasts.scarecrow_straw_hat.tooltip" : "Wear it or build a scarecrow to defend your crops with",
   "item.tameablebeasts.biker_helmet.tooltip" : "Roly polies won't slow down for your safety with this.",
@@ -118,5 +118,19 @@
   "item.tameablebeasts.grasshopper_saddle.tooltip" : "Equip it on grasshoppers to ride them.",
   "item.tameablebeasts.chikote_saddle.tooltip" : "Equip it on grasshoppers to ride them.",
   "item.tameablebeasts.quetzal_saddle.tooltip" : "Equip it on pteranodons to ride them.",
-  "item.tameablebeasts.quetzal_stand.tooltip" : "Equip it on quetzals to allow more players on them."
+  "item.tameablebeasts.quetzal_stand.tooltip" : "Equip it on quetzals to allow more players on them.",
+
+  "block.tameablebeasts.scarecrow_block.tooltip" : "This will keep Chikotes at bay, seems kinda cozy inside too.",
+  "block.tameablebeasts.racoon_fur_block.tooltip" : "You could build a fur golem with these.",
+
+  "block.tameablebeasts.quetzalcoatlus_egg.tooltip" : "You can hatch a Quetzal from this, if you are a good parent.",
+  "block.tameablebeasts.chikote_egg.tooltip" : "You can hatch a Chikote from this, if you are a good parent.",
+  "block.tameablebeasts.roly_poly_egg.tooltip" : "You can hatch a Roly Poly from this, if you are a good parent.",
+  "block.tameablebeasts.beetle_egg.tooltip" : "You can hatch a Flying Beetle from this, if you are a good parent.",
+  "block.tameablebeasts.ground_beetle_egg.tooltip" : "You can hatch a Ground Beetle from this, if you are a good parent.",
+  "block.tameablebeasts.grasshopper_egg.tooltip" : "You can hatch a Grasshopper from this, if you are a good parent.",
+  "block.tameablebeasts.penguin_egg.tooltip" : "You can hatch a Penguin from this, if you are a good parent.",
+  "block.tameablebeasts.crested_gecko_egg.tooltip" : "You can hatch a Crested Gecko from this, if you are a good parent.",
+  "block.tameablebeasts.argentavis_egg.tooltip" : "You can hatch a Argentavis from this, if you are a good parent.",
+  "block.tameablebeasts.graptera_egg.tooltip" : "You can hatch a Grapteranodon from this, if you are a good parent."
 }
