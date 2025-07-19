@@ -20,7 +20,7 @@ public class PenguinModel extends TBGeoModel<PenguinEntity> {
     @Override
     public ResourceLocation getTextureResource(PenguinEntity entity) {
        if(entity.isBaby()){
-           return new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/penguin4.png");
+           return new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/penguin_baby.png");
        }
         return new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/penguin"+entity.getTextureID()+".png");
     }

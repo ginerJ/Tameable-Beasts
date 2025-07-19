@@ -73,10 +73,13 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
     public PenguinEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.textureIdSize = 5;
+
+        this.hasWarmthVariants = true;
+
         this.attackAnims.add("attack");
         this.attackAnims.add("sword_attack");
         this.attackAnims.add("sword_attack2");
+
         this.setMaxUpStep(1.0f);
 
         if(!level().isClientSide())
@@ -194,13 +197,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     }
 
     public static boolean checkPenguinSpawnRules(EntityType<PenguinEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
-        boolean isColdBiome = p_218243_.getBiome(p_218245_).value().getBaseTemperature() < 0.15F;
-
-        return (p_218243_.getBlockState(p_218245_.below()).is(Blocks.PACKED_ICE)
-                || p_218243_.getBlockState(p_218245_.below()).is(Blocks.ICE)
-                || p_218243_.getBlockState(p_218245_.below()).is(Blocks.BLUE_ICE))
-                && isColdBiome
-                && ModCommonConfigs.CAN_SPAWN_PENGUIN.get();
+        return checkAnimalSpawnRules(p_218242_, p_218243_, p_218244_, p_218245_, p_218246_) && ModCommonConfigs.CAN_SPAWN_PENGUIN.get();
     }
 
 

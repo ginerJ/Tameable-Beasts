@@ -4,7 +4,6 @@ import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.server.item.block.HatItem;
 import com.modderg.tameablebeasts.server.item.AsphaltItem;
-import com.modderg.tameablebeasts.server.item.PenguinArmor;
 import com.modderg.tameablebeasts.server.item.PurpleAllay;
 import com.modderg.tameablebeasts.server.projectiles.BirdBaitTameArrow;
 import com.modderg.tameablebeasts.server.projectiles.PteraMealTameArrow;
@@ -25,8 +24,8 @@ public class TBItemRegistry {
 
         //misc
         public static final RegistryObject<Item> ICEPOP = ITEMS.register("icepop", () -> new Item(new Properties().food(Foods.SWEET_BERRIES)));
-        public static final RegistryObject<Item> ICE_HELMET = ITEMS.register("ice_helmet", () -> new PenguinArmor(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> ICE_CHESTPLATE = ITEMS.register("ice_chestplate", () -> new PenguinArmor(new Properties().stacksTo(1)));
+        public static final RegistryObject<Item> ICE_HELMET = ITEMS.register("ice_helmet", () -> new Item(new Properties().stacksTo(1)));
+        public static final RegistryObject<Item> ICE_CHESTPLATE = ITEMS.register("ice_chestplate", () -> new Item(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> PURPLE_ALLAY = ITEMS.register("purple_allay", () -> new PurpleAllay(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> LEAF = ITEMS.register("leaf", () -> new Item(new Properties()));
         public static final RegistryObject<Item> GRASSHOPPER_LEG = ITEMS.register("grasshopper_leg", () -> new Item(new Properties()));

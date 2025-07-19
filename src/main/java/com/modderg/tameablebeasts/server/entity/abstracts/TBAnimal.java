@@ -4,13 +4,16 @@ import com.modderg.tameablebeasts.server.entity.navigation.TBGroundPathNavigatio
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -27,6 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,9 +46,12 @@ import software.bernie.geckolib.core.object.PlayState;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.modderg.tameablebeasts.constants.TBConstants.*;
+
 public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     private static final EntityDataAccessor<Integer> TEXTURE_ID = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.INT);
+
     public void setTextureId(int i){
         this.getEntityData().set(TEXTURE_ID, i);
     }
@@ -97,9 +104,13 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         
-        if (compound.contains("TEXTURE_ID"))
+        if (compound.contains("TEXTURE_ID")){
+            if(this.hasWarmthVariants && this.getTextureID() > 2)
+                this.setTextureId(this.random.nextInt(WARM_VARIANT+1));
+
             this.setTextureId(compound.getInt("TEXTURE_ID"));
-        
+        }
+
         if (compound.contains("WANDERING"))
             this.setWandering(compound.getBoolean("WANDERING"));
 
@@ -112,14 +123,29 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         return !(target instanceof TBAnimal tg && (this.getOwner() instanceof Player p && tg.isOwnedBy(p))) && super.canAttack(target);
     }
 
+    protected boolean hasWarmthVariants = false;
+
     protected int textureIdSize = 0;
     protected int healthFloor = 0;
 
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance p_146747_, @NotNull MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
 
-        if(textureIdSize > 0)
+        if(hasWarmthVariants){
+            Holder<Biome> biome = this.level().getBiome(this.blockPosition());
+
+            float temperature = biome.value().getBaseTemperature();
+
+            if (temperature < 0.15f)
+                this.setTextureId(COLD_VARIANT);
+            else if (temperature > 1f)
+                this.setTextureId(WARM_VARIANT);
+            else
+                this.setTextureId(TEMPERATE_VARIANT);
+        }
+        else if(textureIdSize > 0)
             this.setTextureId(this.random.nextInt(textureIdSize));
+
         this.updateAttributes();
 
         if(healthFloor > 0){
@@ -135,10 +161,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     public void aiStep() {
         if (!this.level().isClientSide && this.isAlive() && this.tickCount % 240 == 0)
             this.heal(1.0F);
-
-//        goalSelector.getRunningGoals().findFirst().ifPresent(
-//                goal -> this.setCustomName(Component.literal(goal.getGoal().toString()))
-//        );
 
         super.aiStep();
     }
@@ -320,6 +342,22 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
                 animal.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, p_21061_), vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z);
         }
     }
+
+    @Override
+    public @NotNull Component getName() {
+        if (!hasWarmthVariants)
+            return super.getName();
+
+        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(this.getType());
+        String base = "entity." + key.getNamespace() + "." + key.getPath();
+
+        return switch (this.getTextureID()) {
+            case COLD_VARIANT      -> Component.translatable(base + ".cold");
+            case TEMPERATE_VARIANT      -> Component.translatable(base + ".temperate");
+            default                       -> Component.translatable(base + ".warm");
+        };
+    }
+
 
     //ANIMATION STUFF
 

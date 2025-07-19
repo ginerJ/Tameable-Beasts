@@ -1,4 +1,58 @@
 {
+
+  "block.tameablebeasts.scarecrow_block" : "Scarecrow",
+  "block.tameablebeasts.racoon_fur_block" : "Racoon Fur Block",
+  "block.tameablebeasts.asphalted_dirt" : "Asphalted Dirt Block",
+
+
+  "entity.tameablebeasts.tameable_racoon" : "Racoon",
+  "entity.tameablebeasts.tameable_penguin.cold" : "Emperor Penguin",
+  "entity.tameablebeasts.tameable_penguin.temperate" : "Little Blue Penguin",
+  "entity.tameablebeasts.tameable_penguin.warm" : "African Penguin",
+  "entity.tameablebeasts.tameable_chikote" : "Chikote",
+  "entity.tameablebeasts.tameable_beetle" : "Shiny Beetle",
+  "entity.tameablebeasts.beetle_drone" : "Beetle Drone",
+  "entity.tameablebeasts.scarecrow_allay" : "Scarecrow",
+  "entity.tameablebeasts.quetzalcoatlus" : "Quetzalcoatlus",
+  "entity.tameablebeasts.giant_grasshopper" : "Giant Grasshopper",
+  "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
+  "entity.tameablebeasts.giant_roly_poly" : "Giant Roly Poly",
+  "entity.tameablebeasts.crested_gecko" : "Crested Gecko",
+  "entity.tameablebeasts.argentavis" : "Argentavis",
+  "entity.tameablebeasts.graptera" : "Grapteranodon",
+
+
+  "block.tameablebeasts.quetzalcoatlus_egg" : "Quetzal Egg",
+  "block.tameablebeasts.chikote_egg" : "Chikote Egg",
+  "block.tameablebeasts.roly_poly_egg" : "Roly Poly Egg",
+  "block.tameablebeasts.beetle_egg" : "Flying Beetle Larva",
+  "block.tameablebeasts.ground_beetle_egg" : "Ground Beetle Larva",
+  "block.tameablebeasts.grasshopper_egg" : "Grasshopper Egg",
+  "block.tameablebeasts.penguin_egg" : "Penguin Egg",
+  "block.tameablebeasts.crested_gecko_egg" : "Crested Gecko Egg",
+  "block.tameablebeasts.argentavis_egg" : "Argentavis Egg",
+  "block.tameablebeasts.graptera_egg" : "Grapteranodon Egg",
+
+
+  "enchantment.tameablebeasts.swarm" : "Swarm",
+  "enchantment.tameablebeasts.sting" : "Sting",
+
+
+  "itemGroup.tameabletab" : "Tameable Beasts Tab",
+
+  "item.tameablebeasts.racoon_spawn_egg" : "Racoon Spawn Egg",
+  "item.tameablebeasts.penguin_spawn_egg" : "Penguin Spawn Egg",
+  "item.tameablebeasts.chikote_spawn_egg" : "Chikote Spawn Egg",
+  "item.tameablebeasts.beetle_spawn_egg" : "Shiny Beetle Spawn Egg",
+  "item.tameablebeasts.quetzal_spawn_egg" : "Quetzalcoatlus Spawn Egg",
+  "item.tameablebeasts.giant_grasshopper_spawn_egg" : "Giant Grasshopper Spawn Egg",
+  "item.tameablebeasts.ground_beetle_spawn_egg" : "Ground Beetle Spawn Egg",
+  "item.tameablebeasts.giant_roly_poly_spawn_egg" : "Giant Roly Poly Spawn Egg",
+  "item.tameablebeasts.scarecrow_spawn_egg" : "Scarecrow Spawn Egg",
+  "item.tameablebeasts.crested_gecko_spawn_egg" : "Crested Gecko Spawn Egg",
+  "item.tameablebeasts.argentavis_spawn_egg" : "Argentavis Spawn Egg",
+  "item.tameablebeasts.graptera_spawn_egg" : "Grapteranodon Spawn Egg",
+
   "item.tameablebeasts.icepop" : "Icepop",
   "item.tameablebeasts.ice_helmet" : "Ice Helmet",
   "item.tameablebeasts.ice_chestplate" : "Ice Chestplate",
@@ -35,57 +89,34 @@
   "item.tameablebeasts.quetzal_saddle" : "Pteranodon Saddle",
   "item.tameablebeasts.quetzal_stand" : "Quetzalcoatulus Stand Gear",
 
+  "item.tameablebeasts.icepop.tooltip" : "Can be a tasty treat or a deadly penguin weapon.",
+  "item.tameablebeasts.ice_helmet.tooltip" : "That won't fit on you maybe try on something smaller like a penguin.",
+  "item.tameablebeasts.purple_allay.tooltip" : "Allay too shy to scape your inventory, maybe he could feel at home inside some disguise.",
+  "item.tameablebeasts.iron_big_hoe.tooltip" : "Some scarecrow would give this a better use",
+  "item.tameablebeasts.bird_bait_arrow.tooltip" : "Deliver giant bird taming projectiles, careful not to kill them.",
+  "item.tameablebeasts.ptera_meal_arrow.tooltip" : "Deliver pteranodon taming projectiles, careful not to kill them.",
+  "item.tameablebeasts.leaf.tooltip" : "Insects love these.",
+  "item.tameablebeasts.beetle_dust.tooltip" : "Heard these have magical properties.",
+  "item.tameablebeasts.bug_sword.tooltip" : "Can use the power of hives and poison.",
+  "item.tameablebeasts.grasshopper_leg.tooltip" : "You monster. You can craft a weapon with these.",
+  "item.tameablebeasts.racoon_fur.tooltip" : "This is somehow as strong as spider strings.",
+  "item.tameablebeasts.roly_plaque.tooltip" : "Soft chitin plaque, looks comfy to sit on or wear.",
+  "item.tameablebeasts.egg_rests.tooltip" : "You are a bad parent, maybe you can make something bugs will like with it.",
+  "item.tameablebeasts.big_bird_bait.tooltip" : "Tame giant birds with this seedy treat.",
+  "item.tameablebeasts.pteranodon_meal.tooltip" : "Tame pteranodons with this ancient treat.",
+  "item.tameablebeasts.bug_salad.tooltip" : "Tame giant insects with this sweet salad.",
+  "item.tameablebeasts.asphalt.tooltip" : "Use it to build roads over dirt.",
 
+  "item.tameablebeasts.scarecrow_straw_hat.tooltip" : "Wear it or build a scarecrow to defend your crops with",
+  "item.tameablebeasts.biker_helmet.tooltip" : "Roly polies won't slow down for your safety with this.",
+  "item.tameablebeasts.flying_helmet.tooltip" : "Flying mobs won't slow down for your safety with this.",
 
-  "item.tameablebeasts.racoon_spawn_egg" : "Racoon Spawn Egg",
-  "item.tameablebeasts.penguin_spawn_egg" : "Penguin Spawn Egg",
-  "item.tameablebeasts.chikote_spawn_egg" : "Chikote Spawn Egg",
-  "item.tameablebeasts.beetle_spawn_egg" : "Shiny Beetle Spawn Egg",
-  "item.tameablebeasts.quetzal_spawn_egg" : "Quetzalcoatlus Spawn Egg",
-  "item.tameablebeasts.giant_grasshopper_spawn_egg" : "Giant Grasshopper Spawn Egg",
-  "item.tameablebeasts.ground_beetle_spawn_egg" : "Ground Beetle Spawn Egg",
-  "item.tameablebeasts.giant_roly_poly_spawn_egg" : "Giant Roly Poly Spawn Egg",
-  "item.tameablebeasts.scarecrow_spawn_egg" : "Scarecrow Spawn Egg",
-  "item.tameablebeasts.crested_gecko_spawn_egg" : "Crested Gecko Spawn Egg",
-  "item.tameablebeasts.argentavis_spawn_egg" : "Argentavis Spawn Egg",
-  "item.tameablebeasts.graptera_spawn_egg" : "Grapteranodon Spawn Egg",
-
-
-  "block.tameablebeasts.scarecrow_block" : "Scarecrow",
-  "block.tameablebeasts.racoon_fur_block" : "Racoon Fur Block",
-  "block.tameablebeasts.asphalted_dirt" : "Asphalted Dirt Block",
-
-
-  "entity.tameablebeasts.tameable_racoon" : "Racoon",
-  "entity.tameablebeasts.tameable_penguin" : "Penguin",
-  "entity.tameablebeasts.tameable_chikote" : "Chikote",
-  "entity.tameablebeasts.tameable_beetle" : "Shiny Beetle",
-  "entity.tameablebeasts.beetle_drone" : "Beetle Drone",
-  "entity.tameablebeasts.scarecrow_allay" : "Scarecrow",
-  "entity.tameablebeasts.quetzalcoatlus" : "Quetzalcoatlus",
-  "entity.tameablebeasts.giant_grasshopper" : "Giant Grasshopper",
-  "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
-  "entity.tameablebeasts.giant_roly_poly" : "Giant Roly Poly",
-  "entity.tameablebeasts.crested_gecko" : "Crested Gecko",
-  "entity.tameablebeasts.argentavis" : "Argentavis",
-  "entity.tameablebeasts.graptera" : "Grapteranodon",
-
-
-  "block.tameablebeasts.quetzalcoatlus_egg" : "Quetzal Egg",
-  "block.tameablebeasts.chikote_egg" : "Chikote Egg",
-  "block.tameablebeasts.roly_poly_egg" : "Roly Poly Egg",
-  "block.tameablebeasts.beetle_egg" : "Flying Beetle Larva",
-  "block.tameablebeasts.ground_beetle_egg" : "Ground Beetle Larva",
-  "block.tameablebeasts.grasshopper_egg" : "Grasshopper Egg",
-  "block.tameablebeasts.penguin_egg" : "Penguin Egg",
-  "block.tameablebeasts.crested_gecko_egg" : "Crested Gecko Egg",
-  "block.tameablebeasts.argentavis_egg" : "Argentavis Egg",
-  "block.tameablebeasts.graptera_egg" : "Grapteranodon Egg",
-
-
-  "enchantment.tameablebeasts.swarm" : "Swarm",
-  "enchantment.tameablebeasts.sting" : "Sting",
-
-
-  "itemGroup.tameabletab" : "Tameable Beasts Tab"
+  "item.tameablebeasts.ice_chestplate.tooltip" : "Equip it on penguins polies to ride them.",
+  "item.tameablebeasts.roly_poly_saddle.tooltip" : "Equip it on roly polies to ride them.",
+  "item.tameablebeasts.argentavis_saddle.tooltip" : "Equip it on argentavis to ride them.",
+  "item.tameablebeasts.crested_gecko_saddle.tooltip" : "Equip it on crested geckos to ride them.",
+  "item.tameablebeasts.grasshopper_saddle.tooltip" : "Equip it on grasshoppers to ride them.",
+  "item.tameablebeasts.chikote_saddle.tooltip" : "Equip it on grasshoppers to ride them.",
+  "item.tameablebeasts.quetzal_saddle.tooltip" : "Equip it on pteranodons to ride them.",
+  "item.tameablebeasts.quetzal_stand.tooltip" : "Equip it on quetzals to allow more players on them."
 }
