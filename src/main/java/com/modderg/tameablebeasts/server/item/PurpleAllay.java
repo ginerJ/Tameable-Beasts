@@ -6,6 +6,7 @@ import com.modderg.tameablebeasts.registry.TBEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -30,6 +31,11 @@ public class PurpleAllay extends Item {
             level.addFreshEntity(scarecrow);
             level.destroyBlock(blockpos, false);
             level.sendBlockUpdated(blockpos, blockstate, level.getBlockState(blockpos), 3);
+
+            if (!context.getPlayer().getAbilities().instabuild) {
+                ItemStack itemStack = context.getPlayer().getItemInHand(context.getHand());
+                itemStack.shrink(1);
+            }
         }
 
         return super.useOn(context);
