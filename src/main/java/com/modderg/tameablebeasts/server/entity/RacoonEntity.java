@@ -97,8 +97,6 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("TEXTUREID"))
-            this.setTextureId(compound.getInt("TEXTUREID"));
 
         if (compound.contains("IS_BELLY_FULL"))
             this.setBellyFull(compound.getBoolean("IS_BELLY_FULL"));
@@ -107,11 +105,8 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTUREID", this.getTextureID());
         compound.putBoolean("IS_BELLY_FULL", this.isBellyFull());
     }
-
-    private int dropFurTime = getRandom().nextInt(300,1000);
 
     @Override
     public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
@@ -135,6 +130,8 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
         return itemStack.is(TBTags.Items.RACOON_TAME_FOOD);
     }
 
+    private int dropFurTime = getRandom().nextInt(300,1000);
+
     @Override
     public void tick() {
         if(this.isBellyFull() && dropFurTime-- <= 0) {
@@ -142,6 +139,7 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
             spawnAtLocation(TBItemRegistry.FUR.get());
             this.setBellyFull(false);
         }
+
         super.tick();
     }
 

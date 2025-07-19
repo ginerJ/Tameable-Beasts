@@ -217,7 +217,9 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     }
 
     public void tameGAnimal(Player player, ItemStack itemStack, int chance){
+
         if (!player.getAbilities().instabuild && itemStack!= null) itemStack.shrink(1);
+
         if (this.random.nextInt(100) < chance && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
             this.setOwnerUUID(player.getUUID());
             this.setTame(true);
@@ -240,6 +242,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     public int genChildTextId(){
         if(this.random.nextInt(100) <= 30)
             return this.random.nextInt(textureIdSize);
+
         return this.getTextureID();
     }
 
@@ -271,6 +274,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     public LivingEntity getControllingPassenger() {
         if(!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof LivingEntity passenger && this.isOwnedBy(passenger))
             return passenger;
+
         return null;
     }
 
@@ -321,14 +325,11 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
 
-    public <T extends TBAnimal & GeoEntity> AnimationController<T> groundController(T entity) {
-        return new AnimationController<>(entity,"movement", 5, event -> groundState(entity, event));
-    }
-
     @Override
     public boolean doHurtTarget(@NotNull Entity p_21372_) {
         if(!attackAnims.isEmpty())
             playAttackAnim();
+
         return super.doHurtTarget(p_21372_);
     }
 
@@ -340,6 +341,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         for (String attack: attackAnims)
             controller.triggerableAnim(attack, RawAnimation.begin().then(attack, Animation.LoopType.PLAY_ONCE));
         controller.triggerableAnim("interact", RawAnimation.begin().then("interact", Animation.LoopType.PLAY_ONCE));
+
         return controller;
     }
 
@@ -347,6 +349,10 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     @Override public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
+    }
+
+    public <T extends TBAnimal & GeoEntity> AnimationController<T> groundController(T entity) {
+        return new AnimationController<>(entity,"movement", 5, event -> groundState(entity, event));
     }
 
     public <T extends TBAnimal & GeoEntity> PlayState groundState(T entity, software.bernie.geckolib.core.animation.AnimationState<T> event) {

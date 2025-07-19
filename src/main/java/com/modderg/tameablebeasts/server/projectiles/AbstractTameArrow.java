@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.server.projectiles;
 
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.Entity;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractTameArrow extends AbstractArrow {
 
@@ -22,16 +24,15 @@ public abstract class AbstractTameArrow extends AbstractArrow {
     protected AbstractTameArrow(EntityType<? extends AbstractArrow> p_36721_, Level p_36722_) {
         super(p_36721_, p_36722_);
         init();
-        this.setBaseDamage(0);
+        this.setBaseDamage(0.25);
     }
 
     protected AbstractTameArrow(EntityType<? extends AbstractArrow> p_36717_, LivingEntity p_36718_, Level p_36719_) {
         this(p_36717_, p_36718_.getX(), p_36718_.getEyeY() - (double)0.1F, p_36718_.getZ(), p_36719_);
         this.setOwner(p_36718_);
-        if (p_36718_ instanceof Player) {
-            this.pickup = AbstractArrow.Pickup.ALLOWED;
-        }
 
+        if (p_36718_ instanceof Player)
+            this.pickup = AbstractArrow.Pickup.ALLOWED;
     }
 
     protected AbstractTameArrow(EntityType<? extends AbstractArrow> p_36711_, double p_36712_, double p_36713_, double p_36714_, Level p_36715_) {
@@ -43,22 +44,26 @@ public abstract class AbstractTameArrow extends AbstractArrow {
 
     public void tick() {
         super.tick();
-        if (this.level().isClientSide && !this.inGround)
-            this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(this.particle)), this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+        if (this.level() instanceof ClientLevel level && !this.inGround)
+            level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(this.particle)), this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
     }
 
     protected abstract boolean canTame(Entity entity);
 
     @Override
-    protected void onHitEntity(EntityHitResult p_36757_) {
+    protected void onHitEntity(@NotNull EntityHitResult p_36757_) {
         super.onHitEntity(p_36757_);
 
-        if(this.getOwner() instanceof Player player && canTame(p_36757_.getEntity()) && p_36757_.getEntity() instanceof TBAnimal tameable && !tameable.isTame())
-            tameable.tameGAnimal(player, null, chance);
+        if(this.getOwner() instanceof Player player &&
+                canTame(p_36757_.getEntity()) &&
+                p_36757_.getEntity() instanceof TBAnimal tbAnimal &&
+                !tbAnimal.isTame())
+
+            tbAnimal.tameGAnimal(player, null, chance);
     }
 
     @Override
-    protected ItemStack getPickupItem() {
+    protected @NotNull ItemStack getPickupItem() {
         return new ItemStack(this.pickUp);
     }
 }
