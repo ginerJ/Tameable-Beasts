@@ -5,8 +5,8 @@ import com.modderg.tameablebeasts.server.entity.RacoonEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class TameableRacoonRender extends GeoEntityRenderer<RacoonEntity> {
-    public TameableRacoonRender(EntityRendererProvider.Context renderManager) {
+public class RacoonRender extends GeoEntityRenderer<RacoonEntity> {
+    public RacoonRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new RacoonModel());
         this.shadowRadius = 0.4f;
     }

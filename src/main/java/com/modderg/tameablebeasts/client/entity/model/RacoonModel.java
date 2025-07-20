@@ -25,7 +25,10 @@ public class RacoonModel extends GeoModel<RacoonEntity> {
             new ResourceLocation(TameableBeasts.MOD_ID, "geo/racoon_fat.geo.json")
     };
 
-    static final ResourceLocation animations = new ResourceLocation(TameableBeasts.MOD_ID, "animations/tameable_racoon.anims.json");
+    static final ResourceLocation[] animations = {
+            new ResourceLocation(TameableBeasts.MOD_ID, "animations/racoon_anims.json"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "animations/racoon_baby_anims.json")
+    };
 
     @Override
     public ResourceLocation getModelResource(RacoonEntity entity) {
@@ -45,28 +48,8 @@ public class RacoonModel extends GeoModel<RacoonEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(RacoonEntity entity) {
-        return animations;
+        if (entity.isBaby())
+            return animations[1];
+        return animations[0];
     }
-
-    @Override
-    public void setCustomAnimations(RacoonEntity animatable, long instanceId, AnimationState<RacoonEntity> animationState) {
-        CoreGeoBone head = getAnimationProcessor().getBone("head");
-        CoreGeoBone entity = getAnimationProcessor().getBone("entity");
-
-        if (head != null && entity != null) {
-            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-
-            float headPitch = (entityData.headPitch()) * Mth.DEG_TO_RAD;
-            float headYaw = entityData.netHeadYaw() * Mth.DEG_TO_RAD;
-
-            Quaternionf desiredHeadRotation = new Quaternionf().rotateXYZ(headPitch-entity.getRotX()*2, headYaw, 0);
-
-            head.setRotX(desiredHeadRotation.x);
-            head.setRotY(desiredHeadRotation.y);
-            head.setRotZ(desiredHeadRotation.z);
-        }
-
-        super.setCustomAnimations(animatable, instanceId, animationState);
-    }
-
 }

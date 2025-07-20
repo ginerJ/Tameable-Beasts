@@ -9,26 +9,19 @@ import com.modderg.tameablebeasts.registry.TBEntityRegistry;
 
 import com.modderg.tameablebeasts.client.particles.TameableParticles;
 import com.modderg.tameablebeasts.client.particles.custom.CitrineParticles;
-import com.modderg.tameablebeasts.registry.TBItemRegistry;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = TameableBeasts.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModEventClient {
 
     @SubscribeEvent
     public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(TBEntityRegistry.RACOON.get(), TameableRacoonRender::new);
+        event.registerEntityRenderer(TBEntityRegistry.RACOON.get(), RacoonRender::new);
         event.registerEntityRenderer(TBEntityRegistry.PENGUIN.get(), PenguinRenderer::new);
         event.registerEntityRenderer(TBEntityRegistry.CHIKOTE.get(), TameableChikoteRender::new);
         event.registerEntityRenderer(TBEntityRegistry.SCARECROW_ALLAY.get(), ScarecrowAllayRender::new);
