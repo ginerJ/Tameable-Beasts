@@ -5,18 +5,28 @@
   "block.tameablebeasts.asphalted_dirt" : "Asphalted Dirt Block",
 
 
-  "entity.tameablebeasts.tameable_racoon" : "Racoon",
+  "entity.tameablebeasts.tameable_racoon.cold" : "Racoon Dog",
+  "entity.tameablebeasts.tameable_racoon.temperate" : "Racoon",
+  "entity.tameablebeasts.tameable_racoon.warm" : "Coati Racoon",
+
   "entity.tameablebeasts.tameable_penguin.cold" : "Emperor Penguin",
   "entity.tameablebeasts.tameable_penguin.temperate" : "Little Blue Penguin",
   "entity.tameablebeasts.tameable_penguin.warm" : "African Penguin",
-  "entity.tameablebeasts.tameable_chikote" : "Chikote",
+
+  "entity.tameablebeasts.tameable_chikote.cold" : "Woolly Chikote",
+  "entity.tameablebeasts.tameable_chikote.temperate" : "Chikote",
+  "entity.tameablebeasts.tameable_chikote.awrm" : "Chikote Runner",
+
+  "entity.tameablebeasts.giant_roly_poly.cold" : "T. Pusillus Roly Poly",
+  "entity.tameablebeasts.giant_roly_poly.temperate" : "Roly Poly",
+  "entity.tameablebeasts.giant_roly_poly.warm" : "Rubber Ducky Roly Poly",
+
   "entity.tameablebeasts.tameable_beetle" : "Shiny Beetle",
   "entity.tameablebeasts.beetle_drone" : "Beetle Drone",
   "entity.tameablebeasts.scarecrow_allay" : "Scarecrow",
   "entity.tameablebeasts.quetzalcoatlus" : "Quetzalcoatlus",
   "entity.tameablebeasts.giant_grasshopper" : "Giant Grasshopper",
   "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
-  "entity.tameablebeasts.giant_roly_poly" : "Giant Roly Poly",
   "entity.tameablebeasts.crested_gecko" : "Crested Gecko",
   "entity.tameablebeasts.argentavis" : "Argentavis",
   "entity.tameablebeasts.graptera" : "Grapteranodon",

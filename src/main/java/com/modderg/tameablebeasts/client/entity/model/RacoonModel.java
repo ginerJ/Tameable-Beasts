@@ -13,40 +13,39 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class RacoonModel extends GeoModel<RacoonEntity> {
 
-    private ResourceLocation[] textures = {
-            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_racoon.png"),
-            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_racoon2.png"),
-            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_racoon3.png")
+    static final ResourceLocation[] textures = {
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/racoon0.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/racoon1.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/racoon2.png")
     };
 
-    private ResourceLocation[] bbytextures = {
-            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_baby_racoon.png"),
-            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_baby_racoon2.png"),
-            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_baby_racoon3.png")
+    static final ResourceLocation[] models = {
+            new ResourceLocation(TameableBeasts.MOD_ID, "geo/racoon.geo.json"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "geo/racoon_baby.geo.json"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "geo/racoon_fat.geo.json")
     };
+
+    static final ResourceLocation animations = new ResourceLocation(TameableBeasts.MOD_ID, "animations/tameable_racoon.anims.json");
 
     @Override
     public ResourceLocation getModelResource(RacoonEntity entity) {
-        if(entity.isBaby()){
-            return new ResourceLocation(TameableBeasts.MOD_ID, "geo/tameable_baby_racoon.geo.json");
-        }
-        return new ResourceLocation(TameableBeasts.MOD_ID, "geo/tameable_racoon" + (entity.isBellyFull()?"_fat":"") + ".geo.json");
+        if (entity.isBaby())
+            return models[1];
+
+        if (entity.isBellyFull())
+            return models[2];
+
+        return models[0];
     }
 
     @Override
     public ResourceLocation getTextureResource(RacoonEntity entity) {
-        if(entity.isBaby()){
-            return bbytextures[entity.getTextureID()];
-        }
         return textures[entity.getTextureID()];
     }
 
     @Override
     public ResourceLocation getAnimationResource(RacoonEntity entity) {
-        if(entity.isBaby()){
-            return new ResourceLocation(TameableBeasts.MOD_ID, "animations/tameable_baby_racoon.anims.json");
-        }
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/tameable_racoon.anims.json");
+        return animations;
     }
 
     @Override

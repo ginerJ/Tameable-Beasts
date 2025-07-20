@@ -22,6 +22,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.modderg.tameablebeasts.registry.TBEntityRegistry.*;
+import static com.modderg.tameablebeasts.registry.TBItemRegistry.FUR;
 import static com.modderg.tameablebeasts.registry.TBItemRegistry.TB_ITEMS;
 
 public class TBBlockRegistry {
@@ -44,10 +45,10 @@ public class TBBlockRegistry {
             () -> new BlockItem(SCARECROW_BLOCK.get(), new BlockItem.Properties()));
 
     public static final RegistryObject<Item> FUR_BLOCK_ITEM = TB_ITEMS.register("racoon_fur_block",
-            () -> new BlockItem(SCARECROW_BLOCK.get(), new BlockItem.Properties()));
+            () -> new BlockItem(FUR_BLOCK.get(), new BlockItem.Properties()));
 
     public static final RegistryObject<Item> ASPHALTED_DIRT_ITEM = TB_ITEMS.register("asphalted_dirt",
-            () -> new BlockItem(SCARECROW_BLOCK.get(), new BlockItem.Properties()));
+            () -> new BlockItem(ASPHALTED_DIRT.get(), new BlockItem.Properties()));
 
     //block without block items
     public static final RegistryObject<Block> QUETZAL_EGG_BLOCK = TB_BLOCKS.register("quetzalcoatlus_egg",

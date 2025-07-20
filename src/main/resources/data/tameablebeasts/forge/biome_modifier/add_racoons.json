@@ -1,9 +1,13 @@
 {
   "type": "forge:add_spawns",
-  "biomes": "#minecraft:is_forest",
+  "biomes": [
+    "minecraft:forest",
+    "minecraft:jungle",
+    "minecraft:snowy_taiga"
+  ],
   "spawners": {
     "type": "tameablebeasts:tameable_racoon",
-    "weight": 15,
+    "weight": 10,
     "maxCount": 4,
     "minCount": 1
   }
