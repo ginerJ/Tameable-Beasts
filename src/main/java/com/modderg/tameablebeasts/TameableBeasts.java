@@ -15,6 +15,7 @@ import com.modderg.tameablebeasts.client.particles.TameableParticles;
 import com.modderg.tameablebeasts.registry.TBPacketRegistry;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegistryObject;
 import software.bernie.geckolib.GeckoLib;
 
 @Mod(TameableBeasts.MOD_ID)
@@ -38,12 +40,12 @@ public class TameableBeasts {
         bus.addListener(this::setup);
         bus.addListener(this::setAttributes);
 
-        TBItemRegistry.ITEMS.register(bus);
+        TBItemRegistry.TB_ITEMS.register(bus);
         TBEnchantmentRegistry.ENCHANTMENTS.register(bus);
         bus.addListener(this::addCreativeTab);
         TBCreativeTab.TAMEABLE_TABS.register(bus);
 
-        TBBlockRegistry.BLOCKS.register(bus);
+        TBBlockRegistry.TB_BLOCKS.register(bus);
         TBBlockEntityRegistry.register(bus);
         TBPOITypesRegistry.POI_TYPES.register(bus);
 
@@ -142,64 +144,8 @@ public class TameableBeasts {
 
     private void addCreativeTab(BuildCreativeModeTabContentsEvent event){
         if(event.getTab() == TBCreativeTab.TAMEABLE_TAB.get()){
-            event.accept(TBItemRegistry.ICEPOP);
-            event.accept(TBItemRegistry.ICE_HELMET);
-            event.accept(TBItemRegistry.ICE_CHESTPLATE);
-            event.accept(TBItemRegistry.PURPLE_ALLAY);
-            event.accept(TBItemRegistry.LEAF);
-            event.accept(TBItemRegistry.GRASSHOPPER_LEG);
-            event.accept(TBItemRegistry.BEETLE_DUST);
-            event.accept(TBItemRegistry.GRASSHOPPER_SADDLE);
-            event.accept(TBItemRegistry.ROLYPOLY_SADDLE);
-            event.accept(TBItemRegistry.CHIKOTE_SADDLE);
-            event.accept(TBItemRegistry.CRESTED_GECKO_SADDLE);
-            event.accept(TBItemRegistry.QUETZAL_SADDLE);
-            event.accept(TBItemRegistry.QUETZAL_STAND);
-            event.accept(TBItemRegistry.ARGENTAVIS_SADDLE);
-            event.accept(TBItemRegistry.RACOON_SPAWN_EGG);
-            event.accept(TBItemRegistry.PENGUIN_SPAWN_EGG);
-            event.accept(TBItemRegistry.CHIKOTE_SPAWN_EGG);
-            event.accept(TBItemRegistry.BEETLE_SPAWN_EGG);
-            event.accept(TBItemRegistry.QUETZAL_SPAWN_EGG);
-            event.accept(TBItemRegistry.GIANT_GRASSHOPPER_SPAWN_EGG);
-            event.accept(TBItemRegistry.GROUND_BEETLE_SPAWN_EGG);
-            event.accept(TBItemRegistry.GROUND_ROLY_POLY_SPAWN_EGG);
-            event.accept(TBItemRegistry.SCARECROW_SPAWN_EGG);
-            event.accept(TBItemRegistry.CRESTED_GECKO_SPAWN_EGG);
-            event.accept(TBItemRegistry.ARGENTAVIS_SPAWN_EGG);
-            event.accept(TBItemRegistry.GRAPTERA_SPAWN_EGG);
-            event.accept(TBItemRegistry.SCARECROW_STRAW_HAT);
-            event.accept(TBItemRegistry.FLYING_HELMET);
-            event.accept(TBItemRegistry.BIKER_HELMET);
-            event.accept(TBItemRegistry.RACOON_HAT);
-            event.accept(TBItemRegistry.IRON_BIG_HOE);
-            event.accept(TBItemRegistry.BUG_SWORD);
-            event.accept(TBItemRegistry.BIRD_BAIT_ARROW);
-            event.accept(TBItemRegistry.PTERA_MEAL_ARROW);
-            event.accept(TBItemRegistry.FUR);
-            event.accept(TBItemRegistry.ROLY_POLY_PLAQUE);
-            event.accept(TBItemRegistry.ASPHALT);
-            event.accept(TBItemRegistry.EGG_RESTS);
-            event.accept(TBItemRegistry.QUETZAL_EGG_ITEM);
-            event.accept(TBItemRegistry.CHIKOTE_EGG_ITEM);
-            event.accept(TBItemRegistry.ROLY_POLY_EGG_ITEM);
-            event.accept(TBItemRegistry.FLYING_BEETLE_EGG_ITEM);
-            event.accept(TBItemRegistry.GROUND_BEETLE_EGG_ITEM);
-            event.accept(TBItemRegistry.GRASSHOPPER_EGG_ITEM);
-            event.accept(TBItemRegistry.PENGUIN_EGG_ITEM);
-            event.accept(TBItemRegistry.CRESTED_GECKO_EGG_ITEM);
-            event.accept(TBItemRegistry.ARGENTAVIS_EGG_ITEM);
-            event.accept(TBItemRegistry.GRAPTERANODON_EGG_ITEM);
-            event.accept(TBItemRegistry.QUETZAL_MEAT);
-            event.accept(TBItemRegistry.COOKED_QUETZAL_MEAT);
-            event.accept(TBItemRegistry.BIG_BIRD_MEAT);
-            event.accept(TBItemRegistry.COOKED_BIG_BIRD_MEAT);
-            event.accept(TBItemRegistry.BIG_BIRD_BAIT);
-            event.accept(TBItemRegistry.PTERANODON_MEAL);
-            event.accept(TBItemRegistry.BUG_SALAD);
-            event.accept(TBBlockRegistry.FUR_BLOCK);
-            event.accept(TBBlockRegistry.ASPHALTED_DIRT);
-            event.accept(TBBlockRegistry.SCARECROW_BLOCK);
+            for (RegistryObject<Item> registryItem: TBItemRegistry.TB_ITEMS.getEntries())
+                event.accept(registryItem);
         }
     }
 }
