@@ -11,7 +11,7 @@
 				},
 				"head": {
 					"rotation": {
-						"vector": ["-math.cos(-40+query.anim_time*180)*2.5 + query.head_x_rotation * 180 * 0.0174533 * 0.0174533", "query.head_y_rotation", 0]
+						"vector": ["-math.cos(-40+query.anim_time*180)*2.5 + query.head_x * 180 * 0.0174533 * 0.0174533", "query.head_y_rotation", 0]
 					}
 				},
 				"tail": {
@@ -89,7 +89,7 @@
 				},
 				"head": {
 					"rotation": {
-						"vector": ["-5+math.cos(-20+query.anim_time*720)*10 + query.head_x_rotation", "-math.cos(-20+query.anim_time*360)*5 + query.head_y_rotation", 0]
+						"vector": ["-5+math.cos(-20+query.anim_time*720)*10 + query.head_x", "-math.cos(-20+query.anim_time*360)*5 + query.head_y_rotation", 0]
 					}
 				},
 				"look_angle": {
@@ -132,7 +132,7 @@
 				},
 				"head": {
 					"rotation": {
-						"vector": ["62.5-math.cos(-40+query.anim_time*180)*2.5 + query.head_x_rotation", "query.head_y_rotation", 0]
+						"vector": ["62.5-math.cos(-40+query.anim_time*180)*2.5 + query.head_x", "query.head_y_rotation", 0]
 					}
 				},
 				"tail": {
@@ -459,25 +459,25 @@
 				"head": {
 					"rotation": {
 						"0.0": {
-							"vector": ["query.head_x_rotation", "query.head_y_rotation", 0]
+							"vector": ["query.head_x", "query.head_y_rotation", 0]
 						},
 						"0.08": {
-							"vector": ["5 + query.head_x_rotation", "query.head_y_rotation", 0]
+							"vector": ["5 + query.head_x", "query.head_y_rotation", 0]
 						},
 						"0.28": {
-							"vector": ["35 + query.head_x_rotation", "query.head_y_rotation", 0]
+							"vector": ["35 + query.head_x", "query.head_y_rotation", 0]
 						},
 						"0.44": {
-							"vector": ["40 + query.head_x_rotation", "query.head_y_rotation", 0]
+							"vector": ["40 + query.head_x", "query.head_y_rotation", 0]
 						},
 						"0.6": {
-							"vector": ["35 + query.head_x_rotation", "query.head_y_rotation", 0]
+							"vector": ["35 + query.head_x", "query.head_y_rotation", 0]
 						},
 						"0.92": {
-							"vector": ["5 + query.head_x_rotation", "query.head_y_rotation", 0]
+							"vector": ["5 + query.head_x", "query.head_y_rotation", 0]
 						},
 						"1.0": {
-							"vector": ["query.head_x_rotation", "query.head_y_rotation", 0]
+							"vector": ["query.head_x", "query.head_y_rotation", 0]
 						}
 					}
 				},

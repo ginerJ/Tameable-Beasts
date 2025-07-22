@@ -11,7 +11,7 @@ buildscript {
 plugins {
     id 'eclipse'
     id 'maven-publish'
-    id 'net.neoforged.gradle' version '[6.0.13, 6.2)'
+    id 'net.minecraftforge.gradle' version '6.0.+'
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
@@ -86,11 +86,13 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.neoforged:forge:1.20.1-47.1.76'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
 
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.9')
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.7.3')
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    implementation 'com.eliotlash.mclib:mclib:20'
 }
 
 repositories {
@@ -99,9 +101,7 @@ repositories {
         name = 'GeckoLib'
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
     }
-}
 
-repositories {
     maven {
         url "https://cursemaven.com"
         content {

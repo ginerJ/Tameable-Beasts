@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts;
 
+import com.modderg.tameablebeasts.constants.TBConstants;
 import com.modderg.tameablebeasts.registry.TBBlockEntityRegistry;
 import com.modderg.tameablebeasts.registry.TBBlockRegistry;
 import com.modderg.tameablebeasts.registry.TBEnchantmentRegistry;
@@ -28,6 +29,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 import software.bernie.geckolib.GeckoLib;
+import software.bernie.geckolib.core.molang.LazyVariable;
+import software.bernie.geckolib.core.molang.MolangParser;
+import software.bernie.geckolib.core.molang.MolangQueries;
 
 @Mod(TameableBeasts.MOD_ID)
 public class TameableBeasts {
@@ -61,8 +65,12 @@ public class TameableBeasts {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ModClientConfigs.SPEC, "tameable-beasts-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ModCommonConfigs.SPEC, "tameable-beasts-common.toml");
 
+        MolangParser.INSTANCE.register(new LazyVariable(TBConstants.HEAD_X_QUERY, 0));
+        MolangParser.INSTANCE.register(new LazyVariable(TBConstants.HEAD_Y_QUERY, 0));
+
         MinecraftForge.EVENT_BUS.register(this);
     }
+
 
     private void setup(final FMLCommonSetupEvent event) {
 

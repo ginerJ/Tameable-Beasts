@@ -36,12 +36,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +78,9 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     }
 
     protected List<String> attackAnims = new ArrayList<>();
+
+    public float cachedHeadYaw = 0F;
+    public float cachedHeadPitch = 0F;
 
     protected TBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
@@ -361,7 +364,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     //ANIMATION STUFF
 
-    protected AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
+    protected AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     @Override
     public boolean doHurtTarget(@NotNull Entity p_21372_) {
@@ -386,12 +389,13 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     @Override public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {}
 
     @Override public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
+        return cache;
     }
 
     public <T extends TBAnimal & GeoEntity> AnimationController<T> groundController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event -> groundState(entity, event));
     }
+
 
     public <T extends TBAnimal & GeoEntity> PlayState groundState(T entity, software.bernie.geckolib.core.animation.AnimationState<T> event) {
 

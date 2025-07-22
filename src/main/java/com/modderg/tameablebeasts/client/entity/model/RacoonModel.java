@@ -4,12 +4,13 @@ import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.server.entity.RacoonEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import org.joml.Quaternionf;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.molang.LazyVariable;
+import software.bernie.geckolib.core.molang.MolangParser;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
+
+import static com.modderg.tameablebeasts.constants.TBConstants.HEAD_X_QUERY;
+import static com.modderg.tameablebeasts.constants.TBConstants.HEAD_Y_QUERY;
 
 public class RacoonModel extends GeoModel<RacoonEntity> {
 
