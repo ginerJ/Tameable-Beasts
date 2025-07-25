@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.model;
 
 import com.modderg.tameablebeasts.TameableBeasts;
+import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.RacoonEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -12,7 +13,7 @@ import software.bernie.geckolib.model.GeoModel;
 import static com.modderg.tameablebeasts.constants.TBConstants.HEAD_X_QUERY;
 import static com.modderg.tameablebeasts.constants.TBConstants.HEAD_Y_QUERY;
 
-public class RacoonModel extends GeoModel<RacoonEntity> {
+public class RacoonModel extends TBGeoModel<RacoonEntity> {
 
     static final ResourceLocation[] textures = {
             new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/racoon0.png"),

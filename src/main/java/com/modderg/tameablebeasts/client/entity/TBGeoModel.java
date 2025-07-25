@@ -39,7 +39,10 @@ public abstract class TBGeoModel<T extends TBAnimal> extends GeoModel<T> {
 
         float pt = animationState.getPartialTick();
 
-        animatable.cachedHeadYaw = animatable.getViewYRot(pt) - Mth.lerp(pt, animatable.yBodyRotO, animatable.yBodyRot);
+        float maxYaw = 25.0F;
+        float initialYaw = animatable.getViewYRot(pt) - Mth.lerp(pt, animatable.yBodyRotO, animatable.yBodyRot);
+
+        animatable.cachedHeadYaw = Mth.clamp(initialYaw, -maxYaw, maxYaw);
         animatable.cachedHeadPitch = animatable.getViewXRot(pt);
     }
 
