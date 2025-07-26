@@ -42,10 +42,4 @@ public class PenguinModel extends TBGeoModel<PenguinEntity> {
     public ResourceLocation getAnimationResource(PenguinEntity entity) {
         return animations;
     }
-
-    @Override
-    public void setCustomAnimations(PenguinEntity animatable, long instanceId, AnimationState<PenguinEntity> animationState) {
-        setLookAngle(animatable, animationState);
-        super.setCustomAnimations(animatable, instanceId, animationState);
-    }
 }

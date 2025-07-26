@@ -2,7 +2,6 @@ package com.modderg.tameablebeasts.server.entity.abstracts;
 
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.entity.navigation.TBFlyingPathNavigation;
-import com.modderg.tameablebeasts.server.entity.navigation.TBGroundPathNavigation;
 import com.modderg.tameablebeasts.registry.TBPacketRegistry;
 import com.modderg.tameablebeasts.server.packet.StoCSyncFlying;
 import net.minecraft.core.BlockPos;
@@ -15,7 +14,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -84,8 +82,8 @@ public class FlyingTBAnimal extends TBAnimal {
     protected void switchNavigation(){
 
         if(moveControl instanceof FlyingMoveControl){
-            this.moveControl = new MoveControl(this);
-            this.navigation = new TBGroundPathNavigation(this, this.level());
+            this.moveControl = this.createMoveControl();
+            this.navigation = this.createNavigation(this.level());
         } else {
             this.moveControl = new FlyingMoveControl(this, 20, false);
             this.navigation = new TBFlyingPathNavigation(this, this.level()).canFloat(true);

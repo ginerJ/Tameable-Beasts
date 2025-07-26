@@ -7,7 +7,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,6 +15,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -27,11 +28,14 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -52,6 +56,31 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     private static final EntityDataAccessor<Integer> TEXTURE_ID = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.INT);
 
+    private static final EntityDataAccessor<Boolean> WANDERING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+
+    protected static final EntityDataAccessor<Boolean> GOALS_WANT_RUNNING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+
+    protected int stillDuringInteractAnim = -1;
+
+    protected List<String> attackAnims = new ArrayList<>();
+
+
+    protected Item[] brushDrops;
+
+    protected boolean hasWarmthVariants = false;
+
+    protected int textureIdSize = 0;
+    protected int healthFloor = 0;
+
+    public float cachedHeadYaw = 0F;
+    public float cachedHeadPitch = 0F;
+
+    protected TBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
+        super(p_21803_, p_21804_);
+        this.moveControl = createMoveControl();
+        updateAttributes();
+    }
+
     public void setTextureId(int i){
         this.getEntityData().set(TEXTURE_ID, i);
     }
@@ -59,7 +88,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         return this.getEntityData().get(TEXTURE_ID);
     }
 
-    private static final EntityDataAccessor<Boolean> WANDERING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
     public void setWandering(boolean i){
         this.getEntityData().set(WANDERING, i);
     }
@@ -67,25 +95,16 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         return this.getEntityData().get(WANDERING);
     }
 
-    protected static final EntityDataAccessor<Boolean> GOALS_WANT_RUNNING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+    public boolean isRunning(){
+        return this.getEntityData().get(GOALS_WANT_RUNNING);
+    }
+
     public void setRunning(boolean i){
         this.getEntityData().set(GOALS_WANT_RUNNING, i);
         updateAttributes();
     }
 
-    public boolean isRunning(){
-        return this.getEntityData().get(GOALS_WANT_RUNNING);
-    }
-
-    protected List<String> attackAnims = new ArrayList<>();
-
-    public float cachedHeadYaw = 0F;
-    public float cachedHeadPitch = 0F;
-
-    protected TBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
-        super(p_21803_, p_21804_);
-        updateAttributes();
-    }
+    public Item[] getBrushDrops() {return brushDrops;}
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
@@ -126,11 +145,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         return !(target instanceof TBAnimal tg && (this.getOwner() instanceof Player p && tg.isOwnedBy(p))) && super.canAttack(target);
     }
 
-    protected boolean hasWarmthVariants = false;
-
-    protected int textureIdSize = 0;
-    protected int healthFloor = 0;
-
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance p_146747_, @NotNull MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
 
@@ -162,10 +176,16 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     @Override
     public void aiStep() {
-        if (!this.level().isClientSide && this.isAlive() && this.tickCount % 240 == 0)
+
+        if (!this.level().isClientSide && this.isAlive() && this.tickCount % 600 == 0)
             this.heal(1.0F);
 
         super.aiStep();
+
+        if(this.stillDuringInteractAnim-- > 0){
+            this.getNavigation().stop();
+            this.setDeltaMovement(0, this.getDeltaMovement().y,0);
+        }
     }
 
     protected float generateRandomMaxHealth(int floor) {
@@ -196,33 +216,53 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     @Override
     public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
 
-        if (this.isOwnedBy(player) && player.isShiftKeyDown()) {
-            if(!isInSittingPose() && !isWandering()){
-                this.setWandering(true);
-                this.messageState("wandering", player);
-            } else {
-                this.setWandering(false);
-                this.messageState(this.isInSittingPose() ? "following":"sitting", player);
-                this.setInSittingPose(!this.isOrderedToSit());
-                this.setOrderedToSit(!this.isOrderedToSit());
-                if(this.isInSittingPose())
-                    playStepSound(this.getOnPos(), this.level().getBlockState(this.getOnPos()));
-            }
-            return InteractionResult.SUCCESS;
+
+        if (this.isOwnedBy(player)){
+            InteractionResult tameInteraction = handleTameMobInteraction(player, hand);
+            if (tameInteraction != null)
+                return tameInteraction;
         }
 
         if(isFood(player.getItemInHand(hand)))
             this.heal(5f);
 
-        if(!this.isInSittingPose() && !(this instanceof FlyingTBAnimal flyAnimal && flyAnimal.isFlying()))
+        if(!this.isInSittingPose() && !(this instanceof FlyingTBAnimal flyAnimal && flyAnimal.isFlying())){
             triggerAnim("movement", "interact");
+            this.stillDuringInteractAnim = 20;
+        }
 
         this.playSound(this.getInteractSound(), 0.45F, 1.0F);
 
         return  super.mobInteract(player, hand);
     }
 
-    @Override public boolean isOrderedToSit() {
+    public InteractionResult handleTameMobInteraction(@NotNull Player player, @NotNull InteractionHand hand) {
+
+        ItemStack stack = player.getItemInHand(hand);
+
+        if(this.getBrushDrops() != null && stack.is(Items.BRUSH)){
+            player.startUsingItem(hand);
+            return InteractionResult.SUCCESS;
+        }
+
+        if (!player.isShiftKeyDown())
+            return null;
+
+        if(!isInSittingPose() && !isWandering()){
+            this.setWandering(true);
+            this.messageState("wandering", player);
+        } else {
+            this.setWandering(false);
+            this.messageState(this.isInSittingPose() ? "following":"sitting", player);
+            this.setInSittingPose(!this.isOrderedToSit());
+            this.setOrderedToSit(!this.isOrderedToSit());
+            if(this.isInSittingPose())
+                playStepSound(this.getOnPos(), this.level().getBlockState(this.getOnPos()));
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+        @Override public boolean isOrderedToSit() {
         return !this.isVehicle() && super.isOrderedToSit();
     }
 
@@ -264,11 +304,11 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         return this.getEgg() != null && this.isTame();
     }
 
-    public int genChildTextId(){
-        if(this.random.nextInt(100) <= 30)
-            return this.random.nextInt(textureIdSize);
+    public int genChildTextId(AgeableMob parent){
+        if(parent instanceof TBAnimal animal)
+            return animal.getTextureID();
 
-        return this.getTextureID();
+        return 0;
     }
 
     @Override
@@ -277,20 +317,19 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
             super.spawnChildFromBreeding(level, mob);
             return;
         }
-
-        spawnAtLocation(getEgg());
+        ItemStack item = new ItemStack(getEgg());
+        spawnAtLocation(EggBlockItem.setTextureId(item, this.getTextureID()));
         super.finalizeSpawnChildFromBreeding(level, mob, null);
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel p_146743_, @NotNull AgeableMob p_146744_) {
-        if(!this.isTame()){
-            TBAnimal animal = (TBAnimal) this.getType().create(this.level());
-            animal.setTextureId(this.genChildTextId());
-            return animal;
-        }
-        return null;
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel p_146743_, @NotNull AgeableMob parent) {
+        if(this.isTame()) return null;
+
+        TBAnimal animal = (TBAnimal) this.getType().create(this.level());
+        animal.setTextureId(this.genChildTextId(parent));
+        return animal;
     }
 
     //RIDING STUFF
@@ -304,6 +343,10 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     }
 
     //NAVIGATION STUFF
+
+    public @NotNull MoveControl createMoveControl() {
+        return new MoveControl(this);
+    }
 
     @Override
     public @NotNull PathNavigation createNavigation(@NotNull Level p_21480_) {
@@ -351,7 +394,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         if (!hasWarmthVariants)
             return super.getName();
 
-        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(this.getType());
+        ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(this.getType());
         String base = "entity." + key.getNamespace() + "." + key.getPath();
 
         return switch (this.getTextureID()) {

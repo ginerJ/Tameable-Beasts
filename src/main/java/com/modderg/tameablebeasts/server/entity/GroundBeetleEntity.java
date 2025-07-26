@@ -127,7 +127,7 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
     }
 
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel p_146743_, @NotNull AgeableMob p_146744_) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel p_146743_, @NotNull AgeableMob parent) {
         return null;
     }
 

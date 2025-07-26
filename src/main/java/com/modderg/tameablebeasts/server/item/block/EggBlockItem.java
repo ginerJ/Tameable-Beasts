@@ -26,9 +26,10 @@ public class EggBlockItem extends BlockItem {
         return nbt;
     }
 
-    public void setTextureId(ItemStack stack, int value) {
+    public static ItemStack setTextureId(ItemStack stack, int value) {
         CompoundTag nbt = stack.getOrCreateTag();
         nbt.putInt("textureId", value);
+        return stack;
     }
 
     public int getTextureId(ItemStack stack) {
