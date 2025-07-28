@@ -15,8 +15,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -63,7 +61,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     protected int stillDuringInteractAnim = -1;
 
     protected List<String> attackAnims = new ArrayList<>();
-
 
     protected Item[] brushDrops;
 
