@@ -1441,7 +1441,8 @@
 				},
 				"sword": {
 					"rotation": {
-						"vector": [0, "-(math.sin(query.anim_time * 360 ) + 1)* 15", 0]
+						"vector": [0, "(-((math.sin(query.anim_time * 360) + 1) * 15))
+", 0]
 					}
 				},
 				"sword2": {

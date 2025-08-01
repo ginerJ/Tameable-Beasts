@@ -222,7 +222,6 @@
 		},
 		"interact": {
 			"loop": true,
-			"animation_length": 0.7083,
 			"bones": {
 				"body6": {
 					"rotation": {
@@ -369,7 +368,7 @@
 							"vector": [0, 0, 0]
 						},
 						"1.0": {
-							"vector": [720, 0, 0]
+							"vector": [360, 0, 0]
 						}
 					},
 					"position": {

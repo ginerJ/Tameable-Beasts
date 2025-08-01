@@ -48,7 +48,7 @@ public class RolyPolyEntity extends RideableTBAnimal {
 
         this.brushDrops = new Item[]{TBItemRegistry.ROLY_POLY_PLAQUE.get()};
 
-        this.textureIdSize = 9;
+        this.hasWarmthVariants = true;
         this.healthFloor = 15;
     }
 
@@ -135,11 +135,10 @@ public class RolyPolyEntity extends RideableTBAnimal {
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
-        if(isRunning()){
+        if(isRunning())
             this.playSound(SoundInit.ROLYPOLY_ROLL.get(), 0.15F, 1.0F);
-        } else{
+        else
             this.playSound(SoundInit.ROLYPOLY_STEPS.get(), 0.15F, 1.0F);
-        }
     }
 
     @Override

@@ -150,9 +150,9 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
             float temperature = biome.value().getBaseTemperature();
 
-            if (temperature < 0.15f)
+            if (temperature < 0.3f)
                 this.setTextureId(COLD_VARIANT);
-            else if (temperature > 1f)
+            else if (temperature > 0.9f)
                 this.setTextureId(WARM_VARIANT);
             else
                 this.setTextureId(TEMPERATE_VARIANT);
