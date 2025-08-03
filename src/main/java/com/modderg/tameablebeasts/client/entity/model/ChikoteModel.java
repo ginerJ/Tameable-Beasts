@@ -23,8 +23,8 @@ public class ChikoteModel extends TBGeoModel<ChikoteEntity> {
     @Override
     public ResourceLocation getAnimationResource(ChikoteEntity entity) {
         if(entity.isBaby())
-            return new ResourceLocation(TameableBeasts.MOD_ID, "animations/chikote_baby_anims.json");
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/chikote_anims.json");
+            return new ResourceLocation(TameableBeasts.MOD_ID, "animations/chikote_baby.animation.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/chikote.animation.json");
     }
 
     @Override

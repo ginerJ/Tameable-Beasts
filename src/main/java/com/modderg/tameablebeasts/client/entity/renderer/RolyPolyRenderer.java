@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.client.entity.render;
+package com.modderg.tameablebeasts.client.entity.renderer;
 
 import com.modderg.tameablebeasts.client.entity.model.RolyPolyModel;
 import com.modderg.tameablebeasts.server.entity.RolyPolyEntity;
@@ -10,8 +10,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class RolyPolyRender extends GeoEntityRenderer<RolyPolyEntity> {
-    public RolyPolyRender(EntityRendererProvider.Context renderManager) {
+public class RolyPolyRenderer extends GeoEntityRenderer<RolyPolyEntity> {
+    public RolyPolyRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new RolyPolyModel());
         this.shadowRadius = 0.7f;
     }

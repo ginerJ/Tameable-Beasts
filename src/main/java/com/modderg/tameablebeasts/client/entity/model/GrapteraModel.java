@@ -23,7 +23,7 @@ public class GrapteraModel extends TBGeoModel<GrapteranodonEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(GrapteranodonEntity entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/graptera_anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/graptera.animation.json");
     }
 
     @Override

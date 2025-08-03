@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.client.entity.render;
+package com.modderg.tameablebeasts.client.entity.renderer;
 
 import com.modderg.tameablebeasts.client.entity.model.ChikoteModel;
 import com.modderg.tameablebeasts.server.entity.ChikoteEntity;
@@ -10,8 +10,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class TameableChikoteRender extends GeoEntityRenderer<ChikoteEntity> {
-    public TameableChikoteRender(EntityRendererProvider.Context renderManager) {
+public class ChikoteRenderer extends GeoEntityRenderer<ChikoteEntity> {
+    public ChikoteRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new ChikoteModel());
         this.shadowRadius = 0.7f;
     }

@@ -20,6 +20,6 @@ public class BeetleDroneModel extends GeoModel<BeetleDrone> {
 
     @Override
     public ResourceLocation getAnimationResource(BeetleDrone entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/tameable_beetle_anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/shiny_beetle.animation.json");
     }
 }

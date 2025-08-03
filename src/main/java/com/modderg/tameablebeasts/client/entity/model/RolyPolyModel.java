@@ -20,7 +20,7 @@ public class RolyPolyModel extends GeoModel<RolyPolyEntity> {
             new ResourceLocation(TameableBeasts.MOD_ID, "geo/roly_poly_baby.geo.json")
     };
 
-    static final ResourceLocation animations = new ResourceLocation(TameableBeasts.MOD_ID, "animations/roly_poly_anims.json");
+    static final ResourceLocation animations = new ResourceLocation(TameableBeasts.MOD_ID, "animations/roly_poly.animation.json");
 
 
     @Override

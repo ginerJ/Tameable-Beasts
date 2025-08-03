@@ -40,7 +40,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     public FlyingBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.textureIdSize = 3;
+        this.hasWarmthVariants = true;
     }
 
     @Override

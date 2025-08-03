@@ -20,7 +20,7 @@ public class ArgentavisModel extends TBGeoModel<ArgentavisEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(ArgentavisEntity entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/argentavis.anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/argentavis.animation.json");
     }
 
     @Override

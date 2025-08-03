@@ -24,7 +24,7 @@ public class GrasshopperModel extends TBGeoModel<GrasshopperEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(GrasshopperEntity entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/giant_grasshopper_anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/giant_grasshopper.animation.json");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.client.entity.render;
+package com.modderg.tameablebeasts.client.entity.renderer;
 
 import com.modderg.tameablebeasts.server.entity.CrestedGeckoEntity;
 import com.modderg.tameablebeasts.client.entity.model.CrestedGeckoModel;
@@ -10,8 +10,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class CrestedGeckoRender extends GeoEntityRenderer<CrestedGeckoEntity> {
-    public CrestedGeckoRender(EntityRendererProvider.Context renderManager) {
+public class CrestedGeckoRenderer extends GeoEntityRenderer<CrestedGeckoEntity> {
+    public CrestedGeckoRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new CrestedGeckoModel());
         this.shadowRadius = 0.6f;
     }

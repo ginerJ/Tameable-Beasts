@@ -28,8 +28,8 @@ public class RacoonModel extends TBGeoModel<RacoonEntity> {
     };
 
     static final ResourceLocation[] animations = {
-            new ResourceLocation(TameableBeasts.MOD_ID, "animations/racoon_anims.json"),
-            new ResourceLocation(TameableBeasts.MOD_ID, "animations/racoon_baby_anims.json")
+            new ResourceLocation(TameableBeasts.MOD_ID, "animations/racoon.animation.json"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "animations/racoon_baby.animation.json")
     };
 
     @Override

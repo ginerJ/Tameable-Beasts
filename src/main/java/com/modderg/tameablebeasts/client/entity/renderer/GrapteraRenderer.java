@@ -1,7 +1,7 @@
-package com.modderg.tameablebeasts.client.entity.render;
+package com.modderg.tameablebeasts.client.entity.renderer;
 
-import com.modderg.tameablebeasts.server.entity.ArgentavisEntity;
-import com.modderg.tameablebeasts.client.entity.model.ArgentavisModel;
+import com.modderg.tameablebeasts.client.entity.model.GrapteraModel;
+import com.modderg.tameablebeasts.server.entity.GrapteranodonEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -10,14 +10,14 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class ArgentavisRender extends GeoEntityRenderer<ArgentavisEntity> {
-    public ArgentavisRender(EntityRendererProvider.Context renderManager) {
-        super(renderManager, new ArgentavisModel());
+public class GrapteraRenderer extends GeoEntityRenderer<GrapteranodonEntity> {
+    public GrapteraRenderer(EntityRendererProvider.Context renderManager) {
+        super(renderManager, new GrapteraModel());
         this.shadowRadius = 0.7f;
     }
 
     @Override
-    public void renderRecursively(PoseStack poseStack, ArgentavisEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderRecursively(PoseStack poseStack, GrapteranodonEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if(!animatable.hasSaddle() && bone.getName().contains("saddle"))
             return;
 

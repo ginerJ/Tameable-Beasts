@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.client.entity.render;
+package com.modderg.tameablebeasts.client.entity.renderer;
 
 import com.modderg.tameablebeasts.client.entity.model.BeetleDroneModel;
 import com.modderg.tameablebeasts.server.entity.BeetleDrone;
@@ -11,8 +11,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class BeetleDroneRender extends GeoEntityRenderer<BeetleDrone> {
-    public BeetleDroneRender(EntityRendererProvider.Context renderManager) {
+public class BeetleDroneRenderer extends GeoEntityRenderer<BeetleDrone> {
+    public BeetleDroneRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new BeetleDroneModel());
         this.shadowRadius = 0.2f;
     }

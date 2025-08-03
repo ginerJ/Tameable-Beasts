@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.client.entity.render;
+package com.modderg.tameablebeasts.client.entity.renderer;
 
 import com.modderg.tameablebeasts.client.entity.model.ScarecrowAllayModel;
 import com.modderg.tameablebeasts.server.entity.ScarecrowAllayEntity;
@@ -11,8 +11,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class ScarecrowAllayRender extends GeoEntityRenderer<ScarecrowAllayEntity> {
-    public ScarecrowAllayRender(EntityRendererProvider.Context renderManager) {
+public class ScarecrowAllayRenderer extends GeoEntityRenderer<ScarecrowAllayEntity> {
+    public ScarecrowAllayRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new ScarecrowAllayModel());
         this.shadowRadius = 0.5f;
 

@@ -20,7 +20,7 @@ public class ScarecrowAllayModel extends TBGeoModel<ScarecrowAllayEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(ScarecrowAllayEntity entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/scarecrow_allay_anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/scarecrow_allay.animation.json");
     }
 
     @Override

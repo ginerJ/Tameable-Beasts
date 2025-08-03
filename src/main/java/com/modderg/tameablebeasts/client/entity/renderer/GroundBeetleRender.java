@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.client.entity.render;
+package com.modderg.tameablebeasts.client.entity.renderer;
 
 import com.modderg.tameablebeasts.client.entity.model.GroundBeetleModel;
 import com.modderg.tameablebeasts.server.entity.GroundBeetleEntity;
@@ -8,8 +8,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class TameableGroundBeetleRender extends GeoEntityRenderer<GroundBeetleEntity> {
-    public TameableGroundBeetleRender(EntityRendererProvider.Context renderManager) {
+public class GroundBeetleRender extends GeoEntityRenderer<GroundBeetleEntity> {
+    public GroundBeetleRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, (GeoModel<GroundBeetleEntity>) new GroundBeetleModel());
         this.shadowRadius = 0.6f;
     }

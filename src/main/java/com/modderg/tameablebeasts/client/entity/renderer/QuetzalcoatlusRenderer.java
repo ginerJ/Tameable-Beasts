@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.client.entity.render;
+package com.modderg.tameablebeasts.client.entity.renderer;
 
 import com.modderg.tameablebeasts.client.entity.model.QuetzalcoatlusModel;
 import com.modderg.tameablebeasts.server.entity.QuetzalcoatlusEntity;
@@ -10,8 +10,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class QuetzalcoatlusRender extends GeoEntityRenderer<QuetzalcoatlusEntity> {
-    public QuetzalcoatlusRender(EntityRendererProvider.Context renderManager) {
+public class QuetzalcoatlusRenderer extends GeoEntityRenderer<QuetzalcoatlusEntity> {
+    public QuetzalcoatlusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new QuetzalcoatlusModel());
         this.shadowRadius = 0.7f;
     }

@@ -21,7 +21,7 @@ public class CrestedGeckoModel extends TBGeoModel<CrestedGeckoEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(CrestedGeckoEntity entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/crested_gecko.anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/crested_gecko.animation.json");
     }
 
     @Override

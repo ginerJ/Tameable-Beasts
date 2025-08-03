@@ -18,14 +18,14 @@ public class GroundBeetleModel extends GeoModel<GroundBeetleEntity> {
                     new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/ground_beetle2.png")
             },
             new ResourceLocation[]{
-                    new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/tameable_beetle_baby.png")
+                    new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/shiny_beetle_baby.png")
             },
     };
 
     @Override
     public ResourceLocation getModelResource(GroundBeetleEntity entity) {
         if(entity.isBaby()){
-            return new ResourceLocation(TameableBeasts.MOD_ID, "geo/tameable_beetle_baby.geo.json");
+            return new ResourceLocation(TameableBeasts.MOD_ID, "geo/shiny_beetle_baby.geo.json");
         }
         return new ResourceLocation(TameableBeasts.MOD_ID, "geo/ground_beetle.geo.json");
     }
@@ -41,9 +41,9 @@ public class GroundBeetleModel extends GeoModel<GroundBeetleEntity> {
     @Override
     public ResourceLocation getAnimationResource(GroundBeetleEntity entity) {
         if(entity.isBaby()){
-            return new ResourceLocation(TameableBeasts.MOD_ID, "animations/tameable_baby_beetle_anims.json");
+            return new ResourceLocation(TameableBeasts.MOD_ID, "animations/shiny_beetle_baby.animation.json");
         }
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/ground_beetle_anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/ground_beetle.animation.json");
     }
 
     @Override

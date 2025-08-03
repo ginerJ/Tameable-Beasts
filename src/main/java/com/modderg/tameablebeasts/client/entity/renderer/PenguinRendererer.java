@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.client.entity.render;
+package com.modderg.tameablebeasts.client.entity.renderer;
 
 import com.modderg.tameablebeasts.client.entity.model.PenguinModel;
 import com.modderg.tameablebeasts.server.entity.PenguinEntity;
@@ -10,9 +10,9 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class PenguinRenderer extends GeoEntityRenderer<PenguinEntity> {
+public class PenguinRendererer extends GeoEntityRenderer<PenguinEntity> {
 
-    public PenguinRenderer(EntityRendererProvider.Context renderManager) {
+    public PenguinRendererer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new PenguinModel());
         this.shadowRadius = 0.4f;
     }

@@ -19,6 +19,6 @@ public class FurGolemModel extends GeoModel<FurGolemEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(FurGolemEntity entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/fur_golem.anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/fur_golem.animation.json");
     }
 }

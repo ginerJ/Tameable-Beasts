@@ -20,7 +20,7 @@ public class PenguinModel extends TBGeoModel<PenguinEntity> {
             new ResourceLocation(TameableBeasts.MOD_ID, "geo/penguin_baby.geo.json")
     };
 
-    static final ResourceLocation animations = new ResourceLocation(TameableBeasts.MOD_ID, "animations/penguin.anims.json");
+    static final ResourceLocation animations = new ResourceLocation(TameableBeasts.MOD_ID, "animations/penguin.animation.json");
 
 
     @Override

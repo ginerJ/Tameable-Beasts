@@ -23,7 +23,7 @@ public class QuetzalcoatlusModel extends TBGeoModel<QuetzalcoatlusEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(QuetzalcoatlusEntity entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/quetzal_anims.json");
+        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/quetzal.animation.json");
     }
 
     @Override

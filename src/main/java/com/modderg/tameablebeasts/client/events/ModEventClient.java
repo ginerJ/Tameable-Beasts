@@ -1,7 +1,7 @@
 package com.modderg.tameablebeasts.client.events;
 
 import com.modderg.tameablebeasts.TameableBeasts;
-import com.modderg.tameablebeasts.client.entity.render.*;
+import com.modderg.tameablebeasts.client.entity.renderer.*;
 import com.modderg.tameablebeasts.client.projectile.TameArrowRenderer;
 import com.modderg.tameablebeasts.registry.TBBlockEntityRegistry;
 import com.modderg.tameablebeasts.client.block.EggBlockRender;
@@ -21,20 +21,20 @@ public class ModEventClient {
 
     @SubscribeEvent
     public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(TBEntityRegistry.RACOON.get(), RacoonRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.PENGUIN.get(), PenguinRenderer::new);
-        event.registerEntityRenderer(TBEntityRegistry.CHIKOTE.get(), TameableChikoteRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.SCARECROW_ALLAY.get(), ScarecrowAllayRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.FLYING_BEETLE.get(), FlyingBeetleRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.BEETLE_DRONE.get(), BeetleDroneRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.QUETZALCOATLUS.get(), QuetzalcoatlusRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.GIANT_GRASSHOPPER.get(), GiantTameableGrasshopperRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.GROUND_BEETLE.get(), TameableGroundBeetleRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.GIANT_ROLY_POLY.get(), RolyPolyRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.FUR_GOLEM.get(), FurGolemRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.CRESTED_GECKO.get(), CrestedGeckoRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.ARGENTAVIS.get(), ArgentavisRender::new);
-        event.registerEntityRenderer(TBEntityRegistry.GRAPTERANODON.get(), GrapteraRender::new);
+        event.registerEntityRenderer(TBEntityRegistry.RACOON.get(), RacoonRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.PENGUIN.get(), PenguinRendererer::new);
+        event.registerEntityRenderer(TBEntityRegistry.CHIKOTE.get(), ChikoteRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.SCARECROW_ALLAY.get(), ScarecrowAllayRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.FLYING_BEETLE.get(), ShinyBeetleRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.BEETLE_DRONE.get(), BeetleDroneRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.QUETZALCOATLUS.get(), QuetzalcoatlusRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.GIANT_GRASSHOPPER.get(), GiantGrasshopperRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.GROUND_BEETLE.get(), GroundBeetleRender::new);
+        event.registerEntityRenderer(TBEntityRegistry.GIANT_ROLY_POLY.get(), RolyPolyRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.FUR_GOLEM.get(), FurGolemRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.CRESTED_GECKO.get(), CrestedGeckoRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.ARGENTAVIS.get(), ArgentavisRenderer::new);
+        event.registerEntityRenderer(TBEntityRegistry.GRAPTERANODON.get(), GrapteraRenderer::new);
 
         event.registerEntityRenderer(TBEntityRegistry.BIRD_BAIT_ARROW.get(), TameArrowRenderer::new);
         event.registerEntityRenderer(TBEntityRegistry.PTERA_MEAL_ARROW.get(), TameArrowRenderer::new);

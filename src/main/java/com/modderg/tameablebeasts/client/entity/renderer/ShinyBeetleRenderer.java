@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.client.entity.render;
+package com.modderg.tameablebeasts.client.entity.renderer;
 
 import com.modderg.tameablebeasts.client.entity.model.FlyingBeetleModel;
 import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class FlyingBeetleRender extends GeoEntityRenderer<FlyingBeetleEntity> {
-    public FlyingBeetleRender(EntityRendererProvider.Context renderManager) {
+public class ShinyBeetleRenderer extends GeoEntityRenderer<FlyingBeetleEntity> {
+    public ShinyBeetleRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new FlyingBeetleModel());
         this.shadowRadius = 0.6f;
     }
