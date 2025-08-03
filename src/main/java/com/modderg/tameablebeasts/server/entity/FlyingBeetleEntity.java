@@ -147,7 +147,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     @Override
     public boolean doHurtTarget(@NotNull Entity entity) {
-        if(entity instanceof LivingEntity living){
+        if(!this.isBaby() && entity instanceof LivingEntity living){
 
             if(random.nextInt(100) < 5)
                 this.spawnAtLocation(TBItemRegistry.BEETLE_DUST.get());
@@ -160,7 +160,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     @Override
     public boolean hurt(@NotNull DamageSource source, float p_27568_) {
-        if(source.getEntity() instanceof LivingEntity living){
+        if(!this.isBaby() && source.getEntity() instanceof LivingEntity living){
             spawnDroneWithTarget(this, living);
             spawnDroneWithTarget(this, living);
             spawnDroneWithTarget(this, living);

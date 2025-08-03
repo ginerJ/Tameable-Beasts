@@ -1,6 +1,6 @@
 package com.modderg.tameablebeasts.client.entity.renderer;
 
-import com.modderg.tameablebeasts.client.entity.model.FlyingBeetleModel;
+import com.modderg.tameablebeasts.client.entity.model.ShinyBeetleModel;
 import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -14,7 +14,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class ShinyBeetleRenderer extends GeoEntityRenderer<FlyingBeetleEntity> {
     public ShinyBeetleRenderer(EntityRendererProvider.Context renderManager) {
-        super(renderManager, new FlyingBeetleModel());
+        super(renderManager, new ShinyBeetleModel());
         this.shadowRadius = 0.6f;
     }
 

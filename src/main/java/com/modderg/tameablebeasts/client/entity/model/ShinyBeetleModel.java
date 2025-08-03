@@ -3,11 +3,9 @@ package com.modderg.tameablebeasts.client.entity.model;
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
-import com.modderg.tameablebeasts.server.entity.PenguinEntity;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.core.animation.AnimationState;
 
-public class FlyingBeetleModel extends TBGeoModel<FlyingBeetleEntity> {
+public class ShinyBeetleModel extends TBGeoModel<FlyingBeetleEntity> {
     
     static final ResourceLocation[] textures = {
             new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/shiny_beetle0.png"),
@@ -21,8 +19,10 @@ public class FlyingBeetleModel extends TBGeoModel<FlyingBeetleEntity> {
             new ResourceLocation(TameableBeasts.MOD_ID, "geo/shiny_beetle_baby.geo.json")
     };
 
-    static final ResourceLocation animations = new ResourceLocation(TameableBeasts.MOD_ID, "animations/shiny_beetle.animation.json");
-
+    static final ResourceLocation[] animations = {
+            new ResourceLocation(TameableBeasts.MOD_ID, "animations/shiny_beetle.animation.json"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "animations/shiny_beetle_baby.animation.json")
+    };
 
     @Override
     public ResourceLocation getModelResource(FlyingBeetleEntity entity) {
@@ -41,6 +41,9 @@ public class FlyingBeetleModel extends TBGeoModel<FlyingBeetleEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(FlyingBeetleEntity entity) {
-        return animations;
+        if(entity.isBaby())
+            return  animations[1];
+
+        return animations[0];
     }
 }
