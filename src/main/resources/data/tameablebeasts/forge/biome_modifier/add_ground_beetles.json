@@ -1,13 +1,15 @@
 {
   "type": "forge:add_spawns",
   "biomes": [
-    "minecraft:cherry_grove",
-    "minecraft:mangrove_swamp"
+    "minecraft:savanna",
+    "minecraft:mangrove_swamp",
+    "minecraft:frozen_peaks",
+    "minecraft:cherry_grove"
   ],
   "spawners": {
     "type": "tameablebeasts:ground_beetle",
-    "weight": 15,
-    "maxCount": 4,
+    "weight": 10,
+    "maxCount": 3,
     "minCount": 1
   }
 }

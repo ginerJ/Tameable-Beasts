@@ -10,6 +10,7 @@ import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -41,16 +42,30 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+import static com.modderg.tameablebeasts.constants.TBConstants.WARM_VARIANT;
+
 public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMob {
 
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> BEETLE_ID = SynchedEntityData.defineId(GroundBeetleEntity.class, EntityDataSerializers.INT);
+
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+
     @Nullable
     private UUID persistentAngerTarget;
 
     public GroundBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.textureIdSize = 2;
+        this.hasWarmthVariants = true;
+    }
+
+    public void setBeetleId(int i){
+        this.getEntityData().set(BEETLE_ID, i);
+    }
+
+    public int getBeetleID(){
+        return this.getEntityData().get(BEETLE_ID);
     }
 
     @Override
@@ -101,6 +116,21 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+        this.entityData.define(BEETLE_ID, this.getRandom().nextInt(2));
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+
+        if (compound.contains("BEETLE_ID"))
+            this.setBeetleId(compound.getInt("BEETLE_ID"));
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("BEETLE_ID", this.getBeetleID());
     }
 
     @Override

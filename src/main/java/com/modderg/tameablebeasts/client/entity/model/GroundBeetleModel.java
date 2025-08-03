@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.model;
 
 import com.modderg.tameablebeasts.TameableBeasts;
+import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
 import com.modderg.tameablebeasts.server.entity.GroundBeetleEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -12,50 +13,53 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class GroundBeetleModel extends GeoModel<GroundBeetleEntity> {
 
-    private final ResourceLocation[][] textures = {
-            new ResourceLocation[]{
-                    new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/ground_beetle.png"),
-                    new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/ground_beetle2.png")
-            },
-            new ResourceLocation[]{
-                    new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/shiny_beetle_baby.png")
-            },
+    static final ResourceLocation[][] textures = {
+        {
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/jaw_beetle0.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/jaw_beetle1.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/jaw_beetle2.png"),
+        },
+        {
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/rhyno_beetle0.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/rhyno_beetle1.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/rhyno_beetle2.png"),
+        }
+    };
+
+    static final ResourceLocation bb_texture = new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/shiny_beetle_baby.png");
+
+
+    static final ResourceLocation[] models = {
+            new ResourceLocation(TameableBeasts.MOD_ID, "geo/ground_beetle.geo.json"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "geo/shiny_beetle_baby.geo.json")
+    };
+
+    static final ResourceLocation[] animations = {
+            new ResourceLocation(TameableBeasts.MOD_ID, "animations/ground_beetle.animation.json"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "animations/shiny_beetle_baby.animation.json")
     };
 
     @Override
     public ResourceLocation getModelResource(GroundBeetleEntity entity) {
-        if(entity.isBaby()){
-            return new ResourceLocation(TameableBeasts.MOD_ID, "geo/shiny_beetle_baby.geo.json");
-        }
-        return new ResourceLocation(TameableBeasts.MOD_ID, "geo/ground_beetle.geo.json");
+        if(entity.isBaby())
+            return models[1];
+
+        return models[0];
     }
 
     @Override
     public ResourceLocation getTextureResource(GroundBeetleEntity entity) {
-        if(entity.isBaby()){
-            return textures[1][0];
-        }
-        return textures[0][entity.getTextureID()];
+        if(entity.isBaby())
+            return  bb_texture;
+
+        return textures[entity.getBeetleID()][entity.getTextureID()];
     }
 
     @Override
     public ResourceLocation getAnimationResource(GroundBeetleEntity entity) {
-        if(entity.isBaby()){
-            return new ResourceLocation(TameableBeasts.MOD_ID, "animations/shiny_beetle_baby.animation.json");
-        }
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/ground_beetle.animation.json");
-    }
+        if(entity.isBaby())
+            return  animations[1];
 
-    @Override
-    public void setCustomAnimations(GroundBeetleEntity animatable, long instanceId, AnimationState<GroundBeetleEntity> animationState) {
-        CoreGeoBone head = getAnimationProcessor().getBone("head");
-
-        if (head != null && !animatable.isBaby()) {
-            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-
-            head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
-            head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-        }
-        super.setCustomAnimations(animatable, instanceId, animationState);
+        return animations[0];
     }
 }

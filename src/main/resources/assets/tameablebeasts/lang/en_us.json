@@ -20,12 +20,17 @@
   "entity.tameablebeasts.giant_roly_poly.temperate" : "Roly Poly",
   "entity.tameablebeasts.giant_roly_poly.warm" : "Rubber Ducky Roly Poly",
 
-  "entity.tameablebeasts.tameable_beetle" : "Shiny Beetle",
+  "entity.tameablebeasts.tameable_beetle.cold" : "Shiny Beetle",
+  "entity.tameablebeasts.tameable_beetle.temperate" : "Shiny Beetle",
+  "entity.tameablebeasts.tameable_beetle.warm" : "Shiny Beetle",
+
   "entity.tameablebeasts.beetle_drone" : "Beetle Drone",
+
+  "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
+
   "entity.tameablebeasts.scarecrow_allay" : "Scarecrow",
   "entity.tameablebeasts.quetzalcoatlus" : "Quetzalcoatlus",
   "entity.tameablebeasts.giant_grasshopper" : "Giant Grasshopper",
-  "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
   "entity.tameablebeasts.crested_gecko" : "Crested Gecko",
   "entity.tameablebeasts.argentavis" : "Argentavis",
   "entity.tameablebeasts.graptera" : "Grapteranodon",
