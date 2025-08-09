@@ -7,7 +7,7 @@
   ],
   "spawners": {
     "type": "tameablebeasts:tameable_penguin",
-    "weight": 15,
+    "weight": 10,
     "maxCount": 3,
     "minCount": 1
   }

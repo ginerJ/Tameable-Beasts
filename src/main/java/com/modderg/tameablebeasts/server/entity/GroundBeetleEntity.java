@@ -57,7 +57,7 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
     public GroundBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.hasWarmthVariants = true;
+        this.hasWarmthVariants();
     }
 
     public void setBeetleId(int i){

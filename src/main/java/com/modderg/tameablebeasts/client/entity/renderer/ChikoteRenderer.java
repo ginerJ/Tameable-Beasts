@@ -17,11 +17,6 @@ public class ChikoteRenderer extends GeoEntityRenderer<ChikoteEntity> {
     }
 
     @Override
-    public void render(ChikoteEntity entity, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
-        super.render(entity, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
-    }
-
-    @Override
     public void renderRecursively(PoseStack poseStack, ChikoteEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if(!animatable.hasSaddle() && bone.getName().contains("saddle")){
             return;

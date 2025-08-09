@@ -2,11 +2,12 @@
   "type": "forge:add_spawns",
   "biomes": [
     "minecraft:plains",
-    "minecraft:sunflower_plains"
+    "minecraft:snowy_plains",
+    "minecraft:desert"
   ],
   "spawners": {
     "type": "tameablebeasts:tameable_chikote",
-    "weight": 15,
+    "weight": 5,
     "maxCount": 4,
     "minCount": 1
   }

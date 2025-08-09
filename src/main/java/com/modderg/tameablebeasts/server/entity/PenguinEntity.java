@@ -75,7 +75,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     public PenguinEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
 
-        this.hasWarmthVariants = true;
+        this.hasWarmthVariants();
 
         this.attackAnims.add("attack");
         this.attackAnims.add("sword_attack");

@@ -66,6 +66,10 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     protected boolean hasWarmthVariants = false;
 
+    protected void hasWarmthVariants(){
+        this.hasWarmthVariants = true;
+    }
+
     protected int textureIdSize = 0;
     protected int healthFloor = 0;
 
@@ -79,6 +83,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     }
 
     public void setTextureId(int i){
+        if(i > 2 && this.hasWarmthVariants)
+            i = this.random.nextInt(WARM_VARIANT+1);
         this.getEntityData().set(TEXTURE_ID, i);
     }
     public int getTextureID(){
@@ -123,12 +129,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         
-        if (compound.contains("TEXTURE_ID")){
-            if(this.hasWarmthVariants && this.getTextureID() > 2)
-                this.setTextureId(this.random.nextInt(WARM_VARIANT+1));
-
+        if (compound.contains("TEXTURE_ID"))
             this.setTextureId(compound.getInt("TEXTURE_ID"));
-        }
 
         if (compound.contains("WANDERING"))
             this.setWandering(compound.getBoolean("WANDERING"));

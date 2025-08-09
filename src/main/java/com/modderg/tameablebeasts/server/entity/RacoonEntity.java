@@ -47,7 +47,7 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
 
     public RacoonEntity(EntityType<? extends TBAnimal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
-        this.hasWarmthVariants = true;
+        this.hasWarmthVariants();
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

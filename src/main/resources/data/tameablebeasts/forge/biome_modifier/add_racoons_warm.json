@@ -5,7 +5,7 @@
   ],
   "spawners": {
     "type": "tameablebeasts:tameable_racoon",
-    "weight": 40,
+    "weight": 25,
     "maxCount": 4,
     "minCount": 1
   }
