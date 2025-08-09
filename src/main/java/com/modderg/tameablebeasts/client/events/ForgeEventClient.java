@@ -104,24 +104,6 @@ public class ForgeEventClient {
         else if (stack.is(TBItemRegistry.ICE_CHESTPLATE.get()))
             tooltip.add(Component.translatable("item.tameablebeasts.ice_chestplate.tooltip").withStyle(ChatFormatting.DARK_GRAY));
 
-        else if (stack.is(TBItemRegistry.ROLYPOLY_SADDLE.get()))
-            tooltip.add(Component.translatable("item.tameablebeasts.roly_poly_saddle.tooltip").withStyle(ChatFormatting.DARK_GRAY));
-
-        else if (stack.is(TBItemRegistry.ARGENTAVIS_SADDLE.get()))
-            tooltip.add(Component.translatable("item.tameablebeasts.argentavis_saddle.tooltip").withStyle(ChatFormatting.DARK_GRAY));
-
-        else if (stack.is(TBItemRegistry.CRESTED_GECKO_SADDLE.get()))
-            tooltip.add(Component.translatable("item.tameablebeasts.crested_gecko_saddle.tooltip").withStyle(ChatFormatting.DARK_GRAY));
-
-        else if (stack.is(TBItemRegistry.GRASSHOPPER_SADDLE.get()))
-            tooltip.add(Component.translatable("item.tameablebeasts.grasshopper_saddle.tooltip").withStyle(ChatFormatting.DARK_GRAY));
-
-        else if (stack.is(TBItemRegistry.CHIKOTE_SADDLE.get()))
-            tooltip.add(Component.translatable("item.tameablebeasts.chikote_saddle.tooltip").withStyle(ChatFormatting.DARK_GRAY));
-
-        else if (stack.is(TBItemRegistry.QUETZAL_SADDLE.get()))
-            tooltip.add(Component.translatable("item.tameablebeasts.quetzal_saddle.tooltip").withStyle(ChatFormatting.DARK_GRAY));
-
         else if (stack.is(TBItemRegistry.QUETZAL_STAND.get()))
             tooltip.add(Component.translatable("item.tameablebeasts.quetzal_stand.tooltip").withStyle(ChatFormatting.DARK_GRAY));
 

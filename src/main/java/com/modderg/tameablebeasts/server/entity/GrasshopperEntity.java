@@ -39,11 +39,6 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
     protected int jumpCount = this.random.nextInt(100, 200);
     protected boolean isJumping = false;
 
-    @Override
-    public Item itemSaddle() {
-        return TBItemRegistry.GRASSHOPPER_SADDLE.get();
-    }
-
     public GrasshopperEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.textureIdSize = 4;

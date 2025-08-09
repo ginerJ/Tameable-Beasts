@@ -34,11 +34,6 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 public class RolyPolyEntity extends RideableTBAnimal {
 
     @Override
-    public Item itemSaddle() {
-        return TBItemRegistry.ROLYPOLY_SADDLE.get();
-    }
-
-    @Override
     public Item hatBoostItem() {
         return TBItemRegistry.BIKER_HELMET.get();
     }

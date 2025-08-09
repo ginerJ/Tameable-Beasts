@@ -36,11 +36,6 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 
 public class CrestedGeckoEntity extends RideableTBAnimal {
 
-    @Override
-    public Item itemSaddle() {
-        return TBItemRegistry.CRESTED_GECKO_SADDLE.get();
-    }
-
     public CrestedGeckoEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.textureIdSize = 8;

@@ -43,13 +43,6 @@ public class TBItemRegistry {
         public static final RegistryObject<Item> PTERANODON_MEAL = TB_ITEMS.register("pteranodon_meal", () -> new Item(new Properties().food(Foods.COOKED_CHICKEN)));
         public static final RegistryObject<Item> BUG_SALAD = TB_ITEMS.register("bug_salad", () -> new Item(new Properties().food(Foods.BEETROOT_SOUP)));
 
-
-        public static final RegistryObject<Item> GRASSHOPPER_SADDLE = TB_ITEMS.register("grasshopper_saddle", () -> new Item(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> CRESTED_GECKO_SADDLE = TB_ITEMS.register("crested_gecko_saddle", () -> new Item(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> ROLYPOLY_SADDLE = TB_ITEMS.register("roly_poly_saddle", () -> new Item(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> CHIKOTE_SADDLE = TB_ITEMS.register("chikote_saddle", () -> new Item(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> QUETZAL_SADDLE = TB_ITEMS.register("quetzal_saddle", () -> new Item(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> ARGENTAVIS_SADDLE = TB_ITEMS.register("argentavis_saddle", () -> new Item(new Properties().stacksTo(1)));
         public static final RegistryObject<Item> QUETZAL_STAND = TB_ITEMS.register("quetzal_stand", () -> new Item(new Properties().stacksTo(1)));
 
 

@@ -146,11 +146,6 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
     }
 
     @Override
-    public Item itemSaddle() {
-        return TBItemRegistry.QUETZAL_SADDLE.get();
-    }
-
-    @Override
     public Item hatBoostItem() {
         return TBItemRegistry.FLYING_HELMET.get();
     }

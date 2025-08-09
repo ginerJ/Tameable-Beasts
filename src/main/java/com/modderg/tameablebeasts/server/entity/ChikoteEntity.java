@@ -37,11 +37,6 @@ import software.bernie.geckolib.core.animation.AnimationState;
 
 public class ChikoteEntity extends RideableTBAnimal {
 
-    @Override
-    public Item itemSaddle() {
-        return TBItemRegistry.CHIKOTE_SADDLE.get();
-    }
-
     public ChikoteEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.hasWarmthVariants();

@@ -106,11 +106,6 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
     }
 
     @Override
-    public Item itemSaddle() {
-        return TBItemRegistry.QUETZAL_SADDLE.get();
-    }
-
-    @Override
     public Item hatBoostItem() {
         return TBItemRegistry.FLYING_HELMET.get();
     }
