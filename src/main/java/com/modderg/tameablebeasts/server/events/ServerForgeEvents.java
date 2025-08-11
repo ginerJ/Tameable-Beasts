@@ -5,11 +5,13 @@ import com.modderg.tameablebeasts.registry.TBBlockRegistry;
 import com.modderg.tameablebeasts.registry.TBEntityRegistry;
 import com.modderg.tameablebeasts.server.entity.FurGolemEntity;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,11 +23,9 @@ public class ServerForgeEvents {
     @SubscribeEvent
     public static void onDeath(final LivingDeathEvent event){
         if(event.getEntity() instanceof AbstractIllager illager){
-            if(event.getEntity().getRandom().nextInt(100) <= 5){
+            if(event.getEntity().getRandom().nextInt(100) <= 5)
                 illager.spawnAtLocation(TBItemRegistry.PURPLE_ALLAY.get());
-            }
         }
-
     }
 
     @SubscribeEvent
@@ -71,5 +71,4 @@ public class ServerForgeEvents {
         golem.setPos(pos.getX(), pos.getY(), pos.getZ());
         level.addFreshEntity(golem);
     }
-
 }

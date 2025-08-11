@@ -22,10 +22,10 @@ public class PenguinRendererer extends GeoEntityRenderer<PenguinEntity> {
         if(!animatable.getHelmet() && bone.getName().contains("helmet")){
             return;
         }
-        if(animatable.getSword()<1 && bone.getName().contains("sword")){
+        if(animatable.hasSword()<1 && bone.getName().contains("sword")){
             return;
         }
-        if(animatable.getSword()<2 && bone.getName().contains("sword2")){
+        if(animatable.hasSword()<2 && bone.getName().contains("sword2")){
             return;
         }
         if(!animatable.hasSaddle() && bone.getName().contains("armor")){

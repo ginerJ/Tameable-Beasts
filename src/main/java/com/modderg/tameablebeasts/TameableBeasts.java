@@ -1,19 +1,13 @@
 package com.modderg.tameablebeasts;
 
 import com.modderg.tameablebeasts.constants.TBConstants;
-import com.modderg.tameablebeasts.registry.TBBlockEntityRegistry;
-import com.modderg.tameablebeasts.registry.TBBlockRegistry;
-import com.modderg.tameablebeasts.registry.TBEnchantmentRegistry;
+import com.modderg.tameablebeasts.registry.*;
 import com.modderg.tameablebeasts.server.entity.*;
-import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.item.TBCreativeTab;
-import com.modderg.tameablebeasts.registry.TBEntityRegistry;
-import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.client.ModClientConfigs;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.client.particles.TameableParticles;
-import com.modderg.tameablebeasts.registry.TBPacketRegistry;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.Item;
@@ -45,6 +39,8 @@ public class TameableBeasts {
         bus.addListener(this::setAttributes);
 
         TBItemRegistry.TB_ITEMS.register(bus);
+        TBMenuRegistry.MENUS.register(bus);
+
         TBEnchantmentRegistry.ENCHANTMENTS.register(bus);
         bus.addListener(this::addCreativeTab);
         TBCreativeTab.TAMEABLE_TABS.register(bus);

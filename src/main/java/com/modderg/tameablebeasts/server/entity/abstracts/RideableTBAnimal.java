@@ -51,13 +51,13 @@ public abstract class RideableTBAnimal extends TBAnimal implements ItemSteerable
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isOwnedBy(player)){
-            if (this.hasSaddle() && !isFood(itemstack)){
-                if(!player.isShiftKeyDown()){
+            if (!player.isShiftKeyDown() && this.hasSaddle() && !isFood(itemstack)){
+                if(!level().isClientSide())
                     player.startRiding(this);
-                    messageRiding(player);
 
-                    return InteractionResult.sidedSuccess(this.level().isClientSide);
-                }
+                messageRiding(player);
+
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
 
             } else if (!this.isBaby() && isSaddle(itemstack)) {
                 setSaddle(true);

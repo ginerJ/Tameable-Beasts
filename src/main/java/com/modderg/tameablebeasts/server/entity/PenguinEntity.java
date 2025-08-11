@@ -1,5 +1,7 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.client.gui.TBMenu;
+import com.modderg.tameablebeasts.client.gui.TBMenuPenguin;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.RideableTBAnimal;
@@ -11,10 +13,6 @@ import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -29,10 +27,10 @@ import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -40,6 +38,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -53,25 +52,6 @@ import java.util.stream.IntStream;
 
 public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemiAquatic {
 
-    private static final EntityDataAccessor<Integer> SWORD = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.INT);
-    public void setSword(int i){this.getEntityData().set(SWORD, i);}
-    public int getSword(){
-        return this.getEntityData().get(SWORD);
-    }
-
-    private static final EntityDataAccessor<Boolean> HELMET = SynchedEntityData.defineId(PenguinEntity.class, EntityDataSerializers.BOOLEAN);
-    public void setHelmet(boolean i){
-        this.getEntityData().set(HELMET, i);
-    }
-    public boolean getHelmet(){
-        return this.getEntityData().get(HELMET);
-    }
-
-    @Override
-    public Item itemSaddle() {
-        return TBItemRegistry.ICE_CHESTPLATE.get();
-    }
-
     public PenguinEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
 
@@ -82,6 +62,8 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         this.attackAnims.add("sword_attack2");
 
         this.setMaxUpStep(1.0f);
+
+        this.inventory = new ItemStackHandler(4);
 
         if(!level().isClientSide())
             initPathAndMoveControls();
@@ -101,7 +83,6 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     }
 
     TBFollowOwnerGoal followOwnerGoal;
-    @Override public TBFollowOwnerGoal getFollowOwnerGoal() {return followOwnerGoal;}
 
     @Override
     protected void registerGoals() {
@@ -132,28 +113,20 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SWORD, 0);
-        this.entityData.define(HELMET, false);
+    public boolean hasSaddle() {
+        return this.inventory.getStackInSlot(1).is(TBItemRegistry.ICE_CHESTPLATE.get());
     }
 
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("SWORD"))
-            this.setSword(compound.getInt("SWORD"));
-
-        if (compound.contains("HELMET"))
-            this.setHelmet(compound.getBoolean("HELMET"));
+    public int hasSword(){
+        return Boolean.compare(this.inventory.getStackInSlot(2).is(TBItemRegistry.ICEPOP.get()), false)
+                + Boolean.compare(this.inventory.getStackInSlot(3).is(TBItemRegistry.ICEPOP.get()), false);
     }
 
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("SWORD", this.getSword());
-        compound.putBoolean("HELMET", this.getHelmet());
+    public boolean getHelmet(){
+        return this.inventory.getStackInSlot(0).is(TBItemRegistry.ICE_HELMET.get());
     }
+
+    @Override public TBFollowOwnerGoal getFollowOwnerGoal() {return followOwnerGoal;}
 
     @Override
     public void updateAttributes(){
@@ -166,7 +139,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         if (this.isTame()) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
 
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(5.0D + 5.0D * this.getSword());
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(5.0D + 5.0D * this.hasSword());
 
             double armor = 0;
             if(this.getHelmet()) armor += 8d;
@@ -186,7 +159,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         if(this.getHelmet())
             this.spawnAtLocation(TBItemRegistry.ICE_HELMET.get());
 
-        IntStream.range(0,this.getSword()).forEach(e->
+        IntStream.range(0,this.hasSword()).forEach(e->
                 this.spawnAtLocation(TBItemRegistry.ICEPOP.get()));
 
         super.dropAllDeathLoot(p_21192_);
@@ -201,6 +174,10 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         return checkAnimalSpawnRules(p_218242_, p_218243_, p_218244_, p_218245_, p_218246_) && ModCommonConfigs.CAN_SPAWN_PENGUIN.get();
     }
 
+    @Override
+    protected TBMenu createMenu(int containerId, Inventory playerInventory) {
+        return new TBMenuPenguin(containerId, playerInventory, this);
+    }
 
     //SWIMMING STUFF
 
@@ -247,19 +224,6 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         if (isTameFood(itemstack) && !this.isTame()) {
             tameGAnimal(player, itemstack, 20);
             return InteractionResult.SUCCESS;
-
-        } else if (this.isOwnedBy(player)){
-            if(!this.isBaby()){
-                if (itemstack.is(TBItemRegistry.ICEPOP.get()) && getSword()<2){
-                    this.setSword(this.getSword()+1);
-                    itemstack.shrink(1);
-                    return InteractionResult.SUCCESS;
-                } else if (itemstack.is(TBItemRegistry.ICE_HELMET.get()) && !getHelmet()) {
-                    this.setHelmet(true);
-                    itemstack.shrink(1);
-                    return InteractionResult.SUCCESS;
-                }
-            }
         }
 
         updateAttributes();
@@ -340,7 +304,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
     @Override
     public void playAttackAnim() {
-        triggerAnim("movement", this.getSword() < 1 ? "attack": attackAnims.get(random.nextInt(attackAnims.size())));
+        triggerAnim("movement", this.hasSword() < 1 ? "attack": attackAnims.get(random.nextInt(attackAnims.size())));
     }
 
     @Override

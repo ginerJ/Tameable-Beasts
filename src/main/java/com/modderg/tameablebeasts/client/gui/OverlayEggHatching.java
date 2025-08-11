@@ -15,7 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = TameableBeasts.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class HatchingOverlay {
+public class OverlayEggHatching {
 
     private static final ResourceLocation HATCH_MENU = new ResourceLocation(TameableBeasts.MOD_ID, "textures/gui/hatch_gui.png");
 
@@ -32,7 +32,7 @@ public class HatchingOverlay {
 
     @SubscribeEvent
     public static void registerEntityRenders(RegisterGuiOverlaysEvent event) {
-        event.registerAboveAll("hatch", HatchingOverlay.HATCH_OVERLAY);
+        event.registerAboveAll("hatch", OverlayEggHatching.HATCH_OVERLAY);
     }
 
     private static void renderHatchingData(GuiGraphics guiGraphics, EggBlockEntity eggBlockEntity){

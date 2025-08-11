@@ -1,11 +1,14 @@
 package com.modderg.tameablebeasts.server.entity.abstracts;
 
+import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.server.entity.navigation.TBGroundPathNavigation;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -14,17 +17,21 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -33,6 +40,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,14 +59,21 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static com.modderg.tameablebeasts.constants.TBConstants.*;
 
-public class TBAnimal extends TamableAnimal implements GeoEntity {
+public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInventoryScreen{
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private static final EntityDataAccessor<Integer> TEXTURE_ID = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Boolean> WANDERING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+
+    protected ItemStackHandler inventory = new ItemStackHandler(0);
+
+    protected final LazyOptional<ItemStackHandler> invCapability = LazyOptional.of(() -> inventory);
 
     protected static final EntityDataAccessor<Boolean> GOALS_WANT_RUNNING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
 
@@ -70,23 +89,72 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         this.hasWarmthVariants = true;
     }
 
+    protected ParticleOptions extraTameParticles = ParticleTypes.CLOUD;
+
     protected int textureIdSize = 0;
+
     protected int healthFloor = 0;
 
     public float cachedHeadYaw = 0F;
+
     public float cachedHeadPitch = 0F;
 
-    protected TBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
+    public TBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.moveControl = createMoveControl();
         updateAttributes();
     }
 
+    protected void addGoals(Goal... goals){
+        int i = 0;
+        for (Goal goal: goals){
+            i++;
+            this.goalSelector.addGoal(i, goal);
+        }
+    }
+
+    protected void addTargetGoals(Goal... goals){
+        int i = 0;
+        for (Goal goal: goals){
+            i++;
+            this.targetSelector.addGoal(i, goal);
+        }
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TEXTURE_ID, 0);
+        this.entityData.define(WANDERING, false);
+        this.entityData.define(GOALS_WANT_RUNNING, false);
+    }
+
+    @Override
+    protected void spawnTamingParticles(boolean p_21835_) {
+        int pAmount = 18;
+        ParticleOptions[] particles = new ParticleOptions[]{ParticleTypes.HEART, this.extraTameParticles};
+
+        if (!p_21835_){
+            particles = new ParticleOptions[]{ParticleTypes.SMOKE};
+            pAmount = 7;
+        }
+
+        for(int i = 0; i < pAmount; ++i) {
+            double d0 = this.random.nextGaussian() * 0.02D;
+            double d1 = this.random.nextGaussian() * 0.02D;
+            double d2 = this.random.nextGaussian() * 0.02D;
+            this.level().addParticle(particles[this.getRandom().nextInt(particles.length)],
+                    this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+        }
+    }
+
     public void setTextureId(int i){
         if(i > 2 && this.hasWarmthVariants)
             i = this.random.nextInt(WARM_VARIANT+1);
+
         this.getEntityData().set(TEXTURE_ID, i);
     }
+
     public int getTextureID(){
         return this.getEntityData().get(TEXTURE_ID);
     }
@@ -94,6 +162,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
     public void setWandering(boolean i){
         this.getEntityData().set(WANDERING, i);
     }
+
     public boolean isWandering(){
         return this.getEntityData().get(WANDERING);
     }
@@ -104,6 +173,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
     public void setRunning(boolean i){
         this.getEntityData().set(GOALS_WANT_RUNNING, i);
+
         updateAttributes();
     }
 
@@ -114,15 +184,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         super.addAdditionalSaveData(compound);
         compound.putInt("TEXTURE_ID", this.getTextureID());
         compound.putBoolean("WANDERING", this.isWandering());
-        compound.putBoolean("GOALS_WANT_RUNNING", this.isWandering());
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TEXTURE_ID, 0);
-        this.entityData.define(WANDERING, false);
-        this.entityData.define(GOALS_WANT_RUNNING, false);
+        compound.putBoolean("GOALS_WANT_RUNNING", this.isRunning());
+        compound.put("Inventory", inventory.serializeNBT());
     }
 
     @Override
@@ -137,6 +200,9 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
         if (compound.contains("GOALS_WANT_RUNNING"))
             this.setWandering(compound.getBoolean("GOALS_WANT_RUNNING"));
+
+        if (compound.contains("Inventory"))
+            inventory.deserializeNBT(compound.getCompound("Inventory"));
     }
 
     @Override
@@ -187,43 +253,90 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
         }
     }
 
-    protected float generateRandomMaxHealth(int floor) {
+    public float generateRandomMaxHealth(int floor) {
         RandomSource random = this.getRandom();
         return floor + random.nextInt(8) + random.nextInt(9);
     }
 
     public void updateAttributes(){}
 
-    protected void addGoals(Goal... goals){
-        int i = 0;
-        for (Goal goal: goals){
-            i++;
-            this.goalSelector.addGoal(i, goal);
-        }
+    //INVENTORY STUFF
+
+    @Override
+    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER)
+            return invCapability.cast();
+
+        return super.getCapability(capability, facing);
     }
 
-    protected void addTargetGoals(Goal... goals){
-        int i = 0;
-        for (Goal goal: goals){
-            i++;
-            this.targetSelector.addGoal(i, goal);
-        }
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        invCapability.invalidate();
     }
+
+    @Override
+    public void openCustomInventoryScreen(@NotNull Player player){
+        if(player instanceof ServerPlayer sPlayer)
+            NetworkHooks.openScreen(sPlayer, new SimpleMenuProvider(
+                    (id, playerInventory, playerEntity) -> createMenu(id, playerInventory),
+                    Component.literal("Tameable Beast Inventory")
+            ), buffer -> buffer.writeInt(this.getId()));
+    }
+
+    protected TBMenu createMenu(int containerId, Inventory playerInventory){
+        return new TBMenu(containerId, playerInventory, this);
+    }
+
+    @Override
+    public void die(@NotNull DamageSource p_21809_) {
+        if (this.isTame())
+            IntStream.range(0,this.inventory.getSlots()).forEach(i -> {
+                ItemStack stack = this.inventory.getStackInSlot(i);
+                if (!stack.isEmpty())
+                    this.spawnAtLocation(stack);
+            });
+        super.die(p_21809_);
+    }
+
 
     //SITTING STUFF
 
     @Override
     public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
 
-
         if (this.isOwnedBy(player)){
-            InteractionResult tameInteraction = handleTameMobInteraction(player, hand);
-            if (tameInteraction != null)
-                return tameInteraction;
-        }
+            ItemStack stack = player.getItemInHand(hand);
 
-        if(isFood(player.getItemInHand(hand)))
-            this.heal(5f);
+            if(this.getBrushDrops() != null && stack.is(Items.BRUSH)){
+                player.startUsingItem(hand);
+                return InteractionResult.SUCCESS;
+            }
+
+            if(isFood(player.getItemInHand(hand))){
+                this.heal(5f);
+                return super.mobInteract(player, hand);
+            }
+
+            if (!player.isShiftKeyDown())
+                this.openCustomInventoryScreen(player);
+            else
+                if(!isInSittingPose() && !isWandering()){
+                    this.setWandering(true);
+                    this.messageState("wandering", player);
+                    return InteractionResult.SUCCESS;
+
+                } else {
+                    this.setWandering(false);
+                    this.messageState(this.isInSittingPose() ? "following":"sitting", player);
+                    this.setInSittingPose(!this.isOrderedToSit());
+                    this.setOrderedToSit(!this.isOrderedToSit());
+                    if(this.isInSittingPose())
+                        playStepSound(this.getOnPos(), this.level().getBlockState(this.getOnPos()));
+                    return InteractionResult.SUCCESS;
+                }
+        }
 
         if(!this.isInSittingPose() && !(this instanceof FlyingTBAnimal flyAnimal && flyAnimal.isFlying())){
             triggerAnim("movement", "interact");
@@ -232,46 +345,15 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
         this.playSound(this.getInteractSound(), 0.45F, 1.0F);
 
-        return  super.mobInteract(player, hand);
+        return super.mobInteract(player, hand);
     }
 
-    public InteractionResult handleTameMobInteraction(@NotNull Player player, @NotNull InteractionHand hand) {
-
-        ItemStack stack = player.getItemInHand(hand);
-
-        if(this.getBrushDrops() != null && stack.is(Items.BRUSH)){
-            player.startUsingItem(hand);
-            return InteractionResult.SUCCESS;
-        }
-
-        if (!player.isShiftKeyDown())
-            return null;
-
-        if(!isInSittingPose() && !isWandering()){
-            this.setWandering(true);
-            this.messageState("wandering", player);
-        } else {
-            this.setWandering(false);
-            this.messageState(this.isInSittingPose() ? "following":"sitting", player);
-            this.setInSittingPose(!this.isOrderedToSit());
-            this.setOrderedToSit(!this.isOrderedToSit());
-            if(this.isInSittingPose())
-                playStepSound(this.getOnPos(), this.level().getBlockState(this.getOnPos()));
-        }
-        return InteractionResult.SUCCESS;
-    }
-
-        @Override public boolean isOrderedToSit() {
+    @Override public boolean isOrderedToSit() {
         return !this.isVehicle() && super.isOrderedToSit();
     }
 
     @Override public boolean isInSittingPose() {
         return !this.isVehicle() && super.isInSittingPose();
-    }
-
-    @Override
-    public void setInSittingPose(boolean p_21838_) {
-        super.setInSittingPose(p_21838_);
     }
 
     //TAMING STUFF
@@ -291,6 +373,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
             this.playSound(getTameSound(), 0.15F, 1.0F);
         } else
             this.level().broadcastEntityEvent(this, (byte) 6);
+
     }
 
     //BREEDING STUFF
@@ -405,8 +488,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity {
 
 
     //ANIMATION STUFF
-
-    protected AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     @Override
     public boolean doHurtTarget(@NotNull Entity p_21372_) {
