@@ -1,5 +1,8 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.client.gui.TBMenu;
+import com.modderg.tameablebeasts.client.gui.TBMenuGrasshopper;
+import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.RideableTBAnimal;
@@ -19,14 +22,17 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.*;
@@ -43,6 +49,8 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
         super(p_21803_, p_21804_);
         this.textureIdSize = 4;
         this.healthFloor = 20;
+
+        this.inventory = new ItemStackHandler(2);
     }
 
     @Override
@@ -121,6 +129,16 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
     @Override
     public EggBlockItem getEgg() {
         return (EggBlockItem) TBItemRegistry.GRASSHOPPER_EGG_ITEM.get();
+    }
+
+    @Override
+    protected TBMenu createMenu(int containerId, Inventory playerInventory) {
+        return new TBMenuGrasshopper(containerId, playerInventory, this);
+    }
+
+    @Override
+    public boolean hasSaddle() {
+        return this.inventory.getStackInSlot(0).is(Items.SADDLE);
     }
 
     //sounds

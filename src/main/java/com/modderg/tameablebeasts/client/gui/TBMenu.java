@@ -116,7 +116,7 @@ public class TBMenu extends AbstractContainerMenu {
             if (!moveItemStackTo(from, mobInvStart, mobInvEnd, false)) return ItemStack.EMPTY;
         else if (pIndex < mobInvEnd)
             if (!moveItemStackTo(from, 0, playerInvEnd, false)) return ItemStack.EMPTY;
-        else return ItemStack.EMPTY; // out of range
+        else return ItemStack.EMPTY;
 
         if (from.isEmpty()) fromSlot.set(ItemStack.EMPTY);
         else fromSlot.setChanged();

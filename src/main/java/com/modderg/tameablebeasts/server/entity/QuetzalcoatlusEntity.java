@@ -2,6 +2,9 @@ package com.modderg.tameablebeasts.server.entity;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
+import com.modderg.tameablebeasts.client.gui.TBMenu;
+import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
+import com.modderg.tameablebeasts.client.gui.TBMenuQuetzal;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.FlyingRideableTBAnimal;
@@ -30,27 +33,21 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
 public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
-
-    private static final EntityDataAccessor<Boolean> STAND = SynchedEntityData.defineId(QuetzalcoatlusEntity.class, EntityDataSerializers.BOOLEAN);
-    public void setStand(boolean i){
-        this.getEntityData().set(STAND, i);
-    }
-    public boolean hasStand(){
-        return this.getEntityData().get(STAND);
-    }
-
 
     public QuetzalcoatlusEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
@@ -60,6 +57,8 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
         this.consumeStaminaModule = 14;
         this.recoverStaminaModule = 8;
         this.downMovementAngle = 8F;
+
+        this.inventory = new ItemStackHandler(3);
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -110,13 +109,6 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
             return InteractionResult.SUCCESS;
         }
 
-         else if (isOwnedBy(player) && !this.isBaby() && itemstack.is(TBItemRegistry.QUETZAL_STAND.get())) {
-            setStand(true);
-            this.playSound(SoundEvents.HORSE_SADDLE, 0.15F, 1.0F);
-            itemstack.shrink(1);
-            return InteractionResult.SUCCESS;
-        }
-
         else if (this.isTame() && this.hasStand() && !this.isOwnedBy(player))
             if(!this.isInSittingPose()){
                 player.startRiding(this);
@@ -126,24 +118,6 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
         return super.mobInteract(player, hand);
     }
 
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("STAND", this.hasStand());
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(STAND, false);
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("STAND"))
-            this.setStand(compound.getBoolean("STAND"));
-    }
 
     @Override
     public boolean hatBoostItem(Player player) {
@@ -206,14 +180,6 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
     }
 
     @Override
-    protected void dropAllDeathLoot(@NotNull DamageSource p_21192_) {
-        if(this.hasStand())
-            spawnAtLocation(TBItemRegistry.QUETZAL_STAND.get());
-
-        super.dropAllDeathLoot(p_21192_);
-    }
-
-    @Override
     public float getRidingSpeedMultiplier() {
         if(this.isInWater())
             return 0.4f;
@@ -223,6 +189,20 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
             return 1f;
         }
         return 0.6F;
+    }
+
+    @Override
+    protected TBMenu createMenu(int containerId, Inventory playerInventory) {
+        return new TBMenuQuetzal(containerId, playerInventory, this);
+    }
+
+    @Override
+    public boolean hasSaddle() {
+        return this.inventory.getStackInSlot(0).is(Items.SADDLE);
+    }
+
+    public boolean hasStand(){
+        return this.inventory.getStackInSlot(1).is(TBItemRegistry.QUETZAL_STAND.get());
     }
 
     //gui stuff

@@ -1,10 +1,7 @@
 package com.modderg.tameablebeasts.registry;
 
 import com.modderg.tameablebeasts.TameableBeasts;
-import com.modderg.tameablebeasts.client.gui.TBMenu;
-import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
-import com.modderg.tameablebeasts.client.gui.TBMenuPenguin;
-import com.modderg.tameablebeasts.client.gui.TBMenuScarecrow;
+import com.modderg.tameablebeasts.client.gui.*;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.fml.common.Mod;
@@ -29,5 +26,11 @@ public class TBMenuRegistry {
 
     public static final RegistryObject<MenuType<TBMenuScarecrow>> SCARECROW_MENU_CONTAINER = MENUS.register("scarecrow_container",
             () -> IForgeMenuType.create(TBMenuScarecrow::new));
+
+    public static final RegistryObject<MenuType<TBMenuQuetzal>> QUETZAL_MENU_CONTAINER = MENUS.register("quetzal_container",
+            () -> IForgeMenuType.create(TBMenuQuetzal::new));
+
+    public static final RegistryObject<MenuType<TBMenuGrasshopper>> GRASSHOPPER_MENU_CONTAINER = MENUS.register("grasshopper_container",
+            () -> IForgeMenuType.create(TBMenuGrasshopper::new));
 }
 
