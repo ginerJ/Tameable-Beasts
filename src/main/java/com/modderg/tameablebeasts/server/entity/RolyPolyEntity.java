@@ -33,11 +33,6 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 
 public class RolyPolyEntity extends RideableTBAnimal {
 
-    @Override
-    public Item hatBoostItem() {
-        return TBItemRegistry.BIKER_HELMET.get();
-    }
-
     public RolyPolyEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
 
@@ -55,6 +50,11 @@ public class RolyPolyEntity extends RideableTBAnimal {
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.225D);
+    }
+
+    @Override
+    public boolean hatBoostItem(Player player) {
+        return player.getInventory().getArmor(3).is(TBItemRegistry.BIKER_HELMET.get());
     }
 
     public static boolean checkRolyPolySpawnRules(EntityType<RolyPolyEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {

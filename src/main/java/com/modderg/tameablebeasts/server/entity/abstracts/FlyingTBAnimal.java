@@ -3,7 +3,7 @@ package com.modderg.tameablebeasts.server.entity.abstracts;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.entity.navigation.TBFlyingPathNavigation;
 import com.modderg.tameablebeasts.registry.TBPacketRegistry;
-import com.modderg.tameablebeasts.server.packet.StoCSyncFlying;
+import com.modderg.tameablebeasts.server.packet.StoCSyncFlyingPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -95,7 +95,7 @@ public class FlyingTBAnimal extends TBAnimal {
         this.setNoGravity(isFlying);
 
         followOwnerGoal.refreshNavigatorPath();
-        TBPacketRegistry.sendToAll(new StoCSyncFlying(this.getId(), isFlying));
+        TBPacketRegistry.sendToAll(new StoCSyncFlyingPacket(this.getId(), isFlying));
     }
 
     public boolean isStill() {

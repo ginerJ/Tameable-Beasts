@@ -106,8 +106,8 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
     }
 
     @Override
-    public Item hatBoostItem() {
-        return TBItemRegistry.FLYING_HELMET.get();
+    public boolean hatBoostItem(Player player) {
+        return player.getInventory().getArmor(3).is(TBItemRegistry.FLYING_HELMET.get());
     }
 
     @Override
@@ -137,8 +137,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
             return 0.5f;
 
         LivingEntity passenger = getControllingPassenger();
-        if (passenger instanceof Player p  && this.hatBoostItem() != null &&
-                isHatBoostItem(p.getInventory().getArmor(3)))
+        if (passenger instanceof Player p  && this.hatBoostItem(p))
             return 1.2f;
 
         return 0.8F;

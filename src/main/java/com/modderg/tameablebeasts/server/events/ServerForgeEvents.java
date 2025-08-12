@@ -3,19 +3,30 @@ package com.modderg.tameablebeasts.server.events;
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.registry.TBBlockRegistry;
 import com.modderg.tameablebeasts.registry.TBEntityRegistry;
+import com.modderg.tameablebeasts.registry.TBPacketRegistry;
 import com.modderg.tameablebeasts.server.entity.FurGolemEntity;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
+import com.modderg.tameablebeasts.server.packet.StoCEntityInvSyncPacket;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.monster.AbstractIllager;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.PacketDistributor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.modderg.tameablebeasts.registry.TBPacketRegistry.TBNETWORK;
 
 @Mod.EventBusSubscriber(modid = TameableBeasts.MOD_ID)
 public class ServerForgeEvents {

@@ -27,25 +27,6 @@ public abstract class RideableTBAnimal extends TBAnimal implements ItemSteerable
         super(p_21803_, p_21804_);
     }
 
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("SADDLE", this.hasSaddle());
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SADDLE, false);
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("SADDLE"))
-            this.setSaddle(compound.getBoolean("SADDLE"));
-    }
-
     @NotNull
     public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -59,11 +40,6 @@ public abstract class RideableTBAnimal extends TBAnimal implements ItemSteerable
 
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
 
-            } else if (!this.isBaby() && isSaddle(itemstack)) {
-                setSaddle(true);
-                this.playSound(SoundEvents.HORSE_SADDLE, 0.15F, 1.0F);
-                itemstack.shrink(1);
-                return InteractionResult.SUCCESS;
             }
         }
 
@@ -75,12 +51,6 @@ public abstract class RideableTBAnimal extends TBAnimal implements ItemSteerable
         super.tick();
         if(this.isVehicle())
             moving = updateMovingState();
-    }
-
-    @Override
-    protected void dropAllDeathLoot(@NotNull DamageSource p_21192_) {
-        dropSaddle();
-        super.dropAllDeathLoot(p_21192_);
     }
 
     @Override

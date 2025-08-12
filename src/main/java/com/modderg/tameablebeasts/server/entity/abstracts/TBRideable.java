@@ -21,19 +21,12 @@ import net.minecraft.world.level.Level;
 
 public interface TBRideable {
 
-    EntityDataAccessor<Boolean> SADDLE = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
-    default void setSaddle(boolean i){
-        this.getEntityData().set(SADDLE, i);
-    }
     default boolean hasSaddle(){
-        return this.getEntityData().get(SADDLE);
+        return false;
     }
 
-    default Item hatBoostItem() {
-        return null;
-    }
-    default boolean isHatBoostItem(ItemStack itemStack) {
-        return itemStack.is(hatBoostItem());
+    default boolean hatBoostItem(Player player) {
+        return false;
     }
 
     default  Item itemSaddle() {
@@ -45,8 +38,7 @@ public interface TBRideable {
 
     default float getRidingSpeedMultiplier(){
         LivingEntity passenger = getControllingPassenger();
-        if (passenger instanceof Player p  && this.hatBoostItem() != null &&
-                isHatBoostItem(p.getInventory().getArmor(3)))
+        if (passenger instanceof Player p  && hatBoostItem(p))
             return 1.6f;
 
         else return 1f;

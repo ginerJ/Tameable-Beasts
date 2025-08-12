@@ -7,17 +7,17 @@ import software.bernie.geckolib.util.ClientUtils;
 
 import java.util.function.Supplier;
 
-public class StoCSyncFlying {
+public class StoCSyncFlyingPacket {
 
     private final int id;
     private final boolean flying;
 
-    public StoCSyncFlying(int id, boolean flying) {
+    public StoCSyncFlyingPacket(int id, boolean flying) {
         this.id = id;
         this.flying = flying;
     }
 
-    public StoCSyncFlying(FriendlyByteBuf buffer) {
+    public StoCSyncFlyingPacket(FriendlyByteBuf buffer) {
         this(buffer.readInt(), buffer.readBoolean());
     }
 

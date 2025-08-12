@@ -146,8 +146,8 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
     }
 
     @Override
-    public Item hatBoostItem() {
-        return TBItemRegistry.FLYING_HELMET.get();
+    public boolean hatBoostItem(Player player) {
+        return player.getInventory().getArmor(3).is(TBItemRegistry.FLYING_HELMET.get());
     }
 
     @Override
@@ -219,8 +219,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
             return 0.4f;
 
         LivingEntity passenger = getControllingPassenger();
-        if (passenger instanceof Player p  && this.hatBoostItem() != null &&
-                isHatBoostItem(p.getInventory().getArmor(3))){
+        if (passenger instanceof Player p  && this.hatBoostItem(p)){
             return 1f;
         }
         return 0.6F;

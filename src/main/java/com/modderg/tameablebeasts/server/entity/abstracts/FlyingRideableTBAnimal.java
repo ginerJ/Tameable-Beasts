@@ -48,25 +48,6 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("SADDLE", this.hasSaddle());
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SADDLE, false);
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("SADDLE"))
-            this.setSaddle(compound.getBoolean("SADDLE"));
-    }
-
-    @Override
     public String getRidingMessage(){
         return getJumpKeyName() + " to Ascend, " + getCrouchKeyName() + " to Plummet , " + getShiftKeyName() + " to Dismount";
     }
@@ -84,21 +65,10 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
                     return InteractionResult.sidedSuccess(this.level().isClientSide);
                 }
 
-            } else if (!this.isBaby() && isSaddle(itemstack)) {
-                setSaddle(true);
-                this.playSound(SoundEvents.HORSE_SADDLE, 0.15F, 1.0F);
-                itemstack.shrink(1);
-                return InteractionResult.SUCCESS;
             }
         }
 
         return super.mobInteract(player, hand);
-    }
-
-    @Override
-    protected void dropAllDeathLoot(@NotNull DamageSource p_21192_) {
-        dropSaddle();
-        super.dropAllDeathLoot(p_21192_);
     }
 
     @Override
@@ -210,13 +180,6 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
         return flyingStamina * 1F / maxFlyingStamina;
     }
 
-    public boolean canJump() {
-        return true;
-    }
-    public void handleStartJump(int o) {}
-    public void handleStopJump() {}
-    public void onPlayerJump(int o) {}
-
     public <T extends FlyingRideableTBAnimal & GeoEntity> AnimationController<T> glideFlyController(T entity) {
         return new AnimationController<>(entity,"movement", 10, event ->{
 
@@ -247,4 +210,11 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
             return groundState(entity, event);
         });
     }
+
+    public boolean canJump() {
+        return true;
+    }
+    public void handleStartJump(int o) {}
+    public void handleStopJump() {}
+    public void onPlayerJump(int o) {}
 }
