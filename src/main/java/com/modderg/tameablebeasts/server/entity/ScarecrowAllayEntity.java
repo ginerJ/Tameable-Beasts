@@ -1,14 +1,12 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.client.gui.TBMenu;
+import com.modderg.tameablebeasts.client.gui.TBMenuScarecrow;
+import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.FlyingTBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.IncludesSitingRidingMeleeAttackGoal;
-import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.tags.TBTags;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -20,25 +18,19 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
 public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
-
-    private static final EntityDataAccessor<Boolean> HASHOE = SynchedEntityData.defineId(ScarecrowAllayEntity.class, EntityDataSerializers.BOOLEAN);
-    public void setHoe(boolean i){
-        this.getEntityData().set(HASHOE, i);
-    }
-    public boolean hasHoe(){
-        return this.getEntityData().get(HASHOE);
-    }
 
     public ScarecrowAllayEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
@@ -47,6 +39,8 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
 
         this.setPathfindingMalus(BlockPathTypes.WATER, -3.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
+
+        this.inventory = new ItemStackHandler(1);
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -78,35 +72,10 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HASHOE, false);
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("HASHOE"))
-            this.setHoe(compound.getBoolean("HASHOE"));
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("HASHOE", this.hasHoe());
-    }
-
-    @Override
     public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
 
         if(this.isOwnedBy(player)){
-            if(itemstack.is(TBItemRegistry.IRON_BIG_HOE.get()) && !this.hasHoe()){
-                this.setHoe(true);
-                updateAttributes();
-                itemstack.shrink(1);
-                return InteractionResult.SUCCESS;
-            }
             if(itemstack.is(Tags.Items.SHEARS)){
                 this.setTextureId(this.random.nextInt(3));
                 this.spawnItemParticles(new ItemStack(Items.PUMPKIN),16,this);
@@ -124,18 +93,19 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
     }
 
     public void updateAttributes(){
-        if (this.hasHoe())
+        if (this.hasScythe())
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(10.D);
         else
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3.0D);
     }
 
-    @Override
-    protected void dropAllDeathLoot(DamageSource p_21192_) {
-        if(this.hasHoe())
-            this.spawnAtLocation(TBItemRegistry.IRON_BIG_HOE.get());
+    public boolean hasScythe(){
+        return this.inventory.getStackInSlot(0).is(TBItemRegistry.IRON_BIG_HOE.get());
+    }
 
-        super.dropAllDeathLoot(p_21192_);
+    @Override
+    protected TBMenu createMenu(int containerId, Inventory playerInventory) {
+        return new TBMenuScarecrow(containerId, playerInventory, this);
     }
 
     //sounds

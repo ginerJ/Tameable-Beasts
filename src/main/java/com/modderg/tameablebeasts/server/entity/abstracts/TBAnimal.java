@@ -101,7 +101,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     public TBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.moveControl = createMoveControl();
-        updateAttributes();
     }
 
     protected void addGoals(Goal... goals){

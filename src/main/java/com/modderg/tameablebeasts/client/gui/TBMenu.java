@@ -36,6 +36,7 @@ public class TBMenu extends AbstractContainerMenu {
     public static final Pair<Integer, Integer> ICE_HELMET_SLOT = new Pair<>(54, 220);
     public static final Pair<Integer, Integer> ICE_CHESTPLATE_SLOT = new Pair<>(72, 220);
     public static final Pair<Integer, Integer> POPSICLE_SLOT = new Pair<>(90, 220);
+    public static final Pair<Integer, Integer> SCYTHE_SLOT = new Pair<>(108, 220);
 
     private int slotCount = 0;
 

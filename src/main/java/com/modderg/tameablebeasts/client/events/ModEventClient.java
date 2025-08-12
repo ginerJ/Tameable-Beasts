@@ -64,6 +64,7 @@ public class ModEventClient {
         event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.TBMOB_MENU_CONTAINER.get(), TBInventoryScreen::new));
         event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.PENGUIN_MENU_CONTAINER.get(), TBInventoryScreen::new));
         event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.JUST_SADDLE_MENU_CONTAINER.get(), TBInventoryScreen::new));
+        event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.SCARECROW_MENU_CONTAINER.get(), TBInventoryScreen::new));
     }
 }
 

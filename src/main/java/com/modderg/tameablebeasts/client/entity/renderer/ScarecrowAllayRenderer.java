@@ -23,7 +23,7 @@ public class ScarecrowAllayRenderer extends GeoEntityRenderer<ScarecrowAllayEnti
         if(bone.getName().contains("light"))
             packedLight = LightTexture.FULL_BRIGHT;
 
-        if(!animatable.hasHoe() && bone.getName().equals("light_hoe"))
+        if(!animatable.hasScythe() && bone.getName().equals("light_hoe"))
             return;
 
         super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
