@@ -29,7 +29,6 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -152,17 +151,6 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
         this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5D);
         this.getAttribute(Attributes.ARMOR).setBaseValue(0.0D);
-    }
-
-    @Override
-    protected void dropAllDeathLoot(@NotNull DamageSource p_21192_) {
-        if(this.getHelmet())
-            this.spawnAtLocation(TBItemRegistry.ICE_HELMET.get());
-
-        IntStream.range(0,this.hasSword()).forEach(e->
-                this.spawnAtLocation(TBItemRegistry.ICEPOP.get()));
-
-        super.dropAllDeathLoot(p_21192_);
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.modderg.tameablebeasts.server.entity;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
+import com.modderg.tameablebeasts.client.gui.TBMenu;
+import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.FlyingRideableTBAnimal;
@@ -24,14 +26,17 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
@@ -45,6 +50,8 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
         this.consumeStaminaModule = 2;
         this.recoverStaminaModule = 10;
         this.downMovementAngle = 5F;
+
+        this.inventory = new ItemStackHandler(1);
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -143,6 +150,16 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
 
     @Override
     public float getStaminaHeight() {return (float) this.flyingStamina / this.maxFlyingStamina;}
+
+    @Override
+    protected TBMenu createMenu(int containerId, Inventory playerInventory) {
+        return new TBMenuJustSaddle(containerId, playerInventory, this);
+    }
+
+    @Override
+    public boolean hasSaddle() {
+        return this.inventory.getStackInSlot(0).is(Items.SADDLE);
+    }
 
     //sound stuff
 

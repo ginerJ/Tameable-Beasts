@@ -1,5 +1,7 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.client.gui.TBMenu;
+import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.abstracts.RideableTBAnimal;
 
@@ -21,9 +23,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -31,6 +35,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
@@ -39,6 +44,8 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
     public CrestedGeckoEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.textureIdSize = 8;
+
+        this.inventory = new ItemStackHandler(1);
     }
 
     //actual speed 0.21
@@ -198,6 +205,16 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
         }
 
         return p_21298_;
+    }
+
+    @Override
+    protected TBMenu createMenu(int containerId, Inventory playerInventory) {
+        return new TBMenuJustSaddle(containerId, playerInventory, this);
+    }
+
+    @Override
+    public boolean hasSaddle() {
+        return this.inventory.getStackInSlot(0).is(Items.SADDLE);
     }
 
     //sound stuff

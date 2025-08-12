@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.registry;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
+import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.client.gui.TBMenuPenguin;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
@@ -21,5 +22,8 @@ public class TBMenuRegistry {
 
     public static final RegistryObject<MenuType<TBMenuPenguin>> PENGUIN_MENU_CONTAINER = MENUS.register("penguin_container",
             () -> IForgeMenuType.create(TBMenuPenguin::new));
+
+    public static final RegistryObject<MenuType<TBMenuJustSaddle>> JUST_SADDLE_MENU_CONTAINER = MENUS.register("just_saddle_container",
+            () -> IForgeMenuType.create(TBMenuJustSaddle::new));
 }
 

@@ -63,6 +63,7 @@ public class ModEventClient {
     public static void registerEntityRenders(FMLClientSetupEvent event) {
         event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.TBMOB_MENU_CONTAINER.get(), TBInventoryScreen::new));
         event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.PENGUIN_MENU_CONTAINER.get(), TBInventoryScreen::new));
+        event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.JUST_SADDLE_MENU_CONTAINER.get(), TBInventoryScreen::new));
     }
 }
 
