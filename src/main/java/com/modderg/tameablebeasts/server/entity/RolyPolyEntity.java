@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
@@ -14,6 +15,7 @@ import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,7 +33,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
@@ -40,12 +41,10 @@ public class RolyPolyEntity extends RideableTBAnimal {
     public RolyPolyEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
 
-        this.brushDrops = new Item[]{TBItemRegistry.ROLY_POLY_PLAQUE.get()};
-
         this.hasWarmthVariants();
         this.healthFloor = 15;
 
-        this.inventory = new ItemStackHandler(1);
+        this.inventory = new TBItemStackHandler(this, 1);
     }
 
     @Override
@@ -167,10 +166,13 @@ public class RolyPolyEntity extends RideableTBAnimal {
 
     @Override
     public void updateAttributes(){
+        double movSpeed = 0.25D;
         if (this.isRunning())
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
-        else
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+            movSpeed = 0.3D;
+
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
+
+        this.brushDrops = new Item[]{TBItemRegistry.ROLY_POLY_PLAQUE.get()};
     }
 
     //animation stuff

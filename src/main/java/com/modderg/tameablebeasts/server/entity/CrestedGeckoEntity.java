@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
@@ -13,6 +14,7 @@ import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -45,7 +47,7 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
         super(p_21803_, p_21804_);
         this.textureIdSize = 8;
 
-        this.inventory = new ItemStackHandler(1);
+        this.inventory = new TBItemStackHandler(this, 1);
     }
 
     //actual speed 0.21

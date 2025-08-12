@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.server.entity.abstracts;
 
+import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.registry.TBPacketRegistry;
 import com.modderg.tameablebeasts.server.entity.navigation.TBGroundPathNavigation;
@@ -70,7 +71,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
     private static final EntityDataAccessor<Boolean> WANDERING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
 
-    protected ItemStackHandler inventory = new ItemStackHandler(0);
+    protected ItemStackHandler inventory = new TBItemStackHandler(this, 0);
 
     protected final LazyOptional<ItemStackHandler> invCapability = LazyOptional.of(() -> inventory);
 
@@ -201,6 +202,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
         if (compound.contains("Inventory"))
             inventory.deserializeNBT(compound.getCompound("Inventory"));
+
+        this.updateAttributes();
     }
 
     @Override
@@ -216,17 +219,16 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
             float temperature = biome.value().getBaseTemperature();
 
+            int variant = TEMPERATE_VARIANT;
             if (temperature < 0.3f)
-                this.setTextureId(COLD_VARIANT);
+                variant = COLD_VARIANT;
             else if (temperature > 0.9f)
-                this.setTextureId(WARM_VARIANT);
-            else
-                this.setTextureId(TEMPERATE_VARIANT);
+                variant = WARM_VARIANT;
+
+            this.setTextureId(variant);
         }
         else if(textureIdSize > 0)
             this.setTextureId(this.random.nextInt(textureIdSize));
-
-        this.updateAttributes();
 
         if(healthFloor > 0){
             float health = generateRandomMaxHealth(healthFloor);
@@ -393,7 +395,12 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
             this.playSound(getTameSound(), 0.15F, 1.0F);
         } else
             this.level().broadcastEntityEvent(this, (byte) 6);
+    }
 
+    @Override
+    public void setTame(boolean flag) {
+        super.setTame(flag);
+        updateAttributes();
     }
 
     //BREEDING STUFF

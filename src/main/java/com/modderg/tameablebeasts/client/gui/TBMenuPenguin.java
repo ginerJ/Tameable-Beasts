@@ -1,9 +1,12 @@
 package com.modderg.tameablebeasts.client.gui;
 
+import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.registry.TBMenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Items;
 
 import java.util.Objects;
 
@@ -17,10 +20,10 @@ public class TBMenuPenguin extends TBMenu{
     }
 
     @Override
-    public void setUpSlots() {
-        this.addSpecialSlots(TBMenu.FIRST_SLOT, TBMenu.ICE_HELMET_SLOT);
-        this.addSpecialSlots(TBMenu.SECOND_SLOT, TBMenu.ICE_CHESTPLATE_SLOT);
-        this.addSpecialSlots(TBMenu.FOURTH_SLOT, TBMenu.POPSICLE_SLOT);
-        this.addSpecialSlots(TBMenu.FIFTH_SLOT, TBMenu.POPSICLE_SLOT);
+    protected void setupSlots() {
+        this.addSpecialSlot(TBMenu.FIRST_SLOT, TBMenu.ICE_HELMET_SLOT, SoundEvents.ARMOR_EQUIP_GOLD, TBItemRegistry.ICE_HELMET.get());
+        this.addSpecialSlot(TBMenu.SECOND_SLOT, TBMenu.ICE_CHESTPLATE_SLOT, SoundEvents.ARMOR_EQUIP_GOLD, TBItemRegistry.ICE_CHESTPLATE.get());
+        this.addSpecialSlot(TBMenu.FOURTH_SLOT, TBMenu.POPSICLE_SLOT, SoundEvents.ARMOR_EQUIP_IRON, TBItemRegistry.ICEPOP.get());
+        this.addSpecialSlot(TBMenu.FIFTH_SLOT, TBMenu.POPSICLE_SLOT, SoundEvents.ARMOR_EQUIP_IRON, TBItemRegistry.ICEPOP.get());
     }
 }

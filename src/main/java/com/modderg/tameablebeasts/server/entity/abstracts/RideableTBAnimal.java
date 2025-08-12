@@ -11,6 +11,7 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -32,14 +33,13 @@ public abstract class RideableTBAnimal extends TBAnimal implements ItemSteerable
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isOwnedBy(player)){
-            if (!player.isShiftKeyDown() && this.hasSaddle() && !isFood(itemstack)){
+            if (!player.isShiftKeyDown() && this.hasSaddle() && !isFood(itemstack) && !itemstack.is(Items.BRUSH)){
                 if(!level().isClientSide())
                     player.startRiding(this);
 
                 messageRiding(player);
 
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-
+                return InteractionResult.SUCCESS;
             }
         }
 

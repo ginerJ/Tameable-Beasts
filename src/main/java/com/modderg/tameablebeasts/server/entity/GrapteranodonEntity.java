@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.server.entity;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
+import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
@@ -15,6 +16,7 @@ import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -59,7 +61,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
         this.recoverStaminaModule = 9;
         this.downMovementAngle = 10F;
 
-        this.inventory = new ItemStackHandler(1);
+        this.inventory = new TBItemStackHandler(this, 1);
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

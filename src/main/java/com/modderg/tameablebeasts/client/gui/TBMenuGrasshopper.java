@@ -2,8 +2,11 @@ package com.modderg.tameablebeasts.client.gui;
 
 import com.modderg.tameablebeasts.registry.TBMenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Items;
 
 import java.util.Objects;
 
@@ -17,8 +20,8 @@ public class TBMenuGrasshopper extends TBMenu{
     }
 
     @Override
-    public void setUpSlots() {
-        this.addSpecialSlots(TBMenu.FIRST_SLOT, TBMenu.SADDLE_SLOT);
-        this.addSpecialSlots(TBMenu.SECOND_SLOT, TBMenu.CHEST_SLOT);
+    protected void setupSlots() {
+        this.addSpecialSlot(TBMenu.FIRST_SLOT, TBMenu.SADDLE_SLOT, SoundEvents.HORSE_SADDLE, Items.SADDLE);
+        this.addSpecialSlot(TBMenu.SECOND_SLOT, TBMenu.CHEST_SLOT, SoundEvents.CHEST_CLOSE, Items.CHEST);
     }
 }

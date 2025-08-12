@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
@@ -46,7 +47,7 @@ public class ChikoteEntity extends RideableTBAnimal {
         this.hasWarmthVariants();
         this.healthFloor = 18;
 
-        this.inventory = new ItemStackHandler(4);
+        this.inventory = new TBItemStackHandler(this, 4);
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

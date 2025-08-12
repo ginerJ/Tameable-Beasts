@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuGrasshopper;
 import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
@@ -14,6 +15,7 @@ import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -50,7 +52,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
         this.textureIdSize = 4;
         this.healthFloor = 20;
 
-        this.inventory = new ItemStackHandler(2);
+        this.inventory = new TBItemStackHandler(this, 2);
     }
 
     @Override
@@ -139,6 +141,10 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
     @Override
     public boolean hasSaddle() {
         return this.inventory.getStackInSlot(0).is(Items.SADDLE);
+    }
+
+    public boolean hasChest() {
+        return this.inventory.getStackInSlot(1).is(Items.CHEST);
     }
 
     //sounds

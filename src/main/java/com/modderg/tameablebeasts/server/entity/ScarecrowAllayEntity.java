@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuScarecrow;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
@@ -8,6 +9,7 @@ import com.modderg.tameablebeasts.server.entity.goals.IncludesSitingRidingMeleeA
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -40,7 +42,7 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
         this.setPathfindingMalus(BlockPathTypes.WATER, -3.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
 
-        this.inventory = new ItemStackHandler(1);
+        this.inventory = new TBItemStackHandler(this, 1);
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -99,7 +101,7 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3.0D);
     }
 
-    public boolean hasScythe(){
+    public boolean hasScythe() {
         return this.inventory.getStackInSlot(0).is(TBItemRegistry.IRON_BIG_HOE.get());
     }
 

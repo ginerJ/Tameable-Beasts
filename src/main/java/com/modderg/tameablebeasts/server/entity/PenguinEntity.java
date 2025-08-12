@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuPenguin;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
@@ -29,7 +30,9 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -37,7 +40,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -46,8 +48,6 @@ import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
-
-import java.util.stream.IntStream;
 
 public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemiAquatic {
 
@@ -62,10 +62,12 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
         this.setMaxUpStep(1.0f);
 
-        this.inventory = new ItemStackHandler(4);
+        this.inventory = new TBItemStackHandler(this, 4);
 
         if(!level().isClientSide())
             initPathAndMoveControls();
+
+        updateAttributes();
     }
 
     @Override public @NotNull MobType getMobType() {
@@ -111,18 +113,18 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         );
     }
 
-    @Override
-    public boolean hasSaddle() {
-        return this.inventory.getStackInSlot(1).is(TBItemRegistry.ICE_CHESTPLATE.get());
-    }
-
     public int hasSword(){
         return Boolean.compare(this.inventory.getStackInSlot(2).is(TBItemRegistry.ICEPOP.get()), false)
                 + Boolean.compare(this.inventory.getStackInSlot(3).is(TBItemRegistry.ICEPOP.get()), false);
     }
 
-    public boolean getHelmet(){
+    public boolean getHelmet() {
         return this.inventory.getStackInSlot(0).is(TBItemRegistry.ICE_HELMET.get());
+    }
+
+    @Override
+    public boolean hasSaddle() {
+        return this.inventory.getStackInSlot(1).is(TBItemRegistry.ICE_CHESTPLATE.get());
     }
 
     @Override public TBFollowOwnerGoal getFollowOwnerGoal() {return followOwnerGoal;}
@@ -130,27 +132,29 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     @Override
     public void updateAttributes(){
 
+        double armor = 0;
+        double movSpeed = 0.3D;
+        double maxHealth = 8.0D;
+        double attackDamage = 2.5D;
+
         if(isInWater())
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(2.5D);
-        else
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+            movSpeed = 2.5D;
 
         if (this.isTame()) {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
+            maxHealth = 20D;
 
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(5.0D + 5.0D * this.hasSword());
+            attackDamage = 5.0D + 5.0D * this.hasSword();
 
-            double armor = 0;
             if(this.getHelmet()) armor += 8d;
             if(this.hasSaddle()) armor += 12d;
 
-            this.getAttribute(Attributes.ARMOR).setBaseValue(armor);
-
-            return;
+            this.brushDrops = new Item[]{Items.FEATHER};
         }
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5D);
-        this.getAttribute(Attributes.ARMOR).setBaseValue(0.0D);
+
+        this.getAttribute(Attributes.ARMOR).setBaseValue(armor);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(attackDamage);
     }
 
     @Override
@@ -178,8 +182,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     public void tick() {
         if(this.isInWater() && !this.getPassengers().isEmpty())
             ejectPassengers();
-        if(!level().isClientSide() &&
-                this.isInWater() != this.isAquatic()){
+        if(!level().isClientSide() && this.isInWater() != this.isAquatic()){
             switchNavigation();
             updateAttributes();
         }
@@ -213,8 +216,6 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
             tameGAnimal(player, itemstack, 20);
             return InteractionResult.SUCCESS;
         }
-
-        updateAttributes();
 
         return super.mobInteract(player, hand);
     }

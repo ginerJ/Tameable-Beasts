@@ -10,6 +10,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -57,14 +58,12 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isOwnedBy(player)){
-            if (this.hasSaddle() && !isFood(itemstack)){
-                if(!player.isShiftKeyDown()){
+            if (!player.isShiftKeyDown() && this.hasSaddle() && !isFood(itemstack) && !itemstack.is(Items.BRUSH)){
+                if(!level().isClientSide())
                     player.startRiding(this);
-                    messageRiding(player);
+                messageRiding(player);
 
-                    return InteractionResult.sidedSuccess(this.level().isClientSide);
-                }
-
+                return InteractionResult.SUCCESS;
             }
         }
 

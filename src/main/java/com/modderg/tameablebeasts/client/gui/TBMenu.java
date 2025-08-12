@@ -3,12 +3,14 @@ package com.modderg.tameablebeasts.client.gui;
 import com.modderg.tameablebeasts.registry.TBMenuRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
@@ -38,16 +40,13 @@ public class TBMenu extends AbstractContainerMenu {
     public static final Pair<Integer, Integer> POPSICLE_SLOT = new Pair<>(90, 220);
     public static final Pair<Integer, Integer> SCYTHE_SLOT = new Pair<>(108, 220);
 
-    private int slotCount = 0;
-
     public TBMenu(MenuType<?> menuType, int container_id, Inventory playerInventory, Entity tbAnimal) {
         super(menuType, container_id);
         this.tbAnimal = (TBAnimal) tbAnimal;
 
+        setupSlots();
         createPlayerHotBar(playerInventory);
         createPlayerInventory(playerInventory);
-        setUpSlots();
-        createTBInventory();
     }
 
     public TBMenu(int container_id, Inventory playerInventory, FriendlyByteBuf extraData) {
@@ -58,10 +57,15 @@ public class TBMenu extends AbstractContainerMenu {
         this(TBMenuRegistry.TBMOB_MENU_CONTAINER.get(), container_id, playerInventory, tbAnimal);
     }
 
-    public void setUpSlots() {}
+    protected void setupSlots(){}
 
-    public void addSpecialSlots(Pair<Integer, Integer> specialSlot, Pair<Integer, Integer> slotType) {
-        specialSlots.add(new Pair<>(specialSlot, slotType));
+    public void addSpecialSlot(Pair<Integer, Integer> slotPos, Pair<Integer, Integer> slotType, SoundEvent soundEvent, Item matchingItem) {
+        specialSlots.add(new Pair<>(slotPos, slotType));
+
+        this.tbAnimal.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent( inventory -> {
+            addSlot(new SpecialSlot(inventory, this.slots.size(), slotPos.getA() + 1, slotPos.getB() + 1,
+                    tbAnimal, soundEvent, matchingItem));
+        });
     }
 
     private void createPlayerHotBar(Inventory playerInventory){
@@ -75,22 +79,6 @@ public class TBMenu extends AbstractContainerMenu {
                 addSlot(new Slot(playerInventory, 9 + column + row * 9, 8 + column * 18, 84 + row*18));
     }
 
-    public TBMenu createTBInventory(){
-        this.tbAnimal.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent( inventory -> {
-            int index = 0;
-
-            for (Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> pair: specialSlots) {
-                Pair<Integer, Integer> slotPos = pair.getA();
-                addSlot(new SlotItemHandler(inventory, index, slotPos.getA() + 1, slotPos.getB() + 1));
-                index++;
-            }
-
-            slotCount = index;
-        });
-
-        return this;
-    }
-
     public TBAnimal getMob() {
         return this.tbAnimal;
     }
@@ -101,29 +89,28 @@ public class TBMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int pIndex) {
-        Slot fromSlot = getSlot(pIndex);
-        if (fromSlot == null || !fromSlot.hasItem()) return ItemStack.EMPTY;
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
+        Slot slot = getSlot(index);
+        if (slot == null || !slot.hasItem()) return ItemStack.EMPTY;
 
-        ItemStack from = fromSlot.getItem();
-        ItemStack original = from.copy();
+        ItemStack stack = slot.getItem();
+        ItemStack copy  = stack.copy();
 
-        final int playerInvEnd = 36;
-        final int mobInvStart = playerInvEnd;
-        final int mobInvEnd = this.slots.size();
+        int playerEnd = 36;          // player range = [0, 36)
+        int entityEnd = this.slots.size(); // entity range = [36, size)
 
-        if (pIndex < playerInvEnd)
-            if (!moveItemStackTo(from, mobInvStart, mobInvEnd, false)) return ItemStack.EMPTY;
-        else if (pIndex < mobInvEnd)
-            if (!moveItemStackTo(from, 0, playerInvEnd, false)) return ItemStack.EMPTY;
-        else return ItemStack.EMPTY;
+        boolean moved = (index < playerEnd)
+                ? moveItemStackTo(stack, playerEnd, entityEnd, false) // player → entity
+                : moveItemStackTo(stack, 0, playerEnd, false);         // entity → player
 
-        if (from.isEmpty()) fromSlot.set(ItemStack.EMPTY);
-        else fromSlot.setChanged();
+        if (!moved) return ItemStack.EMPTY;
 
-        if (from.getCount() == original.getCount()) return ItemStack.EMPTY;
-        fromSlot.onTake(player, from);
-        return original;
+        if (stack.isEmpty()) slot.set(ItemStack.EMPTY);
+        else slot.setChanged();
+
+        slot.onTake(player, stack);
+        return copy;
     }
+
 
 }

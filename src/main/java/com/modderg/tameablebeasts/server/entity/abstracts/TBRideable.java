@@ -29,13 +29,6 @@ public interface TBRideable {
         return false;
     }
 
-    default  Item itemSaddle() {
-        return Items.SADDLE;
-    }
-    default boolean isSaddle(ItemStack itemStack) {
-        return itemStack.is(itemSaddle());
-    }
-
     default float getRidingSpeedMultiplier(){
         LivingEntity passenger = getControllingPassenger();
         if (passenger instanceof Player p  && hatBoostItem(p))
@@ -85,14 +78,7 @@ public interface TBRideable {
         return (float) baseSpeed;
     }
 
-     default void dropSaddle() {
-        if(this.hasSaddle() && this.itemSaddle()!=null)
-            spawnAtLocation(itemSaddle());
-    }
-
-     ItemEntity spawnAtLocation(ItemLike itemLike);
      boolean hasEffect(MobEffect p_21024_);
-     SynchedEntityData getEntityData();
      MobEffectInstance getEffect(MobEffect p_21125_);
      LivingEntity getControllingPassenger();
      Level level();

@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.server.entity;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
+import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
@@ -51,7 +52,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
         this.recoverStaminaModule = 10;
         this.downMovementAngle = 5F;
 
-        this.inventory = new ItemStackHandler(1);
+        this.inventory = new TBItemStackHandler(this, 1);
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

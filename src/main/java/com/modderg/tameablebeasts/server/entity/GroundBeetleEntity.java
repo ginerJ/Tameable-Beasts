@@ -138,7 +138,6 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (this.isTameFood(itemstack) && !this.isTame()) {
-            this.updateAttributes();
             tameGAnimal(player, itemstack, 20);
             return InteractionResult.SUCCESS;
         }

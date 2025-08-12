@@ -23,7 +23,9 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -48,6 +50,7 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
     public RacoonEntity(EntityType<? extends TBAnimal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
         this.hasWarmthVariants();
+        updateAttributes();
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -113,7 +116,6 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (this.isTameFood(itemstack) && !this.isTame()) {
-            this.updateAttributes();
             tameGAnimal(player, itemstack, 15);
             return InteractionResult.SUCCESS;
         }
@@ -144,13 +146,20 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
     }
 
     public void updateAttributes(){
-        if (this.isTame())
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(15.0D);
-        else
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
 
-        if(isBellyFull()) this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
-        else this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+        double maxHealth = 8.0D;
+        double movSpeed = 0.3D;
+
+        if (this.isTame()){
+            this.brushDrops = new Item[]{TBItemRegistry.FUR.get()};
+            maxHealth = 15.0D;
+        }
+
+        if(isBellyFull())
+            movSpeed = 0.2D;
+
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
     //sounds

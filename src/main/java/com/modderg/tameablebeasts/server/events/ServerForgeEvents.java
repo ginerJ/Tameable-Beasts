@@ -32,6 +32,27 @@ import static com.modderg.tameablebeasts.registry.TBPacketRegistry.TBNETWORK;
 public class ServerForgeEvents {
 
     @SubscribeEvent
+    public static void onEntityJoin(final EntityJoinLevelEvent event){
+
+        if(event.getEntity() instanceof TBAnimal tbAnimal && tbAnimal.isTame()){
+            event.getLevel().getServer().execute(
+                    () ->{
+                        List<ItemStack> copy = new ArrayList<>();
+
+                        for (int i = 0; i < tbAnimal.getInventory().getSlots(); i++) {
+                            ItemStack stack = tbAnimal.getInventory().getStackInSlot(i);
+                            if (!stack.isEmpty())
+                                copy.add(stack.copy());
+                        }
+
+                        TBPacketRegistry.sendToAll(new StoCEntityInvSyncPacket(tbAnimal.getId(), copy));
+                    }
+            );
+
+        }
+    }
+
+    @SubscribeEvent
     public static void onDeath(final LivingDeathEvent event){
         if(event.getEntity() instanceof AbstractIllager illager){
             if(event.getEntity().getRandom().nextInt(100) <= 5)

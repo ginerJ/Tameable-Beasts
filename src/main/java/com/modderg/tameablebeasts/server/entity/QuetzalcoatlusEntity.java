@@ -2,8 +2,8 @@ package com.modderg.tameablebeasts.server.entity;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
+import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
-import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.client.gui.TBMenuQuetzal;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
@@ -15,10 +15,6 @@ import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -35,7 +31,6 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -58,7 +53,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
         this.recoverStaminaModule = 8;
         this.downMovementAngle = 8F;
 
-        this.inventory = new ItemStackHandler(3);
+        this.inventory = new TBItemStackHandler(this, 3);
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -201,7 +196,11 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
         return this.inventory.getStackInSlot(0).is(Items.SADDLE);
     }
 
-    public boolean hasStand(){
+    public boolean hasChest() {
+        return this.inventory.getStackInSlot(2).is(Items.CHEST);
+    }
+
+    public boolean hasStand() {
         return this.inventory.getStackInSlot(1).is(TBItemRegistry.QUETZAL_STAND.get());
     }
 

@@ -93,7 +93,6 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
         if (isTameFood(itemstack) && !this.isTame()) {
             tameGAnimal(player, itemstack, 20);
-            updateAttributes();
             return InteractionResult.SUCCESS;
         }
 
