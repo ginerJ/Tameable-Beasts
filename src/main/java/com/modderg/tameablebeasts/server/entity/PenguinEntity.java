@@ -91,11 +91,11 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         followOwnerGoal = new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F, false, true);
 
         addGoals(
+                new SitWhenOrderedToGoal(this),
                 new TameablePanicGoal(this, 1.2D),
                 followOwnerGoal,
                 new BreedGoal(this, 1.0D),
                 new TakeCareOfEggsGoal(this, 15, TBPOITypesRegistry.PENGUIN_POI),
-                new SitWhenOrderedToGoal(this),
                 new RunFromNowAndThenGoal(this),
                 new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.PENGUIN_FOOD), false),
                 new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, false),

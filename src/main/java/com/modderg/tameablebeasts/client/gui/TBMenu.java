@@ -8,10 +8,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
@@ -22,6 +24,8 @@ import java.util.Objects;
 
 public class TBMenu extends AbstractContainerMenu {
     protected final TBAnimal tbAnimal;
+    protected int chestSlot = -1;
+    boolean hadChest = false;
 
     public ArrayList<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> specialSlots = new ArrayList<>();
 
@@ -47,6 +51,7 @@ public class TBMenu extends AbstractContainerMenu {
         setupSlots();
         createPlayerHotBar(playerInventory);
         createPlayerInventory(playerInventory);
+        shouldToggleSlotsCheck();
     }
 
     public TBMenu(int container_id, Inventory playerInventory, FriendlyByteBuf extraData) {
@@ -59,13 +64,41 @@ public class TBMenu extends AbstractContainerMenu {
 
     protected void setupSlots(){}
 
+    protected void setupChestSlots(){
+        this.tbAnimal.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent( inventory -> {
+            for(int row = 0; row < 3; row++)
+                for(int column = 0; column < 5; column++)
+                    addSlot(new ToggeableSlot(inventory, this.slots.size(), 80 + column * 18, 18 + row*18));
+        });
+    }
+
+    public void shouldToggleSlotsCheck(){
+        if(this.chestSlot != -1)
+            if(this.slots.get(this.chestSlot).getItem().is(Items.CHEST)) {
+                if(!this.hadChest)
+                    this.toggleChestSlots(true);
+
+            } else if(this.hadChest)
+                this.toggleChestSlots(false);
+    }
+
+    protected void toggleChestSlots(boolean b) {
+        for(int i = this.slots.size() - 15 - 36; i < this.slots.size(); i++)
+            if(this.slots.get(i) instanceof ToggeableSlot slot)
+                slot.toggle(b);
+
+        this.hadChest = b;
+    }
+
     public void addSpecialSlot(Pair<Integer, Integer> slotPos, Pair<Integer, Integer> slotType, SoundEvent soundEvent, Item matchingItem) {
+        if(slotType == CHEST_SLOT)
+            this.chestSlot = this.slots.size();
+
         specialSlots.add(new Pair<>(slotPos, slotType));
 
-        this.tbAnimal.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent( inventory -> {
-            addSlot(new SpecialSlot(inventory, this.slots.size(), slotPos.getA() + 1, slotPos.getB() + 1,
-                    tbAnimal, soundEvent, matchingItem));
-        });
+        this.tbAnimal.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent( inventory ->
+                addSlot(new SpecialSlot(inventory, this.slots.size(), slotPos.getA() + 1, slotPos.getB() + 1,
+                tbAnimal, soundEvent, matchingItem)));
     }
 
     private void createPlayerHotBar(Inventory playerInventory){
@@ -84,33 +117,59 @@ public class TBMenu extends AbstractContainerMenu {
     }
 
     @Override
+    protected boolean moveItemStackTo(@NotNull ItemStack p_38904_, int p_38905_, int p_38906_, boolean p_38907_) {
+        boolean toReturn = super.moveItemStackTo(p_38904_, p_38905_, p_38906_, p_38907_);
+        shouldToggleSlotsCheck();
+        return toReturn;
+    }
+
+    @Override
+    public void clicked(int p_150400_, int p_150401_, @NotNull ClickType p_150402_, @NotNull Player p_150403_) {
+        super.clicked(p_150400_, p_150401_, p_150402_, p_150403_);
+        shouldToggleSlotsCheck();
+    }
+
+    @Override
     public boolean stillValid(@NotNull Player playerIn) {
         return this.tbAnimal.isAlive();
     }
 
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
-        Slot slot = getSlot(index);
-        if (slot == null || !slot.hasItem()) return ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+        if (slot == null || !slot.hasItem())
+            return ItemStack.EMPTY;
 
         ItemStack stack = slot.getItem();
         ItemStack copy  = stack.copy();
 
-        int playerEnd = 36;          // player range = [0, 36)
-        int entityEnd = this.slots.size(); // entity range = [36, size)
+        SpecialSlot special = (slot instanceof SpecialSlot s) ? s : null;
+        boolean wasSpecialMatch = special != null && stack.is(special.matchingItem);
 
-        boolean moved = (index < playerEnd)
-                ? moveItemStackTo(stack, playerEnd, entityEnd, false) // player → entity
-                : moveItemStackTo(stack, 0, playerEnd, false);         // entity → player
+        final int containerEnd = this.slots.size() - 36;
+        final int invEnd = containerEnd + 27;
+        final int hotEnd = invEnd + 9;
+
+        boolean moved;
+        if (index < containerEnd)
+            moved = this.moveItemStackTo(stack, containerEnd, invEnd, false)
+                    || this.moveItemStackTo(stack, invEnd, hotEnd, false);
+        else if (index < invEnd)
+            moved = this.moveItemStackTo(stack, 0, containerEnd, false)
+                    || this.moveItemStackTo(stack, invEnd, hotEnd, false);
+        else
+            moved = this.moveItemStackTo(stack, 0, containerEnd, false)
+                    || this.moveItemStackTo(stack, containerEnd, invEnd, false);
 
         if (!moved) return ItemStack.EMPTY;
 
-        if (stack.isEmpty()) slot.set(ItemStack.EMPTY);
-        else slot.setChanged();
-
+        if (stack.isEmpty()) slot.set(ItemStack.EMPTY); else slot.setChanged();
         slot.onTake(player, stack);
+
+        if(wasSpecialMatch && stack.isEmpty())
+            tbAnimal.playSound(special.soundEvent);
+
         return copy;
     }
-
 
 }

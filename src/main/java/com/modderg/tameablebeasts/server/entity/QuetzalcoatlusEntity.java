@@ -53,7 +53,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
         this.recoverStaminaModule = 8;
         this.downMovementAngle = 8F;
 
-        this.inventory = new TBItemStackHandler(this, 3);
+        this.inventory = new TBItemStackHandler(this, 18);
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

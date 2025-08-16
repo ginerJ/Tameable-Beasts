@@ -23,5 +23,6 @@ public class TBMenuGrasshopper extends TBMenu{
     protected void setupSlots() {
         this.addSpecialSlot(TBMenu.FIRST_SLOT, TBMenu.SADDLE_SLOT, SoundEvents.HORSE_SADDLE, Items.SADDLE);
         this.addSpecialSlot(TBMenu.SECOND_SLOT, TBMenu.CHEST_SLOT, SoundEvents.CHEST_CLOSE, Items.CHEST);
+        this.setupChestSlots();
     }
 }

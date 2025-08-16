@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.client.gui;
 
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
@@ -11,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 class SpecialSlot extends SlotItemHandler {
 
     TBAnimal animal;
-    Item matchingItem;
-    SoundEvent soundEvent;
+    public Item matchingItem;
+    public SoundEvent soundEvent;
 
     public SpecialSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, TBAnimal animal, SoundEvent soundEvent, Item matchingItem) {
         super(itemHandler, index, xPosition, yPosition);
@@ -24,12 +25,29 @@ class SpecialSlot extends SlotItemHandler {
 
     @Override
     public void set(@NotNull ItemStack newStack) {
-        if(this.getItem().is(matchingItem))
-            animal.playSound(soundEvent);
 
         super.set(newStack);
 
         if(this.getItem().is(matchingItem))
             animal.playSound(soundEvent);
+    }
+
+    @Override
+    public void onTake(@NotNull Player player, @NotNull ItemStack stack) {
+        super.onTake(player, stack);
+
+        if(stack.is(matchingItem))
+            animal.playSound(soundEvent);
+    }
+
+    @Override
+    public @NotNull ItemStack remove(int amount) {
+        ItemStack before = this.getItem().copy();
+        ItemStack result = super.remove(amount);
+
+        if (!before.isEmpty() && before.is(matchingItem) && this.getItem().isEmpty())
+            animal.playSound(soundEvent);
+
+        return result;
     }
 }

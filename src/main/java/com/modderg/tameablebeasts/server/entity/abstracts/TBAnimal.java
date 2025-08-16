@@ -328,6 +328,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     @Override
     public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
 
+        boolean client = this.level().isClientSide;
+
         if (this.isOwnedBy(player)){
             ItemStack stack = player.getItemInHand(hand);
 
@@ -346,17 +348,29 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
             else
                 if(!isInSittingPose() && !isWandering()){
                     this.setWandering(true);
-                    this.messageState("wandering", player);
-                    return InteractionResult.SUCCESS;
+
+                    if(client)
+                        this.messageState("wandering", player);
+
+                    return InteractionResult.sidedSuccess(client);
 
                 } else {
                     this.setWandering(false);
-                    this.messageState(this.isInSittingPose() ? "following":"sitting", player);
-                    this.setInSittingPose(!this.isOrderedToSit());
+
+                    if(client)
+                        this.messageState(this.isInSittingPose() ? "following":"sitting", player);
+
+                    this.setInSittingPose(!this.isInSittingPose());
                     this.setOrderedToSit(!this.isOrderedToSit());
+                    this.jumping = false;
+                    this.navigation.stop();
+                    this.setTarget(null);
+                    this.setDeltaMovement(Vec3.ZERO);
+
                     if(this.isInSittingPose())
                         playStepSound(this.getOnPos(), this.level().getBlockState(this.getOnPos()));
-                    return InteractionResult.SUCCESS;
+
+                    return InteractionResult.sidedSuccess(client);
                 }
         }
 

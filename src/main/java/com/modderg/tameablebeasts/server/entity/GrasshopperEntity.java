@@ -52,7 +52,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
         this.textureIdSize = 4;
         this.healthFloor = 20;
 
-        this.inventory = new TBItemStackHandler(this, 2);
+        this.inventory = new TBItemStackHandler(this, 17);
     }
 
     @Override

@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -39,6 +40,11 @@ public class TBInventoryScreen extends AbstractContainerScreen<TBMenu> {
 
         InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics, this.leftPos + 51, this.topPos + 60,
                 17, (float)(this.leftPos + 51) - mouseX, (float)(this.topPos + 75 - 50) - mouseY, this.menu.tbAnimal);
+
+        int chestSlot = this.menu.chestSlot;
+        if(chestSlot != -1 && this.menu.slots.get(chestSlot).getItem().is(Items.CHEST))
+            guiGraphics.blit(TEXTURE, this.leftPos + 79, this.topPos + 17,
+                    0, 166, 90, 54);
     }
 
     @Override

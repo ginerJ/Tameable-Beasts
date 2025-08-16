@@ -24,5 +24,6 @@ public class TBMenuQuetzal extends TBMenu{
         this.addSpecialSlot(TBMenu.FIRST_SLOT, TBMenu.SADDLE_SLOT, SoundEvents.HORSE_SADDLE, Items.SADDLE);
         this.addSpecialSlot(TBMenu.SECOND_SLOT, TBMenu.STAND_SLOT, SoundEvents.CAMEL_SADDLE, TBItemRegistry.QUETZAL_STAND.get());
         this.addSpecialSlot(TBMenu.THIRD_SLOT, TBMenu.CHEST_SLOT, SoundEvents.CHEST_CLOSE, Items.CHEST);
+        this.setupChestSlots();
     }
 }
