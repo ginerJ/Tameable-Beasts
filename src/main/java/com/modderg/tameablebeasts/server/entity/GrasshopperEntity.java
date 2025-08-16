@@ -49,7 +49,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
 
     public GrasshopperEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.textureIdSize = 4;
+        hasWarmthVariants();
         this.healthFloor = 20;
 
         this.inventory = new TBItemStackHandler(this, 17);

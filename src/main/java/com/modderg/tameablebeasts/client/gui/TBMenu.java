@@ -5,6 +5,7 @@ import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -14,6 +15,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
@@ -78,8 +80,10 @@ public class TBMenu extends AbstractContainerMenu {
                 if(!this.hadChest)
                     this.toggleChestSlots(true);
 
-            } else if(this.hadChest)
+            } else if(this.hadChest){
                 this.toggleChestSlots(false);
+                dropChestContents();
+            }
     }
 
     protected void toggleChestSlots(boolean b) {
@@ -114,6 +118,15 @@ public class TBMenu extends AbstractContainerMenu {
 
     public TBAnimal getMob() {
         return this.tbAnimal;
+    }
+
+    private void dropChestContents() {
+
+        for(int i = this.slots.size() - 15 - 36; i < this.slots.size(); i++)
+            if(this.slots.get(i) instanceof ToggeableSlot slot) {
+                ItemEntity itemEntity = new ItemEntity(tbAnimal.level(), tbAnimal.getX(), tbAnimal.getY(), tbAnimal.getZ(), slot.remove(slot.getItem().getCount()));
+                tbAnimal.level().addFreshEntity(itemEntity);
+            }
     }
 
     @Override
