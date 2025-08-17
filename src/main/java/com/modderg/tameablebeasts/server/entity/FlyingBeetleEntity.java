@@ -44,7 +44,6 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
         super(p_21803_, p_21804_);
         this.hasWarmthVariants();
         this.extraTameParticles = ParticleTypes.GLOW;
-        this.brushDrops = new Item[]{TBItemRegistry.BEETLE_ARMOR_PIECE.get(), TBItemRegistry.BEETLE_DUST.get()};
     }
 
     @Override
@@ -115,6 +114,11 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public Item[] getBrushDrops() {
+        return new Item[]{TBItemRegistry.BEETLE_ARMOR_PIECE.get(), TBItemRegistry.BEETLE_DUST.get()};
     }
 
     @Override

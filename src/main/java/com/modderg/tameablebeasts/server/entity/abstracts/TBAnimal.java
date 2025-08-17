@@ -83,8 +83,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
     protected List<String> attackAnims = new ArrayList<>();
 
-    protected Item[] brushDrops;
-
     protected boolean hasWarmthVariants = false;
 
     protected void hasWarmthVariants(){
@@ -219,7 +217,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
         return this.getEntityData().get(HAPPINESS);
     }
 
-    public Item[] getBrushDrops() {return brushDrops;}
+    public Item[] getBrushDrops() {return null;}
 
     @Override
     public boolean canAttack(@NotNull LivingEntity target) {

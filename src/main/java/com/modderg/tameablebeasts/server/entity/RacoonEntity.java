@@ -51,8 +51,6 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
         super(p_27557_, p_27558_);
 
         this.hasWarmthVariants();
-
-        this.brushDrops = new Item[]{TBItemRegistry.FUR.get()};
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -139,6 +137,11 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public Item[] getBrushDrops() {
+        return new Item[]{TBItemRegistry.FUR.get()};
     }
 
     @Override

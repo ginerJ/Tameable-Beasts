@@ -44,7 +44,6 @@ public class RolyPolyEntity extends RideableTBAnimal {
         this.hasWarmthVariants();
 
         this.inventory = new TBItemStackHandler(this, 1);
-        this.brushDrops = new Item[]{TBItemRegistry.ROLY_POLY_PLAQUE.get()};
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -109,6 +108,11 @@ public class RolyPolyEntity extends RideableTBAnimal {
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public Item[] getBrushDrops() {
+        return new Item[]{TBItemRegistry.ROLY_POLY_PLAQUE.get()};
     }
 
     @Override

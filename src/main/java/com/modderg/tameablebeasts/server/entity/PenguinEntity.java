@@ -63,7 +63,6 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         this.setMaxUpStep(1.0f);
 
         this.inventory = new TBItemStackHandler(this, 4);
-        this.brushDrops = new Item[]{Items.FEATHER};
 
         if(!level().isClientSide())
             initPathAndMoveControls();
@@ -100,8 +99,6 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
             if(this.getHelmet()) armor += 8d;
             if(this.hasSaddle()) armor += 12d;
-
-            this.brushDrops = new Item[]{Items.FEATHER};
         }
 
         this.getAttribute(Attributes.ARMOR).setBaseValue(armor);
@@ -217,6 +214,11 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public Item[] getBrushDrops() {
+        return new Item[]{Items.FEATHER};
     }
 
     @Override

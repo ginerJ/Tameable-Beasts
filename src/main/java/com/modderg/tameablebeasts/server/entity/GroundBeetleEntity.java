@@ -59,8 +59,6 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
     public GroundBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.hasWarmthVariants();
-
-        this.brushDrops = new Item[]{TBItemRegistry.BEETLE_ARMOR_PIECE.get()};
     }
 
     public void setBeetleId(int i){
@@ -146,6 +144,11 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public Item[] getBrushDrops() {
+        return new Item[]{TBItemRegistry.BEETLE_ARMOR_PIECE.get()};
     }
 
     @Override

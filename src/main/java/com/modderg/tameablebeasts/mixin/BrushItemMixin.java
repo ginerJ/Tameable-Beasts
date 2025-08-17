@@ -38,7 +38,7 @@ public abstract class BrushItemMixin {
                     if (animal.tickCount % 15 == 0){
                         level.playSound(player, animal.blockPosition(), SoundEvents.BRUSH_GENERIC, SoundSource.NEUTRAL);
 
-                        if (animal.getRandom().nextInt(100) < 2 + 10 * animal.getHappiness()/100){
+                        if (animal.getRandom().nextInt(100) < 1 + 20 * animal.getHappiness()/100){
                             animal.spawnAtLocation(new ItemStack(brushDrops[animal.getRandom().nextInt(brushDrops.length)]));
                             animal.setHappiness(Math.max(0, animal.getHappiness() - 15));
                         }

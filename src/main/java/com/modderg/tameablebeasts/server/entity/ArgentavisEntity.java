@@ -52,7 +52,6 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
         this.downMovementAngle = 5F;
 
         this.inventory = new TBItemStackHandler(this, 1);
-        this.brushDrops = new Item[]{Items.FEATHER};
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -84,6 +83,11 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public Item[] getBrushDrops() {
+        return new Item[]{Items.FEATHER};
     }
 
     public static boolean checkArgentavisSpawnRules(EntityType<ArgentavisEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos blockpos, RandomSource p_218246_) {

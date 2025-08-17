@@ -48,7 +48,6 @@ public class ChikoteEntity extends RideableTBAnimal {
         this.hasWarmthVariants();
 
         this.inventory = new TBItemStackHandler(this, 4);
-        this.brushDrops = new Item[]{Items.FEATHER};
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -108,6 +107,11 @@ public class ChikoteEntity extends RideableTBAnimal {
         }
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public Item[] getBrushDrops() {
+        return new Item[]{Items.FEATHER};
     }
 
     //actual speed 0.36

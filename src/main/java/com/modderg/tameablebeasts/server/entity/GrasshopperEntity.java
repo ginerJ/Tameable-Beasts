@@ -111,6 +111,11 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
     }
 
     @Override
+    public Item[] getBrushDrops() {
+        return new Item[]{TBItemRegistry.GRASSHOPPER_LEG.get()};
+    }
+
+    @Override
     public String getRidingMessage(){
         return getJumpKeyName() + " to Jump, " + getShiftKeyName() + " to Dismount";
     }

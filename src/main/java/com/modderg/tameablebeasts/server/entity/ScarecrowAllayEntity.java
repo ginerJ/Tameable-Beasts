@@ -44,7 +44,6 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
 
         this.inventory = new TBItemStackHandler(this, 1);
-        this.brushDrops = new Item[]{Items.WHEAT};
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -98,6 +97,11 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
             tameGAnimal(player,null,100);
 
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public Item[] getBrushDrops() {
+        return new Item[]{Items.WHEAT};
     }
 
     @Override
