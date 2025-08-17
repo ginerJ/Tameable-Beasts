@@ -249,11 +249,13 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     @Override
     public void aiStep() {
 
-        if (!this.level().isClientSide && this.isAlive() && this.tickCount % (5000/(this.getHappiness() + 1)) == 0)
-            this.heal(1.0F);
+        if(this.isTame()){
+            if (!this.level().isClientSide && this.isAlive() && (this.tickCount % (int) (Math.exp(-(this.getHappiness() - 165)*0.045)) == 0))
+                this.heal(1.0F);
 
-        if(this.isAlive() && this.tickCount % 25 == 0)
-            this.setHappiness(Math.max(this.getHappiness() - 1, 0));
+            if(this.isAlive() && this.tickCount % 25 == 0)
+                this.setHappiness(Math.max(this.getHappiness() - 1, 0));
+        }
 
         super.aiStep();
 
@@ -333,6 +335,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
         boolean client = this.level().isClientSide;
 
+        this.playSound(this.getInteractSound(), 0.45F, 1.0F);
+
         if (this.isOwnedBy(player)){
             ItemStack stack = player.getItemInHand(hand);
 
@@ -342,10 +346,11 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
             }
 
             if(isFood(player.getItemInHand(hand))){
-                this.heal(5f);
                 this.setHappiness(Math.min(this.getHappiness() + 35, 100));
-                if(!canFallInLove())
+                if(!canFallInLove()){
                     usePlayerItem(player, hand, stack);
+                    return InteractionResult.SUCCESS;
+                }
                 return super.mobInteract(player, hand);
             }
 
@@ -379,13 +384,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
                     return InteractionResult.sidedSuccess(client);
                 }
         }
-
-        if(!this.isInSittingPose() && !(this instanceof FlyingTBAnimal flyAnimal && flyAnimal.isFlying())){
-            triggerAnim("movement", "interact");
-            this.stillDuringInteractAnim = 20;
-        }
-
-        this.playSound(this.getInteractSound(), 0.45F, 1.0F);
 
         return super.mobInteract(player, hand);
     }
