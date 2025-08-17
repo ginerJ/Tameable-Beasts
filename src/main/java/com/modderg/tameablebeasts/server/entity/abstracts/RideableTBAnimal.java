@@ -102,7 +102,7 @@ public abstract class RideableTBAnimal extends TBAnimal implements ItemSteerable
     }
 
     public <T extends RideableTBAnimal & GeoEntity> AnimationController<T> vehicleController(T entity) {
-        return new AnimationController<>(entity,"movement", 3, event -> vehicleState(entity, event));
+        return new AnimationController<>(entity,"movement", 2, event -> vehicleState(entity, event));
     }
 
     public <T extends RideableTBAnimal & GeoEntity> PlayState vehicleState(T entity, AnimationState<T> event) {

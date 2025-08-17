@@ -32,6 +32,7 @@ public class TBItemRegistry {
         public static final RegistryObject<Item> BEETLE_DUST = TB_ITEMS.register("beetle_dust", () -> new GlowInkSacItem(new Properties()));
         public static final RegistryObject<Item> FUR = TB_ITEMS.register("racoon_fur", () -> new Item(new Properties()));
         public static final RegistryObject<Item> ROLY_POLY_PLAQUE = TB_ITEMS.register("roly_plaque", () -> new Item(new Properties()));
+        public static final RegistryObject<Item> BEETLE_ARMOR_PIECE = TB_ITEMS.register("beetle_armor_piece", () -> new Item(new Properties()));
         public static final RegistryObject<Item> ASPHALT = TB_ITEMS.register("asphalt", () -> new AsphaltItem(new Properties()));
 
         public static final RegistryObject<Item> EGG_RESTS = TB_ITEMS.register("egg_rests", () -> new Item(new Properties()));

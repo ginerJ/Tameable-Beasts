@@ -22,6 +22,7 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -43,6 +44,7 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
 
         this.inventory = new TBItemStackHandler(this, 1);
+        this.brushDrops = new Item[]{Items.WHEAT};
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

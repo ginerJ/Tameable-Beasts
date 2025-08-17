@@ -24,6 +24,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -48,6 +49,7 @@ public class ChikoteEntity extends RideableTBAnimal {
         this.healthFloor = 18;
 
         this.inventory = new TBItemStackHandler(this, 4);
+        this.brushDrops = new Item[]{Items.FEATHER};
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

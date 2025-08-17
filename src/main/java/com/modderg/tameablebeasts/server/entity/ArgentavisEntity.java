@@ -53,6 +53,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
         this.downMovementAngle = 5F;
 
         this.inventory = new TBItemStackHandler(this, 1);
+        this.brushDrops = new Item[]{Items.FEATHER};
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {

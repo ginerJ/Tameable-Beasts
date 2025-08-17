@@ -63,11 +63,10 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         this.setMaxUpStep(1.0f);
 
         this.inventory = new TBItemStackHandler(this, 4);
+        this.brushDrops = new Item[]{Items.FEATHER};
 
         if(!level().isClientSide())
             initPathAndMoveControls();
-
-        updateAttributes();
     }
 
     @Override public @NotNull MobType getMobType() {

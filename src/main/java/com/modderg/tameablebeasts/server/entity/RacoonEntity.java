@@ -49,8 +49,10 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
 
     public RacoonEntity(EntityType<? extends TBAnimal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
+
         this.hasWarmthVariants();
-        updateAttributes();
+
+        this.brushDrops = new Item[]{TBItemRegistry.FUR.get()};
     }
 
     public static AttributeSupplier.Builder setCustomAttributes() {
@@ -58,6 +60,22 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
                 .add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D);
+    }
+
+    public void updateAttributes(){
+
+        double maxHealth = 8.0D;
+        double movSpeed = 0.3D;
+
+        if (this.isTame())
+            maxHealth = 15.0D;
+
+
+        if(isBellyFull())
+            movSpeed = 0.2D;
+
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
     public static boolean checkRacoonSpawnRules(EntityType<RacoonEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
@@ -143,23 +161,6 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
         }
 
         super.tick();
-    }
-
-    public void updateAttributes(){
-
-        double maxHealth = 8.0D;
-        double movSpeed = 0.3D;
-
-        if (this.isTame()){
-            this.brushDrops = new Item[]{TBItemRegistry.FUR.get()};
-            maxHealth = 15.0D;
-        }
-
-        if(isBellyFull())
-            movSpeed = 0.2D;
-
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
     //sounds

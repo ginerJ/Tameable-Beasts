@@ -121,7 +121,6 @@ public class TBMenu extends AbstractContainerMenu {
     }
 
     private void dropChestContents() {
-
         for(int i = this.slots.size() - 15 - 36; i < this.slots.size(); i++)
             if(this.slots.get(i) instanceof ToggeableSlot slot) {
                 ItemEntity itemEntity = new ItemEntity(tbAnimal.level(), tbAnimal.getX(), tbAnimal.getY(), tbAnimal.getZ(), slot.remove(slot.getItem().getCount()));

@@ -25,7 +25,9 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -42,6 +44,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
         super(p_21803_, p_21804_);
         this.hasWarmthVariants();
         this.extraTameParticles = ParticleTypes.GLOW;
+        this.brushDrops = new Item[]{TBItemRegistry.BEETLE_ARMOR_PIECE.get(), TBItemRegistry.BEETLE_DUST.get()};
     }
 
     @Override

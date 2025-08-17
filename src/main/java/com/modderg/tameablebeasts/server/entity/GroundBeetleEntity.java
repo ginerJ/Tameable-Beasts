@@ -30,6 +30,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -58,6 +59,8 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
     public GroundBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.hasWarmthVariants();
+
+        this.brushDrops = new Item[]{TBItemRegistry.BEETLE_ARMOR_PIECE.get()};
     }
 
     public void setBeetleId(int i){

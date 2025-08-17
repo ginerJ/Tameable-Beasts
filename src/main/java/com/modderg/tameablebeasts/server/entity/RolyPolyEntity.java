@@ -45,6 +45,25 @@ public class RolyPolyEntity extends RideableTBAnimal {
         this.healthFloor = 15;
 
         this.inventory = new TBItemStackHandler(this, 1);
+        this.brushDrops = new Item[]{TBItemRegistry.ROLY_POLY_PLAQUE.get()};
+    }
+
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MOVEMENT_SPEED, 0.225D)
+                .add(Attributes.MAX_HEALTH, 20D);
+    }
+
+    @Override
+    public void updateAttributes(){
+        double movSpeed = 0.25D;
+        if (this.isRunning())
+            movSpeed = 0.3D;
+
+        if(this.isTame())
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40D);
+
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
     }
 
     @Override
@@ -52,10 +71,6 @@ public class RolyPolyEntity extends RideableTBAnimal {
         return MobType.ARTHROPOD;
     }
 
-    public static AttributeSupplier.Builder setCustomAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.225D);
-    }
 
     @Override
     public boolean hatBoostItem(Player player) {
@@ -162,17 +177,6 @@ public class RolyPolyEntity extends RideableTBAnimal {
     @Override
     public boolean isRunning() {
         return super.isRunning() || this.hasControllingPassenger();
-    }
-
-    @Override
-    public void updateAttributes(){
-        double movSpeed = 0.25D;
-        if (this.isRunning())
-            movSpeed = 0.3D;
-
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
-
-        this.brushDrops = new Item[]{TBItemRegistry.ROLY_POLY_PLAQUE.get()};
     }
 
     //animation stuff
