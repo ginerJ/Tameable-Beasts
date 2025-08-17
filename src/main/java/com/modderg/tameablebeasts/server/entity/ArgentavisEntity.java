@@ -123,7 +123,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return this.getHealth() < 5 && itemStack.is(TBTags.Items.ARGENTAVIS_TAME_FOOD);
+        return this.getHealth() < 10 && itemStack.is(TBTags.Items.ARGENTAVIS_TAME_FOOD);
     }
 
     @Override

@@ -59,5 +59,9 @@ public class TBInventoryScreen extends AbstractContainerScreen<TBMenu> {
         float healthMultiplier = mob.getHealth()/mob.getMaxHealth();
         guiGraphics.blit(TEXTURE, this.leftPos + 62, this.topPos + 73,
                 0, 240, (int) (52*healthMultiplier), 8);
+
+        float happyMultiplier = (float) mob.getHappiness()/100;
+        guiGraphics.blit(TEXTURE, this.leftPos + 116, this.topPos + 73,
+                0, 248, (int) (52*happyMultiplier), 8);
     }
 }

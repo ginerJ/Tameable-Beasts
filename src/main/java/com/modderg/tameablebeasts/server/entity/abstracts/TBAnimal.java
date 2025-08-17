@@ -71,11 +71,13 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
     private static final EntityDataAccessor<Boolean> WANDERING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
 
+    protected static final EntityDataAccessor<Integer> HAPPINESS = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.INT);
+
+    protected static final EntityDataAccessor<Boolean> GOALS_WANT_RUNNING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
+
     protected ItemStackHandler inventory = new TBItemStackHandler(this, 0);
 
     protected final LazyOptional<ItemStackHandler> invCapability = LazyOptional.of(() -> inventory);
-
-    protected static final EntityDataAccessor<Boolean> GOALS_WANT_RUNNING = SynchedEntityData.defineId(TBAnimal.class, EntityDataSerializers.BOOLEAN);
 
     protected int stillDuringInteractAnim = -1;
 
@@ -102,6 +104,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
         this.moveControl = createMoveControl();
     }
 
+    public void updateAttributes(){}
+
     protected void addGoals(Goal... goals){
         int i = 0;
         for (Goal goal: goals){
@@ -124,6 +128,39 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
         this.entityData.define(TEXTURE_ID, 0);
         this.entityData.define(WANDERING, false);
         this.entityData.define(GOALS_WANT_RUNNING, false);
+        this.entityData.define(HAPPINESS, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("TEXTURE_ID", this.getTextureID());
+        compound.putBoolean("WANDERING", this.isWandering());
+        compound.putBoolean("GOALS_WANT_RUNNING", this.isRunning());
+        compound.putInt("HAPPINESS", this.getHappiness());
+        compound.put("Inventory", inventory.serializeNBT());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+
+        if (compound.contains("TEXTURE_ID"))
+            this.setTextureId(compound.getInt("TEXTURE_ID"));
+
+        if (compound.contains("WANDERING"))
+            this.setWandering(compound.getBoolean("WANDERING"));
+
+        if (compound.contains("GOALS_WANT_RUNNING"))
+            this.setWandering(compound.getBoolean("GOALS_WANT_RUNNING"));
+
+        if (compound.contains("HAPPINESS"))
+            this.setHappiness(compound.getInt("HAPPINESS"));
+
+        if (compound.contains("Inventory"))
+            inventory.deserializeNBT(compound.getCompound("Inventory"));
+
+        this.updateAttributes();
     }
 
     @Override
@@ -174,35 +211,15 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
         updateAttributes();
     }
 
+    public void setHappiness(int i){
+        this.getEntityData().set(HAPPINESS, i);
+    }
+
+    public int getHappiness(){
+        return this.getEntityData().get(HAPPINESS);
+    }
+
     public Item[] getBrushDrops() {return brushDrops;}
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("TEXTURE_ID", this.getTextureID());
-        compound.putBoolean("WANDERING", this.isWandering());
-        compound.putBoolean("GOALS_WANT_RUNNING", this.isRunning());
-        compound.put("Inventory", inventory.serializeNBT());
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        
-        if (compound.contains("TEXTURE_ID"))
-            this.setTextureId(compound.getInt("TEXTURE_ID"));
-
-        if (compound.contains("WANDERING"))
-            this.setWandering(compound.getBoolean("WANDERING"));
-
-        if (compound.contains("GOALS_WANT_RUNNING"))
-            this.setWandering(compound.getBoolean("GOALS_WANT_RUNNING"));
-
-        if (compound.contains("Inventory"))
-            inventory.deserializeNBT(compound.getCompound("Inventory"));
-
-        this.updateAttributes();
-    }
 
     @Override
     public boolean canAttack(@NotNull LivingEntity target) {
@@ -234,8 +251,11 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     @Override
     public void aiStep() {
 
-        if (!this.level().isClientSide && this.isAlive() && this.tickCount % 600 == 0)
+        if (!this.level().isClientSide && this.isAlive() && this.tickCount % (5000/(this.getHappiness() + 1)) == 0)
             this.heal(1.0F);
+
+        if(this.isAlive() && this.tickCount % 25 == 0)
+            this.setHappiness(Math.max(this.getHappiness() - 1, 0));
 
         super.aiStep();
 
@@ -244,8 +264,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
             this.setDeltaMovement(0, this.getDeltaMovement().y,0);
         }
     }
-
-    public void updateAttributes(){}
 
     //INVENTORY STUFF
 
@@ -327,6 +345,9 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
             if(isFood(player.getItemInHand(hand))){
                 this.heal(5f);
+                this.setHappiness(Math.min(this.getHappiness() + 35, 100));
+                if(!canFallInLove())
+                    usePlayerItem(player, hand, stack);
                 return super.mobInteract(player, hand);
             }
 

@@ -64,6 +64,16 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
                 .add(Attributes.JUMP_STRENGTH);
     }
 
+    @Override
+    public void updateAttributes(){
+
+        double maxHealth = 40D;
+        if (this.isTame())
+            maxHealth = 70D;
+
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
+    }
+
     public static boolean checkQuetzalSpawnRules(EntityType<QuetzalcoatlusEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
         return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_QUETZAL.get();
     }
@@ -125,7 +135,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return this.getHealth() < 5 && itemStack.is(TBTags.Items.QUETZAL_TAME_FOOD);
+        return this.getHealth() < 10 && itemStack.is(TBTags.Items.QUETZAL_TAME_FOOD);
     }
 
     @Override

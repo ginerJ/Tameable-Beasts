@@ -69,9 +69,9 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
 
-        double maxHealth = 25D;
+        double maxHealth = 10D;
         if (this.isTame())
-            maxHealth = 40D;
+            maxHealth = 20D;
 
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
