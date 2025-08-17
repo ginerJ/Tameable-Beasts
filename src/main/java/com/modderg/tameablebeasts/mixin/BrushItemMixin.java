@@ -41,6 +41,7 @@ public abstract class BrushItemMixin {
                         if (animal.getRandom().nextInt(100) < 1 + 20 * animal.getHappiness()/100){
                             animal.spawnAtLocation(new ItemStack(brushDrops[animal.getRandom().nextInt(brushDrops.length)]));
                             animal.setHappiness(Math.max(0, animal.getHappiness() - 15));
+                            animal.handleInteract();
                         }
                     }
                     ci.cancel();

@@ -347,6 +347,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
             if(isFood(player.getItemInHand(hand))){
                 this.setHappiness(Math.min(this.getHappiness() + 35, 100));
+                handleInteract();
                 if(!canFallInLove()){
                     usePlayerItem(player, hand, stack);
                     return InteractionResult.SUCCESS;
@@ -384,8 +385,17 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
                     return InteractionResult.sidedSuccess(client);
                 }
         }
+        if(!this.isInSittingPose())
+            handleInteract();
 
         return super.mobInteract(player, hand);
+    }
+
+    public void handleInteract(){
+        if(!(this instanceof FlyingTBAnimal flyAnimal && flyAnimal.isFlying())){
+            triggerAnim("movement", "interact");
+            this.stillDuringInteractAnim = 20;
+        }
     }
 
     @Override public boolean isOrderedToSit() {
