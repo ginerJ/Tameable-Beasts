@@ -61,6 +61,21 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
                 .add(Attributes.ARMOR, 15.0D);
     }
 
+    @Override
+    public void updateAttributes(){
+        double movSpeed = 0.3D;
+        if (this.isBaby())
+            movSpeed = 0.1D;
+
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
+
+        double maxHealth = 25D;
+        if (this.isTame())
+            maxHealth = 40D;
+
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
+    }
+
     public static boolean checkFlyingBeetleSpawnRules(EntityType<FlyingBeetleEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
         return ModCommonConfigs.CAN_SPAWN_FLYING_BEETLE.get();
     }
@@ -138,12 +153,6 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
     @Override
     public EggBlockItem getEgg() {
         return (EggBlockItem) TBItemRegistry.FLYING_BEETLE_EGG_ITEM.get();
-    }
-
-    @Override
-    public void updateAttributes() {
-        if (this.isTame())
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 
     //BEETLE DRONE STUFF

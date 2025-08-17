@@ -49,11 +49,20 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0D)
+                .add(Attributes.MAX_HEALTH, 45.0D)
                 .add(Attributes.FLYING_SPEED, 0.15F)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D);
+    }
+
+    public void updateAttributes(){
+
+        double atkDamage = 3.0D;
+        if (this.hasScythe())
+            atkDamage = 12.0D;
+
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(atkDamage);
     }
 
     @Override
@@ -94,13 +103,6 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
     @Override
     public boolean isFood(ItemStack itemstack) {
         return itemstack.is(TBTags.Items.SCARECROW_FOOD);
-    }
-
-    public void updateAttributes(){
-        if (this.hasScythe())
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(10.D);
-        else
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3.0D);
     }
 
     public boolean hasScythe() {

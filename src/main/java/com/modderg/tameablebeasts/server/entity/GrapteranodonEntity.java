@@ -55,7 +55,6 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
     public GrapteranodonEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.textureIdSize = 5;
-        this.healthFloor = 15;
         this.attackAnims.add("attack");
         this.consumeStaminaModule = 4;
         this.recoverStaminaModule = 9;
@@ -71,6 +70,15 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D)
                 .add(Attributes.JUMP_STRENGTH);
+    }
+
+    @Override
+    public void updateAttributes(){
+        double maxHealth = 25D;
+        if (this.isTame())
+            maxHealth = 45D;
+
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
     public static boolean checkGrapteraSpawnRules(EntityType<GrapteranodonEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {

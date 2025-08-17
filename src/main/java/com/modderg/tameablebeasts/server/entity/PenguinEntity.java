@@ -76,10 +76,38 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     public static AttributeSupplier.Builder setCustomAttributes() {
 
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 8.0D)
+                .add(Attributes.MAX_HEALTH, 10D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.ATTACK_DAMAGE, 2.5D)
                 .add(Attributes.ARMOR, 2.0D);
+    }
+
+    @Override
+    public void updateAttributes(){
+
+        double armor = 0;
+        double movSpeed = 0.3D;
+        double maxHealth = 10D;
+        double attackDamage = 2.5D;
+
+        if(isInWater())
+            movSpeed = 2.5D;
+
+        if (this.isTame()) {
+            maxHealth = 35D;
+
+            attackDamage = 5.0D + 5.0D * this.hasSword();
+
+            if(this.getHelmet()) armor += 8d;
+            if(this.hasSaddle()) armor += 12d;
+
+            this.brushDrops = new Item[]{Items.FEATHER};
+        }
+
+        this.getAttribute(Attributes.ARMOR).setBaseValue(armor);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(attackDamage);
     }
 
     TBFollowOwnerGoal followOwnerGoal;
@@ -127,34 +155,6 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     }
 
     @Override public TBFollowOwnerGoal getFollowOwnerGoal() {return followOwnerGoal;}
-
-    @Override
-    public void updateAttributes(){
-
-        double armor = 0;
-        double movSpeed = 0.3D;
-        double maxHealth = 8.0D;
-        double attackDamage = 2.5D;
-
-        if(isInWater())
-            movSpeed = 2.5D;
-
-        if (this.isTame()) {
-            maxHealth = 20D;
-
-            attackDamage = 5.0D + 5.0D * this.hasSword();
-
-            if(this.getHelmet()) armor += 8d;
-            if(this.hasSaddle()) armor += 12d;
-
-            this.brushDrops = new Item[]{Items.FEATHER};
-        }
-
-        this.getAttribute(Attributes.ARMOR).setBaseValue(armor);
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(attackDamage);
-    }
 
     @Override
     public EggBlockItem getEgg() {

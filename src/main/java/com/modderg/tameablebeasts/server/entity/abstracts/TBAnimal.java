@@ -93,8 +93,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
     protected int textureIdSize = 0;
 
-    protected int healthFloor = 0;
-
     public float cachedHeadYaw = 0F;
 
     public float cachedHeadPitch = 0F;
@@ -230,12 +228,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
         else if(textureIdSize > 0)
             this.setTextureId(this.random.nextInt(textureIdSize));
 
-        if(healthFloor > 0){
-            float health = generateRandomMaxHealth(healthFloor);
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(health);
-            this.setHealth(health);
-        }
-
         return super.finalizeSpawn(levelAccessor, p_146747_, p_146748_, p_146749_, p_146750_);
     }
 
@@ -251,11 +243,6 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
             this.getNavigation().stop();
             this.setDeltaMovement(0, this.getDeltaMovement().y,0);
         }
-    }
-
-    public float generateRandomMaxHealth(int floor) {
-        RandomSource random = this.getRandom();
-        return floor + random.nextInt(8) + random.nextInt(9);
     }
 
     public void updateAttributes(){}

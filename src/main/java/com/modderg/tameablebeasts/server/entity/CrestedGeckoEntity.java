@@ -50,22 +50,18 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
         this.inventory = new TBItemStackHandler(this, 1);
     }
 
-    //actual speed 0.21
-    @Override
-    public float getRidingSpeedMultiplier() {
-        return 0.7F;
-    }
-
-    @Override
-    @NotNull
-    public PathNavigation createNavigation(@NotNull Level level) {
-        return new TBWallClimberNavigation(this, level);
-    }
-
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D);
+    }
+
+    @Override
+    public void updateAttributes(){
+        double maxHealth = 25D;
+        if (this.isTame())
+            maxHealth = 35D;
+
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
     @Override
@@ -84,6 +80,18 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
                 new RandomLookAroundGoal(this)
         );
+    }
+
+    //actual speed 0.21
+    @Override
+    public float getRidingSpeedMultiplier() {
+        return 0.7F;
+    }
+
+    @Override
+    @NotNull
+    public PathNavigation createNavigation(@NotNull Level level) {
+        return new TBWallClimberNavigation(this, level);
     }
 
     public static boolean checkCrestedGeckoSpawnRules(EntityType<CrestedGeckoEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {

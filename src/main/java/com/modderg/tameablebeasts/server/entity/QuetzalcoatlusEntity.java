@@ -47,7 +47,6 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
     public QuetzalcoatlusEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.textureIdSize = 6;
-        this.healthFloor = 30;
         this.attackAnims.add("attack");
         this.consumeStaminaModule = 14;
         this.recoverStaminaModule = 8;

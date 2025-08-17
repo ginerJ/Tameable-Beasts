@@ -165,10 +165,17 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
     @Override
     public void updateAttributes(){
-        if (isBaby())
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.1D);
-        else
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+        double movSpeed = 0.3D;
+        if (this.isBaby())
+            movSpeed = 0.1D;
+
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
+
+        double maxHealth = 30D;
+        if (this.isTame())
+            maxHealth = 50D;
+
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
     @Override

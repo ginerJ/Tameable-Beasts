@@ -46,7 +46,6 @@ public class ChikoteEntity extends RideableTBAnimal {
     public ChikoteEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.hasWarmthVariants();
-        this.healthFloor = 18;
 
         this.inventory = new TBItemStackHandler(this, 4);
         this.brushDrops = new Item[]{Items.FEATHER};
@@ -55,6 +54,21 @@ public class ChikoteEntity extends RideableTBAnimal {
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.3D);
+    }
+
+    @Override
+    public void updateAttributes(){
+        double movSpeed = 0.3D;
+        if (this.isBaby())
+            movSpeed = 0.2D;
+
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
+
+        double maxHealth = 25D;
+        if (this.isTame())
+            maxHealth = 40D;
+
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
     public static boolean checkChikoteSpawnRules(EntityType<ChikoteEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
@@ -113,14 +127,6 @@ public class ChikoteEntity extends RideableTBAnimal {
     @Override
     public EggBlockItem getEgg() {
         return (EggBlockItem) TBItemRegistry.CHIKOTE_EGG_ITEM.get();
-    }
-
-    @Override
-    public void updateAttributes(){
-        if (this.isBaby())
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
-        else
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
     }
 
     @Override

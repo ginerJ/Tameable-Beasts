@@ -64,11 +64,11 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
 
     public void updateAttributes(){
 
-        double maxHealth = 8.0D;
+        double maxHealth = 10D;
         double movSpeed = 0.3D;
 
         if (this.isTame())
-            maxHealth = 15.0D;
+            maxHealth = 35.0D;
 
 
         if(isBellyFull())

@@ -46,7 +46,6 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
     public ArgentavisEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.textureIdSize = 7;
-        this.healthFloor = 20;
         this.attackAnims.add("attack");
         this.consumeStaminaModule = 2;
         this.recoverStaminaModule = 10;
@@ -58,11 +57,21 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
 
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 30D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.FLYING_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D)
                 .add(Attributes.JUMP_STRENGTH);
+    }
+
+    @Override
+    public void updateAttributes(){
+        double maxHealth = 35D;
+        if (this.isTame())
+            maxHealth = 50D;
+
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
     @Override

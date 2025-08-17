@@ -50,7 +50,6 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
     public GrasshopperEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         hasWarmthVariants();
-        this.healthFloor = 20;
 
         this.inventory = new TBItemStackHandler(this, 17);
     }
@@ -64,6 +63,15 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.15D)
                 .add(Attributes.JUMP_STRENGTH, 2.5f);
+    }
+
+    @Override
+    public void updateAttributes(){
+        double maxHealth = 25D;
+        if (this.isTame())
+            maxHealth = 45D;
+
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
     public static boolean checkGrasshopperSpawnRules(EntityType<GrasshopperEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
@@ -273,13 +281,6 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
             return 0.84F * this.getBlockJumpFactor();
         }
         return super.getJumpPower();
-    }
-
-    public void updateAttributes(){
-        if (this.isBaby())
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15D);
-        else
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
     }
 
     @Override

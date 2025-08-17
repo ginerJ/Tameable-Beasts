@@ -42,7 +42,6 @@ public class RolyPolyEntity extends RideableTBAnimal {
         super(p_21803_, p_21804_);
 
         this.hasWarmthVariants();
-        this.healthFloor = 15;
 
         this.inventory = new TBItemStackHandler(this, 1);
         this.brushDrops = new Item[]{TBItemRegistry.ROLY_POLY_PLAQUE.get()};
