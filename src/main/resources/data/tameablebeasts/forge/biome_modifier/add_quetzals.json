@@ -2,12 +2,13 @@
   "type": "forge:add_spawns",
   "biomes": [
     "minecraft:jagged_peaks",
-    "minecraft:stony_peaks",
     "minecraft:snowy_slopes",
-    "minecraft:grove",
-    "minecraft:windswept_hills",
-    "minecraft:windswept_forest",
-    "minecraft:windswept_gravelly_hills"
+
+    "minecraft:stony_peaks",
+    "minecraft:badlands",
+
+    "minecraft:plains",
+    "minecraft:forest"
   ],
   "spawners": {
     "type": "tameablebeasts:quetzalcoatlus",

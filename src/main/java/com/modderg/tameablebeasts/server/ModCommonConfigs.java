@@ -18,6 +18,7 @@ public class ModCommonConfigs {
     public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_GRAPTERA;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_CRESTED_GECKO;
     public static final ForgeConfigSpec.ConfigValue<Integer> ARGENTAVIS_SPAWN_HEIGHT;
+    public static final ForgeConfigSpec.ConfigValue<Integer> QUETZAL_SPAWN_HEIGHT;
 
     static {
         BUILDER.push("Tameable Beasts Configs");
@@ -58,6 +59,9 @@ public class ModCommonConfigs {
 
         ARGENTAVIS_SPAWN_HEIGHT = BUILDER.comment("Argentavis Spawn Height")
                 .define("Argentavis minimum spawn height:", 100);
+
+        QUETZAL_SPAWN_HEIGHT = BUILDER.comment("Quetzal Spawn Height")
+                .define("Quetzal minimum spawn height:", 100);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

@@ -92,7 +92,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
 
     public static boolean checkArgentavisSpawnRules(EntityType<ArgentavisEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos blockpos, RandomSource p_218246_) {
         return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,blockpos,p_218246_) &&
-                ModCommonConfigs.CAN_SPAWN_ARGENTAVIS.get() && blockpos.getY() >= ModCommonConfigs.ARGENTAVIS_SPAWN_HEIGHT.get();
+                ModCommonConfigs.CAN_SPAWN_ARGENTAVIS.get() && blockpos.getY() >= ModCommonConfigs.ARGENTAVIS_SPAWN_HEIGHT.get() ;
     }
 
     protected void registerGoals() {

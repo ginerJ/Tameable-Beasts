@@ -42,12 +42,14 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
+import static com.modderg.tameablebeasts.server.ModCommonConfigs.QUETZAL_SPAWN_HEIGHT;
+
 public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
 
     public QuetzalcoatlusEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.textureIdSize = 6;
-        this.attackAnims.add("attack");
+        this.hasWarmthVariants();
+
         this.consumeStaminaModule = 14;
         this.recoverStaminaModule = 8;
         this.downMovementAngle = 8F;
@@ -74,8 +76,8 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
-    public static boolean checkQuetzalSpawnRules(EntityType<QuetzalcoatlusEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
-        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_QUETZAL.get();
+    public static boolean checkQuetzalSpawnRules(EntityType<QuetzalcoatlusEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos pos, RandomSource p_218246_) {
+        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,pos,p_218246_) && ModCommonConfigs.CAN_SPAWN_QUETZAL.get() && pos.getY() > QUETZAL_SPAWN_HEIGHT.get();
     }
 
     @Override

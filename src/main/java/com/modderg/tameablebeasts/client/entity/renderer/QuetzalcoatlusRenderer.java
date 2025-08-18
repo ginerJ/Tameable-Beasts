@@ -24,6 +24,9 @@ public class QuetzalcoatlusRenderer extends GeoEntityRenderer<QuetzalcoatlusEnti
         if(!animatable.hasStand() && bone.getName().contains("stand"))
             return;
 
+        if(!animatable.hasChest() && bone.getName().equals("chest"))
+            return;
+
         super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }
