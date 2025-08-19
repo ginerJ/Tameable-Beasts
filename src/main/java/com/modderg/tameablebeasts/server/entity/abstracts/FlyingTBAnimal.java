@@ -102,6 +102,14 @@ public class FlyingTBAnimal extends TBAnimal {
         return !(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-3D);
     }
 
+    @Override
+    public void setOrderedToSit(boolean p_21840_) {
+        super.setOrderedToSit(p_21840_);
+
+        if(!level().isClientSide() && this.shouldFly() != isFlying())
+            switchNavigation();
+    }
+
     int updateFlyCount = 5;
 
     @Override

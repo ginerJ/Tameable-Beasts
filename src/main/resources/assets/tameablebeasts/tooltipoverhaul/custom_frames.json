@@ -1,0 +1,53 @@
+{
+  "frames": [
+    {
+      "texture": "tooltipoverhaul:textures/overlay/frost_frame.png",
+      "items": [
+        "tameablebeasts:ice_helmet",
+        "tameablebeasts:ice_chestplate",
+        "tameablebeasts:icepop"
+      ],
+      "specialEffect": "metal_shining",
+      "gradientType": "custom",
+      "borderType": "auto_static"
+    },
+    {
+      "texture": "tooltipoverhaul:textures/overlay/amethyst_frame.png",
+      "items": [
+        "tameablebeasts:bug_sword",
+        "tameablebeasts:purple_allay"
+      ],
+      "specialEffect": "metal_shining",
+      "gradientType": "custom",
+      "borderType": "auto_static"
+    },
+    {
+      "texture": "tooltipoverhaul:textures/overlay/silver_frame.png",
+      "items": [
+        "tameablebeasts:big_bird_meat",
+        "tameablebeasts:cooked_big_bird_meat",
+        "tameablebeasts:pteranodon_meal",
+        "tameablebeasts:big_bird_bait",
+        "tameablebeasts:bug_salad",
+        "tameablebeasts:quetzal_stand",
+        "tameablebeasts:iron_big_hoe",
+        "tameablebeasts:scarecrow_straw_hat",
+        "tameablebeasts:flying_helmet",
+        "tameablebeasts:biker_helmet",
+        "tameablebeasts:racoon_hat",
+        "tameablebeasts:chikote_egg",
+        "tameablebeasts:roly_poly_egg",
+        "tameablebeasts:beetle_egg",
+        "tameablebeasts:ground_beetle_egg",
+        "tameablebeasts:grasshopper_egg",
+        "tameablebeasts:penguin_egg",
+        "tameablebeasts:crested_gecko_egg",
+        "tameablebeasts:argentavis_egg",
+        "tameablebeasts:grapterandon_egg"
+      ],
+      "specialEffect": "metal_shining",
+      "gradientType": "custom",
+      "borderType": "auto_static"
+    }
+  ]
+}

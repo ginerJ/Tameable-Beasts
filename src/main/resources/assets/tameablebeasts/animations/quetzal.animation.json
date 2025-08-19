@@ -128,7 +128,7 @@
 						"vector": [-51.67155, 40.23232, 26.5558]
 					},
 					"position": {
-						"vector": [0, 0.3, 2.7]
+						"vector": [-0.00913, -0.46708, 2.05851]
 					}
 				},
 				"back_limb2": {
@@ -136,7 +136,7 @@
 						"vector": [-54.17155, -40.23232, -26.5558]
 					},
 					"position": {
-						"vector": [0, 0.3, 2.7]
+						"vector": [-0.00913, -0.46708, 2.05851]
 					}
 				},
 				"limb": {
@@ -204,6 +204,14 @@
 				"fly_point": {
 					"position": {
 						"vector": [0, 2, 0]
+					}
+				},
+				"chest": {
+					"rotation": {
+						"vector": [35, 0, 0]
+					},
+					"position": {
+						"vector": [0.00639, 1.53696, -0.55096]
 					}
 				}
 			}
@@ -751,14 +759,7 @@
 						"vector": ["(-1)*(-1+math.cos(20+query.anim_time*360))*1.5", 0, 0]
 					},
 					"position": {
-						"vector": [0, "((-1) * (1 + math.cos(60 + query.anim_time * 360))) * 0.5
-
-
-
-
-
-
-", 0]
+						"vector": [0, "((-1) * (1 + math.cos(60 + query.anim_time * 360))) * 0.5", 0]
 					}
 				},
 				"belly": {
@@ -862,14 +863,7 @@
 						"vector": ["(-1)*(-1+math.cos(20+query.anim_time*360))*1.5", 0, 0]
 					},
 					"position": {
-						"vector": [0, "((-1) * (1 + math.cos(60 + query.anim_time * 360))) * 0.5
-
-
-
-
-
-
-", 0]
+						"vector": [0, "((-1) * (1 + math.cos(60 + query.anim_time * 360))) * 0.5", 0]
 					}
 				},
 				"belly": {

@@ -88,9 +88,13 @@ minecraft {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
 
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.7.3')
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.7')
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    implementation fg.deobf("curse.maven:Xaeros-263420:4812568")
+
+    implementation fg.deobf("dev.xylonity.tooltipoverhaul:tooltipoverhaul-forge-1.20.1:1.0.0")
 
     implementation 'com.eliotlash.mclib:mclib:20'
 }
@@ -108,10 +112,11 @@ repositories {
             includeGroup "curse.maven"
         }
     }
-}
 
-dependencies {
-    implementation fg.deobf("curse.maven:Xaeros-263420:4812568")
+    maven {
+        name = "Xylonity's vault"
+        url = "https://raw.githubusercontent.com/Xylonity/maven-centralish/main/maven/"
+    }
 }
 
 jar {
