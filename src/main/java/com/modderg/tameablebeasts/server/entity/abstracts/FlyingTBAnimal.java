@@ -105,16 +105,13 @@ public class FlyingTBAnimal extends TBAnimal {
     @Override
     public void setOrderedToSit(boolean p_21840_) {
         super.setOrderedToSit(p_21840_);
-
-        if(!level().isClientSide() && this.shouldFly() != isFlying())
-            switchNavigation();
     }
 
-    int updateFlyCount = 5;
+    int updateFlyCount = 1;
 
     @Override
     public void tick() {
-        if(!level().isClientSide() && updateFlyCount++ % 20 == 0 && this.shouldFly() != isFlying())
+        if(!level().isClientSide() && updateFlyCount++ % 15 == 0 && this.shouldFly() != this.isFlying())
             switchNavigation();
         super.tick();
     }

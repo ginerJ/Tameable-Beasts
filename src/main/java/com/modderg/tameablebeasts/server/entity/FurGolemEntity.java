@@ -11,6 +11,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
@@ -44,6 +45,7 @@ public class FurGolemEntity extends Animal implements GeoEntity {
 
         this.goalSelector.addGoal(0, new TakeCareOfEggsGoal(this,15));
         this.goalSelector.addGoal(1, new RandomStrollGoal(this, 0.9D));
+        this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
     }
 
     @Nullable

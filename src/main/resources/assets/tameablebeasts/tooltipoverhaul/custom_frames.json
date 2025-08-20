@@ -14,10 +14,18 @@
     {
       "texture": "tooltipoverhaul:textures/overlay/amethyst_frame.png",
       "items": [
-        "tameablebeasts:bug_sword",
+        "tameablebeasts:bug_sword"
+      ],
+      "specialEffect": "stars",
+      "gradientType": "custom",
+      "borderType": "auto_static"
+    },
+    {
+      "texture": "tooltipoverhaul:textures/overlay/amethyst_frame.png",
+      "items": [
         "tameablebeasts:purple_allay"
       ],
-      "specialEffect": "metal_shining",
+      "specialEffect": "ripples",
       "gradientType": "custom",
       "borderType": "auto_static"
     },
@@ -29,12 +37,17 @@
         "tameablebeasts:pteranodon_meal",
         "tameablebeasts:big_bird_bait",
         "tameablebeasts:bug_salad",
+        "tameablebeasts:bird_bait_arrow",
+        "tameablebeasts:ptera_meal_arrow",
+
         "tameablebeasts:quetzal_stand",
         "tameablebeasts:iron_big_hoe",
+
         "tameablebeasts:scarecrow_straw_hat",
         "tameablebeasts:flying_helmet",
         "tameablebeasts:biker_helmet",
         "tameablebeasts:racoon_hat",
+
         "tameablebeasts:chikote_egg",
         "tameablebeasts:roly_poly_egg",
         "tameablebeasts:beetle_egg",
@@ -45,7 +58,6 @@
         "tameablebeasts:argentavis_egg",
         "tameablebeasts:grapterandon_egg"
       ],
-      "specialEffect": "metal_shining",
       "gradientType": "custom",
       "borderType": "auto_static"
     }

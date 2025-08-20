@@ -92,7 +92,8 @@ public class ChikoteEntity extends RideableTBAnimal {
                 new BreedGoal(this, 1.0D),
                 new TBFollowParentGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
-                new RandomStrollGoal(this, 1.0D, 10)
+                new RandomStrollGoal(this, 1.0D, 10),
+                new RandomLookAroundGoal(this)
         );
 
     }

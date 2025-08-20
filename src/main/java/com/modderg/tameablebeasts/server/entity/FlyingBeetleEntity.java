@@ -95,7 +95,8 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
                 new FlyFromNowAndThenGoal(this),
                 new WaterAvoidingRandomFlyingGoal(this, 1.0D),
                 new TBFollowParentGoal(this, 1.0D),
-                new LookAtPlayerGoal(this, Player.class, 6.0F)
+                new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new RandomLookAroundGoal(this)
         );
         this.addTargetGoals(
                 new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),

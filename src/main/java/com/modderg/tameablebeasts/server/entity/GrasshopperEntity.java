@@ -94,7 +94,8 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
                 new RandomSwimmingGoal(this, 1.0D, 10),
                 new BreedGoal(this, 1.0D),
                 new TBFollowParentGoal(this, 1.0D),
-                new LookAtPlayerGoal(this, Player.class, 6.0F)
+                new LookAtPlayerGoal(this, Player.class, 6.0F),
+                new RandomLookAroundGoal(this)
         );
     }
 

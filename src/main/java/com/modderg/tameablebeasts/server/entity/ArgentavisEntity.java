@@ -109,7 +109,8 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
                 new BreedGoal(this, 1.0D),
                 new WaterAvoidingRandomFlyingGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
-                new FloatGoal(this)
+                new FloatGoal(this),
+                new RandomLookAroundGoal(this)
         );
 
         this.addTargetGoals(
