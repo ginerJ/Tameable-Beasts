@@ -17,7 +17,6 @@ import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -38,9 +37,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import static com.modderg.tameablebeasts.server.ModCommonConfigs.QUETZAL_SPAWN_HEIGHT;
 
@@ -133,12 +136,18 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
 
     @Override
     public boolean isFood(ItemStack p_27600_) {
-        return p_27600_.is(TBTags.Items.QUETZAL_FOOD);
+        boolean isFood = p_27600_.is(TBTags.Items.QUETZAL_FOOD);
+        if(isFood)
+            playBite = true;
+        return isFood;
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return this.getHealth() < 10 && itemStack.is(TBTags.Items.QUETZAL_TAME_FOOD);
+        boolean isFood = this.getHealth() < 10 && itemStack.is(TBTags.Items.QUETZAL_TAME_FOOD);
+        if(isFood)
+            playBite = true;
+        return isFood;
     }
 
     @Override
@@ -238,17 +247,21 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
     public SoundEvent getAmbientSound() {
         if(isFlying())
             return SoundInit.QUETZAL_FLY.get();
-
+        playBite = true;
         return SoundInit.QUETZAL_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
+        playBite = true;
         return SoundInit.QUETZAL_DEATH.get();
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.QUETZAL_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {
+        playBite = true;
+        return SoundInit.QUETZAL_HURT.get();
+    }
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
@@ -257,11 +270,13 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
 
     @Override
     public SoundEvent getTameSound(){
+        playBite = true;
         return SoundInit.QUETZAL_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
+        playBite = true;
         return SoundInit.QUETZAL_INTERACT.get();
     }
 
@@ -270,5 +285,20 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
         control.add(addAnimationTriggers(glideFlyController(this)));
+        control.add(biteController(this));
+    }
+
+    public boolean playBite = false;
+
+    public <T extends FlyingRideableTBAnimal & GeoEntity> AnimationController<T> biteController(T entity) {
+        return new AnimationController<>(entity, "mouthController", 10, event -> {
+            AnimationController<T> controller = event.getController();
+            if (playBite) {
+                controller.setAnimation(RawAnimation.begin().then("bite", Animation.LoopType.PLAY_ONCE));
+                playBite = false;
+                controller.forceAnimationReset();
+            }
+            return PlayState.CONTINUE;
+        });
     }
 }

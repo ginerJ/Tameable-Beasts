@@ -39,11 +39,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
-
-import static com.modderg.tameablebeasts.constants.TBConstants.WARM_VARIANT;
 
 public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMob {
 
@@ -153,12 +155,18 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return itemStack.is(TBTags.Items.GROUND_BEETLE_FOOD);
+        boolean isFood = itemStack.is(TBTags.Items.GROUND_BEETLE_FOOD);
+        if (isFood)
+            playBite = true;
+        return isFood;
     }
 
     @Override
     public boolean isFood(ItemStack p_27600_) {
-        return p_27600_.is(TBTags.Items.GROUND_BEETLE_TAME_FOOD);
+        boolean isFood = p_27600_.is(TBTags.Items.GROUND_BEETLE_TAME_FOOD);
+        if (isFood)
+            playBite = true;
+        return isFood;
     }
 
     @Override
@@ -190,17 +198,22 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
     @Override
     public SoundEvent getAmbientSound() {
+        playBite = true;
         return SoundInit.BEETLE_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
+        playBite = true;
         return SoundInit.BEETLE_DEATH.get();
     }
 
     @org.jetbrains.annotations.Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.BEETLE_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {
+        playBite = true;
+        return SoundInit.BEETLE_HURT.get();
+    }
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
@@ -209,14 +222,15 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
     @Override
     public SoundEvent getTameSound(){
+        playBite = true;
         return SoundInit.BEETLE_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
+        playBite = true;
         return SoundInit.BEETLE_INTERACT.get();
     }
-
 
     //anger stuff
 
@@ -246,5 +260,20 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
         control.add(addAnimationTriggers(groundController(this)));
+        control.add(biteController(this));
+    }
+
+    public boolean playBite = false;
+
+    public <T extends TBAnimal & GeoEntity> AnimationController<T> biteController(T entity) {
+        return new AnimationController<>(entity, "mouthController", 10, event -> {
+            AnimationController<T> controller = event.getController();
+            if (playBite) {
+                controller.setAnimation(RawAnimation.begin().then("bite", Animation.LoopType.PLAY_ONCE));
+                playBite = false;
+                controller.forceAnimationReset();
+            }
+            return PlayState.CONTINUE;
+        });
     }
 }
