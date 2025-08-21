@@ -45,7 +45,7 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
 
     public CrestedGeckoEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.textureIdSize = 8;
+        this.hasWarmthVariants();
 
         this.inventory = new TBItemStackHandler(this, 1);
     }

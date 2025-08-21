@@ -22,11 +22,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -83,10 +81,10 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
     protected List<String> attackAnims = new ArrayList<>();
 
-    protected boolean hasWarmthVariants = false;
+    protected boolean warmVariants = false;
 
     protected void hasWarmthVariants(){
-        this.hasWarmthVariants = true;
+        this.warmVariants = true;
     }
 
     protected ParticleOptions extraTameParticles = ParticleTypes.CLOUD;
@@ -181,7 +179,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     }
 
     public void setTextureId(int i){
-        if(i > 2 && this.hasWarmthVariants)
+        if(i > 2 && this.warmVariants)
             i = this.random.nextInt(WARM_VARIANT+1);
 
         this.getEntityData().set(TEXTURE_ID, i);
@@ -227,7 +225,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance p_146747_, @NotNull MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
 
-        if(hasWarmthVariants){
+        if(warmVariants){
             Holder<Biome> biome = this.level().getBiome(this.blockPosition());
 
             float temperature = biome.value().getBaseTemperature();
@@ -528,7 +526,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
     @Override
     public @NotNull Component getName() {
-        if (!hasWarmthVariants)
+        if (!warmVariants)
             return super.getName();
 
         ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(this.getType());
