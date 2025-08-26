@@ -77,7 +77,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
 
     protected final LazyOptional<ItemStackHandler> invCapability = LazyOptional.of(() -> inventory);
 
-    protected int stillDuringInteractAnim = -1;
+    public int stillDuringInteractAnim = -1;
 
     protected List<String> attackAnims = new ArrayList<>();
 
@@ -452,6 +452,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
             super.spawnChildFromBreeding(level, mob);
             return;
         }
+
         ItemStack item = new ItemStack(getEgg());
         spawnAtLocation(EggBlockItem.setTextureId(item, this.getTextureID()));
         super.finalizeSpawnChildFromBreeding(level, mob, null);
@@ -557,6 +558,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     public AnimationController<?> addAnimationTriggers(AnimationController<?> controller){
         for (String attack: attackAnims)
             controller.triggerableAnim(attack, RawAnimation.begin().then(attack, Animation.LoopType.PLAY_ONCE));
+
         controller.triggerableAnim("interact", RawAnimation.begin().then("interact", Animation.LoopType.PLAY_ONCE));
 
         return controller;

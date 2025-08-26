@@ -9,6 +9,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,6 +20,7 @@ import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInst
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.UUID;
 
 public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements GeoBlockEntity {
@@ -56,16 +58,21 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
         this.textureID = id;
     }
 
-    public boolean isWarm(){
-        Direction[] directions = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
+    public boolean isWarm() {
+        int blockLight = Objects.requireNonNull(this.getLevel())
+                .getLightEngine()
+                .getLayerListener(LightLayer.BLOCK)
+                .getLightValue(this.getBlockPos());
 
-        return Arrays.stream(directions).map(d -> this.level.getBlockState(this.getBlockPos().relative(d)).getBlock())
-                .anyMatch(b ->  b instanceof TorchBlock || b instanceof FireBlock || b instanceof LanternBlock || b instanceof CampfireBlock);
+        System.out.println("Block light: " + blockLight);
+
+        return blockLight > 13;
     }
+
 
     public EggBlockEntity(BlockPos p_155229_, BlockState block){
         super(TBBlockEntityRegistry.EGG_BLOCK_ENTITY.get(), p_155229_, block);
-        this.species = ((EggBlock)block.getBlock()).getSpecies();
+        this.species = ((EggBlock<?>)block.getBlock()).getSpecies();
     }
 
     public EggBlockEntity(BlockPos p_155229_, BlockState p_155230_, String species, RegistryObject<EntityType<T>> babyType){

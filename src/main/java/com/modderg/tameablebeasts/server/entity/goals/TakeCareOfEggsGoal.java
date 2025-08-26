@@ -3,6 +3,8 @@ package com.modderg.tameablebeasts.server.entity.goals;
 import com.modderg.tameablebeasts.server.block.EggBlockEntity;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.registry.TBPacketRegistry;
+import com.modderg.tameablebeasts.server.entity.abstracts.FlyingTBAnimal;
+import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import com.modderg.tameablebeasts.server.packet.StoCLoveEggPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -87,6 +89,9 @@ public class TakeCareOfEggsGoal extends Goal {
         if(mob.distanceToSqr(targetPos.getCenter()) < 4 && level.getBlockEntity(targetPos) instanceof EggBlockEntity egg){
 
             egg.goBadTimer = 3000;
+
+            if (mob instanceof FlyingTBAnimal flyingTBAnimal)
+                flyingTBAnimal.setGoalsRequireFlying(false);
 
             TBPacketRegistry.sendToAll(new StoCLoveEggPacket(targetPos));
 
