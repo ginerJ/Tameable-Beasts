@@ -1,5 +1,5 @@
 {
-  "block.tameablebeasts.scarecrow_block" : "Scarecrow",
+  "block.tameablebeasts.scarecrow_block" : "Scarecrow Block",
   "block.tameablebeasts.racoon_fur_block" : "Racoon Fur Block",
   "block.tameablebeasts.asphalted_dirt" : "Asphalted Dirt Block",
 
@@ -16,26 +16,43 @@
   "entity.tameablebeasts.tameable_chikote.temperate" : "Chikote",
   "entity.tameablebeasts.tameable_chikote.awrm" : "Chikote Runner",
 
-  "entity.tameablebeasts.giant_roly_poly.cold" : "T. Pusillus Roly Poly",
+  "entity.tameablebeasts.giant_roly_poly.cold" : "Giant Roly Poly (T. Pusillus)",
   "entity.tameablebeasts.giant_roly_poly.temperate" : "Roly Poly",
-  "entity.tameablebeasts.giant_roly_poly.warm" : "Rubber Ducky Roly Poly",
+  "entity.tameablebeasts.giant_roly_poly.warm" : "Roly Poly (Rubber Ducky)",
 
-  "entity.tameablebeasts.tameable_beetle.cold" : "Shiny Beetle",
-  "entity.tameablebeasts.tameable_beetle.temperate" : "Shiny Beetle",
-  "entity.tameablebeasts.tameable_beetle.warm" : "Shiny Beetle",
+  "entity.tameablebeasts.tameable_beetle.cold" : "Shiny Beetle (Marginellus)",
+  "entity.tameablebeasts.tameable_beetle.temperate" : "Black Shiny Beetle",
+  "entity.tameablebeasts.tameable_beetle.warm" : "Rover Shiny Beetle",
+
+  "entity.tameablebeasts.quetzalcoatlus.cold" : "Cold Quetzalcoatlus",
+  "entity.tameablebeasts.quetzalcoatlus.temperate" : "Quetzalcoatlus",
+  "entity.tameablebeasts.quetzalcoatlus.warm" : "Warm Quetzalcoatlus",
+
+  "entity.tameablebeasts.ground_beetle.cold" : "Ground Beetle (Asbolus)",
+  "entity.tameablebeasts.ground_beetle.temperate" : "Stag Ground Beetle",
+  "entity.tameablebeasts.ground_beetle.warm" : "Red Stag Ground Beetle",
+
+  "entity.tameablebeasts.giant_grasshopper.cold" : "Giant Grasshopper (Aeropedellus)",
+  "entity.tameablebeasts.giant_grasshopper.temperate" : "Giant Grasshopper (Pseudochorthippus)",
+  "entity.tameablebeasts.giant_grasshopper.warm" : "Giant Grasshopper (Romalea)",
+
+  "entity.tameablebeasts.graptera.cold" : "Blue Grapteranodon",
+  "entity.tameablebeasts.graptera.temperate" : "Grapteranodon",
+  "entity.tameablebeasts.graptera.warm" : "Black Grapteranodon",
+
+  "entity.tameablebeasts.argentavis.cold" : "Blue Argentavis",
+  "entity.tameablebeasts.argentavis.temperate" : "Argentavis",
+  "entity.tameablebeasts.argentavis.warm" : "Black Argentavis",
+
+  "entity.tameablebeasts.crested_gecko.cold" : "Pale Crested Gecko",
+  "entity.tameablebeasts.crested_gecko.temperate" : "Crested Gecko",
+  "entity.tameablebeasts.crested_gecko.warm" : "Brown Crested Gecko",
+
+  "entity.tameablebeasts.scarecrow_allay" : "Scarecrow Allay",
 
   "entity.tameablebeasts.beetle_drone" : "Beetle Drone",
 
-  "entity.tameablebeasts.ground_beetle" : "Ground Beetle",
-
-  "entity.tameablebeasts.scarecrow_allay" : "Scarecrow",
-  "entity.tameablebeasts.quetzalcoatlus" : "Quetzalcoatlus",
-  "entity.tameablebeasts.giant_grasshopper" : "Giant Grasshopper",
-  "entity.tameablebeasts.crested_gecko" : "Crested Gecko",
-  "entity.tameablebeasts.argentavis" : "Argentavis",
-  "entity.tameablebeasts.graptera" : "Grapteranodon",
-
-
+  
   "block.tameablebeasts.quetzalcoatlus_egg" : "Quetzal Egg",
   "block.tameablebeasts.chikote_egg" : "Chikote Egg",
   "block.tameablebeasts.roly_poly_egg" : "Roly Poly Egg",
