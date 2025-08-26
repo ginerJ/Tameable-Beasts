@@ -37,15 +37,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
 
     public ArgentavisEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.textureIdSize = 7;
+        this.hasWarmthVariants();
+
         this.attackAnims.add("attack");
         this.consumeStaminaModule = 2;
         this.recoverStaminaModule = 10;

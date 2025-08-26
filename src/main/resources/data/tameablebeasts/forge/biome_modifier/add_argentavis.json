@@ -1,9 +1,8 @@
 {
   "type": "forge:add_spawns",
   "biomes": [
-    "minecraft:plains",
-    "minecraft:forest"
-  ,
+    "minecraft:meadow",
+
     "minecraft:snowy_slopes",
 
     "minecraft:windswept_savanna",
@@ -12,7 +11,7 @@
   ],
   "spawners": {
     "type": "tameablebeasts:argentavis",
-    "weight": 15,
+    "weight": 10,
     "maxCount": 4,
     "minCount": 1
   }

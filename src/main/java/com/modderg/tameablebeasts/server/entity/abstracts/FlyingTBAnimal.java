@@ -5,6 +5,7 @@ import com.modderg.tameablebeasts.server.entity.navigation.TBFlyingPathNavigatio
 import com.modderg.tameablebeasts.registry.TBPacketRegistry;
 import com.modderg.tameablebeasts.server.packet.StoCSyncFlyingPacket;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -107,12 +108,14 @@ public class FlyingTBAnimal extends TBAnimal {
         super.setOrderedToSit(p_21840_);
     }
 
-    int updateFlyCount = 1;
-
     @Override
     public void tick() {
-        if(!level().isClientSide() && updateFlyCount++ % 15 == 0 && this.shouldFly() != this.isFlying())
+
+        int uFlyModule = this.isTame() ? 5: 20;
+
+        if(!level().isClientSide() && this.tickCount % uFlyModule == 0 && this.shouldFly() != this.isFlying())
             switchNavigation();
+
         super.tick();
     }
 
@@ -137,15 +140,19 @@ public class FlyingTBAnimal extends TBAnimal {
     }
 
     protected boolean isOverFluidOrVoid() {
-        BlockPos position = this.blockPosition();
+        BlockPos.MutableBlockPos pos = this.blockPosition().mutable();
         Level level = this.level();
 
-        while (position.getY() > level.getMinBuildHeight() && level.isEmptyBlock(position) && level.getFluidState(position).isEmpty())
-            position = position.below();
+        for (int i = 0; i < 15 && pos.getY() > level.getMinBuildHeight(); i++) {
+            if (!level.isEmptyBlock(pos) || !level.getFluidState(pos).isEmpty()) {
+                return !level.getFluidState(pos).isEmpty();
+            }
+            pos.move(Direction.DOWN);
+        }
 
-        return !level.getFluidState(position).isEmpty() ||
-                position.getY() <= level.getMinBuildHeight();
+        return pos.getY() <= level.getMinBuildHeight();
     }
+
 
     @Override
     public boolean isNoGravity() {

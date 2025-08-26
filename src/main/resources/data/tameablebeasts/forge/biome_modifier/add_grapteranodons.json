@@ -1,10 +1,14 @@
 {
   "type": "forge:add_spawns",
   "biomes": [
-    "minecraft:savanna_plateau",
+    "minecraft:taiga",
+
     "minecraft:badlands",
     "minecraft:eroded_badlands",
-    "minecraft:windswept_savanna"
+    "minecraft:savanna_plateau",
+
+    "minecraft:forest",
+    "minecraft:old_growth_birch_forest"
   ],
   "spawners": {
     "type": "tameablebeasts:graptera",

@@ -50,11 +50,15 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.List;
 
+import static com.modderg.tameablebeasts.server.ModCommonConfigs.GRAPTERA_SPAWN_HEIGHT;
+import static com.modderg.tameablebeasts.server.ModCommonConfigs.QUETZAL_SPAWN_HEIGHT;
+
 public class GrapteranodonEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
 
     public GrapteranodonEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
-        this.textureIdSize = 5;
+        this.hasWarmthVariants();
+
         this.attackAnims.add("attack");
         this.consumeStaminaModule = 4;
         this.recoverStaminaModule = 9;
@@ -81,8 +85,8 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
-    public static boolean checkGrapteraSpawnRules(EntityType<GrapteranodonEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
-        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,p_218245_,p_218246_) && ModCommonConfigs.CAN_SPAWN_GRAPTERA.get();
+    public static boolean checkGrapteraSpawnRules(EntityType<GrapteranodonEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos pos, RandomSource p_218246_) {
+        return checkAnimalSpawnRules(p_218242_,p_218243_,p_218244_,pos,p_218246_) &&  ModCommonConfigs.CAN_SPAWN_GRAPTERA.get() && pos.getY() > GRAPTERA_SPAWN_HEIGHT.get();
     }
 
     protected void registerGoals() {

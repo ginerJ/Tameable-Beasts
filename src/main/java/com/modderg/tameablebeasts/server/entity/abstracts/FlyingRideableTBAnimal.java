@@ -151,19 +151,22 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
 
                 (this.getGoalsRequireFlying() && (
                         !this.isTame() ||
-                                this.isWandering())
+                        this.isWandering()
+                        )
                 ) ||
 
                 (!hasControllingPassenger() && (
                         this.isAggressive() ||
-                                this.isOverFluidOrVoid())
+                        (!this.onGround() && this.isOverFluidOrVoid())
+                        )
                 ) ||
 
                 this.getRiderWantFlying() ||
 
                 (owner != null && (
                         (this.distanceTo(owner) > 10 && !this.isWandering()) ||
-                                (this.isFlying() && !owner.onGround() && !hasPassenger(owner)))
+                        (this.isFlying() && !owner.onGround() && !hasPassenger(owner))
+                        )
                 )
         );
     }

@@ -3,29 +3,40 @@ package com.modderg.tameablebeasts.client.entity.model;
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.ArgentavisEntity;
+import com.modderg.tameablebeasts.server.entity.ChikoteEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animation.AnimationState;
 
 public class ArgentavisModel extends TBGeoModel<ArgentavisEntity> {
 
+    static final ResourceLocation[] textures = {
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/argentavis0.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/argentavis1.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/argentavis2.png"),
+    };
+
+    static final ResourceLocation[] models = {
+            new ResourceLocation(TameableBeasts.MOD_ID, "geo/argentavis.geo.json"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "geo/argentavis_baby.geo.json")
+    };
+
+    static final ResourceLocation animations = new ResourceLocation(TameableBeasts.MOD_ID, "animations/argentavis.animation.json");
+
+
     @Override
     public ResourceLocation getModelResource(ArgentavisEntity entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID, "geo/"+(entity.isBaby()?"baby_":"")+"argentavis.geo.json");
+        if(entity.isBaby())
+            return models[1];
+        return models[0];
     }
 
     @Override
     public ResourceLocation getTextureResource(ArgentavisEntity entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID,"textures/entity/argentavis"+entity.getTextureID()+".png");
+        return textures[entity.getTextureID()];
     }
 
     @Override
     public ResourceLocation getAnimationResource(ArgentavisEntity entity) {
-        return new ResourceLocation(TameableBeasts.MOD_ID, "animations/argentavis.animation.json");
-    }
-
-    @Override
-    public void setCustomAnimations(ArgentavisEntity animatable, long instanceId, AnimationState<ArgentavisEntity> animationState) {
-        setLookAngle(animatable, animationState);
-        super.setCustomAnimations(animatable, instanceId, animationState);
+        return animations;
     }
 }

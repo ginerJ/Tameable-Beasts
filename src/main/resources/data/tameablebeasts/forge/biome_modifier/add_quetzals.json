@@ -2,10 +2,8 @@
   "type": "forge:add_spawns",
   "biomes": [
     "minecraft:jagged_peaks",
-    "minecraft:snowy_slopes",
 
     "minecraft:stony_peaks",
-    "minecraft:badlands",
 
     "minecraft:plains",
     "minecraft:forest"

@@ -96,6 +96,8 @@ dependencies {
 
     implementation fg.deobf("dev.xylonity.tooltipoverhaul:tooltipoverhaul-forge-1.20.1:1.0.0")
 
+    implementation fg.deobf("curse.maven:jei-238222:6075247")
+
     implementation 'com.eliotlash.mclib:mclib:20'
 }
 
