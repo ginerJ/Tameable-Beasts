@@ -154,11 +154,11 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
 
     @Override
     public boolean hasSaddle() {
-        return this.inventory.getStackInSlot(0).is(Items.SADDLE);
+        return !this.isBaby() && this.inventory.getStackInSlot(0).is(Items.SADDLE);
     }
 
     public boolean hasChest() {
-        return this.inventory.getStackInSlot(1).is(Items.CHEST);
+        return !this.isBaby() && this.inventory.getStackInSlot(1).is(Items.CHEST);
     }
 
     //sounds

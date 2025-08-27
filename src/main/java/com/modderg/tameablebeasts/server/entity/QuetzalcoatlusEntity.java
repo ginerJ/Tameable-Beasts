@@ -214,15 +214,15 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
 
     @Override
     public boolean hasSaddle() {
-        return this.inventory.getStackInSlot(0).is(Items.SADDLE);
+        return !this.isBaby() && this.inventory.getStackInSlot(0).is(Items.SADDLE);
     }
 
     public boolean hasChest() {
-        return this.inventory.getStackInSlot(2).is(Items.CHEST);
+        return !this.isBaby() && this.inventory.getStackInSlot(2).is(Items.CHEST);
     }
 
     public boolean hasStand() {
-        return this.inventory.getStackInSlot(1).is(TBItemRegistry.QUETZAL_STAND.get());
+        return !this.isBaby() && this.inventory.getStackInSlot(1).is(TBItemRegistry.QUETZAL_STAND.get());
     }
 
     //gui stuff

@@ -143,7 +143,7 @@ public class RolyPolyEntity extends RideableTBAnimal {
 
     @Override
     public boolean hasSaddle() {
-        return this.inventory.getStackInSlot(0).is(Items.SADDLE);
+        return !this.isBaby() && this.inventory.getStackInSlot(0).is(Items.SADDLE);
     }
 
     //sounds

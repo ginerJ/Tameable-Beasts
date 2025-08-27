@@ -235,7 +235,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
 
     @Override
     public boolean hasSaddle() {
-        return this.inventory.getStackInSlot(0).is(Items.SADDLE);
+        return !this.isBaby() && this.inventory.getStackInSlot(0).is(Items.SADDLE);
     }
 
     //gui stuff
@@ -305,7 +305,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
     public boolean eatEmote = false;
 
     public <T extends FlyingRideableTBAnimal & GeoEntity> AnimationController<T> legsMouthController(T entity) {
-        return new AnimationController<>(entity, "legs&mouthController", 10, event -> {
+        return new AnimationController<>(entity, "legs&mouthController", 5, event -> {
             AnimationController<T> controller = event.getController();
 
             if (playGrip) {

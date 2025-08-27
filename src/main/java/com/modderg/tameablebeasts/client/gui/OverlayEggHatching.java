@@ -45,8 +45,8 @@ public class OverlayEggHatching {
         String ownerName = "Owned by: " + (player != null ? player.getName().getString() : "None");
 
 
-        int x = window.getGuiScaledWidth()/2;
-        int y = window.getGuiScaledHeight()/2-68;
+        int x = window.getGuiScaledWidth()/2 + 20;
+        int y = window.getGuiScaledHeight()/2 - 34;
 
         boolean isWarm = eggBlockEntity.isWarm();
         boolean goneBad = eggBlockEntity.goBadTimer <= 0;

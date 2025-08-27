@@ -138,17 +138,17 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
     }
 
     public int hasSword(){
-        return Boolean.compare(this.inventory.getStackInSlot(2).is(TBItemRegistry.ICEPOP.get()), false)
-                + Boolean.compare(this.inventory.getStackInSlot(3).is(TBItemRegistry.ICEPOP.get()), false);
+        return (!this.isBaby() ? 1 : 0) * (Boolean.compare(this.inventory.getStackInSlot(2).is(TBItemRegistry.ICEPOP.get()), false)
+                + Boolean.compare(this.inventory.getStackInSlot(3).is(TBItemRegistry.ICEPOP.get()), false));
     }
 
     public boolean getHelmet() {
-        return this.inventory.getStackInSlot(0).is(TBItemRegistry.ICE_HELMET.get());
+        return !this.isBaby() && this.inventory.getStackInSlot(0).is(TBItemRegistry.ICE_HELMET.get());
     }
 
     @Override
     public boolean hasSaddle() {
-        return this.inventory.getStackInSlot(1).is(TBItemRegistry.ICE_CHESTPLATE.get());
+        return !this.isBaby() && this.inventory.getStackInSlot(1).is(TBItemRegistry.ICE_CHESTPLATE.get());
     }
 
     @Override public TBFollowOwnerGoal getFollowOwnerGoal() {return followOwnerGoal;}

@@ -64,9 +64,7 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
                 .getLayerListener(LightLayer.BLOCK)
                 .getLightValue(this.getBlockPos());
 
-        System.out.println("Block light: " + blockLight);
-
-        return blockLight > 13;
+        return blockLight > 11;
     }
 
 
