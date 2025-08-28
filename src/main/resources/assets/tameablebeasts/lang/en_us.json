@@ -40,7 +40,7 @@
   "entity.tameablebeasts.graptera.temperate" : "Grapteranodon",
   "entity.tameablebeasts.graptera.warm" : "Black Grapteranodon",
 
-  "entity.tameablebeasts.argentavis.cold" : "Blue Argentavis",
+  "entity.tameablebeasts.argentavis.cold" : "White Argentavis",
   "entity.tameablebeasts.argentavis.temperate" : "Argentavis",
   "entity.tameablebeasts.argentavis.warm" : "Black Argentavis",
 
@@ -67,7 +67,6 @@
 
   "enchantment.tameablebeasts.swarm" : "Swarm",
   "enchantment.tameablebeasts.sting" : "Sting",
-
 
   "itemGroup.tameabletab" : "Tameable Beasts Tab",
 

@@ -3,9 +3,8 @@ package com.modderg.tameablebeasts.client.entity.model;
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.ArgentavisEntity;
-import com.modderg.tameablebeasts.server.entity.ChikoteEntity;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.model.GeoModel;
 
 public class ArgentavisModel extends TBGeoModel<ArgentavisEntity> {
 

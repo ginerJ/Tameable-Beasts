@@ -3,9 +3,8 @@ package com.modderg.tameablebeasts.client.entity.model;
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.GrapteranodonEntity;
-import com.modderg.tameablebeasts.server.entity.QuetzalcoatlusEntity;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.model.GeoModel;
 
 public class GrapteraModel extends TBGeoModel<GrapteranodonEntity> {
 

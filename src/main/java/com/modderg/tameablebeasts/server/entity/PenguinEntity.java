@@ -228,6 +228,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
+        
         return itemStack.is(TBTags.Items.PENGUIN_TAME_FOOD);
     }
 

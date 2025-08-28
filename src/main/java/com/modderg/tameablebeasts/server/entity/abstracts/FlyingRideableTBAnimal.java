@@ -183,7 +183,7 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
     }
 
     public <T extends FlyingRideableTBAnimal & GeoEntity> AnimationController<T> glideFlyController(T entity) {
-        return new AnimationController<>(entity,"movement", 10, event ->{
+        return new AnimationController<>(entity,"movement", 5, event ->{
 
             if(entity.isFlying() && !entity.isInSittingPose()) {
 

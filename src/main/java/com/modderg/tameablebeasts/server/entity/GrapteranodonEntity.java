@@ -142,6 +142,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
+        
         boolean isFood = this.getHealth() < 5 && itemStack.is(TBTags.Items.GRAPTERA_TAME_FOOD);
         if(isFood)
             eatEmote = true;

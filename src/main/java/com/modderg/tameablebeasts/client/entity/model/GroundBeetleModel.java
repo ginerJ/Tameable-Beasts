@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.client.entity.model;
 
 import com.modderg.tameablebeasts.TameableBeasts;
+import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
 import com.modderg.tameablebeasts.server.entity.GroundBeetleEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +12,7 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class GroundBeetleModel extends GeoModel<GroundBeetleEntity> {
+public class GroundBeetleModel extends TBGeoModel<GroundBeetleEntity> {
 
     static final ResourceLocation[][] textures = {
         {
@@ -23,6 +24,16 @@ public class GroundBeetleModel extends GeoModel<GroundBeetleEntity> {
             new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/rhyno_beetle0.png"),
             new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/rhyno_beetle1.png"),
             new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/rhyno_beetle2.png"),
+        },
+        {
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/jaw_metal_beetle0.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/jaw_metal_beetle1.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/jaw_metal_beetle2.png"),
+        },
+        {
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/rhyno_metal_beetle0.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/rhyno_metal_beetle1.png"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "textures/entity/rhyno_metal_beetle2.png"),
         }
     };
 
@@ -31,18 +42,23 @@ public class GroundBeetleModel extends GeoModel<GroundBeetleEntity> {
 
     static final ResourceLocation[] models = {
             new ResourceLocation(TameableBeasts.MOD_ID, "geo/ground_beetle.geo.json"),
-            new ResourceLocation(TameableBeasts.MOD_ID, "geo/shiny_beetle_baby.geo.json")
+            new ResourceLocation(TameableBeasts.MOD_ID, "geo/shiny_beetle_baby.geo.json"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "geo/metal_beetle.geo.json")
     };
 
     static final ResourceLocation[] animations = {
             new ResourceLocation(TameableBeasts.MOD_ID, "animations/ground_beetle.animation.json"),
-            new ResourceLocation(TameableBeasts.MOD_ID, "animations/shiny_beetle_baby.animation.json")
+            new ResourceLocation(TameableBeasts.MOD_ID, "animations/shiny_beetle_baby.animation.json"),
+            new ResourceLocation(TameableBeasts.MOD_ID, "animations/metal_beetle.animation.json")
     };
 
     @Override
     public ResourceLocation getModelResource(GroundBeetleEntity entity) {
         if(entity.isBaby())
             return models[1];
+
+        if(entity.isMetallic())
+            return models[2];
 
         return models[0];
     }
@@ -52,13 +68,16 @@ public class GroundBeetleModel extends GeoModel<GroundBeetleEntity> {
         if(entity.isBaby())
             return  bb_texture;
 
-        return textures[entity.getBeetleID()][entity.getTextureID()];
+        return textures[entity.getBeetleID() + (entity.isMetallic() ? 2:0)][entity.getTextureID()];
     }
 
     @Override
     public ResourceLocation getAnimationResource(GroundBeetleEntity entity) {
         if(entity.isBaby())
             return  animations[1];
+
+        if(entity.isMetallic())
+            return animations[2];
 
         return animations[0];
     }

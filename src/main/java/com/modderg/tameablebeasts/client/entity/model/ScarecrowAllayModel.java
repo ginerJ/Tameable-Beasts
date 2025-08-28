@@ -5,6 +5,7 @@ import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.ScarecrowAllayEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.model.GeoModel;
 
 public class ScarecrowAllayModel extends TBGeoModel<ScarecrowAllayEntity> {
 
@@ -21,11 +22,5 @@ public class ScarecrowAllayModel extends TBGeoModel<ScarecrowAllayEntity> {
     @Override
     public ResourceLocation getAnimationResource(ScarecrowAllayEntity entity) {
         return new ResourceLocation(TameableBeasts.MOD_ID, "animations/scarecrow_allay.animation.json");
-    }
-
-    @Override
-    public void setCustomAnimations(ScarecrowAllayEntity animatable, long instanceId, AnimationState<ScarecrowAllayEntity> animationState) {
-        setLookAngle(animatable, animationState);
-        super.setCustomAnimations(animatable, instanceId, animationState);
     }
 }

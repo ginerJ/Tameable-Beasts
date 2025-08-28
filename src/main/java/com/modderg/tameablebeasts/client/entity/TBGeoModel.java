@@ -15,24 +15,6 @@ import static com.modderg.tameablebeasts.constants.TBConstants.HEAD_Y_QUERY;
 
 public abstract class TBGeoModel<T extends TBAnimal> extends GeoModel<T> {
 
-    protected void setBoneRot(CoreGeoBone bone, Vec3 rotation) {
-        bone.setRotX((float) rotation.x);
-        bone.setRotY((float) rotation.y);
-        bone.setRotZ((float) rotation.z);
-    }
-
-    protected void setLookAngle(TBAnimal animatable, AnimationState<T> animationState) {
-        CoreGeoBone lookAngle = getAnimationProcessor().getBone("look_angle");
-
-        if(lookAngle != null){
-            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-
-            Vec3 headRot = new Vec3(entityData.headPitch() * Mth.DEG_TO_RAD,entityData.netHeadYaw() * Mth.DEG_TO_RAD, 0);
-
-            this.setBoneRot(lookAngle, headRot);
-        }
-    }
-
     @Override
     public void setCustomAnimations(T animatable, long instanceId, AnimationState<T> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);

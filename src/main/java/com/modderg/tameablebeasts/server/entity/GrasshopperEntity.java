@@ -128,6 +128,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
+        
         return itemStack.is(TBTags.Items.GRASSHOPPER_TAME_FOOD);
     }
 

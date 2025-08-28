@@ -124,6 +124,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
+        
         return itemStack.is(TBTags.Items.SHINY_BEETLE_FOOD);
     }
 
@@ -247,7 +248,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     public <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> flyingBeetleController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
-            if(entity.isFlying()){
+            if(entity.isFlying() && !entity.isInSittingPose()){
                 if(entity.tickCount % 5 == 0)
                     entity.level().addParticle(ParticleTypes.GLOW, this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
                 return flyState(entity, event);

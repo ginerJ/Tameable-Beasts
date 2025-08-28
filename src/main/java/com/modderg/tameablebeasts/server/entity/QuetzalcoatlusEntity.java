@@ -144,6 +144,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
+        
         boolean isFood = this.getHealth() < 10 && itemStack.is(TBTags.Items.QUETZAL_TAME_FOOD);
         if(isFood)
             playBite = true;

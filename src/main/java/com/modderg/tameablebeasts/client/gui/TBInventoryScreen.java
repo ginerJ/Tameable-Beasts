@@ -2,6 +2,8 @@ package com.modderg.tameablebeasts.client.gui;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
@@ -13,6 +15,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
+
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class TBInventoryScreen extends AbstractContainerScreen<TBMenu> {

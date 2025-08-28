@@ -122,6 +122,7 @@ public class RolyPolyEntity extends RideableTBAnimal {
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
+        
         return itemStack.is(TBTags.Items.ROLY_POLY_TAME_FOOD);
     }
 

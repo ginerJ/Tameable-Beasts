@@ -38,7 +38,7 @@ public class RacoonStealFoodGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.mob.tickCount % 20 == 0 && hasTargetBeeOrPlayerNearBy() && !this.mob.isBellyFull();
+        return !this.mob.isBaby() && this.mob.tickCount % 20 == 0 && hasTargetBeeOrPlayerNearBy() && !this.mob.isBellyFull();
     }
 
     @Override

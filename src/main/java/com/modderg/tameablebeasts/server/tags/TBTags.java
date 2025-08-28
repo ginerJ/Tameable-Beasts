@@ -43,6 +43,7 @@ public class TBTags {
         public static final TagKey<Item> GRASSHOPPER_TAME_FOOD = tag.apply("grasshopper_tame_food");
 
         public static final TagKey<Item> GROUND_BEETLE_FOOD = tag.apply("ground_beetle_food");
+        public static final TagKey<Item> GROUND_BEETLE_METAL_FOOD = tag.apply("ground_beetle_metal_food");
         public static final TagKey<Item> GROUND_BEETLE_TAME_FOOD = tag.apply("ground_beetle_tame_food");
 
         public static final TagKey<Item> PENGUIN_FOOD = tag.apply("penguin_food");

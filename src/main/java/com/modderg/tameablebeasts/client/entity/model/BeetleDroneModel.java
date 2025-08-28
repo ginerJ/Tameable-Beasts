@@ -1,7 +1,6 @@
 package com.modderg.tameablebeasts.client.entity.model;
 
 import com.modderg.tameablebeasts.TameableBeasts;
-import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.BeetleDrone;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;

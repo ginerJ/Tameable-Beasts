@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -278,14 +279,29 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
         super.invalidateCaps();
         invCapability.invalidate();
     }
-
     @Override
-    public void openCustomInventoryScreen(@NotNull Player player){
-        if(player instanceof ServerPlayer sPlayer)
+    public void openCustomInventoryScreen(@NotNull Player player) {
+        if (player instanceof ServerPlayer sPlayer) {
+            Component baseName = this.hasCustomName() ? this.getCustomName() : getName();
+
+            Component fullTitle = baseName.copy();
+
+            String trimmed = fullTitle.getString();
+            int charLimit = 20;
+            if (trimmed.length() > charLimit)
+                trimmed = trimmed.substring(0, charLimit - 3) + "...";
+
+            Component safeTitle = Component.literal(trimmed);
+
+            safeTitle = safeTitle.copy()
+                    .append(" ")
+                    .append(Component.translatable("key.categories.inventory"));
+
             NetworkHooks.openScreen(sPlayer, new SimpleMenuProvider(
                     (id, playerInventory, playerEntity) -> createMenu(id, playerInventory),
-                    Component.literal("Tameable Beast Inventory")
+                    safeTitle
             ), buffer -> buffer.writeInt(this.getId()));
+        }
     }
 
     protected TBMenu createMenu(int containerId, Inventory playerInventory){
@@ -344,6 +360,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
             }
 
             if(isFood(player.getItemInHand(hand))){
+                this.playSound(SoundEvents.GENERIC_EAT);
                 this.setHappiness(Math.min(this.getHappiness() + 35, 100));
                 handleInteract();
                 if(!canFallInLove()){
@@ -351,7 +368,8 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
                     return InteractionResult.SUCCESS;
                 }
                 return super.mobInteract(player, hand);
-            }
+            } else if (isTameFood((player.getItemInHand(hand))))
+                this.playSound(SoundEvents.GENERIC_EAT);
 
             if (!player.isShiftKeyDown())
                 this.openCustomInventoryScreen(player);
@@ -407,6 +425,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     //TAMING STUFF
 
     public boolean isTameFood(ItemStack itemStack) {
+        
         return false;
     }
 
@@ -529,6 +548,9 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     public @NotNull Component getName() {
         if (!warmVariants)
             return super.getName();
+
+        if (hasCustomName())
+            return this.getCustomName();
 
         ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(this.getType());
         String base = "entity." + key.getNamespace() + "." + key.getPath();

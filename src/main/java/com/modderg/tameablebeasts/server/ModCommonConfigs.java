@@ -17,9 +17,13 @@ public class ModCommonConfigs {
     public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_RACOON;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_GRAPTERA;
     public static final ForgeConfigSpec.ConfigValue<Boolean> CAN_SPAWN_CRESTED_GECKO;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> ARGENTAVIS_SPAWN_HEIGHT;
     public static final ForgeConfigSpec.ConfigValue<Integer> QUETZAL_SPAWN_HEIGHT;
     public static final ForgeConfigSpec.ConfigValue<Integer> GRAPTERA_SPAWN_HEIGHT;
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> MIN_IRON_TRANSFORMS_GROUND_BEETLE;
+
 
     static {
         BUILDER.push("Tameable Beasts Configs");
@@ -66,6 +70,10 @@ public class ModCommonConfigs {
 
         GRAPTERA_SPAWN_HEIGHT = BUILDER.comment("Graptera Spawn Height")
                 .define("Graptera minimum spawn height:", 80);
+
+
+        MIN_IRON_TRANSFORMS_GROUND_BEETLE = BUILDER.comment("Raw Iron to Transform Ground Beetle to Metal Beetle")
+                .define("Minimum amount of Raw Iron that transforms Ground Beetle:", 64);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

@@ -150,6 +150,7 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
     }
 
     public boolean isTameFood(ItemStack itemStack) {
+        
         return itemStack.is(TBTags.Items.RACOON_TAME_FOOD);
     }
 

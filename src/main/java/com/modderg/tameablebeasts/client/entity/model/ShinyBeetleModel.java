@@ -4,6 +4,7 @@ import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
 import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.model.GeoModel;
 
 public class ShinyBeetleModel extends TBGeoModel<FlyingBeetleEntity> {
     
