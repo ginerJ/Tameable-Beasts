@@ -27,6 +27,7 @@ public class TBTagRegistry {
                 TagKey.create(Registries.ITEM, new ResourceLocation(TameableBeasts.MOD_ID, name));
 
         public static final TagKey<Item> ENCHANTABLE_SWARM = tag.apply("enchantable_swarm");
+        public static final TagKey<Item> ENCHANTABLE_STING = tag.apply("enchantable_sting");
 
         public static final TagKey<Item> ARGENTAVIS_FOOD = tag.apply("argentavis_food");
         public static final TagKey<Item> ARGENTAVIS_TAME_FOOD = tag.apply("argentavis_tame_food");

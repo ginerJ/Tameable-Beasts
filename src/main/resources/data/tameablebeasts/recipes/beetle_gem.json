@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:amethyst"
+    },
+    {
+      "item": "tameablebeasts:roly_plaque"
+    },
+    {
+      "item": "tameablebeasts:beetle_armor_piece"
+    },
+    {
+      "item": "tameablebeasts:beetle_dust"
+    }
+  ],
+  "result": {
+    "item": "tameablebeasts:beetle_gem",
+    "count": 1
+  }
+}

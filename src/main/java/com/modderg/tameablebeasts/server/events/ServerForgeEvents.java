@@ -53,7 +53,6 @@ public class ServerForgeEvents {
                         TBPacketRegistry.sendToAll(new StoCEntityInvSyncPacket(tbAnimal.getId(), copy));
                     }
             );
-
         }
     }
 

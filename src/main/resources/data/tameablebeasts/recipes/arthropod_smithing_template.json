@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "dad",
+    "bib",
+    "ddd"
+  ],
+  "key": {
+    "i": {
+      "item": "tameablebeasts:arthropod_upgrade_smithing_template"
+    },
+    "d": {
+      "item": "minecraft:diamond"
+    },
+    "b": {
+      "item": "tameablebeasts:beetle_dust"
+    },
+    "a": {
+      "tag": "tameablebeasts:arthropod_drop"
+    }
+  },
+  "result": {
+    "item": "tameablebeasts:arthropod_upgrade_smithing_template",
+    "count": 2
+  }
+}

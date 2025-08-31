@@ -13,6 +13,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import org.jetbrains.annotations.NotNull;
 
+import static com.modderg.tameablebeasts.registry.TBTagRegistry.Items.ENCHANTABLE_STING;
+
 public class StingEnchantment extends Enchantment {
     public StingEnchantment(Rarity p_44676_, EnchantmentCategory p_44677_, EquipmentSlot... p_44678_) {
         super(p_44676_, p_44677_, p_44678_);
@@ -31,12 +33,12 @@ public class StingEnchantment extends Enchantment {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack item) {
-         return item.is(TBItemRegistry.BUG_SWORD.get());
+         return item.is(ENCHANTABLE_STING);
     }
 
     @Override
     public boolean canEnchant(@NotNull ItemStack item) {
-        return item.is(TBItemRegistry.BUG_SWORD.get());
+        return item.is(ENCHANTABLE_STING);
     }
 
     @Override

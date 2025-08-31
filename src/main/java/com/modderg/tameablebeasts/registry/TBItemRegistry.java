@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.registry;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.server.item.BugArmorHelmet;
+import com.modderg.tameablebeasts.server.item.TBShieldItem;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.server.item.block.HatItem;
 import com.modderg.tameablebeasts.server.item.AsphaltItem;
@@ -86,6 +87,7 @@ public class TBItemRegistry {
 
 
         //tools and weapons
+
         public static final RegistryObject<Item> IRON_BIG_HOE = TB_ITEMS.register("iron_big_hoe",
                 () -> new HoeItem(Tiers.IRON, -1, -1.0F, (new Properties())));
 
@@ -93,7 +95,13 @@ public class TBItemRegistry {
                 () -> new SwordItem(Tiers.DIAMOND, 2, -2F, new Item.Properties()));
 
         public static final RegistryObject<Item> IRON_SHIELD = TB_ITEMS.register("metal_shield",
-                () -> new ShieldItem((new Item.Properties()).durability(448)));
+                () -> new TBShieldItem((new Item.Properties()).durability(448), Items.RAW_IRON));
+
+        public static final RegistryObject<Item> BEETLE_GEM = TB_ITEMS.register("beetle_gem",
+                () -> new Item(new Properties()));
+
+        public static final RegistryObject<Item> ARTHROPOD_SMITHING_TEMPLATE = TB_ITEMS.register("arthropod_upgrade_smithing_template",
+                () -> new Item(new Properties()));
 
         public static final RegistryObject<Item> BUG_ARMOR_HELMET = TB_ITEMS.register("bug_armor_helmet",
                 () -> new BugArmorHelmet(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.HELMET, new Properties()));
@@ -108,10 +116,10 @@ public class TBItemRegistry {
                 () -> new ArmorItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.BOOTS, new Properties()));
 
         public static final RegistryObject<Item> BEETLE_SHIELD = TB_ITEMS.register("beetle_shield",
-                () -> new ShieldItem((new Item.Properties()).durability(512)));
+                () -> new TBShieldItem((new Item.Properties()).durability(512), TBArmorMaterials.BUG_ARMOR.getRepairIngredient().getItems()));
 
         public static final RegistryObject<Item> BEETLE_SWORD = TB_ITEMS.register("beetle_sword",
-                () -> new SwordItem(Tiers.NETHERITE, 2, -1.8F, new Item.Properties()));
+                () -> new SwordItem(TBTierRegistry.BEETLE_GEM, 2, -1.8F, new Item.Properties()));
 
 
         //spawn eggs

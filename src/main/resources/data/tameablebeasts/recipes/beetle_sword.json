@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "tameablebeasts:beetle_gem"
+  },
+  "base": {
+    "item": "tameablebeasts:bug_sword"
+  },
+  "result": {
+    "item": "tameablebeasts:beetle_sword"
+  },
+  "template": {
+    "item": "tameablebeasts:arthropod_upgrade_smithing_template"
+  }
+}

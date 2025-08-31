@@ -72,7 +72,7 @@ public class BeetleDrone extends Animal implements GeoEntity {
         if(this.level().isClientSide())
             return;
 
-        int particleCount = 100;
+        int particleCount = 20;
         double radius = 1.0;
         double speed = 0.1D;
 

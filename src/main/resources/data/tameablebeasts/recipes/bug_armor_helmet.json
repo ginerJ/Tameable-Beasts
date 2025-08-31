@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "tameablebeasts:beetle_gem"
+  },
+  "base": {
+    "item": "minecraft:diamond_helmet"
+  },
+  "result": {
+    "item": "tameablebeasts:bug_armor_helmet"
+  },
+  "template": {
+    "item": "tameablebeasts:arthropod_upgrade_smithing_template"
+  }
+}

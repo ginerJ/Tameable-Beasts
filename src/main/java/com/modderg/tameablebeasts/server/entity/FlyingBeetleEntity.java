@@ -204,9 +204,10 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
         RandomSource random = entity.getRandom();
         drone.setTarget(target);
         drone.setPos(
-                entity.getX() + random.nextFloat() - random.nextFloat(),
-                entity.getY() + random.nextFloat(),
-                entity.getZ() + random.nextFloat() - random.nextFloat());
+                entity.getX() + (random.nextFloat() - random.nextFloat())*2,
+                entity.getY() + random.nextFloat() - random.nextFloat(),
+                entity.getZ() + (random.nextFloat() - random.nextFloat())*2
+        );
 
         entity.level().addFreshEntity(drone);
         drone.playSound(SoundEvents.BEEHIVE_EXIT, 1.0F, 1.0F);

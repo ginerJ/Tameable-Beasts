@@ -56,8 +56,26 @@
         "tameablebeasts:penguin_egg",
         "tameablebeasts:crested_gecko_egg",
         "tameablebeasts:argentavis_egg",
-        "tameablebeasts:grapterandon_egg"
+        "tameablebeasts:grapterandon_egg",
+
+        "tameablebeasts:metal_shield"
       ],
+      "gradientType": "custom",
+      "borderType": "auto_static"
+    },
+    {
+      "texture": "tooltipoverhaul:textures/overlay/sapphire_frame.png",
+      "items": [
+        "tameablebeasts:beetle_gem",
+        "tameablebeasts:bug_armor_helmet",
+        "tameablebeasts:bug_armor_chestplate",
+        "tameablebeasts:bug_armor_leggings",
+        "tameablebeasts:bug_armor_boots",
+        "tameablebeasts:beetle_shield",
+        "tameablebeasts:beetle_sword",
+        "tameablebeasts:arthropod_upgrade_smithing_template"
+      ],
+      "specialEffect": "stars",
       "gradientType": "custom",
       "borderType": "auto_static"
     }

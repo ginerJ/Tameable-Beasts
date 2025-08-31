@@ -1,0 +1,16 @@
+
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "tameablebeasts:beetle_gem"
+  },
+  "base": {
+    "item": "tameablebeasts:metal_shield"
+  },
+  "result": {
+    "item": "tameablebeasts:beetle_shield"
+  },
+  "template": {
+    "item": "tameablebeasts:arthropod_upgrade_smithing_template"
+  }
+}

@@ -108,6 +108,15 @@
   "item.tameablebeasts.bug_salad" : "Bug Salad",
   "item.tameablebeasts.asphalt" : "Asphalt Chunk",
 
+  "item.tameablebeasts.beetle_gem" : "Beetle Gem",
+  "item.tameablebeasts.bug_armor_helmet" : "Diamond Beetle Helmet",
+  "item.tameablebeasts.bug_armor_chestplate" : "Diamond Beetle Chestplate",
+  "item.tameablebeasts.bug_armor_leggings" : "Diamond Beetle Leggings",
+  "item.tameablebeasts.bug_armor_boots" : "Diamond Beetle Boots",
+  "item.tameablebeasts.beetle_shield" : "Beetle Shield",
+  "item.tameablebeasts.beetle_sword" : "Beetle Shield",
+  "item.tameablebeasts.arthropod_upgrade_smithing_template" : "Arthropod Upgrade Smithing Template",
+
   "item.tameablebeasts.scarecrow_straw_hat" : "Straw Hat",
   "item.tameablebeasts.biker_helmet" : "Poly Biker Helmet",
   "item.tameablebeasts.flying_helmet" : "Flying Helmet",
