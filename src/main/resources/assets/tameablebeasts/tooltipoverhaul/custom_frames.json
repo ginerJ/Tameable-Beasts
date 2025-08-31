@@ -64,9 +64,10 @@
       "borderType": "auto_static"
     },
     {
-      "texture": "tooltipoverhaul:textures/overlay/sapphire_frame.png",
+      "texture": "tameablebeasts:tooltipoverhaul/overlay/beetle_dust.png",
       "items": [
         "tameablebeasts:beetle_gem",
+        "tameablebeasts:beetle_dust",
         "tameablebeasts:bug_armor_helmet",
         "tameablebeasts:bug_armor_chestplate",
         "tameablebeasts:bug_armor_leggings",

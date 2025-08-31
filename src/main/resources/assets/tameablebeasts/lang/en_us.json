@@ -109,12 +109,12 @@
   "item.tameablebeasts.asphalt" : "Asphalt Chunk",
 
   "item.tameablebeasts.beetle_gem" : "Beetle Gem",
-  "item.tameablebeasts.bug_armor_helmet" : "Diamond Beetle Helmet",
-  "item.tameablebeasts.bug_armor_chestplate" : "Diamond Beetle Chestplate",
-  "item.tameablebeasts.bug_armor_leggings" : "Diamond Beetle Leggings",
-  "item.tameablebeasts.bug_armor_boots" : "Diamond Beetle Boots",
+  "item.tameablebeasts.bug_armor_helmet" : "Beetle Gem Helmet",
+  "item.tameablebeasts.bug_armor_chestplate" : "Beetle Gem Chestplate",
+  "item.tameablebeasts.bug_armor_leggings" : "Beetle Gem Leggings",
+  "item.tameablebeasts.bug_armor_boots" : "Beetle Gem Boots",
   "item.tameablebeasts.beetle_shield" : "Beetle Shield",
-  "item.tameablebeasts.beetle_sword" : "Beetle Shield",
+  "item.tameablebeasts.beetle_sword" : "Beetle Sword",
   "item.tameablebeasts.arthropod_upgrade_smithing_template" : "Arthropod Upgrade Smithing Template",
 
   "item.tameablebeasts.scarecrow_straw_hat" : "Straw Hat",

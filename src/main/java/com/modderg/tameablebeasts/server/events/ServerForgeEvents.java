@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.server.events;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.registry.*;
+import com.modderg.tameablebeasts.server.entity.BeetleDrone;
 import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
 import com.modderg.tameablebeasts.server.entity.FurGolemEntity;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
@@ -11,6 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
@@ -82,10 +84,13 @@ public class ServerForgeEvents {
 
     @SubscribeEvent
     public static void onDeath(final LivingDeathEvent event){
-        if(event.getEntity() instanceof AbstractIllager illager){
+        if(event.getEntity() instanceof AbstractIllager illager)
             if(event.getEntity().getRandom().nextInt(100) <= 5)
                 illager.spawnAtLocation(TBItemRegistry.PURPLE_ALLAY.get());
-        }
+
+        if(event.getEntity().getMobType().equals(MobType.ARTHROPOD) && !(event.getEntity() instanceof BeetleDrone))
+            if(event.getEntity().getRandom().nextInt(100) <= 3)
+                event.getEntity().spawnAtLocation(TBItemRegistry.ARTHROPOD_SMITHING_TEMPLATE.get());
     }
 
     @SubscribeEvent
