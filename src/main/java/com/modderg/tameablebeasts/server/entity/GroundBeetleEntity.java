@@ -35,6 +35,7 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -175,7 +176,7 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
     @Override
     public Item[] getBrushDrops() {
-        return new Item[]{TBItemRegistry.BEETLE_ARMOR_PIECE.get()};
+        return new Item[]{TBItemRegistry.BEETLE_ARMOR_PIECE.get(), this.isMetallic() ? Items.RAW_IRON : TBItemRegistry.BEETLE_ARMOR_PIECE.get()};
     }
 
     @Override

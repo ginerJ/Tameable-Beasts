@@ -1,6 +1,7 @@
 package com.modderg.tameablebeasts.registry;
 
 import com.modderg.tameablebeasts.TameableBeasts;
+import com.modderg.tameablebeasts.server.item.BugArmorHelmet;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.server.item.block.HatItem;
 import com.modderg.tameablebeasts.server.item.AsphaltItem;
@@ -23,33 +24,88 @@ public class TBItemRegistry {
         public static final DeferredRegister<Item> TB_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TameableBeasts.MOD_ID);
 
         //misc
-        public static final RegistryObject<Item> ICEPOP = TB_ITEMS.register("icepop", () -> new Item(new Properties().food(Foods.SWEET_BERRIES)));
-        public static final RegistryObject<Item> ICE_HELMET = TB_ITEMS.register("ice_helmet", () -> new Item(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> ICE_CHESTPLATE = TB_ITEMS.register("ice_chestplate", () -> new Item(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> PURPLE_ALLAY = TB_ITEMS.register("purple_allay", () -> new PurpleAllay(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> LEAF = TB_ITEMS.register("leaf", () -> new Item(new Properties()));
-        public static final RegistryObject<Item> GRASSHOPPER_LEG = TB_ITEMS.register("grasshopper_leg", () -> new Item(new Properties()));
-        public static final RegistryObject<Item> BEETLE_DUST = TB_ITEMS.register("beetle_dust", () -> new GlowInkSacItem(new Properties()));
-        public static final RegistryObject<Item> FUR = TB_ITEMS.register("racoon_fur", () -> new Item(new Properties()));
-        public static final RegistryObject<Item> ROLY_POLY_PLAQUE = TB_ITEMS.register("roly_plaque", () -> new Item(new Properties()));
-        public static final RegistryObject<Item> BEETLE_ARMOR_PIECE = TB_ITEMS.register("beetle_armor_piece", () -> new Item(new Properties()));
-        public static final RegistryObject<Item> ASPHALT = TB_ITEMS.register("asphalt", () -> new AsphaltItem(new Properties()));
+        public static final RegistryObject<Item> ICEPOP = TB_ITEMS.register("icepop",
+                () -> new Item(new Properties().food(Foods.SWEET_BERRIES)));
 
-        public static final RegistryObject<Item> EGG_RESTS = TB_ITEMS.register("egg_rests", () -> new Item(new Properties()));
-        public static final RegistryObject<Item> QUETZAL_MEAT = TB_ITEMS.register("quetzal_meat", () -> new Item(new Properties().food(Foods.BEEF)));
-        public static final RegistryObject<Item> COOKED_QUETZAL_MEAT = TB_ITEMS.register("cooked_quetzal_meat", () -> new Item(new Properties().food(Foods.COOKED_BEEF)));
-        public static final RegistryObject<Item> BIG_BIRD_MEAT = TB_ITEMS.register("big_bird_meat", () -> new Item(new Properties().food(Foods.BEEF)));
-        public static final RegistryObject<Item> COOKED_BIG_BIRD_MEAT = TB_ITEMS.register("cooked_big_bird_meat", () -> new Item(new Properties().food(Foods.COOKED_BEEF)));
-        public static final RegistryObject<Item> BIG_BIRD_BAIT = TB_ITEMS.register("big_bird_bait", () -> new Item(new Properties().food(Foods.COOKED_BEEF)));
-        public static final RegistryObject<Item> PTERANODON_MEAL = TB_ITEMS.register("pteranodon_meal", () -> new Item(new Properties().food(Foods.COOKED_CHICKEN)));
-        public static final RegistryObject<Item> BUG_SALAD = TB_ITEMS.register("bug_salad", () -> new Item(new Properties().food(Foods.BEETROOT_SOUP)));
+        public static final RegistryObject<Item> ICE_HELMET = TB_ITEMS.register("ice_helmet",
+                () -> new Item(new Properties().stacksTo(1)));
 
-        public static final RegistryObject<Item> QUETZAL_STAND = TB_ITEMS.register("quetzal_stand", () -> new Item(new Properties().stacksTo(1)));
+        public static final RegistryObject<Item> ICE_CHESTPLATE = TB_ITEMS.register("ice_chestplate",
+                () -> new Item(new Properties().stacksTo(1)));
+
+        public static final RegistryObject<Item> PURPLE_ALLAY = TB_ITEMS.register("purple_allay",
+                () -> new PurpleAllay(new Properties().stacksTo(1)));
+
+        public static final RegistryObject<Item> LEAF = TB_ITEMS.register("leaf",
+                () -> new Item(new Properties()));
+
+        public static final RegistryObject<Item> GRASSHOPPER_LEG = TB_ITEMS.register("grasshopper_leg",
+                () -> new Item(new Properties()));
+
+        public static final RegistryObject<Item> BEETLE_DUST = TB_ITEMS.register("beetle_dust",
+                () -> new GlowInkSacItem(new Properties()));
+
+        public static final RegistryObject<Item> FUR = TB_ITEMS.register("racoon_fur",
+                () -> new Item(new Properties()));
+
+        public static final RegistryObject<Item> ROLY_POLY_PLAQUE = TB_ITEMS.register("roly_plaque",
+                () -> new Item(new Properties()));
+
+        public static final RegistryObject<Item> BEETLE_ARMOR_PIECE = TB_ITEMS.register("beetle_armor_piece",
+                () -> new Item(new Properties()));
+
+        public static final RegistryObject<Item> ASPHALT = TB_ITEMS.register("asphalt",
+                () -> new AsphaltItem(new Properties()));
+
+        public static final RegistryObject<Item> EGG_RESTS = TB_ITEMS.register("egg_rests",
+                () -> new Item(new Properties()));
+
+        public static final RegistryObject<Item> QUETZAL_MEAT = TB_ITEMS.register("quetzal_meat",
+                () -> new Item(new Properties().food(Foods.BEEF)));
+
+        public static final RegistryObject<Item> COOKED_QUETZAL_MEAT = TB_ITEMS.register("cooked_quetzal_meat",
+                () -> new Item(new Properties().food(Foods.COOKED_BEEF)));
+
+        public static final RegistryObject<Item> BIG_BIRD_MEAT = TB_ITEMS.register("big_bird_meat",
+                () -> new Item(new Properties().food(Foods.BEEF)));
+
+        public static final RegistryObject<Item> COOKED_BIG_BIRD_MEAT = TB_ITEMS.register("cooked_big_bird_meat",
+                () -> new Item(new Properties().food(Foods.COOKED_BEEF)));
+
+        public static final RegistryObject<Item> BIG_BIRD_BAIT = TB_ITEMS.register("big_bird_bait",
+                () -> new Item(new Properties().food(Foods.COOKED_BEEF)));
+
+        public static final RegistryObject<Item> PTERANODON_MEAL = TB_ITEMS.register("pteranodon_meal",
+                () -> new Item(new Properties().food(Foods.COOKED_CHICKEN)));
+
+        public static final RegistryObject<Item> BUG_SALAD = TB_ITEMS.register("bug_salad",
+                () -> new Item(new Properties().food(Foods.BEETROOT_SOUP)));
+
+        public static final RegistryObject<Item> QUETZAL_STAND = TB_ITEMS.register("quetzal_stand",
+                () -> new Item(new Properties().stacksTo(1)));
 
 
         //tools and weapons
-        public static final RegistryObject<Item> IRON_BIG_HOE = TB_ITEMS.register("iron_big_hoe", () -> new HoeItem(Tiers.IRON, -1, -1.0F, (new Properties())));
-        public static final RegistryObject<Item> BUG_SWORD = TB_ITEMS.register("bug_sword", () -> new SwordItem(Tiers.DIAMOND, 2, -2F, new Item.Properties()));
+        public static final RegistryObject<Item> IRON_BIG_HOE = TB_ITEMS.register("iron_big_hoe",
+                () -> new HoeItem(Tiers.IRON, -1, -1.0F, (new Properties())));
+
+        public static final RegistryObject<Item> BUG_SWORD = TB_ITEMS.register("bug_sword",
+                () -> new SwordItem(Tiers.DIAMOND, 2, -2F, new Item.Properties()));
+
+        public static final RegistryObject<Item> IRON_SHIELD = TB_ITEMS.register("metal_shield",
+                () -> new ShieldItem((new Item.Properties()).durability(448)));
+
+        public static final RegistryObject<Item> BUG_ARMOR_HELMET = TB_ITEMS.register("bug_armor_helmet",
+                () -> new BugArmorHelmet(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.HELMET, new Properties()));
+
+        public static final RegistryObject<Item> BUG_ARMOR_CHESTPLATE = TB_ITEMS.register("bug_armor_chestplate",
+                () -> new ArmorItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.CHESTPLATE, new Properties()));
+
+        public static final RegistryObject<Item> BUG_ARMOR_LEGGINGS = TB_ITEMS.register("bug_armor_leggings",
+                () -> new ArmorItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.LEGGINGS, new Properties()));
+
+        public static final RegistryObject<Item> BUG_ARMOR_BOOTS = TB_ITEMS.register("bug_armor_boots",
+                () -> new ArmorItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.BOOTS, new Properties()));
 
 
         //spawn eggs
@@ -91,10 +147,17 @@ public class TBItemRegistry {
 
 
         //hats
-        public static final RegistryObject<Item> SCARECROW_STRAW_HAT = TB_ITEMS.register("scarecrow_straw_hat", () -> new HatItem(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> FLYING_HELMET = TB_ITEMS.register("flying_helmet", () -> new HatItem(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> BIKER_HELMET = TB_ITEMS.register("biker_helmet", () -> new HatItem(new Properties().stacksTo(1)));
-        public static final RegistryObject<Item> RACOON_HAT = TB_ITEMS.register("racoon_hat", () -> new HatItem(new Properties().stacksTo(1)));
+        public static final RegistryObject<Item> SCARECROW_STRAW_HAT = TB_ITEMS.register("scarecrow_straw_hat",
+                () -> new HatItem(new Properties().stacksTo(1)));
+
+        public static final RegistryObject<Item> FLYING_HELMET = TB_ITEMS.register("flying_helmet",
+                () -> new HatItem(new Properties().stacksTo(1)));
+
+        public static final RegistryObject<Item> BIKER_HELMET = TB_ITEMS.register("biker_helmet",
+                () -> new HatItem(new Properties().stacksTo(1)));
+
+        public static final RegistryObject<Item> RACOON_HAT = TB_ITEMS.register("racoon_hat",
+                () -> new HatItem(new Properties().stacksTo(1)));
 
 
         //blocks

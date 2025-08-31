@@ -98,11 +98,20 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
                 new RandomLookAroundGoal(this)
         );
+
         this.addTargetGoals(
                 new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
                 new OwnerHurtTargetGoal(this),
                 new OwnerHurtByTargetGoal(this)
         );
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (!this.isOrderedToSit() && this.getTarget() != null && this.tickCount%80==0)
+            spawnDroneWithTarget(this, this.getTarget());
     }
 
     @Override

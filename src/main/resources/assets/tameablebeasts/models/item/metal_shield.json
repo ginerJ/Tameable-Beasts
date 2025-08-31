@@ -1,0 +1,12 @@
+{
+  "parent": "tameablebeasts:item/metal_shield_def",
+  "gui_light": "front",
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "tameablebeasts:item/metal_shield_blocking"
+    }
+  ]
+}

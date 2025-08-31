@@ -11,9 +11,12 @@ import com.modderg.tameablebeasts.registry.TBEntityRegistry;
 
 import com.modderg.tameablebeasts.client.particles.TameableParticles;
 import com.modderg.tameablebeasts.client.particles.custom.CitrineParticles;
+import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.registry.TBMenuRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -61,12 +64,17 @@ public class ModEventClient {
 
     @SubscribeEvent
     public static void registerEntityRenders(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.TBMOB_MENU_CONTAINER.get(), TBInventoryScreen::new));
-        event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.PENGUIN_MENU_CONTAINER.get(), TBInventoryScreen::new));
-        event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.JUST_SADDLE_MENU_CONTAINER.get(), TBInventoryScreen::new));
-        event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.SCARECROW_MENU_CONTAINER.get(), TBInventoryScreen::new));
-        event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.QUETZAL_MENU_CONTAINER.get(), TBInventoryScreen::new));
-        event.enqueueWork(() -> MenuScreens.register(TBMenuRegistry.GRASSHOPPER_MENU_CONTAINER.get(), TBInventoryScreen::new));
+        event.enqueueWork(() -> {
+            MenuScreens.register(TBMenuRegistry.TBMOB_MENU_CONTAINER.get(), TBInventoryScreen::new);
+            MenuScreens.register(TBMenuRegistry.PENGUIN_MENU_CONTAINER.get(), TBInventoryScreen::new);
+            MenuScreens.register(TBMenuRegistry.JUST_SADDLE_MENU_CONTAINER.get(), TBInventoryScreen::new);
+            MenuScreens.register(TBMenuRegistry.SCARECROW_MENU_CONTAINER.get(), TBInventoryScreen::new);
+            MenuScreens.register(TBMenuRegistry.QUETZAL_MENU_CONTAINER.get(), TBInventoryScreen::new);
+            MenuScreens.register(TBMenuRegistry.GRASSHOPPER_MENU_CONTAINER.get(), TBInventoryScreen::new);
+
+            ItemProperties.register(TBItemRegistry.IRON_SHIELD.get(), new ResourceLocation("blocking"),
+                    (stack, level, entity, seed) -> (entity != null && entity.isUsingItem() && entity.getUseItem() == stack) ? 1.0F : 0.0F);
+        });
     }
 }
 
