@@ -1,22 +1,26 @@
 package com.modderg.tameablebeasts.server.events;
 
 import com.modderg.tameablebeasts.TameableBeasts;
-import com.modderg.tameablebeasts.registry.TBBlockRegistry;
-import com.modderg.tameablebeasts.registry.TBEntityRegistry;
-import com.modderg.tameablebeasts.registry.TBPacketRegistry;
+import com.modderg.tameablebeasts.registry.*;
+import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
 import com.modderg.tameablebeasts.server.entity.FurGolemEntity;
-import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import com.modderg.tameablebeasts.server.packet.StoCEntityInvSyncPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,6 +29,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static com.modderg.tameablebeasts.registry.TBPacketRegistry.TBNETWORK;
 
@@ -50,6 +55,30 @@ public class ServerForgeEvents {
             );
 
         }
+    }
+
+    @SubscribeEvent
+    public static void onLivingHurt(final LivingHurtEvent event){
+        LivingEntity player = event.getEntity();
+
+        if(player == null || !(event.getSource().getEntity() instanceof LivingEntity attacker))
+            return;
+
+        int enchantLevel = 0;
+
+        for (ItemStack weapon : player.getHandSlots())
+            if (weapon.getItem() instanceof ShieldItem shield && player.getUseItem().is(shield))
+                enchantLevel += EnchantmentHelper.getTagEnchantmentLevel(TBEnchantmentRegistry.SWARM_ENCHANTMENT.get(), weapon);
+
+        if (enchantLevel == 0)
+            for (ItemStack armor : player.getArmorSlots())
+                enchantLevel += EnchantmentHelper.getTagEnchantmentLevel(TBEnchantmentRegistry.SWARM_ENCHANTMENT.get(), armor);
+
+        for (int i = 0; i < enchantLevel; i++)
+            if (player.getRandom().nextInt(3) != 1){
+                FlyingBeetleEntity.spawnDroneWithTarget(player, attacker);
+                FlyingBeetleEntity.spawnDroneWithTarget(player, attacker);
+            }
     }
 
     @SubscribeEvent

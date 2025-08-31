@@ -1,16 +1,15 @@
-package com.modderg.tameablebeasts.server.tags;
+package com.modderg.tameablebeasts.registry;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 
 import java.util.function.Function;
 
-public class TBTags {
+public class TBTagRegistry {
 
     public static  class EntityTypes {
 
@@ -26,6 +25,8 @@ public class TBTags {
 
         private static final Function<String, TagKey<Item>> tag = name ->
                 TagKey.create(Registries.ITEM, new ResourceLocation(TameableBeasts.MOD_ID, name));
+
+        public static final TagKey<Item> ENCHANTABLE_SWARM = tag.apply("enchantable_swarm");
 
         public static final TagKey<Item> ARGENTAVIS_FOOD = tag.apply("argentavis_food");
         public static final TagKey<Item> ARGENTAVIS_TAME_FOOD = tag.apply("argentavis_tame_food");

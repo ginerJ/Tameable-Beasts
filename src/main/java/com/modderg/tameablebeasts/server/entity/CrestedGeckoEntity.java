@@ -11,10 +11,9 @@ import com.modderg.tameablebeasts.server.entity.navigation.TBWallClimberNavigati
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
-import com.modderg.tameablebeasts.server.tags.TBTags;
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -27,7 +26,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -37,7 +35,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
@@ -72,7 +69,7 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
                 new SitWhenOrderedToGoal(this),
                 new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
                 new FloatGoal(this),
-                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.CRESTED_GECKO_FOOD), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTagRegistry.Items.CRESTED_GECKO_FOOD), false),
                 new TameablePanicGoal(this, 1.5D),
                 new BreedGoal(this, 1.0D),
                 new WaterAvoidingRandomStrollGoal(this, 1.0D),
@@ -112,12 +109,12 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(TBTags.Items.CRESTED_GECKO_FOOD);
+        return itemStack.is(TBTagRegistry.Items.CRESTED_GECKO_FOOD);
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
-        return itemStack.is(TBTags.Items.CRESTED_GECKO_TAME_FOOD);
+        return itemStack.is(TBTagRegistry.Items.CRESTED_GECKO_TAME_FOOD);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.modderg.tameablebeasts.server.entity;
 import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.RideableTBAnimal;
@@ -11,7 +12,6 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
-import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -32,7 +32,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -85,7 +84,7 @@ public class ChikoteEntity extends RideableTBAnimal {
                 new RaidCropsTameableGoal(this, 15),
                 new SitWhenOrderedToGoal(this),
                 new TakeCareOfEggsGoal(this, 15, TBPOITypesRegistry.CHIKOTE_POI),
-                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.CHIKOTE_FOOD), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTagRegistry.Items.CHIKOTE_FOOD), false),
                 new WaterAvoidingRandomStrollGoal(this, 1.0D),
                 new AvoidEntityGoal<>(this, ScarecrowAllayEntity.class, 8.0F, 2.2D, 2.2D),
                 new RandomSwimmingGoal(this, 1.0D, 10),
@@ -123,11 +122,11 @@ public class ChikoteEntity extends RideableTBAnimal {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(TBTags.Items.CHIKOTE_FOOD);
+        return itemStack.is(TBTagRegistry.Items.CHIKOTE_FOOD);
     }
 
     @Override
-    public boolean isTameFood(ItemStack itemStack) {return itemStack.is(TBTags.Items.CHIKOTE_TAME_FOOD);}
+    public boolean isTameFood(ItemStack itemStack) {return itemStack.is(TBTagRegistry.Items.CHIKOTE_TAME_FOOD);}
 
     @Override
     public EggBlockItem getEgg() {

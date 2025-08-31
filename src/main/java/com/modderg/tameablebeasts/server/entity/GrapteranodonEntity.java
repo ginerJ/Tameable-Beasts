@@ -6,17 +6,16 @@ import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.FlyingRideableTBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,7 +29,6 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -39,7 +37,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -51,7 +48,6 @@ import software.bernie.geckolib.core.object.PlayState;
 import java.util.List;
 
 import static com.modderg.tameablebeasts.server.ModCommonConfigs.GRAPTERA_SPAWN_HEIGHT;
-import static com.modderg.tameablebeasts.server.ModCommonConfigs.QUETZAL_SPAWN_HEIGHT;
 
 public class GrapteranodonEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
 
@@ -97,7 +93,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
                 new TakeCareOfEggsGoal(this, 15, TBPOITypesRegistry.GRAPTERANODON_POI),
                 new TameablePanicGoal(this, 1.25D),
                 new NoFlyRandomStrollGoal(this,1.0D),
-                new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.GRAPTERA_FOOD), false),
+                new TemptGoal(this, 1.0D, Ingredient.of(TBTagRegistry.Items.GRAPTERA_FOOD), false),
                 new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
@@ -134,7 +130,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
 
     @Override
     public boolean isFood(ItemStack p_27600_) {
-        boolean isFood = p_27600_.is(TBTags.Items.GRAPTERA_FOOD);
+        boolean isFood = p_27600_.is(TBTagRegistry.Items.GRAPTERA_FOOD);
         if(isFood)
             eatEmote = true;
         return isFood;
@@ -143,7 +139,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
     @Override
     public boolean isTameFood(ItemStack itemStack) {
         
-        boolean isFood = this.getHealth() < 5 && itemStack.is(TBTags.Items.GRAPTERA_TAME_FOOD);
+        boolean isFood = this.getHealth() < 5 && itemStack.is(TBTagRegistry.Items.GRAPTERA_TAME_FOOD);
         if(isFood)
             eatEmote = true;
         return isFood;

@@ -107,6 +107,12 @@ public class TBItemRegistry {
         public static final RegistryObject<Item> BUG_ARMOR_BOOTS = TB_ITEMS.register("bug_armor_boots",
                 () -> new ArmorItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.BOOTS, new Properties()));
 
+        public static final RegistryObject<Item> BEETLE_SHIELD = TB_ITEMS.register("beetle_shield",
+                () -> new ShieldItem((new Item.Properties()).durability(512)));
+
+        public static final RegistryObject<Item> BEETLE_SWORD = TB_ITEMS.register("beetle_sword",
+                () -> new SwordItem(Tiers.NETHERITE, 2, -1.8F, new Item.Properties()));
+
 
         //spawn eggs
         public static final RegistryObject<ForgeSpawnEggItem> RACOON_SPAWN_EGG = TB_ITEMS.register("racoon_spawn_egg", () -> new ForgeSpawnEggItem(

@@ -12,11 +12,10 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
-import com.modderg.tameablebeasts.server.tags.TBTags;
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -39,12 +38,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
 
 public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
 
@@ -109,7 +103,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
                 new TakeCareOfEggsGoal(this, 15, TBPOITypesRegistry.ARGENTAVIS_POI),
                 new TameablePanicGoal(this, 1.25D),
                 new NoFlyRandomStrollGoal(this,1.0D),
-                new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.ARGENTAVIS_FOOD), false),
+                new TemptGoal(this, 1.0D, Ingredient.of(TBTagRegistry.Items.ARGENTAVIS_FOOD), false),
                 new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
@@ -129,13 +123,13 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(TBTags.Items.ARGENTAVIS_FOOD);
+        return itemStack.is(TBTagRegistry.Items.ARGENTAVIS_FOOD);
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
         
-        return this.getHealth() < 10 && itemStack.is(TBTags.Items.ARGENTAVIS_TAME_FOOD);
+        return this.getHealth() < 10 && itemStack.is(TBTagRegistry.Items.ARGENTAVIS_TAME_FOOD);
     }
 
     @Override

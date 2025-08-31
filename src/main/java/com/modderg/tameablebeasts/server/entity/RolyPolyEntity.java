@@ -12,10 +12,9 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
-import com.modderg.tameablebeasts.server.tags.TBTags;
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -88,7 +87,7 @@ public class RolyPolyEntity extends RideableTBAnimal {
                 new TBFollowOwnerGoal(this, 1.0D, 10.0F, 6.0F),
                 new FloatGoal(this),
                 new SitWhenOrderedToGoal(this),
-                new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.ROLY_POLY_FOOD), false),
+                new TemptGoal(this, 1.0D, Ingredient.of(TBTagRegistry.Items.ROLY_POLY_FOOD), false),
                 new RunFromNowAndThenGoal(this),
                 new TakeCareOfEggsGoal(this, 15, TBPOITypesRegistry.ROLY_POLY_POI),
                 new WaterAvoidingRandomStrollGoal(this, 1.0D),
@@ -117,13 +116,13 @@ public class RolyPolyEntity extends RideableTBAnimal {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(TBTags.Items.ROLY_POLY_FOOD);
+        return itemStack.is(TBTagRegistry.Items.ROLY_POLY_FOOD);
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
         
-        return itemStack.is(TBTags.Items.ROLY_POLY_TAME_FOOD);
+        return itemStack.is(TBTagRegistry.Items.ROLY_POLY_TAME_FOOD);
     }
 
     @Override

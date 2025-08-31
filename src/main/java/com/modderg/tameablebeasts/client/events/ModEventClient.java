@@ -74,6 +74,9 @@ public class ModEventClient {
 
             ItemProperties.register(TBItemRegistry.IRON_SHIELD.get(), new ResourceLocation("blocking"),
                     (stack, level, entity, seed) -> (entity != null && entity.isUsingItem() && entity.getUseItem() == stack) ? 1.0F : 0.0F);
+
+            ItemProperties.register(TBItemRegistry.BEETLE_SHIELD.get(), new ResourceLocation("blocking"),
+                    (stack, level, entity, seed) -> (entity != null && entity.isUsingItem() && entity.getUseItem() == stack) ? 1.0F : 0.0F);
         });
     }
 }

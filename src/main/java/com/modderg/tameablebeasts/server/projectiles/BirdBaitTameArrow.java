@@ -2,7 +2,7 @@ package com.modderg.tameablebeasts.server.projectiles;
 
 import com.modderg.tameablebeasts.registry.TBEntityRegistry;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
-import com.modderg.tameablebeasts.server.tags.TBTags;
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,6 +28,6 @@ public class BirdBaitTameArrow extends AbstractTameArrow {
 
     @Override
     protected boolean canTame(Entity entity){
-        return entity.getType().is(TBTags.EntityTypes.TAMED_BY_BIRD_BAIT_ARROW);
+        return entity.getType().is(TBTagRegistry.EntityTypes.TAMED_BY_BIRD_BAIT_ARROW);
     }
 }

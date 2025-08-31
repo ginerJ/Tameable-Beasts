@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.TBFollowOwnerGoal;
@@ -9,7 +10,6 @@ import com.modderg.tameablebeasts.server.entity.goals.TakeCareOfEggsGoal;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
-import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,7 +17,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -43,7 +42,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Attr;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.Animation;
@@ -158,7 +156,7 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
                 new FloatGoal(this),
                 new LeapAtTargetGoal(this, 0.4f),
                 new SitWhenOrderedToGoal(this),
-                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.GROUND_BEETLE_FOOD), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTagRegistry.Items.GROUND_BEETLE_FOOD), false),
                 new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, true),
                 new BreedGoal(this, 1.0D),
                 new WaterAvoidingRandomStrollGoal(this, 1.0D),
@@ -182,7 +180,7 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
     @Override
     public boolean isTameFood(ItemStack itemStack) {
         
-        boolean isFood = itemStack.is(TBTags.Items.GROUND_BEETLE_FOOD);
+        boolean isFood = itemStack.is(TBTagRegistry.Items.GROUND_BEETLE_FOOD);
         if (isFood)
             playBite = true;
         return isFood;
@@ -190,8 +188,8 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
     @Override
     public boolean isFood(ItemStack p_27600_) {
-        boolean isFood = p_27600_.is(TBTags.Items.GROUND_BEETLE_TAME_FOOD);
-        boolean isMetalFood = p_27600_.is(TBTags.Items.GROUND_BEETLE_METAL_FOOD);
+        boolean isFood = p_27600_.is(TBTagRegistry.Items.GROUND_BEETLE_TAME_FOOD);
+        boolean isMetalFood = p_27600_.is(TBTagRegistry.Items.GROUND_BEETLE_METAL_FOOD);
 
         if (!this.isBaby() && isMetalFood)
             this.setConsumedIron(this.getConsumedIron() + 1);

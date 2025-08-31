@@ -4,12 +4,11 @@ import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuScarecrow;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.FlyingTBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.IncludesSitingRidingMeleeAttackGoal;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
-import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,7 +27,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -106,7 +104,7 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
 
     @Override
     public boolean isFood(ItemStack itemstack) {
-        return itemstack.is(TBTags.Items.SCARECROW_FOOD);
+        return itemstack.is(TBTagRegistry.Items.SCARECROW_FOOD);
     }
 
     public boolean hasScythe() {

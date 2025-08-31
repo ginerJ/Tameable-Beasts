@@ -1,8 +1,8 @@
 package com.modderg.tameablebeasts.registry;
 
 import com.modderg.tameablebeasts.TameableBeasts;
-import com.modderg.tameablebeasts.server.enchantments.StingEnchantment;
-import com.modderg.tameablebeasts.server.enchantments.SwarmEnchantment;
+import com.modderg.tameablebeasts.server.enchantment.StingEnchantment;
+import com.modderg.tameablebeasts.server.enchantment.SwarmEnchantment;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;

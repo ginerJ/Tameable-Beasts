@@ -13,7 +13,7 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
-import com.modderg.tameablebeasts.server.tags.TBTags;
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -92,7 +92,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
                 new TakeCareOfEggsGoal(this, 15, TBPOITypesRegistry.QUETZAL_POI),
                 new TameablePanicGoal(this, 1.25D),
                 new NoFlyRandomStrollGoal(this, 1.0D),
-                new TemptGoal(this, 1.0D, Ingredient.of(TBTags.Items.QUETZAL_FOOD), false),
+                new TemptGoal(this, 1.0D, Ingredient.of(TBTagRegistry.Items.QUETZAL_FOOD), false),
                 new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
@@ -136,7 +136,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
 
     @Override
     public boolean isFood(ItemStack p_27600_) {
-        boolean isFood = p_27600_.is(TBTags.Items.QUETZAL_FOOD);
+        boolean isFood = p_27600_.is(TBTagRegistry.Items.QUETZAL_FOOD);
         if(isFood)
             playBite = true;
         return isFood;
@@ -145,7 +145,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
     @Override
     public boolean isTameFood(ItemStack itemStack) {
         
-        boolean isFood = this.getHealth() < 10 && itemStack.is(TBTags.Items.QUETZAL_TAME_FOOD);
+        boolean isFood = this.getHealth() < 10 && itemStack.is(TBTagRegistry.Items.QUETZAL_TAME_FOOD);
         if(isFood)
             playBite = true;
         return isFood;

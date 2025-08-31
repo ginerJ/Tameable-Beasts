@@ -1,0 +1,12 @@
+{
+  "parent": "tameablebeasts:item/beetle_shield_def",
+  "gui_light": "front",
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "tameablebeasts:item/beetle_shield_blocking"
+    }
+  ]
+}

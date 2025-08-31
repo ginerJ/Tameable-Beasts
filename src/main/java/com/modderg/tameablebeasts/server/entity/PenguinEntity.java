@@ -3,6 +3,7 @@ package com.modderg.tameablebeasts.server.entity;
 import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuPenguin;
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.RideableTBAnimal;
@@ -12,7 +13,6 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
-import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -121,7 +121,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
                 new BreedGoal(this, 1.0D),
                 new TakeCareOfEggsGoal(this, 15, TBPOITypesRegistry.PENGUIN_POI),
                 new RunFromNowAndThenGoal(this),
-                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.PENGUIN_FOOD), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTagRegistry.Items.PENGUIN_FOOD), false),
                 new IncludesSitingRidingMeleeAttackGoal(this, 1.0D, false),
                 new TameablePanicGoal(this, 1.25D),
                 new SemiAquaticRandomStrollGoal(this, 1.0D),
@@ -223,13 +223,13 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(TBTags.Items.PENGUIN_FOOD);
+        return itemStack.is(TBTagRegistry.Items.PENGUIN_FOOD);
     }
 
     @Override
     public boolean isTameFood(ItemStack itemStack) {
         
-        return itemStack.is(TBTags.Items.PENGUIN_TAME_FOOD);
+        return itemStack.is(TBTagRegistry.Items.PENGUIN_TAME_FOOD);
     }
 
     //RIDING STUFF

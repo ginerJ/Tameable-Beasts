@@ -5,7 +5,7 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
-import com.modderg.tameablebeasts.server.tags.TBTags;
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -25,7 +25,6 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -90,7 +89,7 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
                 new RacoonStealFoodGoal(this, 1.3D),
                 new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.6D, 1.4D, (player) -> this.isBellyFull() && !this.isTame() && AVOID_VICTIMS.test(player)),
                 new LeapAtTargetGoal(this, 0.4f),
-                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.RACOON_FOOD), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTagRegistry.Items.RACOON_FOOD), false),
                 new SitWhenOrderedToGoal(this),
                 new BreedGoal(this, 1.0D),
                 new TBFollowParentGoal(this, 1.0D),
@@ -146,12 +145,12 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(TBTags.Items.RACOON_FOOD);
+        return itemStack.is(TBTagRegistry.Items.RACOON_FOOD);
     }
 
     public boolean isTameFood(ItemStack itemStack) {
         
-        return itemStack.is(TBTags.Items.RACOON_TAME_FOOD);
+        return itemStack.is(TBTagRegistry.Items.RACOON_TAME_FOOD);
     }
 
     private int dropFurTime = getRandom().nextInt(300,1000);

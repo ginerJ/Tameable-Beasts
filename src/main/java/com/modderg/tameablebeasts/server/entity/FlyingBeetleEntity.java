@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.registry.TBEntityRegistry;
@@ -9,7 +10,6 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
-import com.modderg.tameablebeasts.server.tags.TBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
@@ -27,7 +27,6 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -88,7 +87,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
                 new OwnerHurtTargetGoal(this),
                 new TakeCareOfEggsGoal(this, 15, TBPOITypesRegistry.FLYING_BEETLE_POI),
                 new TameablePanicGoal(this, 1.25D),
-                new TemptGoal(this, 1.1D, Ingredient.of(TBTags.Items.SHINY_BEETLE_FOOD), false),
+                new TemptGoal(this, 1.1D, Ingredient.of(TBTagRegistry.Items.SHINY_BEETLE_FOOD), false),
                 new NoFlyRandomStrollGoal(this,1.0D),
                 new BreedGoal(this, 1.0D),
                 new AvoidEntityGoal<>(this,Player.class, 6.0F, 1.0D, 1.2D),
@@ -134,12 +133,12 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
     @Override
     public boolean isTameFood(ItemStack itemStack) {
         
-        return itemStack.is(TBTags.Items.SHINY_BEETLE_FOOD);
+        return itemStack.is(TBTagRegistry.Items.SHINY_BEETLE_FOOD);
     }
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return itemStack.is(TBTags.Items.SHINY_BEETLE_TAME_FOOD);
+        return itemStack.is(TBTagRegistry.Items.SHINY_BEETLE_TAME_FOOD);
     }
 
     @Override
