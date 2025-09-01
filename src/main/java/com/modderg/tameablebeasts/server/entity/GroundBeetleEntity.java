@@ -11,12 +11,14 @@ import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.client.sound.SoundInit;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -81,7 +83,7 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
-                .add(Attributes.ATTACK_DAMAGE, 8.0D)
+                .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.ARMOR, 15.0D);
     }
 
@@ -119,6 +121,13 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
             tameGAnimal(player, itemstack, 20);
             return InteractionResult.SUCCESS;
         }
+
+        if (itemstack.isRepairable() && this.getHappiness() >= 50){
+            itemstack.setDamageValue(itemstack.getDamageValue() - 100);
+            this.setHappiness(0);
+            return InteractionResult.SUCCESS;
+        }
+
 
         return super.mobInteract(player, hand);
     }
@@ -191,8 +200,13 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
         boolean isFood = p_27600_.is(TBTagRegistry.Items.GROUND_BEETLE_TAME_FOOD);
         boolean isMetalFood = p_27600_.is(TBTagRegistry.Items.GROUND_BEETLE_METAL_FOOD);
 
-        if (!this.isBaby() && isMetalFood)
+        if (!this.isBaby() && isMetalFood){
+            boolean wasMetal = this.isMetallic();
             this.setConsumedIron(this.getConsumedIron() + 1);
+
+            if (!wasMetal && this.isMetallic())
+                handleEffects(true);
+        }
 
         if (isFood)
             playBite = true;
@@ -221,6 +235,7 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
         if (this.isMetallic()){
             armor = 30D;
             knockResist = 0.8D;
+            maxHealth = 60D;
         }
 
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movSpeed);
@@ -266,6 +281,19 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
         this.setBeetleId(this.getRandom().nextInt(2));
 
         return super.finalizeSpawn(levelAccessor, p_146747_, p_146748_, p_146749_, p_146750_);
+    }
+
+    public void handleEffects(boolean transformed){
+        this.playSound(transformed ? SoundEvents.IRON_GOLEM_REPAIR : SoundEvents.UI_STONECUTTER_TAKE_RESULT);
+
+        for (int i = 0; i < 5; i++){
+            double offsetX = (this.getRandom().nextDouble()*3 - 0.25D) * this.getBbWidth();
+            double offsetY = this.getRandom().nextDouble()*3 * this.getBbHeight();
+            double offsetZ = (this.getRandom().nextDouble()*3 - 0.25D) * this.getBbWidth();
+
+            this.level().addParticle(ParticleTypes.INSTANT_EFFECT, this.getX() + offsetX, this.getY() + offsetY, this.getZ() + offsetZ, 0.0D, 0.0D, 0.0D);
+            this.level().addParticle(ParticleTypes.SMOKE, this.getX() + offsetX, this.getY() + offsetY, this.getZ() + offsetZ, 0.0D, 0.0D, 0.0D);
+        }
     }
 
     //sounds

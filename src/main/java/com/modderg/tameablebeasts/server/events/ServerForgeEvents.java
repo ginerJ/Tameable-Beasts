@@ -2,6 +2,7 @@ package com.modderg.tameablebeasts.server.events;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.registry.*;
+import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.BeetleDrone;
 import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
 import com.modderg.tameablebeasts.server.entity.FurGolemEntity;
@@ -89,7 +90,7 @@ public class ServerForgeEvents {
                 illager.spawnAtLocation(TBItemRegistry.PURPLE_ALLAY.get());
 
         if(event.getEntity().getMobType().equals(MobType.ARTHROPOD) && !(event.getEntity() instanceof BeetleDrone))
-            if(event.getEntity().getRandom().nextInt(100) <= 3)
+            if(event.getEntity().getRandom().nextInt(100) <= ModCommonConfigs.ARTHROPOD_TRIM_DROP_CHANCE.get())
                 event.getEntity().spawnAtLocation(TBItemRegistry.ARTHROPOD_SMITHING_TEMPLATE.get());
     }
 
