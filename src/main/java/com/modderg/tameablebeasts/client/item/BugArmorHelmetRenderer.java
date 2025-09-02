@@ -1,10 +1,9 @@
 package com.modderg.tameablebeasts.client.item;
 
-import com.modderg.tameablebeasts.server.item.BugArmorHelmet;
+import com.modderg.tameablebeasts.server.item.BugArmorHelmetItem;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
 
-public class BugArmorHelmetRenderer extends GeoArmorRenderer<BugArmorHelmet> {
+public class BugArmorHelmetRenderer extends GeoArmorRenderer<BugArmorHelmetItem> {
     public BugArmorHelmetRenderer() {
         super(new BugArmorHelmerModel());
     }

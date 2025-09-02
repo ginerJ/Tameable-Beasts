@@ -1,12 +1,9 @@
 package com.modderg.tameablebeasts.registry;
 
 import com.modderg.tameablebeasts.TameableBeasts;
-import com.modderg.tameablebeasts.server.item.BugArmorHelmet;
-import com.modderg.tameablebeasts.server.item.TBShieldItem;
+import com.modderg.tameablebeasts.server.item.*;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.server.item.block.HatItem;
-import com.modderg.tameablebeasts.server.item.AsphaltItem;
-import com.modderg.tameablebeasts.server.item.PurpleAllay;
 import com.modderg.tameablebeasts.server.projectiles.BirdBaitTameArrow;
 import com.modderg.tameablebeasts.server.projectiles.PteraMealTameArrow;
 import net.minecraft.world.entity.LivingEntity;
@@ -104,7 +101,7 @@ public class TBItemRegistry {
                 () -> new Item(new Properties()));
 
         public static final RegistryObject<Item> BUG_ARMOR_HELMET = TB_ITEMS.register("bug_armor_helmet",
-                () -> new BugArmorHelmet(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.HELMET, new Properties()));
+                () -> new BugArmorHelmetItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.HELMET, new Properties()));
 
         public static final RegistryObject<Item> BUG_ARMOR_CHESTPLATE = TB_ITEMS.register("bug_armor_chestplate",
                 () -> new ArmorItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.CHESTPLATE, new Properties()));
@@ -121,6 +118,8 @@ public class TBItemRegistry {
         public static final RegistryObject<Item> BEETLE_SWORD = TB_ITEMS.register("beetle_sword",
                 () -> new SwordItem(TBTierRegistry.BEETLE_GEM, 2, -1.8F, new Item.Properties()));
 
+        public static final RegistryObject<Item> BUG_ELYTRA = TB_ITEMS.register("bug_elytra",
+                () -> new BugElytraChestplateItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.CHESTPLATE, new Properties()));
 
         //spawn eggs
         public static final RegistryObject<ForgeSpawnEggItem> RACOON_SPAWN_EGG = TB_ITEMS.register("racoon_spawn_egg", () -> new ForgeSpawnEggItem(

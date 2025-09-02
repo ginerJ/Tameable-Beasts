@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:elytra"
+    },
+    {
+      "item": "tameablebeasts:bug_armor_chestplate"
+    }
+  ],
+  "result": {
+    "item": "tameablebeasts:bug_elytra",
+    "count": 1
+  }
+}

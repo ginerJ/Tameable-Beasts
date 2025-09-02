@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 public enum TBArmorMaterials  implements ArmorMaterial {
 
-    BUG_ARMOR("bug_armor",  37, new int[]{3,6,8,3}, 15,
+    BUG_ARMOR("bug_armor",  37, new int[]{3,8,6,3}, 15,
             SoundEvents.ARMOR_EQUIP_DIAMOND, 3.0F, 0.1F, () -> Ingredient.of(TBItemRegistry.BEETLE_GEM.get())),;
 
     private final String name;
