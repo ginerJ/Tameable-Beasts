@@ -5,13 +5,12 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public enum TBArmorMaterials  implements ArmorMaterial {
+public enum TBArmorMaterialsRegistry implements ArmorMaterial {
 
     BUG_ARMOR("bug_armor",  37, new int[]{3,8,6,3}, 15,
             SoundEvents.ARMOR_EQUIP_DIAMOND, 3.0F, 0.1F, () -> Ingredient.of(TBItemRegistry.BEETLE_GEM.get())),;
@@ -27,7 +26,7 @@ public enum TBArmorMaterials  implements ArmorMaterial {
 
     private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
 
-     TBArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchanmentValue, SoundEvent equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+     TBArmorMaterialsRegistry(String name, int durabilityMultiplier, int[] protectionAmounts, int enchanmentValue, SoundEvent equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.protectionAmounts = protectionAmounts;

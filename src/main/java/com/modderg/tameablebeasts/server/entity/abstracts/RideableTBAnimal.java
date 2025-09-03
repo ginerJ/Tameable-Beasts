@@ -101,21 +101,6 @@ public abstract class RideableTBAnimal extends TBAnimal implements ItemSteerable
         return false;
     }
 
-    public <T extends RideableTBAnimal & GeoEntity> AnimationController<T> vehicleController(T entity) {
-        return new AnimationController<>(entity,"movement", 2, event -> vehicleState(entity, event));
-    }
-
-    public <T extends RideableTBAnimal & GeoEntity> PlayState vehicleState(T entity, AnimationState<T> event) {
-        if(entity.isVehicle()){
-            if(entity.moving)
-                event.getController().setAnimation(RawAnimation.begin().then("run", Animation.LoopType.LOOP));
-            else
-                event.getController().setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
-            return PlayState.CONTINUE;
-        }
-        return groundState(entity, event);
-    }
-
     public boolean moving = false;
 
     Vec3 previousPosition = this.position();

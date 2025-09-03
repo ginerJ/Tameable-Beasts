@@ -1,9 +1,7 @@
 package com.modderg.tameablebeasts.server.enchantment;
 
 import com.modderg.tameablebeasts.registry.TBTagRegistry;
-import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
-import com.modderg.tameablebeasts.registry.TBItemRegistry;
-import net.minecraft.world.damagesource.DamageSource;
+import com.modderg.tameablebeasts.server.entity.ShinyBeetleEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,7 +29,7 @@ public class SwarmEnchantment extends Enchantment {
 
         if (enchantmentLevel > 0 && player.getAttackStrengthScale(0.5f) >= 1.0f) { // full cool down charged
             IntStream.range(0, enchantmentLevel)
-                    .forEach(i -> FlyingBeetleEntity.spawnDroneWithTarget(attacker, livingTarget));
+                    .forEach(i -> ShinyBeetleEntity.spawnDroneWithTarget(attacker, livingTarget));
         }
 
         super.doPostAttack(attacker, target, level);

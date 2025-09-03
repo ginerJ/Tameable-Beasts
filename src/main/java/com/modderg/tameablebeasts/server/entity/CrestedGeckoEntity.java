@@ -10,7 +10,7 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.entity.navigation.TBWallClimberNavigation;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -37,6 +37,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.groundController;
 
 public class CrestedGeckoEntity extends RideableTBAnimal {
 
@@ -228,30 +230,30 @@ public class CrestedGeckoEntity extends RideableTBAnimal {
 
     @Override
     public SoundEvent getAmbientSound() {
-        return SoundInit.CRESTED_GECKO_AMBIENT.get();
+        return TBSoundRegistry.CRESTED_GECKO_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return SoundInit.CRESTED_GECKO_DEATH.get();
+        return TBSoundRegistry.CRESTED_GECKO_DEATH.get();
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.CRESTED_GECKO_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return TBSoundRegistry.CRESTED_GECKO_HURT.get();}
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
-        this.playSound(SoundInit.CHIKOTE_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.CHIKOTE_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
-        return SoundInit.CRESTED_GECKO_INTERACT.get();
+        return TBSoundRegistry.CRESTED_GECKO_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
-        return SoundInit.CRESTED_GECKO_INTERACT.get();
+        return TBSoundRegistry.CRESTED_GECKO_INTERACT.get();
     }
 
     @Override

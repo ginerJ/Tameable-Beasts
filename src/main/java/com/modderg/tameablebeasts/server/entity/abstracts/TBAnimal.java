@@ -591,21 +591,4 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     @Override public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
     }
-
-    public <T extends TBAnimal & GeoEntity> AnimationController<T> groundController(T entity) {
-        return new AnimationController<>(entity,"movement", 5, event -> groundState(entity, event));
-    }
-
-
-    public <T extends TBAnimal & GeoEntity> PlayState groundState(T entity, software.bernie.geckolib.core.animation.AnimationState<T> event) {
-
-        if(event.isMoving()||entity.onClimbable())
-            event.getController().setAnimation(RawAnimation.begin().then(entity.isRunning() ? "run" : "walk", Animation.LoopType.LOOP));
-        else if(entity.isInSittingPose())
-            event.setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
-        else
-            event.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
-
-        return PlayState.CONTINUE;
-    }
 }

@@ -2,15 +2,8 @@ package com.modderg.tameablebeasts.client.entity.model;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.entity.TBGeoModel;
-import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
 import com.modderg.tameablebeasts.server.entity.GroundBeetleEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 
 public class GroundBeetleModel extends TBGeoModel<GroundBeetleEntity> {
 

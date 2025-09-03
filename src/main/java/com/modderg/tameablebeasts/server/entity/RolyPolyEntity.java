@@ -11,7 +11,7 @@ import com.modderg.tameablebeasts.server.entity.abstracts.RideableTBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -34,6 +34,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.vehicleController;
 
 public class RolyPolyEntity extends RideableTBAnimal {
 
@@ -150,32 +152,32 @@ public class RolyPolyEntity extends RideableTBAnimal {
 
     @Override
     public SoundEvent getAmbientSound() {
-        return SoundInit.ROLYPOLY_AMBIENT.get();
+        return TBSoundRegistry.ROLYPOLY_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return SoundInit.ROLYPOLY_DEATH.get();
+        return TBSoundRegistry.ROLYPOLY_DEATH.get();
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.ROLYPOLY_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return TBSoundRegistry.ROLYPOLY_HURT.get();}
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
         if(isRunning())
-            this.playSound(SoundInit.ROLYPOLY_ROLL.get(), 0.15F, 1.0F);
+            this.playSound(TBSoundRegistry.ROLYPOLY_ROLL.get(), 0.15F, 1.0F);
         else
-            this.playSound(SoundInit.ROLYPOLY_STEPS.get(), 0.15F, 1.0F);
+            this.playSound(TBSoundRegistry.ROLYPOLY_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
-        return SoundInit.ROLYPOLY_INTERACT.get();
+        return TBSoundRegistry.ROLYPOLY_INTERACT.get();
     }
 
     @Override
-    public SoundEvent getInteractSound(){return SoundInit.ROLYPOLY_INTERACT.get();}
+    public SoundEvent getInteractSound(){return TBSoundRegistry.ROLYPOLY_INTERACT.get();}
 
     @Override
     public boolean isRunning() {

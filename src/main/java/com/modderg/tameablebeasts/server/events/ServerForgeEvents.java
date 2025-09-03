@@ -4,14 +4,11 @@ import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.registry.*;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.BeetleDrone;
-import com.modderg.tameablebeasts.server.entity.FlyingBeetleEntity;
+import com.modderg.tameablebeasts.server.entity.ShinyBeetleEntity;
 import com.modderg.tameablebeasts.server.entity.FurGolemEntity;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import com.modderg.tameablebeasts.server.packet.StoCEntityInvSyncPacket;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.monster.AbstractIllager;
@@ -24,17 +21,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
-
-import static com.modderg.tameablebeasts.registry.TBPacketRegistry.TBNETWORK;
 
 @Mod.EventBusSubscriber(modid = TameableBeasts.MOD_ID)
 public class ServerForgeEvents {
@@ -78,8 +70,8 @@ public class ServerForgeEvents {
 
         for (int i = 0; i < enchantLevel; i++)
             if (player.getRandom().nextInt(3) != 1){
-                FlyingBeetleEntity.spawnDroneWithTarget(player, attacker);
-                FlyingBeetleEntity.spawnDroneWithTarget(player, attacker);
+                ShinyBeetleEntity.spawnDroneWithTarget(player, attacker);
+                ShinyBeetleEntity.spawnDroneWithTarget(player, attacker);
             }
     }
 

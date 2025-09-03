@@ -1,5 +1,7 @@
 package com.modderg.tameablebeasts.server.entity;
 
+import com.modderg.tameablebeasts.TameableBeasts;
+import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
 import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuGrasshopper;
@@ -11,8 +13,9 @@ import com.modderg.tameablebeasts.server.entity.abstracts.RideableTBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -31,18 +34,22 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 
-public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideableJumping {
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.groundState;
+
+public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideableJumping, CustomJumpMeter {
 
     protected float playerJumpPendingScale = 0f;
     boolean allowStandSliding = true;
     protected int jumpCount = this.random.nextInt(100, 200);
     protected boolean isJumping = false;
+    private int jumpingTicks = 100;
 
     public GrasshopperEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
@@ -132,6 +139,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
     @Override
     public void tick() {
         if(jumpCount >= 0) jumpCount --;
+        jumpingTicks = Math.min(jumpingTicks +10, 100);
         super.tick();
     }
 
@@ -163,31 +171,31 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
 
     @Override
     public SoundEvent getAmbientSound() {
-        return SoundInit.GRASSHOPPER_AMBIENT.get();
+        return TBSoundRegistry.GRASSHOPPER_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return SoundInit.GRASSHOPPER_DEATH.get();
+        return TBSoundRegistry.GRASSHOPPER_DEATH.get();
     }
 
     @org.jetbrains.annotations.Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.GRASSHOPPER_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return TBSoundRegistry.GRASSHOPPER_HURT.get();}
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
-        this.playSound(SoundInit.GRASSHOPPER_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.GRASSHOPPER_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
-        return SoundInit.GRASSHOPPER_INTERACT.get();
+        return TBSoundRegistry.GRASSHOPPER_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
-        return SoundInit.GRASSHOPPER_INTERACT.get();
+        return TBSoundRegistry.GRASSHOPPER_INTERACT.get();
     }
 
     //ride stuff
@@ -207,7 +215,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
             if (!this.isTame()) {
                 if (jumpCount == 0 && this.onGround()) {
                     jumpFromGround();
-                    this.playSound(SoundInit.GRASSHOPPER_JUMP.get(), 0.15F, 1.0F);
+                    this.playSound(TBSoundRegistry.GRASSHOPPER_JUMP.get(), 0.15F, 1.0F);
                     jumpCount = this.random.nextInt(20, 150);
                 }
             }
@@ -299,6 +307,8 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
                 this.playerJumpPendingScale = 1.0F;
             else
                 this.playerJumpPendingScale = 0.4F + 0.4F * (float)p_21696_ / 90.0F;
+
+            jumpingTicks = 0;
         }
     }
 
@@ -309,11 +319,31 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
 
     @Override
     public void handleStartJump(int p_21695_) {
-        this.playSound(SoundInit.GRASSHOPPER_JUMP.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.GRASSHOPPER_JUMP.get(), 0.15F, 1.0F);
     }
 
     @Override
     public void handleStopJump() {}
+
+    @Override
+    public ResourceLocation getStaminaSpriteLocation() {
+        return new ResourceLocation(TameableBeasts.MOD_ID, "textures/gui/grasshopper_stamina.png");
+    }
+
+    @Override
+    public ResourceLocation getStaminaBackgroundLocation() {
+        return new ResourceLocation(TameableBeasts.MOD_ID, "textures/gui/grasshopper_stamina_back.png");
+    }
+
+    @Override
+    public Vec2 getStaminaSpriteDimensions() {
+        return new Vec2(40, 32);
+    }
+
+    @Override
+    public float getStaminaHeight() {
+        return (float) jumpingTicks /100;
+    }
 
     //animation stuff
 

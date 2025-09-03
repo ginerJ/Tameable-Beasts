@@ -7,7 +7,7 @@ import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.FlyingTBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.IncludesSitingRidingMeleeAttackGoal;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,6 +30,8 @@ import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.flyOnlyController;
 
 public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
 
@@ -121,34 +123,34 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
     @Override
     public SoundEvent getAmbientSound() {
         if(!isStill())
-            return SoundInit.SCARECROW_AMBIENT.get();
+            return TBSoundRegistry.SCARECROW_AMBIENT.get();
 
-        return SoundInit.SCARECROW_FLY.get();
+        return TBSoundRegistry.SCARECROW_FLY.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return SoundInit.SCARECROW_DEATH.get();
+        return TBSoundRegistry.SCARECROW_DEATH.get();
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.SCARECROW_HURT.get();}
+    protected SoundEvent getHurtSound(DamageSource p_21239_) {return TBSoundRegistry.SCARECROW_HURT.get();}
 
     @Override
     public SoundEvent getTameSound(){
-        return SoundInit.SCARECROW_INTERACT.get();
+        return TBSoundRegistry.SCARECROW_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
-        return SoundInit.SCARECROW_INTERACT.get();
+        return TBSoundRegistry.SCARECROW_INTERACT.get();
     }
 
     //animation stuff
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
-        control.add(addAnimationTriggers(justFlyController(this)));
+        control.add(addAnimationTriggers(flyOnlyController(this)));
     }
 }
 

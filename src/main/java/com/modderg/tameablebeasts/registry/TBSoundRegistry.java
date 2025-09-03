@@ -1,4 +1,4 @@
-package com.modderg.tameablebeasts.client.sound;
+package com.modderg.tameablebeasts.registry;
 
 import com.modderg.tameablebeasts.TameableBeasts;
 import net.minecraft.resources.ResourceLocation;
@@ -7,7 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class SoundInit {
+public class TBSoundRegistry {
     public static final DeferredRegister<SoundEvent> SOUNDS =
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, TameableBeasts.MOD_ID);
 

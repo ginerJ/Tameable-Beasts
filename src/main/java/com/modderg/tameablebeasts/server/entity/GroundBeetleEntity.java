@@ -9,7 +9,7 @@ import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.entity.goals.TakeCareOfEggsGoal;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -54,6 +54,8 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.UUID;
+
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.groundController;
 
 public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMob {
 
@@ -301,37 +303,37 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
     @Override
     public SoundEvent getAmbientSound() {
         playBite = true;
-        return SoundInit.BEETLE_AMBIENT.get();
+        return TBSoundRegistry.BEETLE_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
         playBite = true;
-        return SoundInit.BEETLE_DEATH.get();
+        return TBSoundRegistry.BEETLE_DEATH.get();
     }
 
     @org.jetbrains.annotations.Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {
         playBite = true;
-        return SoundInit.BEETLE_HURT.get();
+        return TBSoundRegistry.BEETLE_HURT.get();
     }
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
-        this.playSound(SoundInit.BEETLE_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.BEETLE_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
         playBite = true;
-        return SoundInit.BEETLE_INTERACT.get();
+        return TBSoundRegistry.BEETLE_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
         playBite = true;
-        return SoundInit.BEETLE_INTERACT.get();
+        return TBSoundRegistry.BEETLE_INTERACT.get();
     }
 
     //anger stuff

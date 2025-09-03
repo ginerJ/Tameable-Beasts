@@ -9,7 +9,7 @@ import com.modderg.tameablebeasts.server.entity.abstracts.FlyingTBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
@@ -33,13 +33,14 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.util.ClientUtils;
 
-public class FlyingBeetleEntity extends FlyingTBAnimal {
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.flyWalkingController;
 
-    public FlyingBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
+public class ShinyBeetleEntity extends FlyingTBAnimal {
+
+    public ShinyBeetleEntity(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
         this.hasWarmthVariants();
         this.extraTameParticles = ParticleTypes.GLOW;
@@ -74,7 +75,7 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
     }
 
-    public static boolean checkFlyingBeetleSpawnRules(EntityType<FlyingBeetleEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
+    public static boolean checkFlyingBeetleSpawnRules(EntityType<ShinyBeetleEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
         return ModCommonConfigs.CAN_SPAWN_FLYING_BEETLE.get();
     }
 
@@ -105,9 +106,22 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
         );
     }
 
+    int flyingSoundCount = 15;
+
     @Override
     public void tick() {
         super.tick();
+
+        if(!this.level().isClientSide())
+            if(this.isFlying() && flyingSoundCount-- == 0){
+                this.playSound(TBSoundRegistry.BEETLE_FLY.get());
+                flyingSoundCount = 15;
+            }
+
+        else if(this.isFlying() && !this.isInSittingPose())
+            if(this.tickCount % 5 == 0)
+                this.level().addParticle(ParticleTypes.GLOW, this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D),
+                        0.0D, 0.0D, 0.0D);
 
         if (!this.isOrderedToSit() && this.getTarget() != null && this.tickCount%80==0)
             spawnDroneWithTarget(this, this.getTarget());
@@ -217,53 +231,42 @@ public class FlyingBeetleEntity extends FlyingTBAnimal {
 
     @Override
     public SoundEvent getAmbientSound() {
-        if(isFlying())
-            return SoundInit.BEETLE_FLY.get();
-
-        return SoundInit.BEETLE_AMBIENT.get();
+        return TBSoundRegistry.BEETLE_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return SoundInit.BEETLE_DEATH.get();
+        return TBSoundRegistry.BEETLE_DEATH.get();
     }
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.BEETLE_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return TBSoundRegistry.BEETLE_HURT.get();}
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
-        this.playSound(SoundInit.BEETLE_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.BEETLE_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
-        return SoundInit.BEETLE_INTERACT.get();
+        return TBSoundRegistry.BEETLE_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
-        return SoundInit.BEETLE_INTERACT.get();
+        return TBSoundRegistry.BEETLE_INTERACT.get();
     }
-
 
     //animation stuff
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
-        control.add(addAnimationTriggers(flyingBeetleController(this)));
-    }
+        control.add(addAnimationTriggers(flyWalkingController(this)).setSoundKeyframeHandler(state -> {
+            Player player = ClientUtils.getClientPlayer();
 
-    public <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> flyingBeetleController(T entity) {
-        return new AnimationController<>(entity,"movement", 5, event ->{
-            if(entity.isFlying() && !entity.isInSittingPose()){
-                if(entity.tickCount % 5 == 0)
-                    entity.level().addParticle(ParticleTypes.GLOW, this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
-                return flyState(entity, event);
-            }
-
-            return groundState(entity, event);
-        });
+            if (player != null)
+                player.playSound(TBSoundRegistry.BEETLE_FLY.get());
+        }));
     }
 }

@@ -4,7 +4,7 @@ import com.modderg.tameablebeasts.constants.TBConstants;
 import com.modderg.tameablebeasts.registry.*;
 import com.modderg.tameablebeasts.server.entity.*;
 import com.modderg.tameablebeasts.server.item.TBCreativeTab;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import com.modderg.tameablebeasts.client.ModClientConfigs;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.client.particles.TameableParticles;
@@ -25,7 +25,6 @@ import net.minecraftforge.registries.RegistryObject;
 import software.bernie.geckolib.GeckoLib;
 import software.bernie.geckolib.core.molang.LazyVariable;
 import software.bernie.geckolib.core.molang.MolangParser;
-import software.bernie.geckolib.core.molang.MolangQueries;
 
 @Mod(TameableBeasts.MOD_ID)
 public class TameableBeasts {
@@ -54,7 +53,7 @@ public class TameableBeasts {
         TBEntityRegistry.ENTITY_TYPES.register(bus);
         TBEntityRegistry.init();
 
-        SoundInit.SOUNDS.register(bus);
+        TBSoundRegistry.SOUNDS.register(bus);
 
         TameableParticles.PARTICLE_TYPES.register(bus);
 
@@ -86,7 +85,7 @@ public class TameableBeasts {
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
 
             SpawnPlacements.register(TBEntityRegistry.FLYING_BEETLE.get(), SpawnPlacements.Type.ON_GROUND,
-                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FlyingBeetleEntity::checkFlyingBeetleSpawnRules);
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShinyBeetleEntity::checkFlyingBeetleSpawnRules);
 
             SpawnPlacements.register(TBEntityRegistry.BEETLE_DRONE.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
@@ -126,7 +125,7 @@ public class TameableBeasts {
 
         event.put(TBEntityRegistry.SCARECROW_ALLAY.get(), ScarecrowAllayEntity.setCustomAttributes().build());
 
-        event.put(TBEntityRegistry.FLYING_BEETLE.get(), FlyingBeetleEntity.setCustomAttributes().build());
+        event.put(TBEntityRegistry.FLYING_BEETLE.get(), ShinyBeetleEntity.setCustomAttributes().build());
         event.put(TBEntityRegistry.BEETLE_DRONE.get(), BeetleDrone.setCustomAttributes().build());
 
         event.put(TBEntityRegistry.QUETZALCOATLUS.get(), QuetzalcoatlusEntity.setCustomAttributes().build());

@@ -101,25 +101,25 @@ public class TBItemRegistry {
                 () -> new Item(new Properties()));
 
         public static final RegistryObject<Item> BUG_ARMOR_HELMET = TB_ITEMS.register("bug_armor_helmet",
-                () -> new BugArmorHelmetItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.HELMET, new Properties()));
+                () -> new BugArmorHelmetItem(TBArmorMaterialsRegistry.BUG_ARMOR, ArmorItem.Type.HELMET, new Properties()));
 
         public static final RegistryObject<Item> BUG_ARMOR_CHESTPLATE = TB_ITEMS.register("bug_armor_chestplate",
-                () -> new ArmorItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.CHESTPLATE, new Properties()));
+                () -> new ArmorItem(TBArmorMaterialsRegistry.BUG_ARMOR, ArmorItem.Type.CHESTPLATE, new Properties()));
 
         public static final RegistryObject<Item> BUG_ARMOR_LEGGINGS = TB_ITEMS.register("bug_armor_leggings",
-                () -> new ArmorItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.LEGGINGS, new Properties()));
+                () -> new ArmorItem(TBArmorMaterialsRegistry.BUG_ARMOR, ArmorItem.Type.LEGGINGS, new Properties()));
 
         public static final RegistryObject<Item> BUG_ARMOR_BOOTS = TB_ITEMS.register("bug_armor_boots",
-                () -> new ArmorItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.BOOTS, new Properties()));
+                () -> new ArmorItem(TBArmorMaterialsRegistry.BUG_ARMOR, ArmorItem.Type.BOOTS, new Properties()));
 
         public static final RegistryObject<Item> BEETLE_SHIELD = TB_ITEMS.register("beetle_shield",
-                () -> new TBShieldItem((new Item.Properties()).durability(512), TBArmorMaterials.BUG_ARMOR.getRepairIngredient().getItems()));
+                () -> new TBShieldItem((new Item.Properties()).durability(512), TBArmorMaterialsRegistry.BUG_ARMOR.getRepairIngredient().getItems()));
 
         public static final RegistryObject<Item> BEETLE_SWORD = TB_ITEMS.register("beetle_sword",
                 () -> new SwordItem(TBTierRegistry.BEETLE_GEM, 2, -1.8F, new Item.Properties()));
 
         public static final RegistryObject<Item> BUG_ELYTRA = TB_ITEMS.register("bug_elytra",
-                () -> new BugElytraChestplateItem(TBArmorMaterials.BUG_ARMOR, ArmorItem.Type.CHESTPLATE, new Properties()));
+                () -> new BugElytraChestplateItem(TBArmorMaterialsRegistry.BUG_ARMOR, ArmorItem.Type.CHESTPLATE, new Properties()));
 
         //spawn eggs
         public static final RegistryObject<ForgeSpawnEggItem> RACOON_SPAWN_EGG = TB_ITEMS.register("racoon_spawn_egg", () -> new ForgeSpawnEggItem(

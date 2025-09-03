@@ -12,7 +12,7 @@ import com.modderg.tameablebeasts.server.entity.abstracts.FlyingRideableTBAnimal
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -44,7 +44,9 @@ import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.ClientUtils;
 
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.flyGliderController;
 import static com.modderg.tameablebeasts.server.ModCommonConfigs.QUETZAL_SPAWN_HEIGHT;
 
 public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
@@ -246,46 +248,50 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
 
     @Override
     public SoundEvent getAmbientSound() {
-        if(isFlying())
-            return SoundInit.QUETZAL_FLY.get();
         playBite = true;
-        return SoundInit.QUETZAL_AMBIENT.get();
+        return TBSoundRegistry.QUETZAL_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
         playBite = true;
-        return SoundInit.QUETZAL_DEATH.get();
+        return TBSoundRegistry.QUETZAL_DEATH.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {
         playBite = true;
-        return SoundInit.QUETZAL_HURT.get();
+        return TBSoundRegistry.QUETZAL_HURT.get();
     }
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
-        this.playSound(SoundInit.QUETZAL_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.QUETZAL_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
         playBite = true;
-        return SoundInit.QUETZAL_INTERACT.get();
+        return TBSoundRegistry.QUETZAL_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
         playBite = true;
-        return SoundInit.QUETZAL_INTERACT.get();
+        return TBSoundRegistry.QUETZAL_INTERACT.get();
     }
 
     //animation stuff
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
-        control.add(addAnimationTriggers(glideFlyController(this)));
+        control.add(addAnimationTriggers(flyGliderController(this))
+                .setSoundKeyframeHandler(state -> {
+                    Player player = ClientUtils.getClientPlayer();
+
+                    if (player != null)
+                        player.playSound(TBSoundRegistry.QUETZAL_FLY.get());
+                }));
         control.add(biteController(this));
     }
 

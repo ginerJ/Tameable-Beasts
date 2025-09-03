@@ -28,18 +28,9 @@ import software.bernie.geckolib.core.object.PlayState;
 
 public class FlyingTBAnimal extends TBAnimal {
 
-    protected boolean isFlying = true;
-
-    public boolean isFlying() {return isFlying;}
-    public void setIsFlying(boolean flying) {this.isFlying = flying;}
-
     private static final EntityDataAccessor<Boolean> GOAL_WANT_FLYING = SynchedEntityData.defineId(FlyingTBAnimal.class, EntityDataSerializers.BOOLEAN);
-    public void setGoalsRequireFlying(boolean i){
-        this.getEntityData().set(GOAL_WANT_FLYING, i);
-    }
-    public boolean getGoalsRequireFlying(){
-        return this.getEntityData().get(GOAL_WANT_FLYING);
-    }
+
+    protected boolean isFlying = true;
 
     protected TBFollowOwnerGoal followOwnerGoal;
 
@@ -49,6 +40,17 @@ public class FlyingTBAnimal extends TBAnimal {
         this.setPathfindingMalus(BlockPathTypes.WATER, -8f);
         this.setPathfindingMalus(BlockPathTypes.LAVA, -8f);
     }
+
+    public boolean isFlying() {return isFlying;}
+    public void setIsFlying(boolean flying) {this.isFlying = flying;}
+
+    public void setGoalsRequireFlying(boolean i){
+        this.getEntityData().set(GOAL_WANT_FLYING, i);
+    }
+    public boolean getGoalsRequireFlying(){
+        return this.getEntityData().get(GOAL_WANT_FLYING);
+    }
+
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
@@ -162,33 +164,5 @@ public class FlyingTBAnimal extends TBAnimal {
     @Override
     public boolean causeFallDamage(float p_147187_, float p_147188_, @NotNull DamageSource p_147189_) {
         return false;
-    }
-
-    public <T extends FlyingTBAnimal & GeoEntity> PlayState flyState(T entity, software.bernie.geckolib.core.animation.AnimationState<T> event) {
-        if(entity.isStill())
-            event.getController().setAnimation(RawAnimation.begin().then("fly_idle", Animation.LoopType.LOOP));
-        else
-            event.getController().setAnimation(RawAnimation.begin().then("fly", Animation.LoopType.LOOP));
-
-        return PlayState.CONTINUE;
-    }
-
-    public <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> flyController(T entity) {
-        return new AnimationController<>(entity,"movement", 5, event ->{
-            if(entity.isFlying())
-                return flyState(entity, event);
-
-            return groundState(entity, event);
-        });
-    }
-
-    public <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> justFlyController(T entity) {
-        return new AnimationController<>(entity,"movement", 10, event ->{
-            if(!entity.isInSittingPose() || !entity.isStill())
-                return flyState(entity, event);
-
-            event.setAnimation(RawAnimation.begin().then("sit", Animation.LoopType.LOOP));
-            return PlayState.CONTINUE;
-        });
     }
 }

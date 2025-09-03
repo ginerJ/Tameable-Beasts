@@ -98,7 +98,7 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
                 if(tryFlyUp)
                     wasWalking = false;
 
-                if(level().isClientSide() && riderWantsFlying == wasWalking){
+                if(level().isClientSide() && tickCount%5==0 && riderWantsFlying == wasWalking){
                     riderWantsFlying = !wasWalking;
                     TBPacketRegistry.sendToServer(new CtoSSyncRiderWantsFlying(this.getId(), !wasWalking));
                 }
@@ -180,37 +180,6 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
 
     public float getStaminaScale() {
         return flyingStamina * 1F / maxFlyingStamina;
-    }
-
-    public <T extends FlyingRideableTBAnimal & GeoEntity> AnimationController<T> glideFlyController(T entity) {
-        return new AnimationController<>(entity,"movement", 5, event ->{
-
-            if(entity.isFlying() && !entity.isInSittingPose()) {
-
-                if(entity.isControlledByLocalInstance())
-                    if (entity.downInput){
-                        event.getController().setAnimation(RawAnimation.begin().then("glide_down", Animation.LoopType.LOOP));
-                    }
-                    else if(entity.upInput){
-                        event.getController().setAnimation(RawAnimation.begin().then("fly", Animation.LoopType.LOOP));
-                    }else
-                        if(entity.isStill())
-                            event.getController().setAnimation(RawAnimation.begin().then("fly_idle", Animation.LoopType.LOOP));
-                        else
-                            event.getController().setAnimation(RawAnimation.begin().then("glide", Animation.LoopType.LOOP));
-                else{
-                    if (entity.isStill())
-                        event.getController().setAnimation(RawAnimation.begin().then("fly_idle", Animation.LoopType.LOOP));
-                    else if (entity.getDeltaMovement().y < (entity.isControlledByLocalInstance() ? 0 : -0.2))
-                        event.getController().setAnimation(RawAnimation.begin().then("glide", Animation.LoopType.LOOP));
-                    else
-                        event.getController().setAnimation(RawAnimation.begin().then("fly", Animation.LoopType.LOOP));
-                }
-                return PlayState.CONTINUE;
-
-            }
-            return groundState(entity, event);
-        });
     }
 
     public boolean canJump() {

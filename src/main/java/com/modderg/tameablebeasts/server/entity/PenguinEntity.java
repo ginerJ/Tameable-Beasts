@@ -12,7 +12,7 @@ import com.modderg.tameablebeasts.server.entity.abstracts.TBSemiAquatic;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -48,6 +48,8 @@ import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.vehicleState;
 
 public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemiAquatic {
 
@@ -258,17 +260,17 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
 
     @Override
     public SoundEvent getAmbientSound() {
-        return SoundInit.PENGUIN_AMBIENT.get();
+        return TBSoundRegistry.PENGUIN_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return SoundInit.PENGUIN_DEATH.get();
+        return TBSoundRegistry.PENGUIN_DEATH.get();
     }
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.PENGUIN_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return TBSoundRegistry.PENGUIN_HURT.get();}
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState blockState) {
@@ -278,17 +280,17 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
                 blockState.is(Blocks.FROSTED_ICE)))
             this.playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT, 0.15F, 1.0F);
 
-        this.playSound(SoundInit.PENGUIN_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.PENGUIN_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
-        return SoundInit.PENGUIN_HAPPY.get();
+        return TBSoundRegistry.PENGUIN_HAPPY.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
-        return SoundInit.PENGUIN_INTERACT.get();
+        return TBSoundRegistry.PENGUIN_INTERACT.get();
     }
 
     //ANIMATION STUFF

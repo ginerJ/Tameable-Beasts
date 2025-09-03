@@ -7,11 +7,10 @@ import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.RideableTBAnimal;
-import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -33,12 +32,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.core.animation.AnimationState;
+
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.groundState;
 
 public class ChikoteEntity extends RideableTBAnimal {
 
@@ -162,57 +159,57 @@ public class ChikoteEntity extends RideableTBAnimal {
 
     @Override
     public SoundEvent getAmbientSound() {
-        return SoundInit.CHIKOTE_AMBIENT.get();
+        return TBSoundRegistry.CHIKOTE_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return SoundInit.CHIKOTE_DEATH.get();
+        return TBSoundRegistry.CHIKOTE_DEATH.get();
     }
 
     @org.jetbrains.annotations.Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.CHIKOTE_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return TBSoundRegistry.CHIKOTE_HURT.get();}
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
-        this.playSound(SoundInit.CHIKOTE_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.CHIKOTE_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
-        return SoundInit.CHIKOTE_HAPPY.get();
+        return TBSoundRegistry.CHIKOTE_HAPPY.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
-        return SoundInit.CHIKOTE_INTERACT.get();
+        return TBSoundRegistry.CHIKOTE_INTERACT.get();
     }
 
     //animation stuff
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
-        control.add(addAnimationTriggers(groundController(this))
+        control.add(addAnimationTriggers(chikoteAnimController(this))
                 .triggerableAnim("eat_crop", RawAnimation.begin().then("eat_crop", Animation.LoopType.PLAY_ONCE)));
     }
 
-    @Override
-    public <T extends TBAnimal & GeoEntity> PlayState groundState(T entity, AnimationState<T> event) {
+    public static AnimationController<ChikoteEntity> chikoteAnimController(ChikoteEntity entity) {
+        return new AnimationController<>(entity,"movement", 5, event -> {
+            if(!entity.onGround() && entity.getDeltaMovement().y < 0.0D){
+                event.getController().setAnimation(RawAnimation.begin().then("riding_up", Animation.LoopType.LOOP));
+                return PlayState.CONTINUE;
+            }
 
-        if(!entity.onGround() && entity.getDeltaMovement().y < 0.0D){
-            event.getController().setAnimation(RawAnimation.begin().then("riding_up", Animation.LoopType.LOOP));
-            return PlayState.CONTINUE;
-        }
+            if(entity.isControlledByLocalInstance()) {
+                if(event.isMoving())
+                    event.getController().setAnimation(RawAnimation.begin().then("riding_walk", Animation.LoopType.LOOP));
+                else
+                    event.getController().setAnimation(RawAnimation.begin().then("idle_riding", Animation.LoopType.LOOP));
+                return PlayState.CONTINUE;
+            }
 
-        if(entity.isControlledByLocalInstance()) {
-            if(event.isMoving())
-                event.getController().setAnimation(RawAnimation.begin().then("riding_walk", Animation.LoopType.LOOP));
-            else
-                event.getController().setAnimation(RawAnimation.begin().then("idle_riding", Animation.LoopType.LOOP));
-            return PlayState.CONTINUE;
-        }
-
-        else return super.groundState(entity, event);
+            else return groundState(entity, event);
+        });
     }
 }

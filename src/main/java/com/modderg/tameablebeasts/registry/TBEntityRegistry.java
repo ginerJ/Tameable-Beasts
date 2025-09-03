@@ -51,8 +51,8 @@ public class TBEntityRegistry {
                     .sized(0.75f,1.75f)
                     .build(new ResourceLocation(TameableBeasts.MOD_ID, "scarecrow_allay").toString()));
 
-    public static final RegistryObject<EntityType<FlyingBeetleEntity>> FLYING_BEETLE = ENTITY_TYPES.register("tameable_beetle",
-            () -> EntityType.Builder.of(FlyingBeetleEntity:: new, MobCategory.CREATURE)
+    public static final RegistryObject<EntityType<ShinyBeetleEntity>> FLYING_BEETLE = ENTITY_TYPES.register("tameable_beetle",
+            () -> EntityType.Builder.of(ShinyBeetleEntity:: new, MobCategory.CREATURE)
                     .sized(0.75f,0.75f)
                     .build(new ResourceLocation(TameableBeasts.MOD_ID, "tameable_beetle").toString()));
 

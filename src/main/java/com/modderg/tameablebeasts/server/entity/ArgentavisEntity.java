@@ -11,7 +11,7 @@ import com.modderg.tameablebeasts.server.entity.abstracts.FlyingRideableTBAnimal
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -38,12 +38,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.ClientUtils;
+
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.flyGliderController;
 
 public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
 
@@ -187,39 +185,43 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
 
     @Override
     public SoundEvent getAmbientSound() {
-        if(isFlying())
-            return SoundInit.QUETZAL_FLY.get();
-
-        return SoundInit.ARGENTAVIS_AMBIENT.get();
+        return TBSoundRegistry.ARGENTAVIS_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return SoundInit.ARGENTAVIS_DEATH.get();
+        return TBSoundRegistry.ARGENTAVIS_DEATH.get();
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return SoundInit.ARGENTAVIS_HURT.get();}
+    protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {return TBSoundRegistry.ARGENTAVIS_HURT.get();}
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
-        this.playSound(SoundInit.QUETZAL_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.QUETZAL_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
-        return SoundInit.ARGENTAVIS_INTERACT.get();
+        return TBSoundRegistry.ARGENTAVIS_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
-        return SoundInit.ARGENTAVIS_INTERACT.get();
+        return TBSoundRegistry.ARGENTAVIS_INTERACT.get();
     }
 
     //animation stuff
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar control) {
-        control.add(addAnimationTriggers(glideFlyController(this)));
+        control.add(
+                addAnimationTriggers(flyGliderController(this))
+                        .setSoundKeyframeHandler(state -> {
+                            Player player = ClientUtils.getClientPlayer();
+
+                            if (player != null)
+                                player.playSound(TBSoundRegistry.QUETZAL_FLY.get());
+                        }));
     }
 }

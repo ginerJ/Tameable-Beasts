@@ -4,7 +4,7 @@ import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -35,6 +35,8 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 
 import java.util.function.Predicate;
+
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.groundController;
 
 public class RacoonEntity extends TBAnimal implements GeoEntity {
 
@@ -170,30 +172,30 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
 
     @Override
     public SoundEvent getAmbientSound() {
-        return SoundInit.RACOON_AMBIENT.get();
+        return TBSoundRegistry.RACOON_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return SoundInit.RACOON_DEATH.get();
+        return TBSoundRegistry.RACOON_DEATH.get();
     }
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {return SoundInit.RACOON_HURT.get();}
+    protected SoundEvent getHurtSound(DamageSource p_21239_) {return TBSoundRegistry.RACOON_HURT.get();}
 
     @Override
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
-        this.playSound(SoundInit.RACOON_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.RACOON_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
-        return SoundInit.RACOON_INTERACT.get();
+        return TBSoundRegistry.RACOON_INTERACT.get();
     }
 
     @Override
-    public SoundEvent getInteractSound(){return SoundInit.RACOON_HAPPY.get();}
+    public SoundEvent getInteractSound(){return TBSoundRegistry.RACOON_HAPPY.get();}
 
     //animation stuff
 

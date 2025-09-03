@@ -5,7 +5,7 @@ import com.modderg.tameablebeasts.client.entity.CustomJumpMeter;
 import com.modderg.tameablebeasts.client.gui.TBItemStackHandler;
 import com.modderg.tameablebeasts.client.gui.TBMenu;
 import com.modderg.tameablebeasts.client.gui.TBMenuJustSaddle;
-import com.modderg.tameablebeasts.client.sound.SoundInit;
+import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import com.modderg.tameablebeasts.registry.TBTagRegistry;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
@@ -44,9 +44,11 @@ import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.ClientUtils;
 
 import java.util.List;
 
+import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.flyGliderController;
 import static com.modderg.tameablebeasts.server.ModCommonConfigs.GRAPTERA_SPAWN_HEIGHT;
 
 public class GrapteranodonEntity extends FlyingRideableTBAnimal implements CustomJumpMeter {
@@ -256,45 +258,51 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
     @Override
     public SoundEvent getAmbientSound() {
         if(isFlying())
-            return SoundInit.GRAPTERA_FLY.get();
+            return TBSoundRegistry.GRAPTERA_FLY.get();
         eatEmote = true;
-        return SoundInit.QUETZAL_AMBIENT.get();
+        return TBSoundRegistry.QUETZAL_AMBIENT.get();
     }
 
     @Override
     public SoundEvent getDeathSound() {
         eatEmote = true;
-        return SoundInit.GRAPTERA_DEATH.get();
+        return TBSoundRegistry.GRAPTERA_DEATH.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource p_21239_) {
         eatEmote = true;
-        return SoundInit.GRAPTERA_HURT.get();
+        return TBSoundRegistry.GRAPTERA_HURT.get();
     }
 
     @Override
     protected void playStepSound(@NotNull BlockPos p_20135_, @NotNull BlockState p_20136_) {
-        this.playSound(SoundInit.CHIKOTE_STEPS.get(), 0.15F, 1.0F);
+        this.playSound(TBSoundRegistry.CHIKOTE_STEPS.get(), 0.15F, 1.0F);
     }
 
     @Override
     public SoundEvent getTameSound(){
         eatEmote = true;
-        return SoundInit.GRAPTERA_INTERACT.get();
+        return TBSoundRegistry.GRAPTERA_INTERACT.get();
     }
 
     @Override
     public SoundEvent getInteractSound(){
         eatEmote = true;
-        return SoundInit.GRAPTERA_INTERACT.get();
+        return TBSoundRegistry.GRAPTERA_INTERACT.get();
     }
 
     //animation stuff
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(addAnimationTriggers(glideFlyController(this)));
+        controllers.add(addAnimationTriggers(flyGliderController(this))
+                .setSoundKeyframeHandler(state -> {
+                    Player player = ClientUtils.getClientPlayer();
+
+                    if (player != null)
+                        player.playSound(TBSoundRegistry.QUETZAL_FLY.get());
+                }));
         controllers.add(legsMouthController(this));
     }
 
