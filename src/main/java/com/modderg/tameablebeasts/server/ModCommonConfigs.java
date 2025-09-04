@@ -26,6 +26,9 @@ public class ModCommonConfigs {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ARTHROPOD_TRIM_DROP_CHANCE;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> GO_BAD_TIMER;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HATCH_TIMER;
+
 
     static {
         BUILDER.push("Tameable Beasts Configs");
@@ -80,6 +83,13 @@ public class ModCommonConfigs {
 
         ARTHROPOD_TRIM_DROP_CHANCE = BUILDER.comment("Arthropod Trim Drop Chance")
                 .define("Chance (over 100) all arthropods have of dropping Arthropod Upgrade Smithing Template upon defeat:", 2);
+
+
+        GO_BAD_TIMER = BUILDER.comment("Egg Go Bad Timer")
+                .define("Seconds Eggs Take To Go Bad In The Cold:", 120);
+
+        HATCH_TIMER = BUILDER.comment("Egg Hatching Timer")
+                .define("Seconds Eggs Take To Mature And Hatch:", 1200);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

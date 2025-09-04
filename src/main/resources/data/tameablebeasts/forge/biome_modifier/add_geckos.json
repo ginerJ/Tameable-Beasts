@@ -1,10 +1,6 @@
 {
   "type": "forge:add_spawns",
-  "biomes": [
-    "minecraft:dark_forest",
-    "minecraft:old_growth_spruce_taiga",
-    "minecraft:jungle"
-  ],
+  "biomes": "#tameablebeasts:spawns_geckos",
   "spawners": {
     "type": "tameablebeasts:crested_gecko",
     "weight": 10,

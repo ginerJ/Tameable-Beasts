@@ -83,7 +83,7 @@ public class EggBlock<T extends TBAnimal> extends BaseEntityBlock {
     }
 
     @Override
-    public void playerDestroy(Level level, Player p_49828_, BlockPos pos, BlockState p_49830_, @Nullable BlockEntity p_49831_, ItemStack p_49832_) {
+    public void playerDestroy(Level level, @NotNull Player p_49828_, BlockPos pos, @NotNull BlockState p_49830_, @Nullable BlockEntity p_49831_, @NotNull ItemStack p_49832_) {
         level.addFreshEntity(new ItemEntity(level,pos.getX(),pos.getY(),pos.getZ(),
                 new ItemStack(TBItemRegistry.EGG_RESTS.get())));
         super.playerDestroy(level, p_49828_, pos, p_49830_, p_49831_, p_49832_);

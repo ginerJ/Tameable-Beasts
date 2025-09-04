@@ -1,11 +1,6 @@
 {
   "type": "forge:add_spawns",
-  "biomes": [
-    "minecraft:plains",
-    "minecraft:desert",
-    "minecraft:windswept_forest",
-    "minecraft:windswept_forest"
-  ],
+  "biomes": "#tameablebeasts:spawns_grasshoppers",
   "spawners": {
     "type": "tameablebeasts:giant_grasshopper",
     "weight": 5,

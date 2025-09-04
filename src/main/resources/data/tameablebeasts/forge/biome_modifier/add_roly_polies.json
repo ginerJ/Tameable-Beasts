@@ -1,10 +1,7 @@
 {
   "type": "forge:add_spawns",
-  "biomes": [
-    "minecraft:birch_forest",
-    "minecraft:old_growth_spruce_taiga",
-    "minecraft:sparse_jungle"
-  ],
+  "biomes": "#tameablebeasts:spawns_roly_polies",
+
   "spawners": {
     "type": "tameablebeasts:giant_roly_poly",
     "weight": 10,

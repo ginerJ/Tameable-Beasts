@@ -1,10 +1,6 @@
 {
   "type": "forge:add_spawns",
-  "biomes": [
-  "minecraft:beach",
-  "minecraft:snowy_beach",
-  "minecraft:eroded_badlands"
-  ],
+  "biomes": "#tameablebeasts:spawns_penguins",
   "spawners": {
     "type": "tameablebeasts:tameable_penguin",
     "weight": 5,

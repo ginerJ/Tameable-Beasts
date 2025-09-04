@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:taiga",
+
+    "minecraft:badlands",
+    "minecraft:eroded_badlands",
+    "minecraft:savanna_plateau",
+
+    "minecraft:forest",
+    "minecraft:old_growth_birch_forest"
+  ]
+}

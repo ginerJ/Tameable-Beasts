@@ -1,13 +1,6 @@
 {
   "type": "forge:add_spawns",
-  "biomes": [
-    "minecraft:jagged_peaks",
-
-    "minecraft:stony_peaks",
-
-    "minecraft:plains",
-    "minecraft:forest"
-  ],
+  "biomes": "#tameablebeasts:spawns_quetzals",
   "spawners": {
     "type": "tameablebeasts:quetzalcoatlus",
     "weight": 5,

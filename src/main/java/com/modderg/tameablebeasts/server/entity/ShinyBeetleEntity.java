@@ -106,7 +106,7 @@ public class ShinyBeetleEntity extends FlyingTBAnimal {
         );
     }
 
-    int flyingSoundCount = 15;
+    int flyingSoundCount = 80;
 
     @Override
     public void tick() {

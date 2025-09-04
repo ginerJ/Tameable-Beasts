@@ -7,6 +7,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
@@ -23,11 +25,14 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.modderg.tameablebeasts.server.ModCommonConfigs.GO_BAD_TIMER;
+import static com.modderg.tameablebeasts.server.ModCommonConfigs.HATCH_TIMER;
+
 public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements GeoBlockEntity {
 
     //check gone bad and hatch timer
-    public int goBadTimer = 3000;
-    public int hatchTimer = 24000;
+    public int goBadTimer = 20 * GO_BAD_TIMER.get();
+    public int hatchTimer = 20 * HATCH_TIMER.get();
 
     public int textureID = 0;
 
@@ -129,6 +134,7 @@ public class EggBlockEntity<T extends TBAnimal> extends BlockEntity implements G
                 animal.setTextureId(textureID);
                 animal.setOwnerUUID(this.getOwnerUUID());
                 animal.updateAttributes();
+                animal.playSound(SoundEvents.TURTLE_EGG_HATCH);
                 level.addFreshEntity(animal);
                 level.destroyBlock(this.getBlockPos(), false);
                 this.setRemoved();

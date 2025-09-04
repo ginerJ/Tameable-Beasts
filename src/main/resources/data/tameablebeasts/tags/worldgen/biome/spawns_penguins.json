@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:meadow",
+
+    "minecraft:frozen_ocean",
+    "minecraft:frozen_peaks",
+
+    "minecraft:windswept_savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:wooded_badlands"
+  ]
+}

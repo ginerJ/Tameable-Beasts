@@ -16,6 +16,7 @@ import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -160,8 +161,15 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         return (EggBlockItem) TBItemRegistry.PENGUIN_EGG_ITEM.get();
     }
 
+    public static boolean isPenguinSpawneableBlock(BlockState blockState){
+        return blockState.is(Blocks.BLUE_ICE) || blockState.is(Blocks.ICE) || blockState.is(Blocks.BLUE_ICE)
+                || blockState.is(Blocks.PACKED_ICE) || blockState.is(Blocks.FROSTED_ICE);
+    }
+
     public static boolean checkPenguinSpawnRules(EntityType<PenguinEntity> p_218242_, LevelAccessor p_218243_, MobSpawnType p_218244_, BlockPos p_218245_, RandomSource p_218246_) {
-        return checkAnimalSpawnRules(p_218242_, p_218243_, p_218244_, p_218245_, p_218246_) && ModCommonConfigs.CAN_SPAWN_PENGUIN.get();
+        return isPenguinSpawneableBlock(p_218243_.getBlockState(p_218245_.below()))
+                && isBrightEnoughToSpawn(p_218243_, p_218245_)
+                && ModCommonConfigs.CAN_SPAWN_PENGUIN.get();
     }
 
     @Override
