@@ -31,6 +31,11 @@
       "tameablebeasts:racoon_hurt"
     ]
   },
+  "entity.tameablebeasts.wing_glide": {
+    "sounds": [
+      "tameablebeasts:wing_glide"
+    ]
+  },
 
 
 

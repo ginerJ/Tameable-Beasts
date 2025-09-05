@@ -11,6 +11,9 @@ public class TBSoundRegistry {
     public static final DeferredRegister<SoundEvent> SOUNDS =
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, TameableBeasts.MOD_ID);
 
+    public static final RegistryObject<SoundEvent> WING_GLIDE = SOUNDS.register("entity.tameablebeasts.wing_glide",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeasts.MOD_ID, "entity.tameablebeasts.wing_glide")));
+
     public static final RegistryObject<SoundEvent> RACOON_HAPPY = SOUNDS.register("entity.tameable_racoon.racoon_happy",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(TameableBeasts.MOD_ID, "entity.tameable_racoon.racoon_happy")));
     public static final RegistryObject<SoundEvent> RACOON_AMBIENT = SOUNDS.register("entity.tameable_racoon.racoon_ambient",

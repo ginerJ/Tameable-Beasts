@@ -11,7 +11,7 @@ buildscript {
 plugins {
     id 'eclipse'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '6.0.+'
+    id 'net.neoforged.gradle' version '[6.0.13, 7.0)'
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
@@ -24,12 +24,10 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
 
-    mappings channel: 'official', version: '1.20'
+    mappings channel: 'official', version: '1.20.1'
 
     runs {
         client {
-            properties 'mixin.env.remapRefMap': 'true'
-            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
 
             workingDirectory project.file('run')
 
@@ -47,8 +45,6 @@ minecraft {
         }
 
         server {
-            properties 'mixin.env.remapRefMap': 'true'
-            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             arg "-mixin.config="+archivesBaseName+".mixins.json"
 
             workingDirectory project.file('run')
@@ -86,7 +82,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
+    minecraft 'net.neoforged:forge:1.20.1-47.1.76'
 
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.7')
 
@@ -94,7 +90,7 @@ dependencies {
 
     implementation fg.deobf("curse.maven:Xaeros-263420:4812568")
 
-    implementation fg.deobf("dev.xylonity.tooltipoverhaul:tooltipoverhaul-forge-1.20.1:1.0.0")
+    implementation "curse.maven:tooltip-overhaul-1327508:6904708"
 
     implementation fg.deobf("curse.maven:jei-238222:6075247")
 

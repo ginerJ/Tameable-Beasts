@@ -14,6 +14,15 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tameablebeasts:purple_allay"
+        }
+      ]
     }
   ]
 }

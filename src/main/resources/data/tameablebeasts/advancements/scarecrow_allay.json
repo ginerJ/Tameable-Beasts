@@ -1,0 +1,34 @@
+{
+  "parent": "tameablebeasts:purple_allay",
+  "display": {
+    "icon": {
+      "item": "tameablebeasts:scarecrow_spawn_egg"
+    },
+    "title": {"translate": "advancements.tameablebeasts.scarecrow_allay"},
+    "description": {"translate": "advancements.tameablebeasts.scarecrow_allay.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "tame_purple_allay": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "tameablebeasts:scarecrow_allay"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "tame_purple_allay"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": false
+}

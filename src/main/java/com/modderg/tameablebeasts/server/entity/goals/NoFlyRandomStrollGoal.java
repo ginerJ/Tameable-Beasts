@@ -14,14 +14,14 @@ public class NoFlyRandomStrollGoal extends RandomStrollGoal {
 
     @Override
     public boolean canUse() {
-        if (flyingMob.isFlying())
+        if (flyingMob.isServerFlying())
             return false;
         return super.canUse();
     }
 
     @Override
     public boolean canContinueToUse() {
-        if (flyingMob.isFlying())
+        if (flyingMob.isServerFlying())
             return false;
         return super.canContinueToUse();
     }

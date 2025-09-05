@@ -92,8 +92,7 @@ public class ShinyBeetleEntity extends FlyingTBAnimal {
                 new NoFlyRandomStrollGoal(this,1.0D),
                 new BreedGoal(this, 1.0D),
                 new AvoidEntityGoal<>(this,Player.class, 6.0F, 1.0D, 1.2D),
-                new FlyFromNowAndThenGoal(this),
-                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
+                new TBWaterAvoidRandomFlyingGoal(this, 1.0D, 80),
                 new TBFollowParentGoal(this, 1.0D),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
                 new RandomLookAroundGoal(this)
@@ -107,21 +106,23 @@ public class ShinyBeetleEntity extends FlyingTBAnimal {
     }
 
     int flyingSoundCount = 80;
+    int particleCount = 5;
 
     @Override
     public void tick() {
         super.tick();
 
-        if(!this.level().isClientSide())
-            if(this.isFlying() && flyingSoundCount-- == 0){
+        if(!this.level().isClientSide()) {
+            if (this.isServerFlying() && flyingSoundCount-- == 0) {
                 this.playSound(TBSoundRegistry.BEETLE_FLY.get());
                 flyingSoundCount = 15;
             }
-
-        else if(this.isFlying() && !this.isInSittingPose())
-            if(this.tickCount % 5 == 0)
+        }
+        else if(this.isClientFlying() && particleCount-- == 0){
                 this.level().addParticle(ParticleTypes.GLOW, this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D),
                         0.0D, 0.0D, 0.0D);
+                particleCount = 5;
+            }
 
         if (!this.isOrderedToSit() && this.getTarget() != null && this.tickCount%80==0)
             spawnDroneWithTarget(this, this.getTarget());
@@ -173,7 +174,7 @@ public class ShinyBeetleEntity extends FlyingTBAnimal {
 
                 (owner != null && (
                         (this.distanceTo(owner) > 10 && !this.isWandering()) ||
-                        (this.isFlying() && !owner.onGround()))
+                        (this.isServerFlying() && !owner.onGround()))
                 )
         );
     }

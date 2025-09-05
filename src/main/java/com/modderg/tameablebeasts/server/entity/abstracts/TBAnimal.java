@@ -408,10 +408,10 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
     }
 
     public void handleInteract(){
-        if(!(this instanceof FlyingTBAnimal flyAnimal && flyAnimal.isFlying())){
+        if((this instanceof FlyingTBAnimal flyAnimal && !flyAnimal.isServerFlying())){
             triggerAnim("movement", "interact");
-            this.stillDuringInteractAnim = 20;
         }
+        this.stillDuringInteractAnim = 20;
     }
 
     @Override public boolean isOrderedToSit() {
@@ -434,8 +434,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
         if (!player.getAbilities().instabuild && itemStack!= null) itemStack.shrink(1);
 
         if (this.random.nextInt(100) < chance && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
-            this.setOwnerUUID(player.getUUID());
-            this.setTame(true);
+            this.tame(player);
             this.level().broadcastEntityEvent(this, (byte) 7);
             this.playSound(getTameSound(), 0.15F, 1.0F);
         } else

@@ -95,10 +95,9 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
                 new TameablePanicGoal(this, 1.25D),
                 new NoFlyRandomStrollGoal(this, 1.0D),
                 new TemptGoal(this, 1.0D, Ingredient.of(TBTagRegistry.Items.QUETZAL_FOOD), false),
-                new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
-                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
+                new TBWaterAvoidRandomFlyingGoal(this, 1.0D, 200),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
                 new FloatGoal(this),
                 new RandomLookAroundGoal(this)
@@ -188,7 +187,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
         double offsetZ2 = sin * zOffset;
 
         rider.setPos(this.getX() + offsetX + offsetX2,
-                this.getY() + rider.getMyRidingOffset() + (this.isFlying() ? yMovingOffSet : yStillOffSet),
+                this.getY() + rider.getMyRidingOffset() + (this.isServerFlying() ? yMovingOffSet : yStillOffSet),
                 this.getZ() + offsetZ + offsetZ2);
     }
 
@@ -290,7 +289,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
                     Player player = ClientUtils.getClientPlayer();
 
                     if (player != null)
-                        player.playSound(TBSoundRegistry.QUETZAL_FLY.get());
+                        player.playSound(TBSoundRegistry.QUETZAL_FLY.get(), 0.5f, 0.5f);
                 }));
         control.add(biteController(this));
     }

@@ -60,7 +60,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 30D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.FLYING_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D)
@@ -107,10 +107,9 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
                 new TameablePanicGoal(this, 1.25D),
                 new NoFlyRandomStrollGoal(this,1.0D),
                 new TemptGoal(this, 1.0D, Ingredient.of(TBTagRegistry.Items.ARGENTAVIS_FOOD), false),
-                new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
-                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
+                new TBWaterAvoidRandomFlyingGoal(this, 1.0D, 100),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
                 new FloatGoal(this),
                 new RandomLookAroundGoal(this)
@@ -221,7 +220,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
                             Player player = ClientUtils.getClientPlayer();
 
                             if (player != null)
-                                player.playSound(TBSoundRegistry.QUETZAL_FLY.get());
+                                player.playSound(TBSoundRegistry.QUETZAL_FLY.get(), 0.75f, 0.75f);
                         }));
     }
 }

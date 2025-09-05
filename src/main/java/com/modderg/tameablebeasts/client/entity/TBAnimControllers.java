@@ -59,7 +59,7 @@ public final class TBAnimControllers {
     public static <T extends FlyingRideableTBAnimal & GeoEntity> AnimationController<T> flyGliderController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
 
-            if(entity.isFlying() && !entity.isInSittingPose()) {
+            if(entity.isClientFlying() && !entity.isInSittingPose()) {
                 if(entity.isControlledByLocalInstance()) {
                     if (entity.downInput)
                         setLoopAnimation(event, "glide_down");
@@ -86,7 +86,7 @@ public final class TBAnimControllers {
 
     public static <T extends FlyingTBAnimal & GeoEntity> AnimationController<T> flyWalkingController(T entity) {
         return new AnimationController<>(entity,"movement", 5, event ->{
-            if(entity.isFlying())
+            if(entity.isClientFlying())
                 return flyState(entity, event);
 
             return groundState( entity, event);

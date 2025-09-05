@@ -163,5 +163,14 @@
   "item.tameablebeasts.penguin_egg.tooltip" : "You can hatch a Penguin from this, if you are a good parent.",
   "item.tameablebeasts.crested_gecko_egg.tooltip" : "You can hatch a Crested Gecko from this, if you are a good parent.",
   "item.tameablebeasts.argentavis_egg.tooltip" : "You can hatch a Argentavis from this, if you are a good parent.",
-  "item.tameablebeasts.graptera_egg.tooltip" : "You can hatch a Grapteranodon from this, if you are a good parent."
+  "item.tameablebeasts.graptera_egg.tooltip" : "You can hatch a Grapteranodon from this, if you are a good parent.",
+
+  "advancements.tameablebeasts.root" : "Tameable Beasts",
+  "advancements.tameablebeasts.root.description" : "Thanks for donwloading Tameable Beasts! Go tame some beasts.",
+
+  "advancements.tameablebeasts.purple_allay" : "Different Kind Of Allay",
+  "advancements.tameablebeasts.purple_allay.description" : "Find the shy Purple Allay, a rare drop from illagers that will fly to hide in you inventory.",
+
+  "advancements.tameablebeasts.scarecrow_allay" : "Tame A Scarecrow Allay",
+  "advancements.tameablebeasts.scarecrow_allay.description" : "A Scarecrow Block sounds like the perfect cover for the Purple Allays to roam confidently. Once you do, interact with the Scarecrow Allay to tame it!"
 }

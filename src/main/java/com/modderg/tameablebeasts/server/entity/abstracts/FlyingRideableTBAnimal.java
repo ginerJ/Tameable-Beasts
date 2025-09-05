@@ -151,7 +151,7 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
 
                 (this.getGoalsRequireFlying() && (
                         !this.isTame() ||
-                        this.isWandering()
+                       (!this.isOrderedToSit() &&  this.isWandering())
                         )
                 ) ||
 
@@ -165,7 +165,7 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
 
                 (owner != null && (
                         (this.distanceTo(owner) > 10 && !this.isWandering()) ||
-                        (this.isFlying() && !owner.onGround() && !hasPassenger(owner))
+                        (this.isServerFlying() && !owner.onGround() && !hasPassenger(owner))
                         )
                 )
         );

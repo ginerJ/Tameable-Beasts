@@ -1,0 +1,34 @@
+{
+  "parent": "tameablebeasts:root",
+  "display": {
+    "icon": {
+      "item": "tameablebeasts:racoon_spawn_egg"
+    },
+    "title": {"translate": "advancements.tameablebeasts.racoon"},
+    "description": {"translate": "advancements.tameablebeasts.racoon.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "tame_racoon": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "tameablebeasts:tameable_racoon"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "tame_racoon"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": false
+}

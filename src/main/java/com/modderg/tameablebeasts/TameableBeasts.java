@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts;
 
+import com.modderg.tameablebeasts.client.gui.TBAdvancementUtils;
 import com.modderg.tameablebeasts.constants.TBConstants;
 import com.modderg.tameablebeasts.registry.*;
 import com.modderg.tameablebeasts.server.entity.*;
@@ -38,6 +39,7 @@ public class TameableBeasts {
         bus.addListener(this::setAttributes);
 
         TBItemRegistry.TB_ITEMS.register(bus);
+        TBAdvancementUtils.TB_ADVANCEMENT_SPRITES.register(bus);
         TBMenuRegistry.MENUS.register(bus);
 
         TBEnchantmentRegistry.ENCHANTMENTS.register(bus);

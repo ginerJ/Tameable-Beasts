@@ -96,10 +96,9 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
                 new TameablePanicGoal(this, 1.25D),
                 new NoFlyRandomStrollGoal(this,1.0D),
                 new TemptGoal(this, 1.0D, Ingredient.of(TBTagRegistry.Items.GRAPTERA_FOOD), false),
-                new FlyFromNowAndThenGoal(this),
                 new TBFollowParentGoal(this, 1.0D),
                 new BreedGoal(this, 1.0D),
-                new WaterAvoidingRandomFlyingGoal(this, 1.0D),
+                new TBWaterAvoidRandomFlyingGoal(this, 1.0D, 100),
                 new LookAtPlayerGoal(this, Player.class, 6.0F),
                 new FloatGoal(this),
                 new RandomLookAroundGoal(this)
@@ -170,7 +169,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
     }
 
     public void tryGrabbing() {
-        if(!this.isFlying())
+        if(!this.isServerFlying())
             return;
 
         if(this.getPassengers().size() >= 2){
@@ -257,7 +256,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
 
     @Override
     public SoundEvent getAmbientSound() {
-        if(isFlying())
+        if(isServerFlying())
             return TBSoundRegistry.GRAPTERA_FLY.get();
         eatEmote = true;
         return TBSoundRegistry.QUETZAL_AMBIENT.get();
@@ -301,7 +300,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
                     Player player = ClientUtils.getClientPlayer();
 
                     if (player != null)
-                        player.playSound(TBSoundRegistry.QUETZAL_FLY.get());
+                        player.playSound(TBSoundRegistry.QUETZAL_FLY.get(), 0.5f, 0.5f);
                 }));
         controllers.add(legsMouthController(this));
     }
