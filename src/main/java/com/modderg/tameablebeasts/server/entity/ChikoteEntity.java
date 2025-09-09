@@ -99,7 +99,7 @@ public class ChikoteEntity extends RideableTBAnimal {
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isTameFood(itemstack) && !this.isTame()) {
-            tameGAnimal(player, itemstack, 10);
+            tameTBAnimal(player, itemstack, 10);
             return InteractionResult.SUCCESS;
         }
 

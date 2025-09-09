@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:cooked_cod"
+      "tag": "minecraft:fishes"
     },
     {
       "item": "tameablebeasts:cooked_big_bird_meat"

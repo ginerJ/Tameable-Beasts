@@ -116,7 +116,7 @@ public class QuetzalcoatlusEntity extends FlyingRideableTBAnimal implements Cust
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isTameFood(itemstack) && !this.isTame()) {
-            tameGAnimal(player, itemstack, 33);
+            tameTBAnimal(player, itemstack, 33);
             return InteractionResult.SUCCESS;
         }
 

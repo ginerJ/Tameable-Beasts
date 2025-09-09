@@ -1,11 +1,11 @@
 {
-  "parent": "tameablebeasts:root",
+  "parent": "tameablebeasts:pteranodon_meal",
   "display": {
     "icon": {
-      "item": "tameablebeasts:purple_allay"
+      "item": "tameablebeasts:ptera_meal_arrow"
     },
-    "title": {"translate": "advancements.tameablebeasts.purple_allay"},
-    "description": {"translate": "advancements.tameablebeasts.purple_allay.description"},
+    "title": {"translate": "advancements.tameablebeasts.ptera_meal_arrow"},
+    "description": {"translate": "advancements.tameablebeasts.ptera_meal_arrow.description"},
     "background": "tameablebeasts:textures/gui/advancement_background.png",
     "frame": "task",
     "show_toast": true,
@@ -13,12 +13,12 @@
     "hidden": false
   },
   "criteria": {
-    "obtain_purple_allay": {
+    "obtain_ptera_meal_arrow": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["tameablebeasts:purple_allay"]
+            "items": ["tameablebeasts:ptera_meal_arrow"]
           }
         ]
       }
@@ -26,7 +26,7 @@
   },
   "requirements": [
     [
-      "obtain_purple_allay"
+      "obtain_ptera_meal_arrow"
     ]
   ],
   "rewards": {

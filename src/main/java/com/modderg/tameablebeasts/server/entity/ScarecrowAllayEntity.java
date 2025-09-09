@@ -94,7 +94,7 @@ public class ScarecrowAllayEntity extends FlyingTBAnimal implements GeoEntity {
                 return InteractionResult.SUCCESS;
             }
         } else if(!this.isTame())
-            tameGAnimal(player,null,100);
+            tameTBAnimal(player,null,100);
 
         return super.mobInteract(player, hand);
     }

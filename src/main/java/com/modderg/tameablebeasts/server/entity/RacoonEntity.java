@@ -133,7 +133,7 @@ public class RacoonEntity extends TBAnimal implements GeoEntity {
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (this.isTameFood(itemstack) && !this.isTame()) {
-            tameGAnimal(player, itemstack, 15);
+            tameTBAnimal(player, itemstack, 15);
             return InteractionResult.SUCCESS;
         }
 

@@ -1,0 +1,29 @@
+{
+  "parent": "tameablebeasts:ground_beetle",
+  "display": {
+    "icon": {
+      "item": "minecraft:raw_iron"
+    },
+    "title": {"translate": "advancements.tameablebeasts.metal_beetle"},
+    "description": {"translate": "advancements.tameablebeasts.metal_beetle.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "imposibol": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "imposibol"
+    ]
+  ],
+  "rewards": {
+    "experience": 200
+  },
+  "sends_telemetry_event": false
+}

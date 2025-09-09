@@ -53,7 +53,6 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -429,7 +428,7 @@ public class TBAnimal extends TamableAnimal implements GeoEntity, HasCustomInven
         return false;
     }
 
-    public void tameGAnimal(Player player, ItemStack itemStack, int chance){
+    public void tameTBAnimal(Player player, ItemStack itemStack, int chance){
 
         if (!player.getAbilities().instabuild && itemStack!= null) itemStack.shrink(1);
 

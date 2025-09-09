@@ -1,0 +1,29 @@
+{
+  "parent": "tameablebeasts:racoon",
+  "display": {
+    "icon": {
+      "item": "tameablebeasts:racoon_fur_block"
+    },
+    "title": {"translate": "advancements.tameablebeasts.fur_golem"},
+    "description": {"translate": "advancements.tameablebeasts.fur_golem.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "imposibol": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "imposibol"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": false
+}

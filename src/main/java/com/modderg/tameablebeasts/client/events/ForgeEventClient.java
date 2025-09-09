@@ -41,6 +41,9 @@ public class ForgeEventClient {
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
 
+        if (stack.is(TBItemRegistry.FROZEN_FISH.get()))
+            tooltip.add(1, Component.translatable("item.tameablebeasts.frozen_fish.tooltip").withStyle(ChatFormatting.DARK_GRAY));
+
         if (stack.is(TBItemRegistry.ICEPOP.get()))
             tooltip.add(1, Component.translatable("item.tameablebeasts.icepop.tooltip").withStyle(ChatFormatting.DARK_GRAY));
 

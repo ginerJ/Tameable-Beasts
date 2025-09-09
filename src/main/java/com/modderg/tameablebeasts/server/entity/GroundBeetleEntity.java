@@ -1,15 +1,12 @@
 package com.modderg.tameablebeasts.server.entity;
 
-import com.modderg.tameablebeasts.registry.TBTagRegistry;
+import com.modderg.tameablebeasts.registry.*;
 import com.modderg.tameablebeasts.server.ModCommonConfigs;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import com.modderg.tameablebeasts.server.entity.goals.TBFollowOwnerGoal;
 import com.modderg.tameablebeasts.server.entity.goals.IncludesSitingRidingMeleeAttackGoal;
-import com.modderg.tameablebeasts.registry.TBPOITypesRegistry;
 import com.modderg.tameablebeasts.server.entity.goals.TakeCareOfEggsGoal;
-import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
-import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -17,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -56,6 +54,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static com.modderg.tameablebeasts.client.entity.TBAnimControllers.groundController;
+import static com.modderg.tameablebeasts.registry.TBAdvancementRegistry.METAL_BEETLE;
 
 public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMob {
 
@@ -120,7 +119,7 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (this.isTameFood(itemstack) && !this.isTame()) {
-            tameGAnimal(player, itemstack, 20);
+            tameTBAnimal(player, itemstack, 20);
             return InteractionResult.SUCCESS;
         }
 
@@ -208,6 +207,10 @@ public class GroundBeetleEntity extends TBAnimal implements GeoEntity, NeutralMo
 
             if (!wasMetal && this.isMetallic())
                 handleEffects(true);
+
+            if(this.isMetallic())
+                if (this.getOwner() instanceof ServerPlayer sv)
+                    TBAdvancementRegistry.grantAdvancement(sv, METAL_BEETLE);
         }
 
         if (isFood)

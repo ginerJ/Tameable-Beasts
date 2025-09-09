@@ -1,11 +1,11 @@
 {
-  "parent": "tameablebeasts:frozen_fish",
+  "parent": "tameablebeasts:root",
   "display": {
     "icon": {
-      "item": "tameablebeasts:penguin_spawn_egg"
+      "item": "tameablebeasts:ground_beetle_spawn_egg"
     },
-    "title": {"translate": "advancements.tameablebeasts.penguin"},
-    "description": {"translate": "advancements.tameablebeasts.penguin.description"},
+    "title": {"translate": "advancements.tameablebeasts.ground_beetle"},
+    "description": {"translate": "advancements.tameablebeasts.ground_beetle.description"},
     "background": "tameablebeasts:textures/gui/advancement_background.png",
     "frame": "goal",
     "show_toast": true,
@@ -13,18 +13,18 @@
     "hidden": false
   },
   "criteria": {
-    "tame_penguin": {
+    "tame_ground_beetle": {
       "trigger": "minecraft:tame_animal",
       "conditions": {
         "entity": {
-          "type": "tameablebeasts:tameable_penguin"
+          "type": "tameablebeasts:ground_beetle"
         }
       }
     }
   },
   "requirements": [
     [
-      "tame_penguin"
+      "tame_ground_beetle"
     ]
   ],
   "rewards": {

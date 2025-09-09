@@ -9,6 +9,7 @@ import com.modderg.tameablebeasts.server.entity.FurGolemEntity;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import com.modderg.tameablebeasts.server.packet.StoCEntityInvSyncPacket;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.monster.AbstractIllager;
@@ -27,6 +28,8 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.modderg.tameablebeasts.registry.TBAdvancementRegistry.FUR_GOLEM;
 
 @Mod.EventBusSubscriber(modid = TameableBeasts.MOD_ID)
 public class ServerForgeEvents {
@@ -102,7 +105,7 @@ public class ServerForgeEvents {
                 level.destroyBlock(pos.above(), false);
                 level.destroyBlock(pos.below(), false);
 
-                summonGolem(level, event.getPos().below());
+                summonGolem(level, event.getPos().below(), event);
             }
             if(level.getBlockState(pos.above()).is(TBBlockRegistry.FUR_BLOCK.get()) &&
                     level.getBlockState(pos.above().above()).is(Blocks.CARVED_PUMPKIN)){
@@ -110,7 +113,7 @@ public class ServerForgeEvents {
                 level.destroyBlock(pos.above(2), false);
                 level.destroyBlock(pos.above(), false);
 
-                summonGolem(level, event.getPos());
+                summonGolem(level, event.getPos(), event);
             }
         }
         if(blockState.is(Blocks.CARVED_PUMPKIN) &&
@@ -120,11 +123,15 @@ public class ServerForgeEvents {
             level.destroyBlock(pos.below(), false);
             level.destroyBlock(pos.below(2), false);
 
-            summonGolem(level, event.getPos().below(2));
+            summonGolem(level, event.getPos().below(2), event);
         }
     }
 
-    public static void summonGolem(Level level, BlockPos pos){
+    public static void summonGolem(Level level, BlockPos pos, BlockEvent.EntityPlaceEvent event){
+
+        if(event.getEntity() instanceof ServerPlayer player)
+            TBAdvancementRegistry.grantAdvancement(player, FUR_GOLEM);
+
         FurGolemEntity golem = new FurGolemEntity(TBEntityRegistry.FUR_GOLEM.get(),level);
         golem.setPos(pos.getX(), pos.getY(), pos.getZ());
         level.addFreshEntity(golem);

@@ -83,6 +83,7 @@
   "item.tameablebeasts.argentavis_spawn_egg" : "Argentavis Spawn Egg",
   "item.tameablebeasts.graptera_spawn_egg" : "Grapteranodon Spawn Egg",
 
+  "item.tameablebeasts.frozen_fish" : "Frozen Fish",
   "item.tameablebeasts.icepop" : "Icepop",
   "item.tameablebeasts.ice_helmet" : "Ice Helmet",
   "item.tameablebeasts.ice_chestplate" : "Ice Chestplate",
@@ -125,8 +126,9 @@
 
   "item.tameablebeasts.quetzal_stand" : "Quetzalcoatulus Stand Gear",
 
+  "item.tameablebeasts.frozen_fish.tooltip" : "Penguins sure love these.",
   "item.tameablebeasts.icepop.tooltip" : "Can be a tasty treat or a deadly penguin weapon.",
-  "item.tameablebeasts.ice_helmet.tooltip" : "That won't fit on you maybe try on something smaller like a penguin.",
+  "item.tameablebeasts.ice_helmet.tooltip" : "That won't fit on you maybe try on something smaller.",
   "item.tameablebeasts.purple_allay.tooltip" : "Allay too shy to scape your inventory, maybe he could feel at home inside some disguise.",
   "item.tameablebeasts.iron_big_hoe.tooltip" : "Some scarecrow would give this a better use",
   "item.tameablebeasts.bird_bait_arrow.tooltip" : "Deliver giant bird taming projectiles, careful not to kill them.",
@@ -141,14 +143,14 @@
   "item.tameablebeasts.egg_rests.tooltip" : "You are a bad parent, maybe you can make something bugs will like with it.",
   "item.tameablebeasts.big_bird_bait.tooltip" : "Tame giant birds with this seedy treat.",
   "item.tameablebeasts.pteranodon_meal.tooltip" : "Tame pteranodons with this ancient treat.",
-  "item.tameablebeasts.bug_salad.tooltip" : "Tame giant insects with this sweet salad.",
+  "item.tameablebeasts.bug_salad.tooltip" : "Giant insects sure love these.",
   "item.tameablebeasts.asphalt.tooltip" : "Use it to build roads over dirt, roly polies get a better grip on these too.",
 
   "item.tameablebeasts.scarecrow_straw_hat.tooltip" : "Wear it or build with it a scarecrow to defend your crops.",
   "item.tameablebeasts.biker_helmet.tooltip" : "Roly polies won't slow down for your safety with this.",
   "item.tameablebeasts.flying_helmet.tooltip" : "Flying mobs won't slow down for your safety with this.",
 
-  "item.tameablebeasts.ice_chestplate.tooltip" : "Equip it on penguins polies to ride them.",
+  "item.tameablebeasts.ice_chestplate.tooltip" : "Equip it on penguins to ride them.",
   "item.tameablebeasts.quetzal_stand.tooltip" : "Equip it on quetzals to allow more players on them.",
 
   "item.tameablebeasts.scarecrow_block.tooltip" : "This will keep Chikotes at bay, seems kinda cozy inside too.",
@@ -171,6 +173,69 @@
   "advancements.tameablebeasts.purple_allay" : "Different Kind Of Allay",
   "advancements.tameablebeasts.purple_allay.description" : "Find the shy Purple Allay, a rare drop from illagers that will fly to hide in you inventory.",
 
-  "advancements.tameablebeasts.scarecrow_allay" : "Tame A Scarecrow Allay",
-  "advancements.tameablebeasts.scarecrow_allay.description" : "A Scarecrow Block sounds like the perfect cover for the Purple Allays to roam confidently. Once you do, interact with the Scarecrow Allay to tame it!"
+  "advancements.tameablebeasts.bug_salad" : "It's \"For Bugs\" Not \"Made Of\" Bugs",
+  "advancements.tameablebeasts.bug_salad.description" : "Craft a Bug Salad, exquisite giant bug cuisine.",
+
+  "advancements.tameablebeasts.scarecrow_allay" : "Allay In Disguise",
+  "advancements.tameablebeasts.scarecrow_allay.description" : "A Scarecrow Block sounds like the perfect cover for the Purple Allays to roam confidently. Once you get it in it, interact with the Scarecrow Allay to tame it!",
+
+  "advancements.tameablebeasts.racoon" : "Remember That Time You Stole My Food?",
+  "advancements.tameablebeasts.racoon.description" : "Heard Racoons enjoy melon particularly, even more than whatever you got in your hand.",
+
+  "advancements.tameablebeasts.penguin" : "Ice Fish Bucket Challenge",
+  "advancements.tameablebeasts.penguin.description" : "It's a known fact that penguins love frozen fish to eat and popsicles to slaughter other beings. Right?",
+
+  "advancements.tameablebeasts.frozen_fish" : "Why is the fish not moving anymore?",
+  "advancements.tameablebeasts.frozen_fish.description" : "Combine ice and fish into the ultimate teeth breaking snack.",
+
+  "advancements.tameablebeasts.roly_poly" : "Ball",
+  "advancements.tameablebeasts.roly_poly.description" : "Tame a salad loving, usually rolling, fast moving Roly Poly.",
+
+  "advancements.tameablebeasts.grasshopper" : "Ant Bully",
+  "advancements.tameablebeasts.grasshopper.description" : "Offer some salad to the Grasshoppers to tame them.",
+
+  "advancements.tameablebeasts.egg_rests" : "Not Making An Omelette With This One",
+  "advancements.tameablebeasts.egg_rests.description" : "Loot some Egg Rests from eggs you bred or you found on nests.",
+
+  "advancements.tameablebeasts.brush_a_beast" : "Was Specting Ticks This Is Far Better",
+  "advancements.tameablebeasts.brush_a_beast.description" : "Well fed beasts got a higher chance of dropping some loot when brushed.",
+
+  "advancements.tameablebeasts.crested_gecko" : "Now I Have To Build A Terrarium",
+  "advancements.tameablebeasts.crested_gecko.description" : "Tame Crested Geckos by offering them some arthropod pieces.",
+
+  "advancements.tameablebeasts.ground_beetle" : "Armored Fella",
+  "advancements.tameablebeasts.ground_beetle.description" : "Beetles in general got a huge sweet tooth for honey related items, so much they could get tamed.",
+
+  "advancements.tameablebeasts.shiny_beetle" : "Flying Fella",
+  "advancements.tameablebeasts.shiny_beetle.description" : "Beetles in general got a huge sweet tooth for honey related items, so much they could get tamed.",
+
+  "advancements.tameablebeasts.pteranodon_meal" : "You Sure You Want That Kind Of Attention?",
+  "advancements.tameablebeasts.pteranodon_meal.description" : "Combine fish, Chicken and Big Bird Meat into the ultimate pretanodon lure.",
+
+  "advancements.tameablebeasts.ptera_meal_arrow" : "Meat Bullet",
+  "advancements.tameablebeasts.ptera_meal_arrow.description" : "Even better put some Pteranodon Meal in arrows to try to tame some pteras without any health restrictions.",
+
+  "advancements.tameablebeasts.big_bird_bait" : "Lets Bait Some Birds",
+  "advancements.tameablebeasts.big_bird_bait.description" : "Combine Iron Nuggets, some seeds and Quetzal Meat or Rotten Flesh into the ultimate big bird lure.",
+
+  "advancements.tameablebeasts.bird_bait_arrow" : "Seed Bullet",
+  "advancements.tameablebeasts.bird_bait_arrow.description" : "Even better put some Big Bird Bait in arrows to try to tame some big birds without any health restrictions.",
+
+  "advancements.tameablebeasts.quetzalcoatlus" : "Is That A Cloud?",
+  "advancements.tameablebeasts.quetzalcoatlus.description" : "Spot the ginormous Quetzalcoatlus and tame it with Ptera Meal when it is under 10 health.",
+
+  "advancements.tameablebeasts.grapteranodon" : "Hey Just Like In Ark",
+  "advancements.tameablebeasts.grapteranodon.description" : "Ptera Meal when under 10 health is enough to tame the Grapteranodon, a fast pteranodon that can pick up other mobs.",
+
+  "advancements.tameablebeasts.argentavis" : "Are There Hawks Too?",
+  "advancements.tameablebeasts.argentavis.description" : "The agile Argentavis can be tame with Big Bird Bait when it is under 10 health.",
+
+  "advancements.tameablebeasts.chikote" : "Not A Chocobo",
+  "advancements.tameablebeasts.chikote.description" : "The Chikotes, the tall cousins of the chickens submit under the sight of Big Bird Meat or Potatoes.",
+
+  "advancements.tameablebeasts.metal_beetle" : "Chrome Beetle",
+  "advancements.tameablebeasts.metal_beetle.description" : "Feed enough Raw Iron to Ground Beetles for them to absorb their properties.",
+
+  "advancements.tameablebeasts.fur_golem" : "Easter Is Saved",
+  "advancements.tameablebeasts.fur_golem.description" : "Build a Fur Golem just as you would build an Ice Golem, but with fur, this gentle golem will keep you eggs warm."
 }

@@ -16,7 +16,6 @@ import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -219,7 +218,7 @@ public class PenguinEntity extends RideableTBAnimal implements GeoEntity, TBSemi
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isTameFood(itemstack) && !this.isTame()) {
-            tameGAnimal(player, itemstack, 20);
+            tameTBAnimal(player, itemstack, 20);
             return InteractionResult.SUCCESS;
         }
 

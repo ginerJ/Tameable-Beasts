@@ -81,7 +81,7 @@ public class ArgentavisEntity extends FlyingRideableTBAnimal implements CustomJu
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (!this.isTame() && isTameFood(itemstack)) {
-            tameGAnimal(player, itemstack, 33);
+            tameTBAnimal(player, itemstack, 33);
             return InteractionResult.SUCCESS;
         }
 

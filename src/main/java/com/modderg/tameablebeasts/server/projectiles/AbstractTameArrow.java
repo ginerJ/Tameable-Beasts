@@ -59,7 +59,7 @@ public abstract class AbstractTameArrow extends AbstractArrow {
                 p_36757_.getEntity() instanceof TBAnimal tbAnimal &&
                 !tbAnimal.isTame())
 
-            tbAnimal.tameGAnimal(player, null, chance);
+            tbAnimal.tameTBAnimal(player, null, chance);
     }
 
     @Override

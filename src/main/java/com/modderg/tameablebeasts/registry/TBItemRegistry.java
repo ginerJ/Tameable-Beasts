@@ -22,6 +22,9 @@ public class TBItemRegistry {
         public static final DeferredRegister<Item> TB_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TameableBeasts.MOD_ID);
 
         //misc
+        public static final RegistryObject<Item> FROZEN_FISH = TB_ITEMS.register("frozen_fish",
+                () -> new Item(new Properties().food(Foods.SWEET_BERRIES)));
+
         public static final RegistryObject<Item> ICEPOP = TB_ITEMS.register("icepop",
                 () -> new Item(new Properties().food(Foods.SWEET_BERRIES)));
 
@@ -132,7 +135,7 @@ public class TBItemRegistry {
                 TBEntityRegistry.CHIKOTE, 0xFFF38E, 0xDCB834, new Properties()));
     
         public static final RegistryObject<ForgeSpawnEggItem> SHINY_BEETLE_SPAWN_EGG = TB_ITEMS.register("beetle_spawn_egg", () -> new ForgeSpawnEggItem(
-                TBEntityRegistry.FLYING_BEETLE, 0x4c3c60, 0x3991A9, new Properties()));
+                TBEntityRegistry.FLYING_BEETLE, 0x4c3c60, 0x79e7a2, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> QUETZAL_SPAWN_EGG = TB_ITEMS.register("quetzal_spawn_egg", () -> new ForgeSpawnEggItem(
                 TBEntityRegistry.QUETZALCOATLUS, 0x7c442d, 0x4f6b87, new Properties()));
@@ -141,22 +144,22 @@ public class TBItemRegistry {
                 TBEntityRegistry.GIANT_GRASSHOPPER, 0xC5E152, 0x7EBB27, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> GROUND_BEETLE_SPAWN_EGG = TB_ITEMS.register("ground_beetle_spawn_egg", () -> new ForgeSpawnEggItem(
-                TBEntityRegistry.GROUND_BEETLE, 0x9E75D3, 0x7346AC, new Properties()));
+                TBEntityRegistry.GROUND_BEETLE, 0x2a2d41, 0x3b5263, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> GROUND_ROLY_POLY_SPAWN_EGG = TB_ITEMS.register("giant_roly_poly_spawn_egg", () -> new ForgeSpawnEggItem(
-                TBEntityRegistry.GIANT_ROLY_POLY, 0x6E77B8, 0x3A4072, new Properties()));
+                TBEntityRegistry.GIANT_ROLY_POLY, 0x4c538d, 0x8188bb, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> SCARECROW_SPAWN_EGG = TB_ITEMS.register("scarecrow_spawn_egg", () -> new ForgeSpawnEggItem(
                 TBEntityRegistry.SCARECROW_ALLAY, 0xFFC347, 0x6A5ACD, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> CRESTED_GECKO_SPAWN_EGG = TB_ITEMS.register("crested_gecko_spawn_egg", () -> new ForgeSpawnEggItem(
-                TBEntityRegistry.CRESTED_GECKO, 0x728452, 0xC9B96A, new Properties()));
+                TBEntityRegistry.CRESTED_GECKO, 0x93a070, 0xcfd790, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> ARGENTAVIS_SPAWN_EGG = TB_ITEMS.register("argentavis_spawn_egg", () -> new ForgeSpawnEggItem(
                 TBEntityRegistry.ARGENTAVIS, 0xf0b596, 0x5a5161, new Properties()));
 
         public static final RegistryObject<ForgeSpawnEggItem> GRAPTERA_SPAWN_EGG = TB_ITEMS.register("graptera_spawn_egg", () -> new ForgeSpawnEggItem(
-                TBEntityRegistry.GRAPTERANODON, 0xC36B58, 0x828673, new Properties()));
+                TBEntityRegistry.GRAPTERANODON, 0x757e81, 0xc4af81, new Properties()));
 
 
         //hats

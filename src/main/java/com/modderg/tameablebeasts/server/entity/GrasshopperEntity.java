@@ -108,7 +108,7 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isTameFood(itemstack) && !this.isTame()) {
-            tameGAnimal(player, itemstack, 20);
+            tameTBAnimal(player, itemstack, 20);
             return InteractionResult.SUCCESS;
         }
 

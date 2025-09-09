@@ -133,7 +133,7 @@ public class ShinyBeetleEntity extends FlyingTBAnimal {
         ItemStack itemstack = player.getItemInHand(hand);
 
         if (isTameFood(itemstack) && !this.isTame()) {
-            tameGAnimal(player, itemstack, 20);
+            tameTBAnimal(player, itemstack, 20);
             return InteractionResult.SUCCESS;
         }
 

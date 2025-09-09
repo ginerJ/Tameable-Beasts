@@ -1,11 +1,11 @@
 {
-  "parent": "tameablebeasts:frozen_fish",
+  "parent": "tameablebeasts:bug_salad",
   "display": {
     "icon": {
-      "item": "tameablebeasts:penguin_spawn_egg"
+      "item": "tameablebeasts:giant_grasshopper_spawn_egg"
     },
-    "title": {"translate": "advancements.tameablebeasts.penguin"},
-    "description": {"translate": "advancements.tameablebeasts.penguin.description"},
+    "title": {"translate": "advancements.tameablebeasts.grasshopper"},
+    "description": {"translate": "advancements.tameablebeasts.grasshopper.description"},
     "background": "tameablebeasts:textures/gui/advancement_background.png",
     "frame": "goal",
     "show_toast": true,
@@ -13,18 +13,18 @@
     "hidden": false
   },
   "criteria": {
-    "tame_penguin": {
+    "tame_grasshopper": {
       "trigger": "minecraft:tame_animal",
       "conditions": {
         "entity": {
-          "type": "tameablebeasts:tameable_penguin"
+          "type": "tameablebeasts:giant_grasshopper"
         }
       }
     }
   },
   "requirements": [
     [
-      "tame_penguin"
+      "tame_grasshopper"
     ]
   ],
   "rewards": {

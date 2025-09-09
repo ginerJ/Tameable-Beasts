@@ -2,10 +2,10 @@
   "parent": "tameablebeasts:root",
   "display": {
     "icon": {
-      "item": "tameablebeasts:purple_allay"
+      "item": "tameablebeasts:big_bird_bait"
     },
-    "title": {"translate": "advancements.tameablebeasts.purple_allay"},
-    "description": {"translate": "advancements.tameablebeasts.purple_allay.description"},
+    "title": {"translate": "advancements.tameablebeasts.big_bird_bait"},
+    "description": {"translate": "advancements.tameablebeasts.big_bird_bait.description"},
     "background": "tameablebeasts:textures/gui/advancement_background.png",
     "frame": "task",
     "show_toast": true,
@@ -13,12 +13,12 @@
     "hidden": false
   },
   "criteria": {
-    "obtain_purple_allay": {
+    "obtain_big_bird_bait": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["tameablebeasts:purple_allay"]
+            "items": ["tameablebeasts:big_bird_bait"]
           }
         ]
       }
@@ -26,7 +26,7 @@
   },
   "requirements": [
     [
-      "obtain_purple_allay"
+      "obtain_big_bird_bait"
     ]
   ],
   "rewards": {

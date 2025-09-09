@@ -1,11 +1,11 @@
 {
-  "parent": "tameablebeasts:frozen_fish",
+  "parent": "tameablebeasts:root",
   "display": {
     "icon": {
-      "item": "tameablebeasts:penguin_spawn_egg"
+      "item": "tameablebeasts:crested_gecko_spawn_egg"
     },
-    "title": {"translate": "advancements.tameablebeasts.penguin"},
-    "description": {"translate": "advancements.tameablebeasts.penguin.description"},
+    "title": {"translate": "advancements.tameablebeasts.crested_gecko"},
+    "description": {"translate": "advancements.tameablebeasts.crested_gecko.description"},
     "background": "tameablebeasts:textures/gui/advancement_background.png",
     "frame": "goal",
     "show_toast": true,
@@ -13,18 +13,18 @@
     "hidden": false
   },
   "criteria": {
-    "tame_penguin": {
+    "tame_crested_gecko": {
       "trigger": "minecraft:tame_animal",
       "conditions": {
         "entity": {
-          "type": "tameablebeasts:tameable_penguin"
+          "type": "tameablebeasts:crested_gecko"
         }
       }
     }
   },
   "requirements": [
     [
-      "tame_penguin"
+      "tame_crested_gecko"
     ]
   ],
   "rewards": {

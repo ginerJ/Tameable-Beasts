@@ -5,7 +5,8 @@
       "items": [
         "tameablebeasts:ice_helmet",
         "tameablebeasts:ice_chestplate",
-        "tameablebeasts:icepop"
+        "tameablebeasts:icepop",
+        "tameablebeasts:frozen_fish"
       ],
       "specialEffect": "metal_shining",
       "gradientType": "custom",

@@ -2,6 +2,10 @@
   "values": [
     "tameablebeasts:beetle_egg",
     "tameablebeasts:ground_beetle_egg",
-    "tameablebeasts:grasshopper_egg"
+    "tameablebeasts:grasshopper_leg",
+    "minecraft:spider_eye",
+    "minecraft:fermented_spider_eye",
+    "tameablebeasts:roly_plaque",
+    "tameablebeasts:beetle_armor_piece"
   ]
 }

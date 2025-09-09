@@ -1,6 +1,8 @@
 package com.modderg.tameablebeasts.mixin;
 
+import com.modderg.tameablebeasts.registry.TBAdvancementRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -40,8 +42,11 @@ public abstract class BrushItemMixin {
 
                         if (animal.getRandom().nextInt(100) < 1 + 20 * animal.getHappiness()/100){
                             animal.spawnAtLocation(new ItemStack(brushDrops[animal.getRandom().nextInt(brushDrops.length)]));
-                            animal.setHappiness(Math.max(0, animal.getHappiness() - 15));
+                            animal.setHappiness(Math.max(0, animal.getHappiness() - 20));
                             animal.handleInteract();
+
+                            if(!(player instanceof ServerPlayer serverPlayer)) return;
+                            TBAdvancementRegistry.grantAdvancement(serverPlayer, TBAdvancementRegistry.BRUSH_A_BEAST);
                         }
                     }
                     ci.cancel();
