@@ -1,0 +1,29 @@
+{
+  "parent": "tameablebeasts:quetzalcoatlus",
+  "display": {
+    "icon": {
+      "item": "tameablebeasts:quetzal_stand"
+    },
+    "title": {"translate": "advancements.tameablebeasts.quetzal_stand"},
+    "description": {"translate": "advancements.tameablebeasts.quetzal_stand.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "imposibol": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "imposibol"
+    ]
+  ],
+  "rewards": {
+    "experience": 200
+  },
+  "sends_telemetry_event": false
+}

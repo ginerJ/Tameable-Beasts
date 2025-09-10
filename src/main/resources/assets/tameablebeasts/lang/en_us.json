@@ -237,5 +237,35 @@
   "advancements.tameablebeasts.metal_beetle.description" : "Feed enough Raw Iron to Ground Beetles for them to absorb their properties.",
 
   "advancements.tameablebeasts.fur_golem" : "Easter Is Saved",
-  "advancements.tameablebeasts.fur_golem.description" : "Build a Fur Golem just as you would build an Ice Golem, but with fur, this gentle golem will keep you eggs warm."
+  "advancements.tameablebeasts.fur_golem.description" : "Build a Fur Golem just as you would build an Ice Golem, but with fur, this gentle golem will keep you eggs warm.",
+
+  "advancements.tameablebeasts.ice_armor" : "Bring Me A Warden!",
+  "advancements.tameablebeasts.ice_armor.description" : "Equip a Penguin a full set of Ice Amor and two Icepops (don't actually bring him a Warden).",
+
+  "advancements.tameablebeasts.quetzal_stand" : "Public Transport",
+  "advancements.tameablebeasts.quetzal_stand.description" : "Equip a Quetzal Stand on a Quetzal so that you can fly with up to 3 friends!.",
+
+  "advancements.tameablebeasts.big_iron_hoe" : "It's Not For Gardening",
+  "advancements.tameablebeasts.big_iron_hoe.description" : "Give you Scarecrow Allay a Big Iron Hoe so it can defend itself better.",
+
+  "advancements.tameablebeasts.flying_helmet" : "Got A Bug In My Eye",
+  "advancements.tameablebeasts.flying_helmet.description" : "Wear a Flying Helmet to protect your eyes so Quetzals won't limit their speed.",
+
+  "advancements.tameablebeasts.biker_helmet" : "Wear Protection",
+  "advancements.tameablebeasts.biker_helmet.description" : "Roly Polies will go faster if they are sure you are protected with a Poly Biker Helmet.",
+
+  "advancements.tameablebeasts.asphalt" : "Lets Build Some Roads",
+  "advancements.tameablebeasts.asphalt.description" : "Asphalt some dirt so Roly Polies can have a better grip and thus more speed.",
+
+  "advancements.tameablebeasts.gem_beetle" : "Crystal Chimera",
+  "advancements.tameablebeasts.gem_beetle.description" : "Combine different kinds of crystals and bug pieces to create Beetle Gem, a material that holds a power similar to Netherite.",
+
+  "advancements.tameablebeasts.bug_sword" : "Stinger",
+  "advancements.tameablebeasts.bug_sword.description" : "Craft a Bug Sword, while not stronger than an Iron Sword, it has potential for poisoning and bug summoning.",
+
+  "advancements.tameablebeasts.beetle_elytra" : "Why Not Have Both?",
+  "advancements.tameablebeasts.beetle_elytra.description" : "Fuse you Beetle Gem Chestplate with Elytra.",
+
+  "advancements.tameablebeasts.beetle_armor" : "Giving Netherite A Run For Its Money",
+  "advancements.tameablebeasts.beetle_armor.description" : "Upgrade and your Diamond Armor set to a full set of Beetle Gem Armor."
 }

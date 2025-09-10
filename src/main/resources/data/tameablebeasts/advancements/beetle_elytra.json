@@ -1,0 +1,38 @@
+{
+  "parent": "tameablebeasts:beetle_armor",
+  "display": {
+    "icon": {
+      "item": "tameablebeasts:bug_elytra"
+    },
+    "title": {"translate": "advancements.tameablebeasts.beetle_elytra"},
+    "description": {"translate": "advancements.tameablebeasts.beetle_elytra.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_bug_elytra": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tameablebeasts:bug_elytra"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_bug_elytra"
+    ]
+  ],
+  "rewards": {
+    "experience": 250
+  },
+  "sends_telemetry_event": false
+}

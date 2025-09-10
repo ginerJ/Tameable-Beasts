@@ -1,6 +1,5 @@
 package com.modderg.tameablebeasts.client.gui;
 
-import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.registry.TBMenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
@@ -21,6 +20,6 @@ public class TBMenuJustSaddle extends TBMenu{
 
     @Override
     protected void setupSlots() {
-        this.addSpecialSlot(TBMenu.FIRST_SLOT, TBMenu.SADDLE_SLOT, SoundEvents.HORSE_SADDLE, Items.SADDLE);
+        this.addSpecialSlot(TBMenu.FIRST_SLOT_POS, TBMenu.SADDLE_SLOT_TEXTURE, SoundEvents.HORSE_SADDLE, Items.SADDLE);
     }
 }

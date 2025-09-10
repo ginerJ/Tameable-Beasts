@@ -1,0 +1,36 @@
+{
+  "parent": "tameablebeasts:roly_poly",
+  "display": {
+    "icon": {
+      "item": "tameablebeasts:biker_helmet"
+    },
+    "title": {"translate": "advancements.tameablebeasts.biker_helmet"},
+    "description": {"translate": "advancements.tameablebeasts.biker_helmet.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_biker_helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["tameablebeasts:biker_helmet"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_biker_helmet"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": false
+}

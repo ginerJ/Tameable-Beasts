@@ -1,0 +1,36 @@
+{
+  "parent": "tameablebeasts:brush_a_beast",
+  "display": {
+    "icon": {
+      "item": "tameablebeasts:bug_sword"
+    },
+    "title": {"translate": "advancements.tameablebeasts.bug_sword"},
+    "description": {"translate": "advancements.tameablebeasts.bug_sword.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_bug_sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["tameablebeasts:bug_sword"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_bug_sword"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": false
+}

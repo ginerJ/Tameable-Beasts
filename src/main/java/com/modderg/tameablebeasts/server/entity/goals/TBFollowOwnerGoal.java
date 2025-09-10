@@ -51,20 +51,26 @@ public class TBFollowOwnerGoal extends Goal {
 
     public boolean canUse() {
         LivingEntity livingentity = this.mob.getOwner();
+
         if (livingentity == null || mob.isWandering() || livingentity.isSpectator())
             return false;
         else if (this.unableToMove())
             return false;
         else if (this.mob.distanceToSqr(livingentity) < (double)(this.startDistance * this.startDistance))
             return false;
-        else {
+
+        this.owner = livingentity;
+
+        if (this.mob.distanceToSqr(livingentity) >= 800D){
             this.owner = livingentity;
-            return true;
+            this.teleportToOwner();
         }
+
+        return mob.getTarget()==null;
     }
 
     public boolean canContinueToUse() {
-        if (this.navigation.isDone() || mob.isWandering())
+        if (this.navigation.isDone() || mob.isWandering() || mob.getTarget()!=null)
             return false;
         else if (this.unableToMove())
             return false;
@@ -94,6 +100,7 @@ public class TBFollowOwnerGoal extends Goal {
             this.timeToRecalcPath = this.adjustedTickDelay(10);
             if (this.mob.distanceToSqr(this.owner) >= 144.0D)
                 this.teleportToOwner();
+
 
             this.navigation.moveTo(this.owner, this.speedModifier);
         }

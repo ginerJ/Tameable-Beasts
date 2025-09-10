@@ -1,8 +1,11 @@
 package com.modderg.tameablebeasts.client.gui;
 
+import com.modderg.tameablebeasts.registry.TBAdvancementRegistry;
 import com.modderg.tameablebeasts.registry.TBMenuRegistry;
 import com.modderg.tameablebeasts.server.entity.abstracts.TBAnimal;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -15,36 +18,37 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class TBMenu extends AbstractContainerMenu {
     protected final TBAnimal tbAnimal;
     protected int chestSlot = -1;
     boolean hadChest = false;
 
-    public ArrayList<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> specialSlots = new ArrayList<>();
+    protected List<Pair<Pair<Integer, Integer>, ResourceLocation>> advancementsInfo = new ArrayList<>();
+    public List<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> specialSlots = new ArrayList<>();
 
-    public static final Pair<Integer, Integer> FIRST_SLOT = new Pair<>(7, 17);
-    public static final Pair<Integer, Integer> SECOND_SLOT = new Pair<>(7, 35);
-    public static final Pair<Integer, Integer> THIRD_SLOT = new Pair<>(7 , 53);
-    public static final Pair<Integer, Integer> FOURTH_SLOT = new Pair<>(79, 17);
-    public static final Pair<Integer, Integer> FIFTH_SLOT = new Pair<>(79, 35);
-    public static final Pair<Integer, Integer> SIXTH_SLOT = new Pair<>(79, 53);
+    protected static final Pair<Integer, Integer> FIRST_SLOT_POS = new Pair<>(7, 17);
+    protected static final Pair<Integer, Integer> SECOND_SLOT_POS = new Pair<>(7, 35);
+    protected static final Pair<Integer, Integer> THIRD_SLOT_POS = new Pair<>(7 , 53);
+    protected static final Pair<Integer, Integer> FOURTH_SLOT_POS = new Pair<>(79, 17);
+    protected static final Pair<Integer, Integer> FIFTH_SLOT_POS = new Pair<>(79, 35);
+    protected static final Pair<Integer, Integer> SIXTH_SLOT_POS = new Pair<>(79, 53);
 
-    public static final Pair<Integer, Integer> CHEST_SLOT = new Pair<>(0, 220);
-    public static final Pair<Integer, Integer> SADDLE_SLOT = new Pair<>(18, 220);
-    public static final Pair<Integer, Integer> STAND_SLOT = new Pair<>(36, 220);
-    public static final Pair<Integer, Integer> ICE_HELMET_SLOT = new Pair<>(54, 220);
-    public static final Pair<Integer, Integer> ICE_CHESTPLATE_SLOT = new Pair<>(72, 220);
-    public static final Pair<Integer, Integer> POPSICLE_SLOT = new Pair<>(90, 220);
-    public static final Pair<Integer, Integer> SCYTHE_SLOT = new Pair<>(108, 220);
+    protected static final Pair<Integer, Integer> CHEST_SLOT_TEXTURE = new Pair<>(0, 220);
+    protected static final Pair<Integer, Integer> SADDLE_SLOT_TEXTURE = new Pair<>(18, 220);
+    protected static final Pair<Integer, Integer> STAND_SLOT_TEXTURE = new Pair<>(36, 220);
+    protected static final Pair<Integer, Integer> ICE_HELMET_SLOT_TEXTURE = new Pair<>(54, 220);
+    protected static final Pair<Integer, Integer> ICE_CHESTPLATE_SLOT_TEXTURE = new Pair<>(72, 220);
+    protected static final Pair<Integer, Integer> POPSICLE_SLOT_TEXTURE = new Pair<>(90, 220);
+    protected static final Pair<Integer, Integer> SCYTHE_SLOT_TEXTURE = new Pair<>(108, 220);
 
     public TBMenu(MenuType<?> menuType, int container_id, Inventory playerInventory, Entity tbAnimal) {
         super(menuType, container_id);
@@ -53,7 +57,7 @@ public class TBMenu extends AbstractContainerMenu {
         setupSlots();
         createPlayerHotBar(playerInventory);
         createPlayerInventory(playerInventory);
-        shouldToggleSlotsCheck();
+        checkAdvancementsAndChests();
     }
 
     public TBMenu(int container_id, Inventory playerInventory, FriendlyByteBuf extraData) {
@@ -74,6 +78,11 @@ public class TBMenu extends AbstractContainerMenu {
         });
     }
 
+    public void checkAdvancementsAndChests(){
+        shouldToggleSlotsCheck();
+        shouldTriggerAdvancementCheck();
+    }
+
     public void shouldToggleSlotsCheck(){
         if(this.chestSlot != -1)
             if(this.slots.get(this.chestSlot).getItem().is(Items.CHEST)) {
@@ -86,6 +95,20 @@ public class TBMenu extends AbstractContainerMenu {
             }
     }
 
+    public void shouldTriggerAdvancementCheck(){
+        for (Pair<Pair<Integer, Integer>, ResourceLocation> advancementInfo: advancementsInfo){
+            Pair<Integer, Integer> range = advancementInfo.getA();
+            ResourceLocation advancement = advancementInfo.getB();
+
+            boolean shouldGrant = IntStream.rangeClosed(range.getA(), range.getB()).allMatch(
+                    i -> this.getSlot(i) instanceof SpecialSlot slot && slot.getItem().is(slot.matchingItem)
+            );
+
+            if(shouldGrant && tbAnimal.getOwner() instanceof ServerPlayer sp)
+                TBAdvancementRegistry.grantAdvancement(sp, advancement);
+        }
+    }
+
     protected void toggleChestSlots(boolean b) {
         for(int i = this.slots.size() - 15 - 36; i < this.slots.size(); i++)
             if(this.slots.get(i) instanceof ToggeableSlot slot)
@@ -94,8 +117,8 @@ public class TBMenu extends AbstractContainerMenu {
         this.hadChest = b;
     }
 
-    public void addSpecialSlot(Pair<Integer, Integer> slotPos, Pair<Integer, Integer> slotType, SoundEvent soundEvent, Item matchingItem) {
-        if(slotType == CHEST_SLOT)
+    public int addSpecialSlot(Pair<Integer, Integer> slotPos, Pair<Integer, Integer> slotType, SoundEvent soundEvent, Item matchingItem) {
+        if(slotType == CHEST_SLOT_TEXTURE)
             this.chestSlot = this.slots.size();
 
         specialSlots.add(new Pair<>(slotPos, slotType));
@@ -103,6 +126,8 @@ public class TBMenu extends AbstractContainerMenu {
         this.tbAnimal.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent( inventory ->
                 addSlot(new SpecialSlot(inventory, this.slots.size(), slotPos.getA() + 1, slotPos.getB() + 1,
                 tbAnimal, soundEvent, matchingItem)));
+
+        return this.slots.size()-1;
     }
 
     private void createPlayerHotBar(Inventory playerInventory){
@@ -131,14 +156,14 @@ public class TBMenu extends AbstractContainerMenu {
     @Override
     protected boolean moveItemStackTo(@NotNull ItemStack p_38904_, int p_38905_, int p_38906_, boolean p_38907_) {
         boolean toReturn = super.moveItemStackTo(p_38904_, p_38905_, p_38906_, p_38907_);
-        shouldToggleSlotsCheck();
+        checkAdvancementsAndChests();
         return toReturn;
     }
 
     @Override
     public void clicked(int p_150400_, int p_150401_, @NotNull ClickType p_150402_, @NotNull Player p_150403_) {
         super.clicked(p_150400_, p_150401_, p_150402_, p_150403_);
-        shouldToggleSlotsCheck();
+        checkAdvancementsAndChests();
     }
 
     @Override

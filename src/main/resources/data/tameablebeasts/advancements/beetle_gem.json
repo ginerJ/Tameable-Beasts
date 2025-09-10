@@ -1,0 +1,36 @@
+{
+  "parent": "tameablebeasts:brush_a_beast",
+  "display": {
+    "icon": {
+      "item": "tameablebeasts:beetle_gem"
+    },
+    "title": {"translate": "advancements.tameablebeasts.gem_beetle"},
+    "description": {"translate": "advancements.tameablebeasts.gem_beetle.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_gem_beetle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["tameablebeasts:beetle_gem"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_gem_beetle"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": false
+}

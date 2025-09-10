@@ -1,0 +1,67 @@
+{
+  "parent": "tameablebeasts:beetle_gem",
+  "display": {
+    "icon": {
+      "item": "tameablebeasts:bug_armor_helmet"
+    },
+    "title": {"translate": "advancements.tameablebeasts.beetle_armor"},
+    "description": {"translate": "advancements.tameablebeasts.beetle_armor.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_bug_helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["tameablebeasts:bug_armor_helmet"]
+          }
+        ]
+      }
+    },
+    "has_bug_chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["tameablebeasts:bug_armor_chestplate"]
+          }
+        ]
+      }
+    },
+    "has_bug_leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["tameablebeasts:bug_armor_leggings"]
+          }
+        ]
+      }
+    },
+    "has_bug_boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["tameablebeasts:bug_armor_boots"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["has_bug_helmet"],
+    ["has_bug_chestplate"],
+    ["has_bug_leggings"],
+    ["has_bug_boots"]
+  ],
+  "rewards": {
+    "experience": 250
+  },
+  "sends_telemetry_event": false
+}

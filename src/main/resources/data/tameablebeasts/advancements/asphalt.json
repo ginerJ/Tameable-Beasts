@@ -1,0 +1,36 @@
+{
+  "parent": "tameablebeasts:roly_poly",
+  "display": {
+    "icon": {
+      "item": "tameablebeasts:asphalt"
+    },
+    "title": {"translate": "advancements.tameablebeasts.asphalt"},
+    "description": {"translate": "advancements.tameablebeasts.asphalt.description"},
+    "background": "tameablebeasts:textures/gui/advancement_background.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_bug_salad": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["tameablebeasts:asphalt"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_bug_salad"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": false
+}

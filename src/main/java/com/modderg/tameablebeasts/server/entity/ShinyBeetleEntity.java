@@ -220,7 +220,7 @@ public class ShinyBeetleEntity extends FlyingTBAnimal {
         drone.setTarget(target);
         drone.setPos(
                 entity.getX() + (random.nextFloat() - random.nextFloat())*2,
-                entity.getY() + random.nextFloat() - random.nextFloat(),
+                entity.getY() + random.nextFloat(),
                 entity.getZ() + (random.nextFloat() - random.nextFloat())*2
         );
 

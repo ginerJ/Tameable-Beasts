@@ -9,6 +9,9 @@ public class TBAdvancementRegistry {
     public final static ResourceLocation BRUSH_A_BEAST = new ResourceLocation(TameableBeasts.MOD_ID, "brush_a_beast");
     public final static ResourceLocation METAL_BEETLE = new ResourceLocation(TameableBeasts.MOD_ID, "metal_beetle");
     public final static ResourceLocation FUR_GOLEM = new ResourceLocation(TameableBeasts.MOD_ID, "fur_golem");
+    public final static ResourceLocation ICE_ARMOR = new ResourceLocation(TameableBeasts.MOD_ID, "ice_armor");
+    public final static ResourceLocation QUETZAL_STAND = new ResourceLocation(TameableBeasts.MOD_ID, "quetzal_stand");
+    public final static ResourceLocation BIG_IRON_HOE = new ResourceLocation(TameableBeasts.MOD_ID, "big_iron_hoe");
 
     public static void grantAdvancement(ServerPlayer player, ResourceLocation advancement){
         Advancement adv = player.getServer().getAdvancements().getAdvancement(advancement);
