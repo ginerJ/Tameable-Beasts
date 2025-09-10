@@ -1,12 +1,11 @@
 {
   "values": [
-    "minecraft:meadow",
+    "minecraft:stony_shore",
 
     "minecraft:frozen_ocean",
+    "minecraft:snowy_beach",
     "minecraft:frozen_peaks",
 
-    "minecraft:windswept_savanna",
-    "minecraft:savanna_plateau",
-    "minecraft:wooded_badlands"
+    "minecraft:beach"
   ]
 }
