@@ -267,5 +267,8 @@
   "advancements.tameablebeasts.beetle_elytra.description" : "Fuse you Beetle Gem Chestplate with Elytra.",
 
   "advancements.tameablebeasts.beetle_armor" : "Giving Netherite A Run For Its Money",
-  "advancements.tameablebeasts.beetle_armor.description" : "Upgrade and your Diamond Armor set to a full set of Beetle Gem Armor."
+  "advancements.tameablebeasts.beetle_armor.description" : "Upgrade and your Diamond Armor set to a full set of Beetle Gem Armor.",
+
+  "enchantment.tameablebeasts.swarm.desc" : "Summons Beetle Drones in your aid either when defending or attacking depending on the type of item enchanted.",
+  "enchantment.tameablebeasts.sting.desc" : "Provides poisonous properties to the blade of the weapon."
 }
