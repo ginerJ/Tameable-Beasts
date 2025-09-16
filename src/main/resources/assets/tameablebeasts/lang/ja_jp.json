@@ -1,0 +1,274 @@
+{
+  "block.tameablebeasts.scarecrow_block" : "カカシブロック",
+  "block.tameablebeasts.racoon_fur_block" : "アライグマの毛皮ブロック",
+  "block.tameablebeasts.asphalted_dirt" : "アスファルト化した土ブロック",
+
+
+  "entity.tameablebeasts.tameable_racoon.cold" : "タヌキ",
+  "entity.tameablebeasts.tameable_racoon.temperate" : "アライグマ",
+  "entity.tameablebeasts.tameable_racoon.warm" : "ハナグマ",
+
+  "entity.tameablebeasts.tameable_penguin.cold" : "コウテイペンギン",
+  "entity.tameablebeasts.tameable_penguin.temperate" : "コガタペンギン",
+  "entity.tameablebeasts.tameable_penguin.warm" : "ケープペンギン",
+
+  "entity.tameablebeasts.tameable_chikote.cold" : "厚毛チコテ",
+  "entity.tameablebeasts.tameable_chikote.temperate" : "チコテ",
+  "entity.tameablebeasts.tameable_chikote.awrm" : "チコテランナー",
+
+  "entity.tameablebeasts.giant_roly_poly.cold" : "オオダンゴムシ (T. pusillus)",
+  "entity.tameablebeasts.giant_roly_poly.temperate" : "ダンゴムシ",
+  "entity.tameablebeasts.giant_roly_poly.warm" : "ダンゴムシ (ラバーダッキー)",
+
+  "entity.tameablebeasts.tameable_beetle.cold" : "シャインビートル (Marginellus)",
+  "entity.tameablebeasts.tameable_beetle.temperate" : "ブラックシャインビートル",
+  "entity.tameablebeasts.tameable_beetle.warm" : "ローヴァーシャインビートル",
+
+  "entity.tameablebeasts.quetzalcoatlus.cold" : "寒帯ケツァルコアトルス",
+  "entity.tameablebeasts.quetzalcoatlus.temperate" : "ケツァルコアトルス",
+  "entity.tameablebeasts.quetzalcoatlus.warm" : "熱帯ケツァルコアトルス",
+
+  "entity.tameablebeasts.ground_beetle.cold" : "グラウンドビートル（Asbolus）",
+  "entity.tameablebeasts.ground_beetle.temperate" : "スタッググラウンドビートル",
+  "entity.tameablebeasts.ground_beetle.warm" : "レッドスタッググラウンドビートル",
+
+  "entity.tameablebeasts.giant_grasshopper.cold" : "ジャイアントグラスホッパー（Aeropedellus）",
+  "entity.tameablebeasts.giant_grasshopper.temperate" : "ジャイアントグラスホッパー（Pseudochorthippus）",
+  "entity.tameablebeasts.giant_grasshopper.warm" : "ジャイアントグラスホッパー（Romalea）",
+
+  "entity.tameablebeasts.graptera.cold" : "ブルーグラプテラノドン",
+  "entity.tameablebeasts.graptera.temperate" : "グラプテラノドン",
+  "entity.tameablebeasts.graptera.warm" : "ブラックグラプテラノドン",
+
+  "entity.tameablebeasts.argentavis.cold" : "ホワイトアルゲンタヴィス",
+  "entity.tameablebeasts.argentavis.temperate" : "アルゲンタヴィス",
+  "entity.tameablebeasts.argentavis.warm" : "ブラックアルゲンタヴィス",
+
+  "entity.tameablebeasts.crested_gecko.cold" : "ペールクレステッドゲッコー",
+  "entity.tameablebeasts.crested_gecko.temperate" : "クレステッドゲッコー",
+  "entity.tameablebeasts.crested_gecko.warm" : "ブラウンクレステッドゲッコー",
+
+  "entity.tameablebeasts.scarecrow_allay" : "カカシアレイ",
+
+  "entity.tameablebeasts.beetle_drone" : "ビートルドローン",
+
+  
+  "block.tameablebeasts.quetzalcoatlus_egg" : "ケツァルコアトルスの卵",
+  "block.tameablebeasts.chikote_egg" : "チコテの卵",
+  "block.tameablebeasts.roly_poly_egg" : "ダンゴムシの卵",
+  "block.tameablebeasts.beetle_egg" : "シャインビートルの幼虫",
+  "block.tameablebeasts.ground_beetle_egg" : "グラウンドビートルの幼虫",
+  "block.tameablebeasts.grasshopper_egg" : "グラスホッパーの卵",
+  "block.tameablebeasts.penguin_egg" : "ペンギンの卵",
+  "block.tameablebeasts.crested_gecko_egg" : "クレステッドゲッコーの卵",
+  "block.tameablebeasts.argentavis_egg" : "アルゲンタヴィスの卵",
+  "block.tameablebeasts.graptera_egg" : "グラプテラノドンの卵",
+
+  
+  "enchantment.tameablebeasts.swarm" : "群性",
+  "enchantment.tameablebeasts.sting" : "一刺し",
+
+  "itemGroup.tameabletab" : "Tameable Beasts Tab",
+
+  "item.tameablebeasts.racoon_spawn_egg" : "アライグマのスポーンエッグ",
+  "item.tameablebeasts.penguin_spawn_egg" : "ペンギンのスポーンエッグ",
+  "item.tameablebeasts.chikote_spawn_egg" : "チコテのスポーンエッグ",
+  "item.tameablebeasts.beetle_spawn_egg" : "シャインビートルのスポーンエッグ",
+  "item.tameablebeasts.quetzal_spawn_egg" : "ケツァルコアトルスのスポーンエッグ",
+  "item.tameablebeasts.giant_grasshopper_spawn_egg" : "ジャイアントグラスホッパーのスポーンエッグ",
+  "item.tameablebeasts.ground_beetle_spawn_egg" : "グラウンドビートルのスポーンエッグ",
+  "item.tameablebeasts.giant_roly_poly_spawn_egg" : "オオダンゴムシのスポーンエッグ",
+  "item.tameablebeasts.scarecrow_spawn_egg" : "カカシのスポーンエッグ",
+  "item.tameablebeasts.crested_gecko_spawn_egg" : "クレステッドゲッコーのスポーンエッグ",
+  "item.tameablebeasts.argentavis_spawn_egg" : "アルゲンタヴィスのスポーンエッグ",
+  "item.tameablebeasts.graptera_spawn_egg" : "グラプテラノドンのスポーンエッグ",
+
+  "item.tameablebeasts.frozen_fish" : "凍った魚",
+  "item.tameablebeasts.icepop" : "アイスポップ",
+  "item.tameablebeasts.ice_helmet" : "氷のヘルメット",
+  "item.tameablebeasts.ice_chestplate" : "氷のチェストプレート",
+  "item.tameablebeasts.purple_allay" : "紫のアレイ",
+  "item.tameablebeasts.iron_big_hoe" : "大きな鉄のクワ",
+  "item.tameablebeasts.bird_bait_arrow" : "鳥用の餌付き矢",
+  "item.tameablebeasts.ptera_meal_arrow" : "プテラノドン用の餌付き矢",
+  "item.tameablebeasts.leaf" : "葉",
+  "item.tameablebeasts.beetle_dust" : "ビートルダスト",
+  "item.tameablebeasts.bug_sword" : "バグソード",
+  "item.tameablebeasts.metal_shield" : "鉄原石の盾",
+  "item.tameablebeasts.grasshopper_leg" : "バッタの脚",
+  "item.tameablebeasts.racoon_fur" : "アライグマの毛皮",
+  "item.tameablebeasts.roly_plaque" : "ダンゴムシの甲殻",
+  "item.tameablebeasts.beetle_armor_piece" : "ビートルの装甲片",
+  "item.tameablebeasts.egg_rests" : "エッグレスト",
+  "item.tameablebeasts.quetzal_meat" : "ケツァルコアトルスの肉",
+  "item.tameablebeasts.cooked_quetzal_meat" : "調理したケツァルコアトルスの肉",
+  "item.tameablebeasts.big_bird_meat" : "巨大鳥の生肉",
+  "item.tameablebeasts.cooked_big_bird_meat" : "調理した巨大鳥の肉",
+  "item.tameablebeasts.big_bird_bait" : "巨大鳥用の餌",
+  "item.tameablebeasts.pteranodon_meal" : "プテラノドンの餌",
+  "item.tameablebeasts.bug_salad" : "虫のサラダ",
+  "item.tameablebeasts.asphalt" : "アスファルトの塊",
+
+  "item.tameablebeasts.beetle_gem" : "ビートルジェム",
+  "item.tameablebeasts.bug_armor_helmet" : "ビートルジェムのヘルメット",
+  "item.tameablebeasts.bug_armor_chestplate" : "ビートルジェムのチェストプレート",
+  "item.tameablebeasts.bug_elytra" : "ビートルジェムのエリトラ",
+  "item.tameablebeasts.bug_armor_leggings" : "ビートルジェムのレギンス",
+  "item.tameablebeasts.bug_armor_boots" : "ビートルジェムのブーツ",
+  "item.tameablebeasts.beetle_shield" : "ビートルシールド",
+  "item.tameablebeasts.beetle_sword" : "ビートルソード",
+  "item.tameablebeasts.arthropod_upgrade_smithing_template" : "節足動物アップグレードの鍛冶型",
+
+  "item.tameablebeasts.scarecrow_straw_hat" : "麦わら帽子",
+  "item.tameablebeasts.biker_helmet" : "ダンゴバイカーヘルメット",
+  "item.tameablebeasts.flying_helmet" : "飛行用ヘルメット",
+  "item.tameablebeasts.racoon_hat" : "アライグマ帽",
+
+  "item.tameablebeasts.quetzal_stand" : "ケツァルコアトルス用のスタンドギア",
+
+  "item.tameablebeasts.frozen_fish.tooltip" : "ペンギンの大好物",
+  "item.tameablebeasts.icepop.tooltip" : "ペンギンのおいしいおやつにも、恐るべき武器にもなる",
+  "item.tameablebeasts.ice_helmet.tooltip" : "あなたには大きすぎるかもしれない。もっと小さいものを試してみよう",
+  "item.tameablebeasts.purple_allay.tooltip" : "とってもシャイなアレイ。変装させれば安心させられるかもしれない",
+  "item.tameablebeasts.iron_big_hoe.tooltip" : "どこかのカカシなら、もっと上手く使いこなすだろう",
+  "item.tameablebeasts.bird_bait_arrow.tooltip" : "巨大鳥を懐かせるための矢。倒してしまわないよう注意",
+  "item.tameablebeasts.ptera_meal_arrow.tooltip" : "プテラノドンを懐かせるための矢。倒してしまわないよう注意",
+  "item.tameablebeasts.leaf.tooltip" : "昆虫たちに大人気",
+  "item.tameablebeasts.beetle_dust.tooltip" : "魔法の力が宿ることがあるとか",
+  "item.tameablebeasts.bug_sword.tooltip" : "巣と毒の力を秘めている",
+  "item.tameablebeasts.beetle_shield.tooltip" : "巣の力を秘めている",
+  "item.tameablebeasts.grasshopper_leg.tooltip" : "すぐに再生するので心配は要らない",
+  "item.tameablebeasts.racoon_fur.tooltip" : "なぜかクモの糸並みに丈夫な毛皮",
+  "item.tameablebeasts.roly_plaque.tooltip" : "柔らかい板状の外骨格。座ったり身につけたりしても快適そうだ",
+  "item.tameablebeasts.egg_rests.tooltip" : "あなたは良い親ではなかった。これで昆虫が喜ぶものを作れるかもしれない",
+  "item.tameablebeasts.big_bird_bait.tooltip" : "種入りのごちそうで巨大鳥を手懐けよう",
+  "item.tameablebeasts.pteranodon_meal.tooltip" : "古代のごちそうでプテラノドンを手懐けよう",
+  "item.tameablebeasts.bug_salad.tooltip" : "巨大昆虫の大好物",
+  "item.tameablebeasts.asphalt.tooltip" : "土の上に道を作ることができる。ダンゴムシが滑りにくくなる",
+
+  "item.tameablebeasts.scarecrow_straw_hat.tooltip" : "被ったり、作物を守るカカシを作ることができる",
+  "item.tameablebeasts.biker_helmet.tooltip" : "ダンゴムシが安全のために減速することがなくなる",
+  "item.tameablebeasts.flying_helmet.tooltip" : "飛行モブが安全のために減速することがなくなる",
+
+  "item.tameablebeasts.ice_chestplate.tooltip" : "ペンギンに装備することで乗ることができる",
+  "item.tameablebeasts.quetzal_stand.tooltip" : "ケツァルに装備することで、プレイヤーが追加で乗れるようになる",
+
+  "item.tameablebeasts.scarecrow_block.tooltip" : "チコテを遠ざけることができる。中は少しだけ居心地がよさそうだ",
+  "item.tameablebeasts.racoon_fur_block.tooltip" : "これで毛皮ゴーレムを作れそうだ",
+
+  "item.tameablebeasts.quetzalcoatlus_egg.tooltip" : "良い親であるなら、ケツァルコアトルスを孵化させることができる",
+  "item.tameablebeasts.chikote_egg.tooltip" : "良い親であるなら、チコテを孵化させることができる",
+  "item.tameablebeasts.roly_poly_egg.tooltip" : "良い親であるなら、ダンゴムシを孵化させることができる",
+  "item.tameablebeasts.beetle_egg.tooltip" : "良い親であるなら、シャインビートルを孵化させることができる",
+  "item.tameablebeasts.ground_beetle_egg.tooltip" : "良い親であるなら、グラウンドビートルを孵化させることができる",
+  "item.tameablebeasts.grasshopper_egg.tooltip" : "良い親であるなら、グラスホッパーを孵化させることができる",
+  "item.tameablebeasts.penguin_egg.tooltip" : "良い親であるなら、ペンギンを孵化させることができる",
+  "item.tameablebeasts.crested_gecko_egg.tooltip" : "良い親であるなら、クレステッドゲッコーを孵化させることができる",
+  "item.tameablebeasts.argentavis_egg.tooltip" : "良い親であるなら、アルゲンタヴィスを孵化させることができる",
+  "item.tameablebeasts.graptera_egg.tooltip" : "良い親であるなら、グラプテラノドンを孵化させることができる",
+
+  "advancements.tameablebeasts.root" : "Tameable Beasts",
+  "advancements.tameablebeasts.root.description" : "Tameable Beastsをダウンロードしてくれてありがとう！さあ、ビースト達を手懐けよう",
+
+  "advancements.tameablebeasts.purple_allay" : "ちょっと変わったアレイ",
+  "advancements.tameablebeasts.purple_allay.description" : "恥ずかしがり屋の紫アレイを見つける。イリジャーから稀にドロップし、インベントリに隠れて飛び回る",
+
+  "advancements.tameablebeasts.bug_salad" : "虫\"用\"であって虫\"入り\"にあらず",
+  "advancements.tameablebeasts.bug_salad.description" : "巨大昆虫向けの絶品料理、虫のサラダをクラフトする。",
+
+  "advancements.tameablebeasts.scarecrow_allay" : "仮装アレイ",
+  "advancements.tameablebeasts.scarecrow_allay.description" : "カカシブロックは紫のアレイが自信を持って動き回るのにぴったり。仮装が完了したら、インタラクトして手懐けよう！",
+
+  "advancements.tameablebeasts.racoon" : "あの時、食べ物を盗まれたの覚えてる？",
+  "advancements.tameablebeasts.racoon.description" : "アライグマは特にスイカが好きらしい、手に持っているものよりもっとね",
+
+  "advancements.tameablebeasts.penguin" : "アイスフィッシュバケツチャレンジ",
+  "advancements.tameablebeasts.penguin.description" : "ペンギンは凍った魚が大好物で、アイスキャンディで他の生き物を襲うこともある。よね？",
+
+  "advancements.tameablebeasts.frozen_fish" : "魚が動かないのはなぜ？",
+  "advancements.tameablebeasts.frozen_fish.description" : "氷と魚を組み合わせて、アルティメットティースブレイクスナックを作る",
+
+  "advancements.tameablebeasts.roly_poly" : "大玉",
+  "advancements.tameablebeasts.roly_poly.description" : "サラダ好きで、素早く、ころころと転がるダンゴムシを手懐ける",
+
+  "advancements.tameablebeasts.grasshopper" : "アリのいじめっ子",
+  "advancements.tameablebeasts.grasshopper.description" : "グラスホッパーにサラダを与えて手懐ける",
+
+  "advancements.tameablebeasts.egg_rests" : "これでオムレツは作れない",
+  "advancements.tameablebeasts.egg_rests.description" : "自分で育てた卵や巣で見つけた卵からエッグレストを手に入れる",
+
+  "advancements.tameablebeasts.brush_a_beast" : "ダニよりこっちのがいい",
+  "advancements.tameablebeasts.brush_a_beast.description" : "よく餌を与えたビーストはブラッシングするとアイテムを落とす確率が高くなる",
+
+  "advancements.tameablebeasts.crested_gecko" : "テラリウムの必要性",
+  "advancements.tameablebeasts.crested_gecko.description" : "節足動物の欠片を与えてクレステッドゲッコーを手懐ける",
+
+  "advancements.tameablebeasts.ground_beetle" : "装甲野郎",
+  "advancements.tameablebeasts.ground_beetle.description" : "グラウンドビートルは蜂蜜系アイテムが大好物。それで手懐けることもできる",
+
+  "advancements.tameablebeasts.shiny_beetle" : "飛翔野郎",
+  "advancements.tameablebeasts.shiny_beetle.description" : "シャインビートルは蜂蜜系アイテムが大好物。それで手懐けることもできる",
+
+  "advancements.tameablebeasts.pteranodon_meal" : "そんなに注目されたい？",
+  "advancements.tameablebeasts.pteranodon_meal.description" : "魚・鶏肉・巨大鳥の肉を組み合わせて究極のプテラノドン用の餌をクラフトする",
+
+  "advancements.tameablebeasts.ptera_meal_arrow" : "肉の弾丸",
+  "advancements.tameablebeasts.ptera_meal_arrow.description" : "矢にプテラノドン用の餌を括り付けると、体力制限無く手懐けることができる",
+
+  "advancements.tameablebeasts.big_bird_bait" : "鳥をおびき寄せよう",
+  "advancements.tameablebeasts.big_bird_bait.description" : "鉄塊・種・ケツァルの肉や腐った肉を組み合わせて究極の巨大鳥用の餌をクラフトする",
+
+  "advancements.tameablebeasts.bird_bait_arrow" : "種の弾丸",
+  "advancements.tameablebeasts.bird_bait_arrow.description" : "矢に巨大鳥用の餌を括り付けると、体力制限無く手懐けることができる",
+
+  "advancements.tameablebeasts.quetzalcoatlus" : "あれは雲？",
+  "advancements.tameablebeasts.quetzalcoatlus.description" : "巨大なケツァルコアトルスを発見し、体力10以下のときにプテラノドン用の餌で手懐ける",
+
+  "advancements.tameablebeasts.grapteranodon" : "まるでARK",
+  "advancements.tameablebeasts.grapteranodon.description" : "他のモブを持ち上げられる素早いグラプテラノドンは、体力10以下のときにプテラノドン用の餌で手懐けることができる",
+
+  "advancements.tameablebeasts.argentavis" : "タカもいるの？",
+  "advancements.tameablebeasts.argentavis.description" : "俊敏なアルゲンタヴィスは、体力10以下のときに巨大鳥用の餌で手懐けることができる",
+
+  "advancements.tameablebeasts.chikote" : "チョコボじゃないよ",
+  "advancements.tameablebeasts.chikote.description" : "背の高い鶏の親戚チコテは、巨大鳥の肉やジャガイモを与えることであなたに従う",
+
+  "advancements.tameablebeasts.metal_beetle" : "クロームビートル",
+  "advancements.tameablebeasts.metal_beetle.description" : "グラウンドビートルに十分な鉄の原石を与えると、その特性を吸収する",
+
+  "advancements.tameablebeasts.fur_golem" : "イースターは守られた",
+  "advancements.tameablebeasts.fur_golem.description" : "スノウゴーレムを作るように毛皮ゴーレムを造り出す。この慈愛に満ちたゴーレムは卵を温めてくれる",
+
+  "advancements.tameablebeasts.ice_armor" : "ウォーデンを連れてきな！",
+  "advancements.tameablebeasts.ice_armor.description" : "ペンギンに氷の防具一式とアイスポップを2つ装備させる（実際にウォーデンは連れてこないでね）",
+
+  "advancements.tameablebeasts.quetzal_stand" : "公共交通機関",
+  "advancements.tameablebeasts.quetzal_stand.description" : "ケツァルに専用のスタンドを装備させると、３人の友達まで一緒に飛ぶことができる",
+
+  "advancements.tameablebeasts.big_iron_hoe" : "園芸用ではなく",
+  "advancements.tameablebeasts.big_iron_hoe.description" : "カカシアレイに大きな鉄のクワを持たせて自衛させる",
+
+  "advancements.tameablebeasts.flying_helmet" : "目に虫が入った！",
+  "advancements.tameablebeasts.flying_helmet.description" : "飛行用ヘルメットを被れば、目を保護しながらケツァルの速度制限を受けなくなる",
+
+  "advancements.tameablebeasts.biker_helmet" : "交通安全",
+  "advancements.tameablebeasts.biker_helmet.description" : "ダンゴバイカーヘルメットで安全が確保されると、ダンゴムシはさらに速く移動する",
+
+  "advancements.tameablebeasts.asphalt" : "道路を敷こう",
+  "advancements.tameablebeasts.asphalt.description" : "土をアスファルトで覆うと、ダンゴムシがよりよくグリップしてスピードが出る",
+
+  "advancements.tameablebeasts.gem_beetle" : "クリスタルキメラ",
+  "advancements.tameablebeasts.gem_beetle.description" : "様々なクリスタルと虫由来のアイテムを組み合わせて、ビートルジェムをクラフトする。ネザライトに似た力を宿す素材",
+
+  "advancements.tameablebeasts.bug_sword" : "スティンガー",
+  "advancements.tameablebeasts.bug_sword.description" : "バグソードをクラフトする。鉄の剣より強くはないが、毒や虫召喚の力を秘めている",
+
+  "advancements.tameablebeasts.beetle_elytra" : "両方じゃなきゃね？",
+  "advancements.tameablebeasts.beetle_elytra.description" : "ビートルジェムのチェストプレートをエリトラと融合させる",
+
+  "advancements.tameablebeasts.beetle_armor" : "ダイヤをも超える力",
+  "advancements.tameablebeasts.beetle_armor.description" : "ダイヤ防具をビートルジェム防具のフルセットにアップグレードする",
+
+  "enchantment.tameablebeasts.swarm.desc" : "エンチャントされているアイテムの種類に応じて、防御時または攻撃時にビートルドローンを召喚する",
+  "enchantment.tameablebeasts.sting.desc" : "武器に毒効果を付与する"
+}
