@@ -14,8 +14,10 @@ public class TBCreativeTab {
 
     public static final DeferredRegister<CreativeModeTab> TAMEABLE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TameableBeasts.MOD_ID);
 
+//    public static final RegistryObject<CreativeModeTab> TAMEABLE_TAB = TAMEABLE_TABS.register("tameable_tab", () ->
+//            CreativeModeTab.builder().icon(() -> new ItemStack(TBItemRegistry.ICEPOP.get())).title(Component.literal("Tameable Tab")).build());
     public static final RegistryObject<CreativeModeTab> TAMEABLE_TAB = TAMEABLE_TABS.register("tameable_tab", () ->
-            CreativeModeTab.builder().icon(() -> new ItemStack(TBItemRegistry.ICEPOP.get())).title(Component.literal("Tameable Tab")).build());
+        CreativeModeTab.builder().icon(() -> new ItemStack(TBItemRegistry.ICEPOP.get())).title(Component.translatable("gui." + TameableBeasts.MOD_ID + ".creative_mode_tab")).build());
 
     public static void register(IEventBus eventBus){
         TAMEABLE_TABS.register(eventBus);
