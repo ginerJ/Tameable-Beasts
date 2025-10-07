@@ -15,6 +15,7 @@ import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import com.modderg.tameablebeasts.registry.TBSoundRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -122,7 +123,8 @@ public class GrasshopperEntity extends RideableTBAnimal implements PlayerRideabl
 
     @Override
     public String getRidingMessage(){
-        return getJumpKeyName() + " to Jump, " + getShiftKeyName() + " to Dismount";
+//        return getJumpKeyName() + " to Jump, " + getShiftKeyName() + " to Dismount";
+        return String.format(Component.translatable("gui." + TameableBeasts.MOD_ID + ".grasshopper.riding_message").getString(), getJumpKeyName(), getShiftKeyName());
     }
 
     @Override

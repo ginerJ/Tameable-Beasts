@@ -10,6 +10,7 @@ import com.modderg.tameablebeasts.server.entity.abstracts.FlyingRideableTBAnimal
 import com.modderg.tameablebeasts.server.entity.CrestedGeckoEntity;
 import com.modderg.tameablebeasts.server.entity.GrapteranodonEntity;
 import com.modderg.tameablebeasts.registry.TBPacketRegistry;
+import com.modderg.tameablebeasts.server.entity.abstracts.RideableTBAnimal;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
@@ -21,9 +22,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -34,7 +37,7 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = TameableBeasts.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ForgeEventClient {
-
+    private static boolean hasCanceledInitialRecordOverlay = false;
 
     @SubscribeEvent
     public static void onTooltipSet(ItemTooltipEvent event) {
@@ -220,6 +223,44 @@ public class ForgeEventClient {
         if(player.getVehicle() instanceof CrestedGeckoEntity gecko && gecko.onClimbable()) {
             PoseStack poseStack = event.getPoseStack();
             poseStack.popPose();
+        }
+    }
+
+    //intercept "minecraft:record_overlay"
+    @SubscribeEvent
+    public static void onRenderGui(RenderGuiOverlayEvent.Pre event) {
+        Minecraft minecraftInstance = Minecraft.getInstance();
+        boolean isRecordOverlay = event.getOverlay().id().toString().equals("minecraft:record_overlay");
+        if (minecraftInstance.player == null) {
+            return;
+        }
+        if (isRecordOverlay) {
+            if (minecraftInstance.player.getVehicle() instanceof FlyingRideableTBAnimal flyingRideableTBAnimal) {
+                if (flyingRideableTBAnimal.isJustRode || !hasCanceledInitialRecordOverlay) {
+                    event.setCanceled(true);
+                    flyingRideableTBAnimal.isJustRode = false;
+                    hasCanceledInitialRecordOverlay = true;
+                    flyingRideableTBAnimal.messageRiding(minecraftInstance.player);
+                    event.setCanceled(false);
+                }
+            }
+            else if(minecraftInstance.player.getVehicle() instanceof RideableTBAnimal rideableTBAnimal) {
+                if (rideableTBAnimal.isJustRode || !hasCanceledInitialRecordOverlay) {
+                    event.setCanceled(true);
+                    rideableTBAnimal.isJustRode = false;
+                    hasCanceledInitialRecordOverlay = true;
+                    rideableTBAnimal.messageRiding(minecraftInstance.player);
+                    event.setCanceled(false);
+                }
+            }
+        }
+    }
+
+    //Entering the world for the first time
+    @SubscribeEvent
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (!event.getEntity().level().isClientSide) {
+            hasCanceledInitialRecordOverlay = false;
         }
     }
 }
