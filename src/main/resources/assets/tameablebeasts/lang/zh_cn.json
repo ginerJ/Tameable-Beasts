@@ -1,0 +1,294 @@
+{
+  "block.tameablebeasts.scarecrow_block": "稻草人块",
+  "block.tameablebeasts.racoon_fur_block": "浣熊毛皮块",
+  "block.tameablebeasts.asphalted_dirt": "沥青泥土块",
+
+  "entity.tameablebeasts.tameable_racoon.cold": "貉",
+  "entity.tameablebeasts.tameable_racoon.temperate": "浣熊",
+  "entity.tameablebeasts.tameable_racoon.warm": "长鼻浣熊",
+
+  "entity.tameablebeasts.tameable_penguin.cold": "帝企鹅",
+  "entity.tameablebeasts.tameable_penguin.temperate": "小蓝企鹅",
+  "entity.tameablebeasts.tameable_penguin.warm": "非洲企鹅",
+
+  "entity.tameablebeasts.tameable_chikote.cold": "绒毛奇科特",
+  "entity.tameablebeasts.tameable_chikote.temperate": "奇科特",
+  "entity.tameablebeasts.tameable_chikote.awrm": "迅捷奇科特",
+
+  "entity.tameablebeasts.giant_roly_poly.cold": "巨型球鼠妇 (T. Pusillus)",
+  "entity.tameablebeasts.giant_roly_poly.temperate": "球鼠妇",
+  "entity.tameablebeasts.giant_roly_poly.warm": "球鼠妇 (橡皮鸭)",
+
+  "entity.tameablebeasts.tameable_beetle.cold": "亮甲虫 (缘甲属)",
+  "entity.tameablebeasts.tameable_beetle.temperate": "黑亮甲虫",
+  "entity.tameablebeasts.tameable_beetle.warm": "漫游亮甲虫",
+
+  "entity.tameablebeasts.quetzalcoatlus.cold": "寒带风神翼龙",
+  "entity.tameablebeasts.quetzalcoatlus.temperate": "风神翼龙",
+  "entity.tameablebeasts.quetzalcoatlus.warm": "热带风神翼龙",
+
+  "entity.tameablebeasts.ground_beetle.cold": "爬行甲虫 (黑蜣属)",
+  "entity.tameablebeasts.ground_beetle.temperate": "鹿角爬行甲虫",
+  "entity.tameablebeasts.ground_beetle.warm": "红鹿爬行甲虫",
+
+  "entity.tameablebeasts.giant_grasshopper.cold": "巨型蚱蜢 (风蝗属)",
+  "entity.tameablebeasts.giant_grasshopper.temperate": "巨型蚱蜢 (伪短腿蝗属)",
+  "entity.tameablebeasts.giant_grasshopper.warm": "巨型蚱蜢 (东苯蝗属)",
+
+  "entity.tameablebeasts.graptera.cold": "蓝猎手翼龙",
+  "entity.tameablebeasts.graptera.temperate": "猎手翼龙",
+  "entity.tameablebeasts.graptera.warm": "黑猎手翼龙",
+
+  "entity.tameablebeasts.argentavis.cold": "白阿根廷巨鹰",
+  "entity.tameablebeasts.argentavis.temperate": "阿根廷巨鹰",
+  "entity.tameablebeasts.argentavis.warm": "黑阿根廷巨鹰",
+
+  "entity.tameablebeasts.crested_gecko.cold": "浅色睫角守宫",
+  "entity.tameablebeasts.crested_gecko.temperate": "睫角守宫",
+  "entity.tameablebeasts.crested_gecko.warm": "棕色睫角守宫",
+
+  "entity.tameablebeasts.scarecrow_allay": "悦灵稻草人",
+
+  "entity.tameablebeasts.beetle_drone": "甲虫无人机",
+
+
+  "block.tameablebeasts.quetzalcoatlus_egg": "风神翼龙蛋",
+  "block.tameablebeasts.chikote_egg": "奇科特蛋",
+  "block.tameablebeasts.roly_poly_egg": "球鼠妇",
+  "block.tameablebeasts.beetle_egg": "亮甲虫幼虫",
+  "block.tameablebeasts.ground_beetle_egg": "爬行甲虫幼虫",
+  "block.tameablebeasts.grasshopper_egg": "巨型蚱蜢蛋",
+  "block.tameablebeasts.penguin_egg": "企鹅蛋",
+  "block.tameablebeasts.crested_gecko_egg": "睫角守宫蛋",
+  "block.tameablebeasts.argentavis_egg": "阿根廷巨鹰蛋",
+  "block.tameablebeasts.graptera_egg": "猎手翼龙蛋",
+
+  "gui.tameablebeasts.quetzalcoatlus.name": "风神翼龙",
+  "gui.tameablebeasts.chikote.name": "奇科特",
+  "gui.tameablebeasts.roly_poly.name": "球鼠妇",
+  "gui.tameablebeasts.beetle.name": "亮甲虫",
+  "gui.tameablebeasts.ground_beetle.name": "爬行甲虫",
+  "gui.tameablebeasts.grasshopper.name": "巨型蚱蜢",
+  "gui.tameablebeasts.penguin.name": "企鹅",
+  "gui.tameablebeasts.crested_gecko.name": "睫角守宫",
+  "gui.tameablebeasts.argentavis.name": "阿根廷巨鹰",
+  "gui.tameablebeasts.grapteranodon.name": "猎手翼龙",
+  "gui.tameablebeasts.owned_by": "属于: ",
+  "gui.tameablebeasts.none": "无",
+  "gui.tameablebeasts.status": "状态: ",
+  "gui.tameablebeasts.gone_bad": "变质",
+  "gui.tameablebeasts.warm": "温暖",
+  "gui.tameablebeasts.cold": "冷",
+  "gui.tameablebeasts.flying_rideable.riding_message": "%s 上升, %s 下降, %s 脱离",
+  "gui.tameablebeasts.grasshopper.riding_message": "%s 跳跃, %s 脱离",
+  "gui.tameablebeasts.grapteranodon.riding_message": "%s, 左键单击以抓取",
+  "gui.tameablebeasts.default.riding_message": "按 %s 脱离",
+  "gui.tameablebeasts.creative_mode_tab" : "可驯之兽",
+
+  "enchantment.tameablebeasts.swarm": "虫群",
+  "enchantment.tameablebeasts.sting": "刺击",
+
+  "itemGroup.tameabletab": "可驯之兽标签页",
+
+  "item.tameablebeasts.racoon_spawn_egg": "浣熊刷怪蛋",
+  "item.tameablebeasts.penguin_spawn_egg": "企鹅刷怪蛋",
+  "item.tameablebeasts.chikote_spawn_egg": "奇科特刷怪蛋",
+  "item.tameablebeasts.beetle_spawn_egg": "亮甲虫刷怪蛋",
+  "item.tameablebeasts.quetzal_spawn_egg": "风神翼龙刷怪蛋",
+  "item.tameablebeasts.giant_grasshopper_spawn_egg": "巨型蚱蜢刷怪蛋",
+  "item.tameablebeasts.ground_beetle_spawn_egg": "爬行甲虫刷怪蛋",
+  "item.tameablebeasts.giant_roly_poly_spawn_egg": "巨型鼠妇刷怪蛋",
+  "item.tameablebeasts.scarecrow_spawn_egg": "稻草人刷怪蛋",
+  "item.tameablebeasts.crested_gecko_spawn_egg": "睫角守宫刷怪蛋",
+  "item.tameablebeasts.argentavis_spawn_egg": "阿根廷巨鹰刷怪蛋",
+  "item.tameablebeasts.graptera_spawn_egg": "猎手翼龙刷怪蛋",
+
+  "item.tameablebeasts.frozen_fish": "冻鱼",
+  "item.tameablebeasts.icepop": "冰棒",
+  "item.tameablebeasts.ice_helmet": "冰头盔",
+  "item.tameablebeasts.ice_chestplate": "冰胸甲",
+  "item.tameablebeasts.purple_allay": "紫色悦灵",
+  "item.tameablebeasts.iron_big_hoe": "大铁锄",
+  "item.tameablebeasts.bird_bait_arrow": "箭上的鸟饵",
+  "item.tameablebeasts.ptera_meal_arrow": "箭上的翼龙餐",
+  "item.tameablebeasts.leaf": "树叶",
+  "item.tameablebeasts.beetle_dust": "甲虫碎屑",
+  "item.tameablebeasts.bug_sword": "虫剑",
+  "item.tameablebeasts.metal_shield": "粗铁盾",
+  "item.tameablebeasts.grasshopper_leg": "巨型蚱蜢腿",
+  "item.tameablebeasts.racoon_fur": "浣熊毛皮",
+  "item.tameablebeasts.roly_plaque": "球鼠妇斑块",
+  "item.tameablebeasts.beetle_armor_piece": "甲片",
+  "item.tameablebeasts.egg_rests": "坏蛋",
+  "item.tameablebeasts.quetzal_meat": "风神翼龙肉",
+  "item.tameablebeasts.cooked_quetzal_meat": "熟风神翼龙肉",
+  "item.tameablebeasts.big_bird_meat": "大鸟肉",
+  "item.tameablebeasts.cooked_big_bird_meat": "熟大鸟肉",
+  "item.tameablebeasts.big_bird_bait": "大鸟饵",
+  "item.tameablebeasts.pteranodon_meal": "翼龙餐",
+  "item.tameablebeasts.bug_salad": "虫沙拉",
+  "item.tameablebeasts.asphalt": "沥青",
+
+  "item.tameablebeasts.beetle_gem": "甲虫宝石",
+  "item.tameablebeasts.bug_armor_helmet": "甲虫宝石头盔",
+  "item.tameablebeasts.bug_armor_chestplate": "甲虫宝石胸甲",
+  "item.tameablebeasts.bug_elytra": "鞘翅甲虫宝石胸甲",
+  "item.tameablebeasts.bug_armor_leggings": "甲虫宝石护腿",
+  "item.tameablebeasts.bug_armor_boots": "甲虫宝石靴子",
+  "item.tameablebeasts.beetle_shield": "甲虫盾",
+  "item.tameablebeasts.beetle_sword": "甲虫剑",
+  "item.tameablebeasts.arthropod_upgrade_smithing_template": "节肢动物升级锻造模板",
+
+  "item.tameablebeasts.scarecrow_straw_hat": "草帽",
+  "item.tameablebeasts.biker_helmet": "骑手头盔",
+  "item.tameablebeasts.flying_helmet": "飞行头盔",
+  "item.tameablebeasts.racoon_hat": "浣熊帽",
+
+  "item.tameablebeasts.quetzal_stand": "风神翼龙站架装备",
+
+  "item.tameablebeasts.frozen_fish.tooltip": "企鹅肯定喜欢这些",
+  "item.tameablebeasts.icepop.tooltip": "可以是一种美味佳肴或致命的企鹅武器",
+  "item.tameablebeasts.ice_helmet.tooltip": "那个你穿不合身，也许可以试试更小的东西",
+  "item.tameablebeasts.purple_allay.tooltip": "悦灵太害羞不敢离开你的物品栏，也许在某种伪装里它会感到自在",
+  "item.tameablebeasts.iron_big_hoe.tooltip": "某个稻草人会更好地利用这个",
+  "item.tameablebeasts.bird_bait_arrow.tooltip": "驯服巨型鸟类用的投掷物，小心别杀了它们",
+  "item.tameablebeasts.ptera_meal_arrow.tooltip": "驯服翼龙用的投掷物，小心别杀了它们",
+  "item.tameablebeasts.leaf.tooltip": "昆虫喜欢这些",
+  "item.tameablebeasts.beetle_dust.tooltip": "听说这些有魔法属性",
+  "item.tameablebeasts.bug_sword.tooltip": "隐藏着虫群和刺击的力量(PS: 虫群和刺击的附魔书.)",
+  "item.tameablebeasts.beetle_shield.tooltip": "隐藏着虫群的力量",
+  "item.tameablebeasts.grasshopper_leg.tooltip": "别担心，它们会立刻长回来",
+  "item.tameablebeasts.racoon_fur.tooltip": "这不知为何和蜘蛛丝一样坚固",
+  "item.tameablebeasts.roly_plaque.tooltip": "柔软的几丁质斑块，看起来坐着或穿着很舒服",
+  "item.tameablebeasts.egg_rests.tooltip": "你是个不称职的父母，也许你可以用这个做些虫子会喜欢的东西",
+  "item.tameablebeasts.big_bird_bait.tooltip": "用这种多籽的美食驯服巨型鸟",
+  "item.tameablebeasts.pteranodon_meal.tooltip": "用这种古老的美食驯服翼龙",
+  "item.tameablebeasts.bug_salad.tooltip": "巨型昆虫肯定喜欢这些",
+  "item.tameablebeasts.asphalt.tooltip": "用它来在泥土上筑路，球鼠妇也能在上面获得更好的抓地力",
+
+  "item.tameablebeasts.scarecrow_straw_hat.tooltip": "穿戴它或用它建造一个稻草人来保护你的庄稼",
+  "item.tameablebeasts.biker_helmet.tooltip": "有了这个，球鼠妇不会为了你的安全而减速",
+  "item.tameablebeasts.flying_helmet.tooltip": "有了这个，飞行生物不会为了你的安全而减速",
+
+  "item.tameablebeasts.ice_chestplate.tooltip": "把它装备在企鹅上来骑乘",
+  "item.tameablebeasts.quetzal_stand.tooltip": "把它装备在风神翼龙上以允许更多玩家骑乘",
+
+  "item.tameablebeasts.scarecrow_block.tooltip": "这会让奇科特保持距离，里面看起来也挺舒适",
+  "item.tameablebeasts.racoon_fur_block.tooltip": "你可以用这些建造一个毛皮傀儡",
+
+  "item.tameablebeasts.quetzalcoatlus_egg.tooltip": "如果你是个好家长，你可以从这个蛋里孵出风神翼龙",
+  "item.tameablebeasts.chikote_egg.tooltip": "如果你是个好家长，你可以从这个蛋里孵出奇科特",
+  "item.tameablebeasts.roly_poly_egg.tooltip": "如果你是个好家长，你可以从这个蛋里孵出球鼠妇",
+  "item.tameablebeasts.beetle_egg.tooltip": "如果你是个好家长，你可以从这个蛋里孵出亮甲虫",
+  "item.tameablebeasts.ground_beetle_egg.tooltip": "如果你是个好家长，你可以从这个蛋里孵出爬行甲虫",
+  "item.tameablebeasts.grasshopper_egg.tooltip": "如果你是个好家长，你可以从这个蛋里孵出巨型蚱蜢",
+  "item.tameablebeasts.penguin_egg.tooltip": "如果你是个好家长，你可以从这个蛋里孵出企鹅",
+  "item.tameablebeasts.crested_gecko_egg.tooltip": "如果你是个好家长，你可以从这个蛋里孵出睫角守宫",
+  "item.tameablebeasts.argentavis_egg.tooltip": "如果你是个好家长，你可以从这个蛋里孵出阿根廷巨鹰",
+  "item.tameablebeasts.graptera_egg.tooltip": "如果你是个好家长，你可以从这个蛋里孵出猎手翼龙",
+
+  "advancements.tameablebeasts.root": "可驯之兽 (Tameable Beasts)",
+  "advancements.tameablebeasts.root.description": "感谢下载可驯之兽 (Tameable Beasts)!去驯服一些野兽吧",
+
+  "advancements.tameablebeasts.purple_allay": "不同种类的悦灵",
+  "advancements.tameablebeasts.purple_allay.description": "找到害羞的紫色悦灵，它是卫道士的稀有掉落物，会飞走躲进你的物品栏",
+
+  "advancements.tameablebeasts.bug_salad": "是\"给虫子吃的\"不是\"用虫子做的\"",
+  "advancements.tameablebeasts.bug_salad.description": "制作一份虫沙拉，精致的巨型昆虫美食",
+
+  "advancements.tameablebeasts.scarecrow_allay": "伪装中的悦灵",
+  "advancements.tameablebeasts.scarecrow_allay.description": "稻草人块听起来像是紫色悦灵能自信漫步的完美掩护。一旦你把紫色悦灵放进去，就可以驯服它！",
+
+  "advancements.tameablebeasts.racoon": "记得那次你偷了我的食物吗？",
+  "advancements.tameablebeasts.racoon.description": "听说浣熊特别喜欢吃西瓜，甚至超过你手上的任何东西",
+
+  "advancements.tameablebeasts.penguin": "冰鱼桶挑战",
+  "advancements.tameablebeasts.penguin.description": "众所周知，企鹅爱吃冻鱼，爱用冰棒屠杀其他生物。对吧？",
+
+  "advancements.tameablebeasts.frozen_fish": "为什么鱼不动了？",
+  "advancements.tameablebeasts.frozen_fish.description": "将冰和鱼组合成终极的碎牙零食",
+
+  "advancements.tameablebeasts.roly_poly": "球",
+  "advancements.tameablebeasts.roly_poly.description": "驯服一个爱吃沙拉、通常滚着走、移动迅速的球鼠妇",
+
+  "advancements.tameablebeasts.grasshopper": "蚂蚁恶霸",
+  "advancements.tameablebeasts.grasshopper.description": "给巨型蚱蜢一些虫沙拉来驯服它们",
+
+  "advancements.tameablebeasts.egg_rests": "不是用这个来做煎蛋卷",
+  "advancements.tameablebeasts.egg_rests.description": "从你繁殖的蛋或巢中掠夺一些坏蛋",
+
+  "advancements.tameablebeasts.brush_a_beast": "原以为会是蜱虫，这个好多了",
+  "advancements.tameablebeasts.brush_a_beast.description": "喂饱的野兽在刷毛时有更高几率掉落一些战利品",
+
+  "advancements.tameablebeasts.crested_gecko": "现在我得造个饲养箱了",
+  "advancements.tameablebeasts.crested_gecko.description": "通过给睫角守宫一些节肢动物碎片(甲片/球鼠妇斑块)来驯服它们",
+
+  "advancements.tameablebeasts.ground_beetle": "装甲家伙",
+  "advancements.tameablebeasts.ground_beetle.description": "爬行甲虫通常对蜂蜜相关物品有极大的嗜好，以至于可以被驯服",
+
+  "advancements.tameablebeasts.shiny_beetle": "飞行家伙",
+  "advancements.tameablebeasts.shiny_beetle.description": "亮甲虫通常对蜂蜜相关物品有极大的嗜好，以至于可以被驯服",
+
+  "advancements.tameablebeasts.pteranodon_meal": "你确定想要那种关注吗？",
+  "advancements.tameablebeasts.pteranodon_meal.description": "将鱼、鸡肉和大鸟肉组合成终极的翼龙诱饵",
+
+  "advancements.tameablebeasts.ptera_meal_arrow": "肉弹",
+  "advancements.tameablebeasts.ptera_meal_arrow.description": "更好的方法是把一些翼龙餐放进箭里，尝试在没有生命值限制的情况下驯服一些翼龙",
+
+  "advancements.tameablebeasts.big_bird_bait": "我们来诱捕一些鸟",
+  "advancements.tameablebeasts.big_bird_bait.description": "将铁粒、一些种子和风神翼龙肉或腐肉组合成终极的大鸟诱饵",
+
+  "advancements.tameablebeasts.bird_bait_arrow": "种子弹",
+  "advancements.tameablebeasts.bird_bait_arrow.description": "更好的方法是把一些大鸟饵放进箭里，尝试在没有生命值限制的情况下驯服一些大鸟",
+
+  "advancements.tameablebeasts.quetzalcoatlus": "那是一朵云吗？",
+  "advancements.tameablebeasts.quetzalcoatlus.description": "发现巨大的风神翼龙，并在其生命值低于10时用翼龙餐驯服它",
+
+  "advancements.tameablebeasts.grapteranodon": "嘿，就像在方舟里一样",
+  "advancements.tameablebeasts.grapteranodon.description": "生命值低于10时，翼龙餐足以驯服翼龙，一种能抓起其他生物的快速翼龙",
+
+  "advancements.tameablebeasts.argentavis": "也有老鹰吗？",
+  "advancements.tameablebeasts.argentavis.description": "敏捷的阿根廷巨鹰可以在生命值低于10时用大鸟饵驯服",
+
+  "advancements.tameablebeasts.chikote": "不是陆行鸟",
+  "advancements.tameablebeasts.chikote.description": "奇科特，鸡的高大近亲，在大鸟肉或土豆面前会被驯服",
+
+  "advancements.tameablebeasts.metal_beetle": "铬甲虫",
+  "advancements.tameablebeasts.metal_beetle.description": "给爬行甲虫喂食足够的粗铁，让它们吸收其特性",
+
+  "advancements.tameablebeasts.fur_golem": "复活节得救了",
+  "advancements.tameablebeasts.fur_golem.description": "像建造雪傀儡一样建造一个毛皮傀儡，但是用毛皮，这个温暖的傀儡会让你的蛋保持温暖",
+
+  "advancements.tameablebeasts.ice_armor": "给我带个监守者来！",
+  "advancements.tameablebeasts.ice_armor.description": "给一只企鹅装备一整套冰甲和两个冰棒（别真的给他带个监守者）",
+
+  "advancements.tameablebeasts.quetzal_stand": "公交车",
+  "advancements.tameablebeasts.quetzal_stand.description": "在风神翼龙上装备一个风神翼龙站架，这样你最多可以和3个朋友一起飞行！",
+
+  "advancements.tameablebeasts.big_iron_hoe": "醉翁之意不在...?",
+  "advancements.tameablebeasts.big_iron_hoe.description": "给你的稻草人告示牌一把大铁锄，这样它能更好地自卫",
+
+  "advancements.tameablebeasts.flying_helmet": "御风无阻!",
+  "advancements.tameablebeasts.flying_helmet.description": "戴上飞行头盔保护你的眼睛，这样风神翼龙就不会限制它们的速度",
+
+  "advancements.tameablebeasts.biker_helmet": "全速前进!",
+  "advancements.tameablebeasts.biker_helmet.description": "如果鼠妇确信你受到骑手头盔的保护，它们会走得更快",
+
+  "advancements.tameablebeasts.asphalt": "高速路",
+  "advancements.tameablebeasts.asphalt.description": "给一些泥土铺上沥青，这样鼠妇能有更好的抓地力，从而获得更快的速度",
+
+  "advancements.tameablebeasts.gem_beetle": "化腐朽为神奇!",
+  "advancements.tameablebeasts.gem_beetle.description": "组合不同种类的水晶和虫子碎片来制造甲虫宝石，一种拥有与下界合金类似力量的材料",
+
+  "advancements.tameablebeasts.bug_sword": "含沙射影!",
+  "advancements.tameablebeasts.bug_sword.description": "制作一把虫剑，虽然比不上铁剑，但有中毒和召唤虫子的潜力",
+
+  "advancements.tameablebeasts.beetle_elytra": "珠联翅合?",
+  "advancements.tameablebeasts.beetle_elytra.description": "将甲虫宝石胸甲与鞘翅融合",
+
+  "advancements.tameablebeasts.beetle_armor": "鸟枪换炮!",
+  "advancements.tameablebeasts.beetle_armor.description": "将你的钻石护甲套装升级为一整套甲虫宝石护甲",
+
+  "enchantment.tameablebeasts.swarm.desc": "根据附魔物品的类型，在防御或攻击时召唤甲虫无人机来援助你",
+  "enchantment.tameablebeasts.sting.desc": "为武器的刀刃提供毒性"
+}

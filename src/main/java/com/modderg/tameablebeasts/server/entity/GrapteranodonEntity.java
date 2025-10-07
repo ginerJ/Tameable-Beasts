@@ -14,6 +14,7 @@ import com.modderg.tameablebeasts.server.entity.goals.*;
 import com.modderg.tameablebeasts.registry.TBItemRegistry;
 import com.modderg.tameablebeasts.server.item.block.EggBlockItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -223,7 +224,7 @@ public class GrapteranodonEntity extends FlyingRideableTBAnimal implements Custo
 
     @Override
     public String getRidingMessage() {
-        return super.getRidingMessage() + ", Left Click to Grab";
+        return String.format(Component.translatable("gui." + TameableBeasts.MOD_ID + ".grapteranodon.riding_message").getString(), super.getRidingMessage());
     }
 
     @Override

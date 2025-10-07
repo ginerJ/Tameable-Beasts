@@ -1,8 +1,10 @@
 package com.modderg.tameablebeasts.server.entity.abstracts;
 
+import com.modderg.tameablebeasts.TameableBeasts;
 import com.modderg.tameablebeasts.client.packet.CtoSSyncRiderWantsFlying;
 import com.modderg.tameablebeasts.registry.TBPacketRegistry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,6 +42,7 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
 
     public boolean upInput = false;
     public boolean downInput = false;
+    public boolean isJustRode = false;
 
     protected FlyingRideableTBAnimal(EntityType<? extends TamableAnimal> p_21803_, Level p_21804_) {
         super(p_21803_, p_21804_);
@@ -50,7 +53,8 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
 
     @Override
     public String getRidingMessage(){
-        return getJumpKeyName() + " to Ascend, " + getCrouchKeyName() + " to Plummet , " + getShiftKeyName() + " to Dismount";
+//        return getJumpKeyName() + " to Ascend, " + getCrouchKeyName() + " to Plummet , " + getShiftKeyName() + " to Dismount";
+        return String.format(Component.translatable("gui." + TameableBeasts.MOD_ID + ".flying_rideable.riding_message").getString(), getJumpKeyName(), getCrouchKeyName(), getShiftKeyName());
     }
 
     @NotNull
@@ -61,7 +65,8 @@ public class FlyingRideableTBAnimal extends FlyingTBAnimal implements TBRideable
             if (!player.isShiftKeyDown() && this.hasSaddle() && !isFood(itemstack) && !itemstack.is(Items.BRUSH)){
                 if(!level().isClientSide())
                     player.startRiding(this);
-                messageRiding(player);
+//                messageRiding(player);
+                isJustRode = true;
 
                 return InteractionResult.SUCCESS;
             }

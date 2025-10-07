@@ -28,6 +28,8 @@ public abstract class RideableTBAnimal extends TBAnimal implements ItemSteerable
         super(p_21803_, p_21804_);
     }
 
+    public boolean isJustRode = false;
+
     @NotNull
     public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -37,7 +39,8 @@ public abstract class RideableTBAnimal extends TBAnimal implements ItemSteerable
                 if(!level().isClientSide())
                     player.startRiding(this);
 
-                messageRiding(player);
+//                messageRiding(player);
+                isJustRode = true;
 
                 return InteractionResult.SUCCESS;
             }
