@@ -1,5 +1,6 @@
 package com.modderg.tameablebeasts.server.entity.abstracts;
 
+import com.modderg.tameablebeasts.TameableBeasts;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -59,7 +60,8 @@ public interface TBRideable {
     }
 
     default String getRidingMessage(){
-        return "Press " + getShiftKeyName() + " to Dismount";
+//        return "Press " + getShiftKeyName() + " to Dismount";
+        return String.format(Component.translatable("gui." + TameableBeasts.MOD_ID + ".default.riding_message").getString(), getShiftKeyName());
     }
 
     default float applyPotionEffectsToSpeed(double speed) {
